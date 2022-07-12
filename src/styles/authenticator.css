@@ -1,0 +1,67 @@
+/*
+  Overriding the Amplify CSS variables
+  https://docs.amplify.aws/ui/customization/theming/q/framework/react/
+  https://ui.docs.amplify.aws/components/authenticator#amplify-css-variables
+*/
+:root {
+  /* Authenticator */
+  /* The app's mobile container is 375px, we add a 5px margin
+    in class [data-amplify-authenticator] */
+  --amplify-components-authenticator-container-width-max: 365px;
+
+  /* Buttons */
+  --amplify-components-button-primary-background-color: var(
+    --amplify-colors-brand-primary-100
+  );
+  --amplify-components-button-primary-hover-background-color: var(
+    --amplify-components-button-primary-background-color
+  );
+
+  /* Tabs */
+  --amplify-components-tabs-item-hover-color: var(
+    --amplify-components-tabs-item-color
+  );
+  --amplify-components-button-link-color: var(--amplify-colors-font-secondary);
+
+  /* Links */
+  --amplify-components-button-link-hover-background-color: var(
+    --amplify-components-button-link-background-color
+  );
+  --amplify-components-button-link-hover-border-color: var(
+    --amplify-components-button-link-border-color
+  );
+  --amplify-components-button-link-hover-color: var(
+    --amplify-components-button-link-color
+  );
+  --amplify-components-button-link-active-background-color: var(
+    --amplify-components-button-link-background-color
+  );
+  --amplify-components-button-link-active-border-color: var(
+    --amplify-components-button-link-border-color
+  );
+  --amplify-components-button-link-active-color: var(
+    --amplify-components-button-link-color
+  );
+  --amplify-components-button-link-focus-background-color: var(
+    --amplify-components-button-link-background-color
+  );
+  --amplify-components-button-link-focus-border-color: var(
+    --amplify-components-button-link-border-color
+  );
+  --amplify-components-button-link-focus-color: var(
+    --amplify-components-button-link-color
+  );
+  --amplify-components-button-link-focus-box-shadow: var(
+    --amplify-components-button-link-box-shadow
+  );
+}
+
+/* Overriding Amplify CSS Classes */
+[data-amplify-authenticator] {
+  margin: 0 5px;
+}
+
+h4.amplify-heading {
+  --amplify-space-xl: 0;
+  margin-top: 32px;
+}
