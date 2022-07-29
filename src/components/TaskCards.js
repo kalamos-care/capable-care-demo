@@ -88,6 +88,7 @@ const AddToDoModal = ({ open, close }) => {
 };
 
 // Renders a link that opens a modal when clicked.
+/*
 const AddToDoLink = () => {
   const [openModal, setOpenModal] = useState(false);
   const handleCloseModal = () => setOpenModal(false);
@@ -100,7 +101,7 @@ const AddToDoLink = () => {
     </>
   );
 };
-
+*/
 // Renders a single task, which can be toggled between checked and unchecked.
 const TaskCard = ({ task }) => {
   // NOTE: Capable tasks can have 1 of 3 states (in_progress, completed,
@@ -175,7 +176,6 @@ const TaskCards = ({ tabTitle }) => {
         }}
       >
         <Typography variant="subtitle">To Do's</Typography>
-        <AddToDoLink />
       </Box>
       {isLoading ? (
         <Skeleton variant="rectangular" height={250} />
