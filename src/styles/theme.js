@@ -54,7 +54,7 @@ const theme = createTheme({
     overrides: {
       MuiCssBaseline: {
         '@global': {
-          '@font-face': gthaptikmedium,
+          '@font-face': [gthaptikmedium],
         },
       },
     },
