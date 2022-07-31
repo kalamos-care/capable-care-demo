@@ -1,8 +1,5 @@
-import Color from "color";
+// import Color from "color";
 import { createTheme } from "@mui/material/styles";
-
-import "@fontsource/rubik/400.css";
-import "@fontsource/rubik/500.css";
 
 // Material UI Theming Docs: https://mui.com/customization/theming/
 // Material UI Default Theme: https://mui.com/customization/default-theme/?expand-path=$.typography
@@ -10,10 +7,10 @@ import "@fontsource/rubik/500.css";
 import GTHaptikMediumWoff2 from '../assets/fonts/GT-Haptik-Medium-2.woff2';
 import "@fontsource/arimo";
 
-const paleGrey = "#F3F4F5";
+/* const paleGrey = "#F3F4F5";
 const grey = "#73778C";
 const darkGrey = "#474849";
-const black = "#020228";
+const black = "#020228"; */
 
 const gthaptikmedium = {
   fontFamily: 'GT-Haptik-Medium',
@@ -33,18 +30,19 @@ let theme = createTheme({
       paper: "#fff",
     },
     primary: {
+      light: '#67568c',
       main: process.env.REACT_APP_COLOR,
-      light: Color(process.env.REACT_APP_COLOR).lightness(95).hex(),
+      dark: '#301e4e',
     },
     secondary: {
-      main: "#333333",
+      main: '#ff6e6c',
+    },
+    text: {
+      primary: "#1f1235",
+      secondary: "#1b1425",
     },
     light: {
       main: "#FFFFFF",
-    },
-    text: {
-      primary: black,
-      card: "#1c1c1e",
     },
     icon: {
       primary: process.env.REACT_APP_COLOR,
@@ -52,15 +50,41 @@ let theme = createTheme({
     link: {
       default: process.env.REACT_APP_COLOR,
     },
-    grey: {
+/*     grey: {
       300: paleGrey,
       700: grey,
       900: darkGrey,
-    },
+    }, */
   },
   typography: {
-    fontSize: 16,
-    fontFamily: "Arimo",
+    //fontSize: 16,
+    button: {
+      fontFamily: "GT-Haptik-Medium",
+    },
+    h1: {
+      fontFamily: "GT-Haptik-Medium",
+    },
+    h2: {
+      fontFamily: "GT-Haptik-Medium",
+    },
+    h3: {
+      fontFamily: "GT-Haptik-Medium",
+    },
+    h4: {
+      fontFamily: "GT-Haptik-Medium",
+    },
+    h5: {
+      fontFamily: "GT-Haptik-Medium",
+    },
+    h6: {
+      fontFamily: "GT-Haptik-Medium",
+    },
+    fontFamily: [
+      'Arimo',
+      'sans-serif',
+    ].join(','),
+
+    /* fontFamily: "Arimo",
     // body1 is the default, body2 is an alt (used for rich text in this app)
     body2: {
       fontSize: 14,
@@ -146,6 +170,13 @@ let theme = createTheme({
       fontSize: "0.875rem",
       color: darkGrey,
       textAlign: "center",
+    }, */
+  },
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        '@font-face': [gthaptikmedium],
+      },
     },
   },
   components: {
@@ -163,7 +194,6 @@ let theme = createTheme({
           fontSize: "0.875rem",
           "&.Mui-selected": {
             fontSize: "0.875rem",
-            color: "black",
           },
         },
       },

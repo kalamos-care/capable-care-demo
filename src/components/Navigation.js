@@ -39,14 +39,14 @@ export default function Navigation() {
         showLabel
         label="Chat"
         value="chat"
-        icon={<ChatIcon sx={{ color: "#333333" }} />}
+        icon={<ChatIcon /*sx={{ color: "#333333" }}*/ />}
       />
 
       <BottomNavigationAction
         showLabel
         label="Appointments"
         value="appointments"
-        icon={<CalendarMonthIcon color="secondary" />}
+        icon={<CalendarMonthIcon /*color="secondary"*/ />}
       />
 
       <BottomNavigationAction
