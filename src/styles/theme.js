@@ -7,10 +7,24 @@ import "@fontsource/rubik/500.css";
 // Material UI Theming Docs: https://mui.com/customization/theming/
 // Material UI Default Theme: https://mui.com/customization/default-theme/?expand-path=$.typography
 
+import GTHaptikMediumWoff2 from '../assets/fonts/GT-Haptik-Medium-2.woff2';
+import "@fontsource/arimo";
+
 const paleGrey = "#F3F4F5";
 const grey = "#73778C";
 const darkGrey = "#474849";
 const black = "#020228";
+
+const gthaptikmedium = {
+  fontFamily: 'GT-Haptik-Medium',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  src: `
+    local('GT-Haptik-Medium'),
+    url(${GTHaptikMediumWoff2}) format('woff2')
+  `,
+};
+
 
 let theme = createTheme({
   palette: {
@@ -46,7 +60,7 @@ let theme = createTheme({
   },
   typography: {
     fontSize: 16,
-    fontFamily: "Rubik",
+    fontFamily: "Arimo",
     // body1 is the default, body2 is an alt (used for rich text in this app)
     body2: {
       fontSize: 14,

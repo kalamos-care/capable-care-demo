@@ -3,6 +3,7 @@ import { CurrentCarePlan, TabsWithContent } from "../components";
 
 import { Container, Typography, Box, CardMedia, Avatar } from "@mui/material";
 
+import header_logo from "../assets/images/Kalamos_logo_transparent.png";
 import gravatar from "../utils/gravatar";
 
 function Header() {
@@ -23,7 +24,7 @@ function Header() {
       <CardMedia
         component="img"
         width="375"
-        image={process.env.REACT_APP_LOGO}
+        image={header_logo}
         alt="Logo image"
       />
 

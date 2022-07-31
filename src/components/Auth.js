@@ -1,5 +1,7 @@
 import { useTheme, View, Image, Heading } from "@aws-amplify/ui-react";
 
+import header_logo from "../assets/images/Kalamos_logo_transparent.png";
+
 function HeaderText(props) {
   const { tokens } = useTheme();
 
@@ -19,7 +21,7 @@ function Logo() {
 
   return (
     <View textAlign="center" padding={tokens.space.medium}>
-      <Image alt="Logo" src={process.env.REACT_APP_LOGO_DARK} />
+      <Image alt="Logo" src={header_logo} />
     </View>
   );
 }

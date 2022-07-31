@@ -3319,6 +3319,11 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@fontsource/arimo@^4.5.8":
+  version "4.5.8"
+  resolved "https://registry.yarnpkg.com/@fontsource/arimo/-/arimo-4.5.8.tgz#e399e20c3cc7c28328ecf66f78a2329c897bc319"
+  integrity sha512-eMBtAL+mcbKcWqNYv6JVug0eMfjMo+SDG+407ePDioTL/4zqOlNo1eFkzkMzBmW9DlEtRcffy4KqQ8rIcAiItg==
+
 "@fontsource/rubik@^4.5.6":
   version "4.5.10"
   resolved "https://registry.yarnpkg.com/@fontsource/rubik/-/rubik-4.5.10.tgz#da291ed751850d9f79d957a23369125aacb20f03"
