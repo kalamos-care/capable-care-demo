@@ -232,13 +232,17 @@ export default function Profile({ signOut }) {
 
       <Container sx={{ marginTop: 3 }}>
         <StyledCard sx={{ paddingY: 0 }}>
-          <ListLink
-            onClick={() => {
-              copyToken(setShowAlert);
-            }}
-            text="Copy Token"
-          />
-          <Divider />
+          {process.env.NODE_ENV !== "production" && (
+            <>
+              <ListLink
+                onClick={() => {
+                  copyToken(setShowAlert);
+                }}
+                text="Copy Token"
+              />
+              <Divider />
+            </>
+          )}
           <ListLink
             textColor="error.main"
             onClick={handleLogout}
