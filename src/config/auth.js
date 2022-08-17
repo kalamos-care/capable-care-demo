@@ -1,4 +1,3 @@
-import { Amplify } from "aws-amplify";
 import { I18n } from "aws-amplify";
 import Color from "color";
 
@@ -9,19 +8,7 @@ I18n.setLanguage("en");
 //       have forked this repo you will need to setup Amplify in your own
 //       AWS account, or use a different auth strategy.
 //       Docs: https://docs.amplify.aws
-export default function configureAuth() {
-  Amplify.configure({
-    Auth: {
-      region: process.env.REACT_APP_COGNITO_REGION,
-      userPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID,
-      userPoolWebClientId:
-        process.env.REACT_APP_COGNITO_USER_POOL_WEB_CLIENT_ID,
-    },
-    Analytics: {
-      disabled: true,
-    },
-  });
-
+export default function configureAuthenticator() {
   // Configure the authentication screens copy. Further info:
   // https://ui.docs.amplify.aws/components/authenticator#internationalization-i18n
   I18n.putVocabulariesForLanguage("en", {
@@ -58,6 +45,10 @@ export default function configureAuth() {
   document.documentElement.style.setProperty(
     "--amplify-colors-brand-primary-100",
     process.env.REACT_APP_COLOR
+  );
+  document.documentElement.style.setProperty(
+    "--amplify-components-card-padding",
+    "none",
   );
 }
 

@@ -2,12 +2,10 @@ import * as React from "react";
 // packages
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
-import { Authenticator } from "@aws-amplify/ui-react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { SWRConfig } from "swr";
-// config
-import { formFieldConfig } from "./config/auth";
 // pages
+import AppAuthenticator from "./AppAuthenticator";
 import Home from "./pages/Home";
 import Chat from "./pages/Chat";
 import CurrentPlan from "./pages/CurrentPlan";
@@ -18,21 +16,18 @@ import Observation from "./pages/Observation";
 import Appointments from "./pages/Appointments";
 import Survey from "./pages/Survey";
 // components
-import { authComponents } from "./components/Auth";
 import { MobileContainer } from "./components";
 import { WithNavigation } from "./layouts/WithNavigation";
 import { WithoutNavigation } from "./layouts/WithoutNavigation";
 
 // styles
 import theme from "./styles/theme";
-import "@aws-amplify/ui-react/styles.css";
-import "./styles/authenticator.css";
 
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <MobileContainer>
-        <Authenticator formFields={formFieldConfig} components={authComponents}>
+        <AppAuthenticator>
           {({ signOut }) => (
             // We are providing fresh SWR cache for the app every time we
             // sign in. This is to stop flashing stale content when signing
@@ -74,7 +69,7 @@ export default function App() {
               </BrowserRouter>
             </SWRConfig>
           )}
-        </Authenticator>
+        </AppAuthenticator>
       </MobileContainer>
     </ThemeProvider>
   );

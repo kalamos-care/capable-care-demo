@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Auth from "@capable-health/capable-auth-sdk";
 import {
   Avatar,
   Container,
@@ -22,7 +23,6 @@ import {
 } from "../components/icons";
 import { useCurrentPatient } from "../fetchDataHooks";
 import gravatar from "../utils/gravatar";
-import auth from "../capableApi/auth";
 import { useNavigate } from "react-router-dom";
 import PrimaryHeader from "../components/PrimaryHeader";
 
@@ -100,7 +100,7 @@ function ModalContent({ copy }) {
 }
 
 function copyToken(setShowAlert) {
-  auth.getAccessToken().then((token) => {
+  Auth.user.getAccessToken().then((token) => {
     navigator.clipboard.writeText(token);
     setShowAlert(true);
   });

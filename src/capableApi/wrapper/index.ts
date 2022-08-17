@@ -45,7 +45,7 @@
   Otherways, a few exception mechanisms are in place in the overrides.ts file to handle the non-standard cases.
 */
 
-import auth from "../auth";
+import Auth from "@capable-health/capable-auth-sdk";
 import * as CapableHealthApi from "../codegen";
 import { clientMethodFor } from "./methods";
 import { constructorNameFor, isSupportedApiClass } from "./namespaces";
@@ -69,7 +69,7 @@ function clientProxy(
 
       return async (...args) => {
         client.apiClient.basePath = BASE_API_PATH;
-        const token = await auth.getAccessToken();
+        const token = await Auth.user.getAccessToken();
         client.apiClient.defaultHeaders["Authorization"] = "Bearer " + token;
 
         return new Promise((resolve, reject) => {
