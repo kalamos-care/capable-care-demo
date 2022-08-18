@@ -3083,10 +3083,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@capable-health/capable-auth-sdk@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@capable-health/capable-auth-sdk/-/capable-auth-sdk-1.0.5.tgz#da939d7bc94326d71aa8729e6a26b69e925bf564"
-  integrity sha512-qySXfG9Q4AHBdu5a3yXrLzq40vFP8X4vBIQhkehkA5NQNuy5L9wLbzbmpOsEuvK1Kq9WU1Rjf1jpq2AziphQiw==
+"@capable-health/capable-auth-sdk@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@capable-health/capable-auth-sdk/-/capable-auth-sdk-1.0.6.tgz#f52c3aa7c2ecc78282f66347836d5d268595849e"
+  integrity sha512-nYtYamq0pbkWvUlFK4rek+bioCmX/RFZrI+t0JQJV+9SCvgo/W6yVtDRJvsJzqIrEIdqBcuedDbWMxS+msB5xA==
   dependencies:
     "@react-native-async-storage/async-storage" "^1.17.6"
     "@react-native-community/netinfo" "^9.0.0"

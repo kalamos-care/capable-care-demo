@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@aws-amplify/ui-react": "^3.3.0",
-    "@capable-health/capable-auth-sdk": "^1.0.5",
+    "@capable-health/capable-auth-sdk": "^1.0.6",
     "@contentful/rich-text-react-renderer": "^15.12.0",
     "@daily-co/daily-js": "^0.25.0",
     "@emotion/react": "^11.8.2",
