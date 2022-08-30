@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import useCRMContent from "../fetchDataHooks/useCRMContent";
+import useGoalsByStatus from "../fetchDataHooks/useGoalsByStatus";
 import useTarget from "../fetchDataHooks/useTarget";
 import {
   Box,
@@ -7,10 +8,12 @@ import {
   LinearProgress,
   Typography,
   Divider,
+  Skeleton,
 } from "@mui/material";
 import StyledCard from "./StyledCard";
 import Recurrence from "./Recurrence";
 import Observation from "./Observation";
+import titlecase from "../utils/titlecase";
 
 // Helper to build a string to display the number of completed goals.
 const progressString = (goalList) => {
@@ -84,7 +87,7 @@ const GoalCard = (props) => {
 };
 
 // Renders a list of Goals, each on a card.
-const GoalCards = ({ goals }) => {
+const GoalCards = ({ goals, status }) => {
   return (
     <>
       <Box
@@ -94,8 +97,7 @@ const GoalCards = ({ goals }) => {
           padding: "0 0.5rem",
         }}
       >
-        <Typography variant="subtitle">Goals</Typography>
-
+        <Typography variant="subtitle">{titlecase(status)}</Typography>
         <Typography
           variant="subtitle"
           sx={{ display: "flex", gap: 1, fontSize: "0.88rem" }}
@@ -103,7 +105,6 @@ const GoalCards = ({ goals }) => {
           {progressString(goals)}
         </Typography>
       </Box>
-
       {goals.map((goal) => (
         <GoalCard key={goal.id} goal={goal} />
       ))}
@@ -111,4 +112,22 @@ const GoalCards = ({ goals }) => {
   );
 };
 
-export default GoalCards;
+const GoalCardsByStatus = () => {
+  const { goals, isLoading } = useGoalsByStatus();
+  const { open, completed } = goals;
+
+  return (
+    <>
+      {isLoading ? (
+        <Skeleton variant="rectangular" height={250} />
+      ) : (
+        <>
+          <GoalCards goals={open} status="open" />
+          <GoalCards goals={completed} status="completed" />
+        </>
+      )}
+    </>
+  );
+};
+
+export default GoalCardsByStatus;

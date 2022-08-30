@@ -1,25 +1,18 @@
 import { useState } from "react";
 import { Container, Tab, Tabs } from "@mui/material";
-import GoalCards from "./GoalCards";
-import TaskCards from "./TaskCards";
-import useGoalsByWeek from "../fetchDataHooks/useGoalsByWeek";
-import Skeleton from "@mui/material/Skeleton";
+import GoalCardsByStatus from "./GoalCards";
+import TaskCardsByStatus from "./TaskCards";
 import titlecase from "../utils/titlecase";
 
 // Renders the content panel for the tab.
-const TabPanel = ({ goalList, tabTitle, isLoading }) => {
+const TabPanel = ({ tabTitle }) => {
   return (
     <div role="tabpanel" aria-labelledby={`tab-${tabTitle}`}>
       <Container>
-        {isLoading ? (
-          <Skeleton variant="rectangular" height={250} />
+        {tabTitle.toLowerCase() === "goals" ? (
+          <GoalCardsByStatus />
         ) : (
-          <GoalCards goals={goalList} />
-        )}
-        {isLoading ? (
-          <Skeleton variant="rectangular" height={250} />
-        ) : (
-          <TaskCards tabTitle={tabTitle} />
+          <TaskCardsByStatus />
         )}
       </Container>
     </div>
@@ -28,11 +21,9 @@ const TabPanel = ({ goalList, tabTitle, isLoading }) => {
 
 // Renders the tabs and their corresponding goals.
 export default function TabsWithContent() {
-  const { goals, isLoading } = useGoalsByWeek();
-  const tabTitles = Object.keys(goals);
+  const tabTitles = ["Tasks", "Goals"];
   const [tab, setTab] = useState(tabTitles[0]);
   const handleTabChange = (_, newTab) => setTab(newTab);
-  const currentTabGoals = goals[tab];
 
   return (
     <>
@@ -60,11 +51,7 @@ export default function TabsWithContent() {
           />
         ))}
       </Tabs>
-      <TabPanel
-        goalList={currentTabGoals}
-        tabTitle={tab}
-        isLoading={isLoading}
-      />
+      <TabPanel tabTitle={tab} />
     </>
   );
 }

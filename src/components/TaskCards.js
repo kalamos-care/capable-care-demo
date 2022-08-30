@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as Sentry from "@sentry/react";
-import useTasksByWeek from "../fetchDataHooks/useTasksByWeek";
+import useTasksByStatus from "../fetchDataHooks/useTasksByStatus";
 import {
   Box,
   CardContent,
@@ -12,11 +12,11 @@ import {
 } from "@mui/material";
 import StyledCard from "./StyledCard";
 import BasicModal from "./BasicModal";
-import LinkButton from "./LinkButton";
 import CheckCircleOutlineSharpIcon from "@mui/icons-material/CheckCircleOutlineSharp";
 import RadioButtonUncheckedSharpIcon from "@mui/icons-material/RadioButtonUncheckedSharp";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import api from "../capableApi/index";
+import titlecase from "../utils/titlecase";
 
 // Function to render the correct check box icon based on the state.
 const CheckBoxIcon = ({ isCompleted }) => {
@@ -163,9 +163,7 @@ const TaskCard = ({ task }) => {
 };
 
 // Renders a list of tasks and the '+ Add To Do' link.
-const TaskCards = ({ tabTitle }) => {
-  const { tasks, isLoading } = useTasksByWeek(tabTitle);
-
+const TaskCards = ({ tasks, status }) => {
   return (
     <>
       <Box
@@ -175,15 +173,31 @@ const TaskCards = ({ tabTitle }) => {
           padding: "0 0.5rem",
         }}
       >
-        <Typography variant="subtitle">To Do's</Typography>
+        <Typography variant="subtitle">{titlecase(status)}</Typography>
       </Box>
+      {tasks.map((task) => (
+        <TaskCard key={task.id} task={task} />
+      ))}
+    </>
+  );
+};
+
+const TaskCardsByStatus = () => {
+  const { tasks, isLoading } = useTasksByStatus();
+  const { open, completed } = tasks;
+
+  return (
+    <>
       {isLoading ? (
         <Skeleton variant="rectangular" height={250} />
       ) : (
-        tasks.map((task) => <TaskCard key={task.id} task={task} />)
+        <>
+          <TaskCards tasks={open} status="open" />
+          <TaskCards tasks={completed} status="completed" />
+        </>
       )}
     </>
   );
 };
 
-export default TaskCards;
+export default TaskCardsByStatus;
