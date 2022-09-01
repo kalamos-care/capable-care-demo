@@ -12,10 +12,13 @@ function Header() {
   const firstName = currentPatient?.name;
 
   let avatarUrl;
-  if (currentPatient) {
+  if (currentPatient && process.env.REACT_APP_USAGE_MODE === "demo")  {
     avatarUrl =
       currentPatient.avatar_url ||
       (currentPatient.email && gravatar(currentPatient.email));
+  }
+  else if (currentPatient) {
+    avatarUrl = currentPatient.avatar_url
   }
 
   return (

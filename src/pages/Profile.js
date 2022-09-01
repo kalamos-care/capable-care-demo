@@ -26,6 +26,21 @@ import gravatar from "../utils/gravatar";
 import { useNavigate } from "react-router-dom";
 import PrimaryHeader from "../components/PrimaryHeader";
 
+/* leaving this here to uncomment once avatar upload is working
+const AvatarUploader = () => {
+  const [openModal, setOpenModal] = useState(false);
+  const handleCloseModal = () => setOpenModal(false);
+  const handleOpenModal = () => setOpenModal(true);
+
+  return (
+    <>
+      <AvatarUploadModal open={openModal} close={handleCloseModal} />
+      <LinkButton sx={{color: "primary.contrastText"}} onClick={handleOpenModal}>Upload photo</LinkButton>
+    </>
+  );
+};
+*/
+
 function Header() {
   // Ignoring any errors because it's just for the avatar URL / memberSince
   // and we'll be graceful about it.
@@ -34,10 +49,13 @@ function Header() {
   const memberSince = currentPatient?.joinedAt || "2021"; // hardcode default for demo.
 
   let avatarUrl;
-  if (currentPatient) {
+  if (currentPatient && process.env.REACT_APP_USAGE_MODE === "demo")  {
     avatarUrl =
       currentPatient.avatar_url ||
       (currentPatient.email && gravatar(currentPatient.email));
+  }
+  else if (currentPatient) {
+    avatarUrl = currentPatient.avatar_url
   }
 
   return (
