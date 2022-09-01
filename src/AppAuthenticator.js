@@ -1,4 +1,4 @@
-import { Authenticator, Button, Card, Flex, Heading, Image, Loader, PhoneNumberField, Tabs, TabItem, TextField, useTheme, View } from "@aws-amplify/ui-react";
+import { Authenticator, Button, Card, CheckboxField, Flex, Heading, Image, Loader, PhoneNumberField, Tabs, TabItem, TextField, useTheme, View } from "@aws-amplify/ui-react";
 import { AuthState } from "@aws-amplify/ui-components";
 import Auth from "@capable-health/capable-auth-sdk";
 import identityProvider from "@capable-health/capable-auth-sdk/dist/esm/helpers/identity-provider";
@@ -145,7 +145,20 @@ function PasswordlessAuthenticator({ children }) {
       />
     );
 
-    const InputButton = ({ submitText }) => {
+    const InputButton = ({ submitText, authState }) => {
+      const [checked, setChecked] = useState(authState === AuthState.SignIn);
+
+      const consentText = `By submitting your phone number, you consent to receive a one-time login code from ${process.env.REACT_APP_NAME} at the number provided. Message and data rates may apply.`;
+      const ConsentText = authState === AuthState.SignUp
+        ? (
+          <CheckboxField
+            label={consentText}
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
+          />
+          )
+        : <span>{consentText}</span>;
+
       if (isLoading) {
         return (
           <Flex justifyContent="center">
@@ -154,9 +167,12 @@ function PasswordlessAuthenticator({ children }) {
         );
       } else {
         return (
-          <Button type="submit" variation="primary">
-            {submitText}
-          </Button>
+          <>
+            {ConsentText}
+            <Button type="submit" variation="primary" disabled={!checked}>
+              {submitText}
+            </Button>
+          </>
         );
       }
     }
@@ -173,7 +189,7 @@ function PasswordlessAuthenticator({ children }) {
           padding={tokens.space.xl}
         >
           {inputElement}
-          <InputButton submitText={submitText} />
+          <InputButton submitText={submitText} authState={authState} />
         </Flex>
       </Flex>
     );

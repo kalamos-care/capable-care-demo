@@ -17,6 +17,9 @@
     --amplify-components-button-primary-background-color
   );
 
+  /* Checkboxes */
+  --amplify-components-checkbox-align-items: flex-start;
+
   /* Tabs */
   --amplify-components-tabs-item-hover-color: var(
     --amplify-components-tabs-item-color
@@ -63,6 +66,10 @@
 
 .amplify-tabs-item[data-state='inactive'] {
   background-color: var(--amplify-components-authenticator-state-inactive-background-color);
+}
+
+.amplify-checkbox__button {
+  margin-top: 5px;
 }
 
 h4.amplify-heading {
