@@ -8,20 +8,19 @@ import {
   Divider,
   DialogActions,
   Alert,
+  Skeleton,
   Snackbar,
 } from "@mui/material";
 import { StyledCard, IconListLink, ListLink, BasicModal } from "../components";
 import {
-  OnlineIcon,
-  OfflineIcon,
   AllergiesIcon,
   MedicationsIcon,
   PreferencesIcon,
+  ProfileIcon,
   VitalsIcon,
   WellnessIcon,
-  RocketIcon,
 } from "../components/icons";
-import { useCurrentPatient } from "../fetchDataHooks";
+import { useCurrentPatient, usePatientRelatedPersons } from "../fetchDataHooks";
 import gravatar from "../utils/gravatar";
 import { useNavigate } from "react-router-dom";
 import PrimaryHeader from "../components/PrimaryHeader";
@@ -78,26 +77,50 @@ function Header() {
   );
 }
 
-function CareTeamItem({ avatarSrc, practitionerName, isOnline, onClick }) {
+const CareTeamMember = ({ practitionerName }) => {
   return (
     <StyledCard
-      onClick={onClick}
       sx={{
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        cursor: "pointer",
       }}
     >
-      <Avatar src={avatarSrc} sx={{ height: 48, width: 48 }} />
-
+      <ProfileIcon/>
       <Typography variant="h6" component="div" marginLeft={1} width="100%">
         {practitionerName}
       </Typography>
-
-      {isOnline ? <OnlineIcon /> : <OfflineIcon />}
     </StyledCard>
   );
+}
+
+const CareTeam = () => {
+  const { patientRelatedPersons, isLoading, isError } = usePatientRelatedPersons();
+
+  if (isLoading) {
+    return <Skeleton variant="rectangular" animation="wave" height={280} />;
+  }
+
+  if (isError) {
+    return null;
+  }
+
+  return (
+    <Container sx={{ marginTop: 3 }}>
+      <Typography variant="h6" component="h2">
+        My Care Team
+      </Typography>
+
+      {
+        patientRelatedPersons && patientRelatedPersons.map(({ related_person: { first_name, last_name } }) => (
+          <CareTeamMember
+            avatarSrc={require("../assets/profile-member-02.png")}
+            practitionerName={`${first_name} ${last_name}`}
+          />
+        ))
+      }
+    </Container>
+  )
 }
 
 function ModalContent({ copy }) {
@@ -126,12 +149,12 @@ function copyToken(setShowAlert) {
 
 export default function Profile({ signOut }) {
   const [openModal, setOpenModal] = useState(false);
-  const [modalContent, setmodalContent] = useState(null);
+  const [modalContent, setModalContent] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
   const handleCloseModal = () => setOpenModal(false);
   const handleOpenModal = (content) => {
-    setmodalContent(<ModalContent copy={content} />);
+    setModalContent(<ModalContent copy={content} />);
     setOpenModal(true);
   };
   const handleLogout = () => {
@@ -221,27 +244,7 @@ export default function Profile({ signOut }) {
 
       <Header />
 
-      <Container sx={{ marginTop: 3 }}>
-        <Typography variant="h6" component="h2">
-          My Care Team
-        </Typography>
-
-        <CareTeamItem
-          avatarSrc={require("../assets/profile-member-03.png")}
-          practitionerName="Dr. Lauren Potapova"
-          isOnline={false}
-        />
-        <CareTeamItem
-          onClick={() =>
-            handleOpenModal(
-              "Tapping this camera icon may begin a video call with a member of the patient's care team"
-            )
-          }
-          avatarSrc={require("../assets/profile-member-02.png")}
-          practitionerName="Floyd Miles"
-          isOnline={true}
-        />
-      </Container>
+      <CareTeam/>
 
       <MyInformation
         usageMode={process.env.REACT_APP_USAGE_MODE}

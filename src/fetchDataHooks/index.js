@@ -3,6 +3,7 @@ import useCRMContent from "./useCRMContent";
 import useCurrentCarePlan from "./useCurrentCarePlan";
 import useCurrentPatient from "./useCurrentPatient";
 import useGoalsByStatus from "./useGoalsByStatus";
+import usePatientRelatedPersons from "./usePatientRelatedPersons";
 import useSurvey from "./useSurvey";
 
 export {
@@ -11,5 +12,6 @@ export {
   useCurrentCarePlan,
   useCurrentPatient,
   useGoalsByStatus,
+  usePatientRelatedPersons,
   useSurvey,
 };
