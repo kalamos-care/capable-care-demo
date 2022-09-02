@@ -1,12 +1,13 @@
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
 import { fetchBarnardConversations } from "./useBarnardConversations";
-import { fetchUsersByIds } from "../../../hooks/useUsers";
-import { User } from "../../../models/users/User.types";
+import { fetchUsersByIds } from "hooks/useUsers";
+import { User } from "models/users/User.types";
 import {
   getAllUserIds,
   getParticipantsByAuthor,
 } from "./useConversationsParticipants.utils";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { ReactQueryKeys } from "../../../constants/keys";
+import { ReactQueryKeys } from "constants/keys";
 
 export type ParticipantMap = Record<string, User>;
 

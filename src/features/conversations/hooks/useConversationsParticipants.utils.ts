@@ -1,6 +1,6 @@
-import { BarnardConversation } from "../../../models/conversations/BarnardConversation.types";
-import { isPatient } from "../../../utils/patients";
-import { User } from "../../../models/users/User.types";
+import { BarnardConversation } from "models/conversations/BarnardConversation.types";
+import { isPatient } from "utils/patients";
+import { User } from "models/users/User.types";
 
 export const getParticipantsByAuthor = (usersData?: User[]) =>
   usersData?.reduce((obj: Record<string, User>, user: User) => {

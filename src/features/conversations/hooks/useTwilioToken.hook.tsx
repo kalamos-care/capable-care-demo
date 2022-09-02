@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { ConversationType } from "../../../models/conversations/BarnardConversation.types";
-import { ReactQueryKeys } from "../../../constants/keys";
-import api from "../../../capableApi";
+import { ConversationType } from "models/conversations/BarnardConversation.types";
+import { ReactQueryKeys } from "constants/keys";
+import api from "capableApi";
 
 export const getOwnerClientType = (conversationType: ConversationType) => {
   return (conversationType + "Owner") as ConversationClientType;

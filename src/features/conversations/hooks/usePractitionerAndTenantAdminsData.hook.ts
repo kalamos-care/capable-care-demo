@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { ReactQueryKeys } from "../../../constants/keys";
-import { API_Type } from "../../../utils/apiTypes";
-import { User } from "../../../models/users/User.types";
-import api from "../../../capableApi";
+import { ReactQueryKeys } from "constants/keys";
+import { API_Type } from "utils/apiTypes";
+import { User } from "models/users/User.types";
+import api from "capableApi";
 import { getParticipantsByAuthor } from "./useConversationsParticipants.utils";
 
 //TODO: move this to a util file if we like it?

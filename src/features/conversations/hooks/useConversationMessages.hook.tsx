@@ -11,7 +11,7 @@ import {
   generateEmptyConversationMessages,
 } from "./useConversationMessages.utils";
 import { ConversationClientType } from "./useTwilioToken.hook";
-import { ReactQueryKeys } from "../../../constants/keys";
+import { ReactQueryKeys } from "constants/keys";
 import { useTwilioConversation } from "./useTwilioConversation.hook";
 
 const PAGE_SIZE = 30;

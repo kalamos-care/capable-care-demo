@@ -1,7 +1,24 @@
 {
   "compilerOptions": {
     "strict": false,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "src",
+    "paths": {
+      "assets/*": ["assets/*"],
+      "capableApi/*": ["capableApi/*"],
+      "components/*": ["components/*"],
+      "config/*": ["config/*"],
+      "constants/*": ["constants/*"],
+      "dataModels/*": ["dataModels/*"],
+      "features/*": ["features/*"],
+      "fetchDataHooks/*": ["fetchDataHooks/*"],
+      "hooks/*": ["hooks/*"],
+      "layouts/*": ["layouts/*"],
+      "models/*": ["models/*"],
+      "pages/*": ["pages/*"],
+      "styles/*": ["styles/*"],
+      "utils/*": ["utils/*"]
+    }
   },
-  "include": ["src"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js"]
 }

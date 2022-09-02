@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import api from "../../../capableApi/index";
+import api from "capableApi/index";
 
 interface AddConversationParticipantResponse {
   participant_sid: string;

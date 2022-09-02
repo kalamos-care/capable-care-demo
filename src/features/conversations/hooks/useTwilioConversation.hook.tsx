@@ -1,7 +1,7 @@
 import { Client } from "@twilio/conversations";
 import { useQuery } from "@tanstack/react-query";
 
-import { ReactQueryKeys } from "../../../constants/keys";
+import { ReactQueryKeys } from "constants/keys";
 import { ConversationClientType } from "./useTwilioToken.hook";
 import { useTwilioClient } from "./useTwilioClient.hook";
 

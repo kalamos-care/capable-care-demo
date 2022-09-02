@@ -3,10 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import {
   BarnardConversation,
   ConversationType,
-} from "../../../models/conversations/BarnardConversation.types";
-import { Patient } from "../../../models/patients/Patient.types";
-import { ReactQueryKeys } from "../../../constants/keys";
-import api from "../../../capableApi/index";
+} from "models/conversations/BarnardConversation.types";
+import { Patient } from "models/patients/Patient.types";
+import { ReactQueryKeys } from "constants/keys";
+import api from "capableApi/index";
 
 const fetchBarnardConversationsForPatient = async (
   patient?: Patient,

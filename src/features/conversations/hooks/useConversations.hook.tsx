@@ -3,8 +3,8 @@ import { Conversation, Message } from "@twilio/conversations";
 import {
   BarnardConversation,
   ConversationType,
-} from "../../../models/conversations/BarnardConversation.types";
-import { Patient } from "../../../models/patients/Patient.types";
+} from "models/conversations/BarnardConversation.types";
+import { Patient } from "models/patients/Patient.types";
 import { useBarnardConversationsForPatient } from "./useBarnardConversations";
 import { useConversationsParticipants } from ".//useConversationsParticipants.hook";
 import { useTwilioConversations } from "./useTwilioConversations.hook";

@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 
 import { addConversationParticipant } from "./useAddConversationParticipant.hook";
-import { formatError } from "../../../utils/strings";
+import { ConversationType } from "models/conversations/BarnardConversation.types";
+import { formatError } from "utils/strings";
 import { useTwilioClient } from "./useTwilioClient.hook";
-import { ConversationType } from "../../../models/conversations/BarnardConversation.types";
 
 export const sendMessage =
   (conversation?: Conversation) => async (message: string) => {

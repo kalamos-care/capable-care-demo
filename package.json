@@ -25,6 +25,7 @@
     "blueimp-md5": "^2.19.0",
     "color": "^4.2.3",
     "contentful": "^9.1.18",
+    "date-fns": "^2.29.2",
     "launchdarkly-react-client-sdk": "^2.26.0",
     "pluralize": "^8.0.0",
     "react": "^17.0.2",

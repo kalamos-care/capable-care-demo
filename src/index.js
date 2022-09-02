@@ -1,13 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
+import { asyncWithLDProvider } from "launchdarkly-react-client-sdk";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import configureAuthenticator from "./config/auth";
 import configureErrorReporting from "./config/errorReporting";
 import "./styles/index.css";
-
 
 (async () => {
   // configure Sentry

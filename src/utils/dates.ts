@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 // An observation.observed_at is saved as a UTC DateTime.
 // In this app, we only let the user select a date from the date input but no timestamp.
 // This defaults the timestamp to midnight UTC on the selected date.
@@ -21,4 +23,34 @@ export const UtcDateToUsDateFormat = (dateTimeString) => {
   const year = dateArray[0];
 
   return `${month}/${day}/${year}`;
+};
+
+export const getMessageTimestampLabel = (sent: any): string => {
+  if (typeof sent != "number") {
+    if (typeof sent == "object" || typeof sent === "string") {
+      try {
+        sent = Date.parse(sent);
+      } catch (error) {
+        return "unknown";
+      }
+    } else {
+      return "unknown";
+    }
+  }
+  const now = Date.now();
+  const diff = now - sent;
+  let timeLabel;
+  if (diff < 60000) {
+    timeLabel = `< 1 minute ago`;
+  } else if (diff < 3600000) {
+    const minutes = Math.floor(diff / 60000);
+    timeLabel = `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
+  } else if (diff < 86400000) {
+    const hours = Math.floor(diff / 3600000);
+    timeLabel = `${hours} hour${hours > 1 ? "s" : ""} ago`;
+  } else {
+    const sentDate = new Date(sent);
+    timeLabel = format(sentDate, "MMM d, yyyy h:mmaaa");
+  }
+  return timeLabel;
 };

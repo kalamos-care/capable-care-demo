@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { BarnardConversation } from "../../../models/conversations/BarnardConversation.types";
-import { ReactQueryKeys } from "../../../constants/keys";
-import api from "../../../capableApi/index";
+import { BarnardConversation } from "models/conversations/BarnardConversation.types";
+import { ReactQueryKeys } from "constants/keys";
+import api from "capableApi/index";
 
 const fetchBarnardConversation = async (conversationId?: string) => {
   const response = await api.client.Conversation.list({

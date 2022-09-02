@@ -4,10 +4,10 @@ import { useQueries } from "@tanstack/react-query";
 import {
   BarnardConversation,
   ConversationTypes,
-} from "../../../models/conversations/BarnardConversation.types";
+} from "models/conversations/BarnardConversation.types";
 import { ConversationClientTypes } from "./useTwilioToken.hook";
 import { ConversationWithMessage } from "./useConversations.hook";
-import { ReactQueryKeys } from "../../../constants/keys";
+import { ReactQueryKeys } from "constants/keys";
 import { useTwilioClient } from "./useTwilioClient.hook";
 
 const fetchTwilioConversation = async (
@@ -29,7 +29,7 @@ export const useTwilioChatConversations = (
   barnardConversations: BarnardConversation[]
 ) => {
   const { data: client, isLoading: clientLoading } = useTwilioClient(
-    ConversationClientTypes.CHAT_OWNER
+    ConversationClientTypes.CHAT
   );
 
   const queries = barnardConversations
@@ -51,7 +51,7 @@ export const useTwilioSmsConversations = (
   barnardConversations: BarnardConversation[]
 ) => {
   const { data: client, isLoading: clientLoading } = useTwilioClient(
-    ConversationClientTypes.SMS_OWNER
+    ConversationClientTypes.SMS
   );
 
   const queries = barnardConversations

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Client } from "@twilio/conversations";
 
 import { ConversationClientType, useTwilioToken } from "./useTwilioToken.hook";
-import { ReactQueryKeys } from "../../../constants/keys";
+import { ReactQueryKeys } from "constants/keys";
 
 export const useTwilioClient = (type: ConversationClientType) => {
   const { data, refetch, isError: isErrorTwilioToken } = useTwilioToken(type);
