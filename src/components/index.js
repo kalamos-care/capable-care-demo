@@ -1,6 +1,9 @@
+import AboutCard from "./AboutCard";
+import ArrowLink from "./ArrowLink";
 import BackButton from "./BackButton";
 import BasicModal from "./BasicModal";
-import CurrentCarePlan from "./CurrentCarePlan";
+import GoalCards from "./GoalCards";
+import HeaderImage from "./HeaderImage";
 import IconListLink from "./IconListLink";
 import ListLink from "./ListLink";
 import LinkButton from "./LinkButton";
@@ -11,14 +14,19 @@ import ObservationLog from "./ObservationLog";
 import Recurrence from "./Recurrence";
 import RichText from "./RichText";
 import StyledCard from "./StyledCard";
-import TabsWithContent from "./TabsWithContent";
+import ControlledTabs from "./ControlledTabs";
+import TaskCards from "./TaskCards";
 import ThumbsEmoji from "./ThumbsEmoji";
 import WellnessEmoji from "./WellnessEmoji";
 
 export {
+  AboutCard,
+  ArrowLink,
   BackButton,
   BasicModal,
-  CurrentCarePlan,
+  ControlledTabs,
+  GoalCards,
+  HeaderImage,
   IconListLink,
   ListLink,
   LinkButton,
@@ -29,7 +37,7 @@ export {
   Recurrence,
   RichText,
   StyledCard,
-  TabsWithContent,
+  TaskCards,
   ThumbsEmoji,
   WellnessEmoji,
 };

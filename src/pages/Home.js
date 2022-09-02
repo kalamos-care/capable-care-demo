@@ -1,11 +1,12 @@
-import { useCurrentPatient } from "../fetchDataHooks";
-import { CurrentCarePlan, TabsWithContent } from "../components";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { Container, Typography, Box, CardMedia, Avatar, Skeleton, Stack } from "@mui/material";
 
-import { Container, Typography, Box, CardMedia, Avatar } from "@mui/material";
-
+import { AboutCard, ArrowLink, ControlledTabs, GoalCards, TaskCards } from "../components";
+import { useCarePlans, useCurrentPatient } from "../fetchDataHooks";
 import gravatar from "../utils/gravatar";
 
-function Header() {
+function Header({ carePlan }) {
   // Ignoring any errors because it's just for the avatar URL / email
   // and we'll be graceful about it.
   const { currentPatient } = useCurrentPatient();
@@ -20,6 +21,24 @@ function Header() {
   else if (currentPatient) {
     avatarUrl = currentPatient.avatar_url
   }
+
+  const CarePlans = carePlan
+    ? <ArrowLink copy={carePlan.name} url={"/care_plans"}/>
+      : (
+        <Typography
+          variant="headline"
+          sx={{
+            flexGrow: 1,
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            width: 1,
+            alignItems: "center",
+          }}
+        >
+          No plan
+        </Typography>
+      )
 
   return (
     <Box sx={{ backgroundColor: "background.paper" }}>
@@ -53,17 +72,81 @@ function Header() {
           Welcome{firstName ? `, ${firstName}` : ""}!
         </Typography>
 
-        <CurrentCarePlan />
+        <Stack>
+          <Typography variant="eyebrow">Current Plan</Typography>
+          {CarePlans}
+        </Stack>
       </Container>
     </Box>
   );
 }
 
+const HomeContent = ({ carePlan }) => {
+  const tabs = [
+    {
+      title: 'Tasks',
+      content: <TaskCards carePlan={carePlan} />,
+    },
+    {
+      title: 'Goals',
+      content: <GoalCards carePlan={carePlan} />,
+    },
+    {
+      title: 'About',
+      content: <AboutCard carePlan={carePlan} />,
+    },
+  ];
+
+  const [tab, setTab] = useState(tabs[0]);
+
+  if (!carePlan) {
+    return null;
+  }
+
+  return (
+    <ControlledTabs
+      tabs={tabs}
+      tab={tab}
+      handleTabChange={(_, tabTitle) => {
+        const tab = tabs.find(tab => tab.title === tabTitle);
+        setTab(tab);
+      }}
+    />
+  );
+}
+
 export default function Home() {
+  const { carePlans, isLoading, isError } = useCarePlans();
+  const { care_plan_id } = useParams();
+  
+  if (isLoading) {
+    return (
+      <Skeleton variant="rectangular" animation="wave" height={280} />
+    );
+  }
+
+  if (isError) {
+    return (
+      <div>Woops something went wrong...</div>
+    );
+  }
+
+  let currentCarePlan;
+  const activeCarePlans = carePlans.filter(carePlan => carePlan.status === "active");
+  const completedCarePlans = carePlans.filter(carePlan => carePlan.status === "completed");
+
+  if (care_plan_id) {
+    currentCarePlan = [...activeCarePlans, ...completedCarePlans].find(carePlan => carePlan.id === care_plan_id);
+  } else if (activeCarePlans.length > 0) {
+    currentCarePlan = activeCarePlans[0];
+  } else if (completedCarePlans.length > 0) {
+    currentCarePlan = completedCarePlans[0];
+  }
+
   return (
     <>
-      <Header />
-      <TabsWithContent />
+      <Header carePlan={currentCarePlan} />
+      <HomeContent carePlan={currentCarePlan}/>
     </>
   );
 }

@@ -182,20 +182,35 @@ const TaskCards = ({ tasks, status }) => {
   );
 };
 
-const TaskCardsByStatus = () => {
-  const { tasks, isLoading } = useTasksByStatus();
-  const { open, completed } = tasks;
+const TaskCardsByStatus = ({ carePlan }) => {
+  const { tasks, isLoading, isError } = useTasksByStatus();
+
+  if (isLoading) {
+    return (
+      <Skeleton variant="rectangular" animation="wave" height={280} />
+    );
+  }
+
+  if (isError) {
+    return (
+      <div>Woops something went wrong...</div>
+    );
+  }
+
+  const openTasks = tasks.open.filter(openTask => openTask.care_plan_id === carePlan.id);
+  const OpenTasks = openTasks.length > 0
+    ? <TaskCards tasks={openTasks} status="open" />
+    : null;
+
+  const completedTasks = tasks.completed.filter(completedTask => completedTask.care_plan_id === carePlan.id);
+  const CompletedTasks = completedTasks.length > 0
+    ? <TaskCards tasks={completedTasks} status="completed" />
+    : null;
 
   return (
     <>
-      {isLoading ? (
-        <Skeleton variant="rectangular" height={250} />
-      ) : (
-        <>
-          <TaskCards tasks={open} status="open" />
-          <TaskCards tasks={completed} status="completed" />
-        </>
-      )}
+      {OpenTasks}
+      {CompletedTasks}
     </>
   );
 };

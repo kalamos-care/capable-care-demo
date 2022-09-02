@@ -1,34 +1,13 @@
-import { useState } from "react";
 import { Container, Tab, Tabs } from "@mui/material";
-import GoalCardsByStatus from "./GoalCards";
-import TaskCardsByStatus from "./TaskCards";
 import titlecase from "../utils/titlecase";
 
-// Renders the content panel for the tab.
-const TabPanel = ({ tabTitle }) => {
-  return (
-    <div role="tabpanel" aria-labelledby={`tab-${tabTitle}`}>
-      <Container>
-        {tabTitle.toLowerCase() === "goals" ? (
-          <GoalCardsByStatus />
-        ) : (
-          <TaskCardsByStatus />
-        )}
-      </Container>
-    </div>
-  );
-};
-
 // Renders the tabs and their corresponding goals.
-export default function TabsWithContent() {
-  const tabTitles = ["Tasks", "Goals"];
-  const [tab, setTab] = useState(tabTitles[0]);
-  const handleTabChange = (_, newTab) => setTab(newTab);
-
+export default function ControlledTabs({ tabs, tab, handleTabChange }) {
+  const tabTitles = tabs.map(tab => tab.title);
   return (
     <>
       <Tabs
-        value={tab}
+        value={tab.title}
         onChange={handleTabChange}
         sx={{
           backgroundColor: "common.white",
@@ -51,7 +30,11 @@ export default function TabsWithContent() {
           />
         ))}
       </Tabs>
-      <TabPanel tabTitle={tab} />
+      <div role="tabpanel" aria-labelledby={`tab-${tab.title}`}>
+        <Container>
+          {tab.content}
+        </Container>
+      </div>
     </>
   );
 }

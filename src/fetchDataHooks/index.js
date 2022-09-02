@@ -1,17 +1,19 @@
 import useAppointments from "./useAppointments";
 import useCRMContent from "./useCRMContent";
-import useCurrentCarePlan from "./useCurrentCarePlan";
+import useCarePlans from "./useCarePlans";
 import useCurrentPatient from "./useCurrentPatient";
 import useGoalsByStatus from "./useGoalsByStatus";
 import usePatientRelatedPersons from "./usePatientRelatedPersons";
 import useSurvey from "./useSurvey";
+import useTasksByStatus from "./useTasksByStatus";
 
 export {
   useAppointments,
   useCRMContent,
-  useCurrentCarePlan,
+  useCarePlans,
   useCurrentPatient,
   useGoalsByStatus,
   usePatientRelatedPersons,
   useSurvey,
+  useTasksByStatus,
 };

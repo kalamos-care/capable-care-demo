@@ -112,20 +112,35 @@ const GoalCards = ({ goals, status }) => {
   );
 };
 
-const GoalCardsByStatus = () => {
-  const { goals, isLoading } = useGoalsByStatus();
-  const { open, completed } = goals;
+const GoalCardsByStatus = ({ carePlan }) => {
+  const { goals, isLoading, isError } = useGoalsByStatus();
+
+  if (isLoading) {
+    return (
+      <Skeleton variant="rectangular" animation="wave" height={280} />
+    );
+  }
+
+  if (isError) {
+    return (
+      <div>Woops something went wrong...</div>
+    );
+  }
+
+  const openGoals = goals.open.filter(openGoal => openGoal.care_plan_id === carePlan.id);
+  const OpenGoals = openGoals.length > 0
+    ? <GoalCards goals={openGoals} status="open" />
+    : null;
+
+  const completedGoals = goals.completed.filter(completedGoal => completedGoal.care_plan_id === carePlan.id);
+  const CompletedGoals = completedGoals.length > 0
+    ? <GoalCards goals={completedGoals} status="completed" />
+    : null;
 
   return (
     <>
-      {isLoading ? (
-        <Skeleton variant="rectangular" height={250} />
-      ) : (
-        <>
-          <GoalCards goals={open} status="open" />
-          <GoalCards goals={completed} status="completed" />
-        </>
-      )}
+      {OpenGoals}
+      {CompletedGoals}
     </>
   );
 };

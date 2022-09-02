@@ -8,7 +8,7 @@ import { SWRConfig } from "swr";
 import AppAuthenticator from "./AppAuthenticator";
 import Home from "./pages/Home";
 import Chat from "./pages/Chat";
-import CurrentPlan from "./pages/CurrentPlan";
+import CarePlans from "./pages/CarePlans";
 import Goal from "./pages/Goal";
 import Target from "./pages/Target";
 import Profile from "./pages/Profile";
@@ -41,6 +41,7 @@ export default function App() {
                   <Route element={<WithNavigation />}>
                     <Route exact path="/" element={<Home />} />
                     <Route exact path="/home" element={<Home />} />
+                    <Route exact path="/home/:care_plan_id" element={<Home />} />
                     <Route exact path="/chat" element={<Chat />} />
                     <Route
                       exact
@@ -57,8 +58,8 @@ export default function App() {
                   <Route element={<WithoutNavigation />}>
                     <Route
                       exact
-                      path="/current_plan"
-                      element={<CurrentPlan />}
+                      path="/care_plans"
+                      element={<CarePlans />}
                     />
                     <Route exact path="/goal" element={<Goal />} />
                     <Route exact path="/log" element={<Observation />} />

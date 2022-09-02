@@ -2,8 +2,8 @@ import useSWR from "swr";
 import * as Sentry from "@sentry/react";
 import fetcher from "./fetcher";
 
-// Fetch the patient's current care plan.
-export default function useCurrentCarePlan() {
+// Fetch the patient's care plans.
+export default function useCarePlans() {
   const { data, error } = useSWR(
     ["CarePlan", "list", { page: "1", size: "10", sortBy: ["-created_at"] }],
     fetcher
@@ -13,12 +13,8 @@ export default function useCurrentCarePlan() {
     Sentry.captureException(error);
   }
 
-  const mostRecentActiveCarePlan = data
-    ? data.find((carePlan) => carePlan.status === "active")
-    : undefined;
-
   return {
-    currentPlan: mostRecentActiveCarePlan,
+    carePlans: data,
     isLoading: !error && !data,
     isError: error,
   };
