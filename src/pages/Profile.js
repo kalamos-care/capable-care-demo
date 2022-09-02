@@ -44,6 +44,7 @@ function Header() {
   // Ignoring any errors because it's just for the avatar URL / memberSince
   // and we'll be graceful about it.
   const { currentPatient } = useCurrentPatient();
+
   const firstName = currentPatient?.name;
   const memberSince = currentPatient?.joinedAt || "2021"; // hardcode default for demo.
 

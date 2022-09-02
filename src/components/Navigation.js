@@ -22,7 +22,7 @@ export default function Navigation() {
       sx={{
         borderTop: 1,
         borderColor: "grey.400",
-        paddingBottom: "10px",
+        padding: "10px 0",
         height: "auto",
       }}
       value={value}

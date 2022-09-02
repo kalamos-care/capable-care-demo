@@ -1,4 +1,19 @@
-import { Authenticator, Button, Card, CheckboxField, Flex, Heading, Image, Loader, PhoneNumberField, Tabs, TabItem, TextField, useTheme, View } from "@aws-amplify/ui-react";
+import {
+  Authenticator,
+  Button,
+  Card,
+  CheckboxField,
+  Flex,
+  Heading,
+  Image,
+  Loader,
+  PhoneNumberField,
+  Tabs,
+  TabItem,
+  TextField,
+  useTheme,
+  View,
+} from "@aws-amplify/ui-react";
 import { AuthState } from "@aws-amplify/ui-components";
 import Auth from "@capable-health/capable-auth-sdk";
 import identityProvider from "@capable-health/capable-auth-sdk/dist/esm/helpers/identity-provider";
@@ -23,7 +38,7 @@ const useAuthState = () => {
       } catch (error) {
         setAuthState(AuthState.SignIn);
       }
-    }
+    };
 
     fetchAuthState();
     return () => {
@@ -32,7 +47,7 @@ const useAuthState = () => {
   }, []);
 
   return [authState, setAuthState];
-}
+};
 
 const useCurrentUser = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -45,7 +60,7 @@ const useCurrentUser = () => {
       } catch (error) {
         setCurrentUser(null);
       }
-    }
+    };
 
     fetchCurrentUser();
     return () => {
@@ -54,7 +69,7 @@ const useCurrentUser = () => {
   }, []);
 
   return [currentUser, setCurrentUser];
-}
+};
 
 function PasswordlessAuthenticator({ children }) {
   const [authState, setAuthState] = useAuthState();
@@ -62,7 +77,7 @@ function PasswordlessAuthenticator({ children }) {
   const [submitError, setSubmitError] = useState(undefined);
   const [isLoading, setIsLoading] = useState(false);
   const { tokens } = useTheme();
-  
+
   const dialCode = "+1";
 
   const handleSignIn = async (phoneNumber) => {
@@ -79,7 +94,7 @@ function PasswordlessAuthenticator({ children }) {
     setCurrentUser(user);
     setAuthState(AuthState.SignedIn);
     setIsLoading(false);
-  }
+  };
 
   const handleSignUp = async (phoneNumber) => {
     setIsLoading(true);
@@ -96,7 +111,7 @@ function PasswordlessAuthenticator({ children }) {
     if (submitError !== undefined) {
       setSubmitError(undefined);
     }
-    
+
     try {
       switch (authState) {
         case AuthState.SignIn:
@@ -121,7 +136,7 @@ function PasswordlessAuthenticator({ children }) {
     Auth.user.signOut();
     setCurrentUser(null);
     setAuthState(AuthState.SignIn);
-  }
+  };
 
   const PasswordlessComponent = () => {
     const PhoneNumberInput = (
@@ -175,9 +190,14 @@ function PasswordlessAuthenticator({ children }) {
           </>
         );
       }
-    }
+    };
 
-    const InputField = ({ headerText, submitText, authState, inputElement }) => (
+    const InputField = ({
+      headerText,
+      submitText,
+      authState,
+      inputElement,
+    }) => (
       <Flex direction="column" gap="unset">
         <Heading textAlign="center" level={4}>
           {headerText}
@@ -199,16 +219,18 @@ function PasswordlessAuthenticator({ children }) {
         <View textAlign="center" padding={tokens.space.medium}>
           <Image alt="Logo" src={process.env.REACT_APP_LOGO_DARK} />
         </View>
-        <Card variation="outlined">
-          {children}
-        </Card>
+        <Card variation="outlined">{children}</Card>
       </View>
     );
 
     if ([AuthState.SignIn, AuthState.SignUp].includes(authState)) {
       return (
         <Layout>
-          <Tabs spacing="equal" indicatorPosition="top" defaultIndex={authState === AuthState.SignIn ? 0 : 1}>
+          <Tabs
+            spacing="equal"
+            indicatorPosition="top"
+            defaultIndex={authState === AuthState.SignIn ? 0 : 1}
+          >
             <TabItem title="Sign In">
               <InputField
                 headerText="Sign in to your account"
@@ -251,12 +273,17 @@ const PASSWORDLESS = "passwordless";
 const CREDENTIALS = "credentials";
 
 function getInitialAuthFlow() {
-  if (process.env.REACT_APP_ENABLE_PASSWORDLESS === "true" && process.env.REACT_APP_ENABLE_CREDENTIALS === "true") {
+  if (
+    process.env.REACT_APP_ENABLE_PASSWORDLESS === "true" &&
+    process.env.REACT_APP_ENABLE_CREDENTIALS === "true"
+  ) {
     return window.location.href.includes(PASSWORDLESS)
       ? PASSWORDLESS
-      : [CREDENTIALS, PASSWORDLESS].includes(process.env.REACT_APP_DEFAULT_AUTH_FLOW)
-        ? process.env.REACT_APP_DEFAULT_AUTH_FLOW
-        : CREDENTIALS;
+      : [CREDENTIALS, PASSWORDLESS].includes(
+          process.env.REACT_APP_DEFAULT_AUTH_FLOW
+        )
+      ? process.env.REACT_APP_DEFAULT_AUTH_FLOW
+      : CREDENTIALS;
   } else if (process.env.REACT_APP_ENABLE_PASSWORDLESS === "true") {
     return PASSWORDLESS;
   } else {
@@ -290,12 +317,13 @@ function AppAuthenticator(props) {
           migration: "1",
         };
       }
-      
+
       Auth[authFlow].configure(authConfig);
-    }
+    };
 
     if (isAuthConfigured) {
-      Auth.user.getPayload()
+      Auth.user
+        .getPayload()
         .then((payload) => {
           ldClient?.identify(
             {
@@ -309,28 +337,30 @@ function AppAuthenticator(props) {
                 userType: payload.userType,
               },
             },
-            undefined,
+            undefined
           );
         })
         .catch((error) => {
           console.log("User is not signed in");
         });
     } else {
-      ldClient?.identify(
-        {
-          key: userPoolId,
-          custom: {
-            userPoolId,
-            userPoolWebClientId,
+      ldClient
+        ?.identify(
+          {
+            key: userPoolId,
+            custom: {
+              userPoolId,
+              userPoolWebClientId,
+            },
           },
-        },
-        undefined
-      ).then(() => {
-        if (!isAuthConfigured) {
-          configureAmplify();
-          setIsAuthConfigured(true);
-        }
-      });
+          undefined
+        )
+        .then(() => {
+          if (!isAuthConfigured) {
+            configureAmplify();
+            setIsAuthConfigured(true);
+          }
+        });
     }
   }, [authFlow, isAuthConfigured, ldClient]);
 
@@ -340,13 +370,13 @@ function AppAuthenticator(props) {
   }
 
   // This allows to switch back and forth between passwordless auth and credentials auth
-  return authFlow === PASSWORDLESS
-    ? <PasswordlessAuthenticator children={props.children} />
-    : (
-      <Authenticator formFields={formFieldConfig} components={authComponents}>
-        {props.children}
-      </Authenticator>
-    );
+  return authFlow === PASSWORDLESS ? (
+    <PasswordlessAuthenticator children={props.children} />
+  ) : (
+    <Authenticator formFields={formFieldConfig} components={authComponents}>
+      {props.children}
+    </Authenticator>
+  );
 }
 
 export default AppAuthenticator;

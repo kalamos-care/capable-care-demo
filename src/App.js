@@ -1,13 +1,13 @@
 import * as React from "react";
 // packages
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { SWRConfig } from "swr";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-// pages
+// Providers
 import AppAuthenticator from "./AppAuthenticator";
+// pages
 import Home from "./pages/Home";
 import Chat from "./pages/Chat";
 import CarePlans from "./pages/CarePlans";
@@ -24,6 +24,9 @@ import { WithoutNavigation } from "./layouts/WithoutNavigation";
 
 // styles
 import theme from "./styles/theme";
+
+// feature gating
+import SubscriptionRouteManager from "./SubscriptionRouteManager";
 
 export const queryClient = new QueryClient();
 
@@ -42,7 +45,7 @@ export default function App() {
                   {/* Global reset */}
                   <CssBaseline />
                   {/* Page Content */}
-                  <Routes>
+                  <SubscriptionRouteManager>
                     <Route element={<WithNavigation />}>
                       <Route exact path="/" element={<Home />} />
                       <Route exact path="/home" element={<Home />} />
@@ -71,7 +74,7 @@ export default function App() {
                       <Route exact path="/target" element={<Target />} />
                       <Route exact path="/survey" element={<Survey />} />
                     </Route>
-                  </Routes>
+                  </SubscriptionRouteManager>
                 </BrowserRouter>
               </QueryClientProvider>
             </SWRConfig>

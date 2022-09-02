@@ -48,7 +48,7 @@ export default function configureAuthenticator() {
   );
   document.documentElement.style.setProperty(
     "--amplify-components-card-padding",
-    "none",
+    "none"
   );
 }
 

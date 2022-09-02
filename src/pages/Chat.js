@@ -4,7 +4,7 @@ import { Client as ConversationsClient } from "@twilio/conversations";
 import * as Sentry from "@sentry/react";
 import api from "../capableApi";
 import useCurrentChatToken from "../fetchDataHooks/useCurrentChatToken";
-import useCurrentPatient from "../fetchDataHooks/useCurrentPatient";
+import { useCurrentPatient } from "../fetchDataHooks";
 import ChatIcon from "../components/icons/ChatIcon";
 import Conversation from "../components/conversations/Conversation";
 import PrimaryHeader from "../components/PrimaryHeader";

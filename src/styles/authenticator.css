@@ -64,8 +64,10 @@
   margin: 0 5px;
 }
 
-.amplify-tabs-item[data-state='inactive'] {
-  background-color: var(--amplify-components-authenticator-state-inactive-background-color);
+.amplify-tabs-item[data-state="inactive"] {
+  background-color: var(
+    --amplify-components-authenticator-state-inactive-background-color
+  );
 }
 
 .amplify-checkbox__button {
