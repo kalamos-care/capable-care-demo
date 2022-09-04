@@ -1,10 +1,11 @@
 import { Box, Card, Container, Stack, Typography } from "@mui/material";
-import BackButton from "../components/BackButton";
+import CheckIcon from '@mui/icons-material/Check';
 import { useNavigate, useLocation } from "react-router-dom";
-import { LinkButton, Recurrence, RichText, StyledCard } from "../components";
+
+import BackButton from "../components/BackButton";
+import { HeaderImage, LinkButton, ObservationLog, Recurrence, RichText, StyledCard } from "../components";
 import { ForwardArrowIcon } from "../components/icons";
-import HeaderImage from "../components/HeaderImage";
-import ObservationLog from "../components/ObservationLog";
+import api from "../capableApi/index";
 
 // Render a card detailing the target & linking to the target page to show it's observations.
 function TargetCard({ target, goal }) {
@@ -63,28 +64,88 @@ function renderTargetsOrObservations(goal) {
 
 export default function Goal() {
   const { state } = useLocation();
+  const navigate = useNavigate();
   const { goal } = state;
+
+  const isGoalAchieved = goal.achievement_status === "achieved" || goal.achievement_status === "not_attainable";
+
+  const updateAchievementStatus = async () => {
+    const new_achievement_status = isGoalAchieved ? "in_progress" : "achieved";
+    
+    await api.client.Goal.update(goal.id, {
+      body: {
+        goal: {
+          achievement_status: new_achievement_status,
+        },
+      },
+    });
+    navigate("/goal", { state: { goal: { ...goal, achievement_status: new_achievement_status }}})
+  };
 
   return (
     <>
       <Card sx={{ position: "relative" }}>
-        <BackButton route="/home" sx={{ position: "absolute", zIndex: 100 }} />
+        <BackButton route={`/home/${goal.care_plan_id}`} sx={{ position: "absolute", zIndex: 100 }} />
 
         <HeaderImage data={goal} />
       </Card>
 
-      <Container sx={{ marginBottom: 5 }}>
+      <Container sx={{
+        overflow: "scroll",
+        position: "relative",
+      }}>
         <Typography variant="headline" component="h2" sx={{ marginY: 3 }}>
           {goal.name}
         </Typography>
 
-        {goal.cron_expression && (
-          <Recurrence cron_expression={goal.cron_expression} />
-        )}
+        <div style={{ display: "flex", gap: "1.5rem" }}>
+          {goal.cron_expression && (
+            <Recurrence cron_expression={goal.cron_expression} />
+          )}
+
+          {isGoalAchieved && (
+            <Box sx={{ display: "flex", gap: 0.5, marginTop: "0.5rem" }}>
+              <CheckIcon fontSize="1rem" color="black" />
+              <Typography
+                variant="eyebrow"
+                sx={{ fontWeight: 300, marginTop: "auto", marginBottom: "auto" }}
+              >
+                Complete
+              </Typography>
+            </Box>
+          )}
+        </div>
 
         <RichText content={goal.description} />
 
         {renderTargetsOrObservations(goal)}
+      </Container>
+
+      <Container sx={{
+        position: !isGoalAchieved && "sticky",
+        bottom: "1rem",
+        marginBottom: "1rem",
+        marginTop: "1rem",
+      }}>
+        <Card
+          sx={{
+            backgroundColor: isGoalAchieved ? "white" : process.env.REACT_APP_COLOR,
+            cursor: "pointer",
+          }}
+          onClick={updateAchievementStatus}
+        >
+          <Typography
+            component="h2"
+            sx={{
+              color: isGoalAchieved ? process.env.REACT_APP_COLOR : "white",
+              marginY: "1rem",
+              textAlign: "center",
+              fontWeight: 500,
+            }}
+          >
+            {isGoalAchieved ? "Mark as Open" : "Mark Complete"}
+          </Typography> 
+        </Card>
       </Container>
     </>
   );

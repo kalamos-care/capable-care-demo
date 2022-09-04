@@ -5,7 +5,7 @@ import fetcher from "./fetcher";
 // Fetch the patient's goals.
 export default function useGoalsByStatus() {
   const { data, error } = useSWR(
-    ["Goal", "list", { page: 1, size: 20 }],
+    ["Goal", "list", {}],
     fetcher
   );
 

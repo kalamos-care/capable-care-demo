@@ -6,20 +6,16 @@ import { AboutCard, ArrowLink, ControlledTabs, GoalCards, TaskCards } from "../c
 import { useCarePlans, useCurrentPatient } from "../fetchDataHooks";
 import gravatar from "../utils/gravatar";
 
-function Header({ carePlan }) {
+function Header({ carePlan, patient }) {
   // Ignoring any errors because it's just for the avatar URL / email
   // and we'll be graceful about it.
-  const { currentPatient } = useCurrentPatient();
-  const firstName = currentPatient?.name;
+  const firstName = patient?.name;
 
   let avatarUrl;
-  if (currentPatient && process.env.REACT_APP_USAGE_MODE === "demo")  {
-    avatarUrl =
-      currentPatient.avatar_url ||
-      (currentPatient.email && gravatar(currentPatient.email));
-  }
-  else if (currentPatient) {
-    avatarUrl = currentPatient.avatar_url
+  if (patient && process.env.REACT_APP_USAGE_MODE === "demo")  {
+    avatarUrl = patient.avatar_url || (patient.email && gravatar(patient.email));
+  } else if (patient) {
+    avatarUrl = patient.avatar_url;
   }
 
   const CarePlans = carePlan
@@ -116,6 +112,7 @@ const HomeContent = ({ carePlan }) => {
 }
 
 export default function Home() {
+  const { currentPatient } = useCurrentPatient();
   const { carePlans, isLoading, isError } = useCarePlans();
   const { care_plan_id } = useParams();
   
@@ -145,8 +142,8 @@ export default function Home() {
 
   return (
     <>
-      <Header carePlan={currentCarePlan} />
-      <HomeContent carePlan={currentCarePlan}/>
+      <Header carePlan={currentCarePlan} patient={currentPatient} />
+      <HomeContent carePlan={currentCarePlan} />
     </>
   );
 }
