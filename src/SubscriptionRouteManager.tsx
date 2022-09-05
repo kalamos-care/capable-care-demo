@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Subscriptions from "./pages/Subscriptions";
+import Subscriptions from "pages/Subscriptions";
 import { useCurrentPatient, useActiveSubscription } from "./fetchDataHooks";
-import {Skeleton} from "@mui/material";
+import { Skeleton } from "@mui/material";
 
 function SubscriptionRouteManager(props) {
   const { currentPatient, isLoading: patientLoading, isError: patientError } = useCurrentPatient()
@@ -22,6 +22,7 @@ function SubscriptionRouteManager(props) {
   return process.env.REACT_APP_ENABLE_REQUIRE_SUBSCRIPTION !== "true" || currentActiveSubscription ? (
     <Routes>
       {props.children}
+      <Route path="/subscriptions" element={<Subscriptions />} />
     </Routes>
   ) : (
     <Routes>

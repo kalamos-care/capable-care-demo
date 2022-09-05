@@ -17,18 +17,18 @@ import { SetupIntentsBody } from "../model/SetupIntentsBody";
 
 /**
  * SetupIntent service.
- * @module api/SetupIntentApi
+ * @module api/SetupIntentsApi
  * @version v0.3
  */
-export class SetupIntentApi {
+export class SetupIntentsApi {
   /**
-    * Constructs a new SetupIntentApi. 
-    * @alias module:api/SetupIntentApi
-    * @class
-    * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
-    * default to {@link module:ApiClient#instanc
+   * Constructs a new SetupIntentsApi.
+   * @alias module:api/SetupIntentsApi
+   * @class
+   * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
+   * default to {@link module:ApiClient#instanc
     e} if unspecified.
-    */
+   */
   constructor(apiClient) {
     this.apiClient = apiClient || ApiClient.instance;
   }

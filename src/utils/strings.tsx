@@ -55,3 +55,15 @@ export const displayName = (user: User | Patient): string => {
 export const displayNameWithLabel = (user: User, label?: string): string => {
   return `${displayName(user)}${label ? ` (${label})` : ""}`;
 };
+
+export const convertRetailPriceCentsToRetailPrice = (retailCents: number) => {
+  if (retailCents) {
+    const parsedCents = retailCents / 100;
+    return parsedCents.toFixed(2);
+  }
+  return null;
+};
+
+export const capitalize = (word: string) => {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}

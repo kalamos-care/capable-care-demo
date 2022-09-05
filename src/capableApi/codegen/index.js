@@ -260,7 +260,7 @@ import { ProductsApi } from "./api/ProductsApi";
 import { PermissionsApi } from "./api/PermissionsApi";
 import { QuestionnairesApi } from "./api/QuestionnairesApi";
 import { RacesApi } from "./api/RacesApi";
-import { SetupIntentApi } from "./api/SetupIntentApi";
+import { SetupIntentsApi } from "./api/SetupIntentsApi";
 import { SubmissionsApi } from "./api/SubmissionsApi";
 import { SubscriptionPlansApi } from "./api/SubscriptionPlansApi";
 import { SubscriptionsApi } from "./api/SubscriptionsApi";
@@ -1550,10 +1550,10 @@ export {
    */
   RacesApi,
   /**
-   * The SetupIntentApi service constructor.
-   * @property {module:api/SetupIntentApi}
+   * The SetupIntentsApi service constructor.
+   * @property {module:api/SetupIntentsApi}
    */
-  SetupIntentApi,
+  SetupIntentsApi,
   /**
    * The SubmissionsApi service constructor.
    * @property {module:api/SubmissionsApi}

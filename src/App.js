@@ -7,6 +7,8 @@ import { SWRConfig } from "swr";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // Providers
 import AppAuthenticator from "./AppAuthenticator";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 // pages
 import Home from "./pages/Home";
 import Chat from "./pages/Chat";
@@ -17,6 +19,7 @@ import Profile from "./pages/Profile";
 import Observation from "./pages/Observation";
 import Appointments from "./pages/Appointments";
 import Survey from "./pages/Survey";
+
 // components
 import { MobileContainer } from "./components";
 import { WithNavigation } from "./layouts/WithNavigation";
@@ -27,6 +30,10 @@ import theme from "./styles/theme";
 
 // feature gating
 import SubscriptionRouteManager from "./SubscriptionRouteManager";
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY, {
+  stripeAccount: process.env.REACT_APP_STRIPE_ACCOUNT_ID,
+})
 
 export const queryClient = new QueryClient();
 
@@ -45,36 +52,38 @@ export default function App() {
                   {/* Global reset */}
                   <CssBaseline />
                   {/* Page Content */}
-                  <SubscriptionRouteManager>
-                    <Route element={<WithNavigation />}>
-                      <Route exact path="/" element={<Home />} />
-                      <Route exact path="/home" element={<Home />} />
-                      <Route
-                        exact
-                        path="/home/:care_plan_id"
-                        element={<Home />}
-                      />
-                      <Route exact path="/chat" element={<Chat />} />
-                      <Route
-                        exact
-                        path="/appointments"
-                        element={<Appointments />}
-                      />
-                      <Route
-                        exact
-                        path="/profile"
-                        element={<Profile signOut={signOut} />}
-                      />
-                    </Route>
+                  <Elements stripe={stripePromise}>
+                    <SubscriptionRouteManager>
+                      <Route element={<WithNavigation />}>
+                        <Route exact path="/" element={<Home />} />
+                        <Route exact path="/home" element={<Home />} />
+                        <Route
+                          exact
+                          path="/home/:care_plan_id"
+                          element={<Home />}
+                        />
+                        <Route exact path="/chat" element={<Chat />} />
+                        <Route
+                          exact
+                          path="/appointments"
+                          element={<Appointments />}
+                        />
+                        <Route
+                          exact
+                          path="/profile"
+                          element={<Profile signOut={signOut} />}
+                        />
+                      </Route>
 
-                    <Route element={<WithoutNavigation />}>
-                      <Route exact path="/care_plans" element={<CarePlans />} />
-                      <Route exact path="/goal" element={<Goal />} />
-                      <Route exact path="/log" element={<Observation />} />
-                      <Route exact path="/target" element={<Target />} />
-                      <Route exact path="/survey" element={<Survey />} />
-                    </Route>
-                  </SubscriptionRouteManager>
+                      <Route element={<WithoutNavigation />}>
+                        <Route exact path="/care_plans" element={<CarePlans />} />
+                        <Route exact path="/goal" element={<Goal />} />
+                        <Route exact path="/log" element={<Observation />} />
+                        <Route exact path="/target" element={<Target />} />
+                        <Route exact path="/survey" element={<Survey />} />
+                      </Route>
+                    </SubscriptionRouteManager>
+                  </Elements>
                 </BrowserRouter>
               </QueryClientProvider>
             </SWRConfig>

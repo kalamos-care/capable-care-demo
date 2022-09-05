@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import { ArrowBackIosRounded } from "@mui/icons-material";
 
-export default function BackButton({ route, params, sx }) {
+export default function BackButton({ route, params, sx, onClick }) {
   const navigate = useNavigate();
 
   const changePage = (route, params) => {
@@ -20,7 +20,7 @@ export default function BackButton({ route, params, sx }) {
         },
         ...sx,
       }}
-      onClick={() => changePage(route, params)}
+      onClick={() => onClick ? onClick() : changePage(route, params)}
     >
       <ArrowBackIosRounded
         sx={{

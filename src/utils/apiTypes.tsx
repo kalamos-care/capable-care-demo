@@ -20,6 +20,7 @@ export enum API_Type {
   Product = "Product",
   Questionnaire = "Questionnaire",
   Race = "Race",
+  SetupIntent = "SetupIntent",
   Subscription = "Subscription",
   TargetTemplate = "TargetTemplate",
   TaskTemplate = "TaskTemplate",
