@@ -24,7 +24,7 @@ export class PatientsidavatarPatient {
    * Constructs a new <code>PatientsidavatarPatient</code>.
    * @alias module:model/PatientsidavatarPatient
    * @class
-   * @param avatar {Blob} File that will be uploaded as an attachment and assoicated as the Avatar
+   * @param avatar {Blob} File that will be uploaded as an attachment and associated as the avatar
    */
   constructor(avatar) {
     this.avatar = avatar;
@@ -48,7 +48,7 @@ export class PatientsidavatarPatient {
 }
 
 /**
- * File that will be uploaded as an attachment and assoicated as the Avatar
+ * File that will be uploaded as an attachment and associated as the avatar
  * @member {Blob} avatar
  */
 PatientsidavatarPatient.prototype.avatar = undefined;

@@ -15,6 +15,7 @@
 import { ApiClient } from "../ApiClient";
 import { PatientsPatientEthnicities } from "./PatientsPatientEthnicities";
 import { PatientsPatientRaces } from "./PatientsPatientRaces";
+import { PractitionersinvitePractitionerRenderingNpiAttributes } from "./PractitionersinvitePractitionerRenderingNpiAttributes";
 
 /**
  * The PractitionersinvitePractitioner model module.
@@ -50,6 +51,8 @@ export class PractitionersinvitePractitioner {
         obj.middleName = ApiClient.convertToType(data["middle_name"], "String");
       if (data.hasOwnProperty("last_name"))
         obj.lastName = ApiClient.convertToType(data["last_name"], "String");
+      if (data.hasOwnProperty("biography"))
+        obj.biography = ApiClient.convertToType(data["biography"], "String");
       if (data.hasOwnProperty("birth_date"))
         obj.birthDate = ApiClient.convertToType(data["birth_date"], "Date");
       if (data.hasOwnProperty("gender_identity"))
@@ -72,6 +75,11 @@ export class PractitionersinvitePractitioner {
         obj.tagList = ApiClient.convertToType(data["tag_list"], ["String"]);
       if (data.hasOwnProperty("metadata"))
         obj.metadata = ApiClient.convertToType(data["metadata"], { String: Object });
+      if (data.hasOwnProperty("rendering_npi_attributes"))
+        obj.renderingNpiAttributes =
+          PractitionersinvitePractitionerRenderingNpiAttributes.constructFromObject(
+            data["rendering_npi_attributes"]
+          );
     }
     return obj;
   }
@@ -96,6 +104,11 @@ PractitionersinvitePractitioner.prototype.middleName = undefined;
  * @member {String} lastName
  */
 PractitionersinvitePractitioner.prototype.lastName = undefined;
+
+/**
+ * @member {String} biography
+ */
+PractitionersinvitePractitioner.prototype.biography = undefined;
 
 /**
  * yyyy-mm-dd (ISO 8601)
@@ -232,3 +245,8 @@ PractitionersinvitePractitioner.prototype.tagList = undefined;
  * @member {Object.<String, Object>} metadata
  */
 PractitionersinvitePractitioner.prototype.metadata = undefined;
+
+/**
+ * @member {module:model/PractitionersinvitePractitionerRenderingNpiAttributes} renderingNpiAttributes
+ */
+PractitionersinvitePractitioner.prototype.renderingNpiAttributes = undefined;

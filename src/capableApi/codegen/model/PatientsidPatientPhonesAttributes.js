@@ -70,7 +70,7 @@ PatientsidPatientPhonesAttributes.prototype._number = undefined;
 PatientsidPatientPhonesAttributes.prototype.active = undefined;
 
 /**
- * Primary phone number for sending SMS communications. Only one allowed per patient.Must be an active number.
+ * Primary phone number for sending SMS communications. Only one allowed per patient. Must be an active number.
  * @member {Boolean} primary
  */
 PatientsidPatientPhonesAttributes.prototype.primary = undefined;

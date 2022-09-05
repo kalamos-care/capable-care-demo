@@ -49,9 +49,11 @@ export class ProductsApi {
    * @param {Number} opts.page Page number (default to <.>)
    * @param {Number} opts.size Page size (default to <.>)
    * @param {Array.<module:model/String>} opts.sortBy Sort results
+   * @param {Array.<String>} opts.filters *Note: that the strings are stringified and encoded objects.*  Filter with operators.  | Field          | Operator | | ---------------| ---------| | id | eq, not_eq, matches, does_not_match, in, not_in | | name | eq, not_eq, matches, does_not_match, in, not_in | | tags | eq, not_eq, matches, does_not_match, in, not_in | | created_at | eq, not_eq, gt, gteq, lt, lteq, in, not_in | | updated_at | eq, not_eq, gt, gteq, lt, lteq, in, not_in |  Example query value: &#x60;&#x60;&#x60; { &#x27;field&#x27;: &#x27;id&#x27;, &#x27;operator&#x27;:&#x27;eq&#x27;, &#x27;value&#x27;:&#x27;expected_value&#x27;, } &#x60;&#x60;&#x60;  Example stringified and encoded query value: &#x60;&#x60;&#x60; %7B%22field%22%3A%22%23%7Bid%7D%22%2C%22operator%22%3A%22eq%22%2C%22value%22%3A%22expected_value%22%7D &#x60;&#x60;&#x60;
+   * @param {module:model/String} opts.filtersOperator Operator to chain filters
    * @param {String} opts.byName Filter by name
    * @param {Array.<String>} opts.byTags Filter by tags
-   * @param {Array.<String>} opts.byId Filter by IDs
+   * @param {Array.<String>} opts.byId Filter by id
    * @param {module:api/ProductsApi~productsGetCallback} callback The callback function, accepting three arguments: error, data, response
    */
   productsGet(opts, callback) {
@@ -63,6 +65,8 @@ export class ProductsApi {
       page: opts["page"],
       size: opts["size"],
       sort_by: this.apiClient.buildCollectionParam(opts["sortBy"], "csv"),
+      "filters[]": this.apiClient.buildCollectionParam(opts["filters"], "multi"),
+      filters_operator: opts["filtersOperator"],
       by_name: opts["byName"],
       by_tags: this.apiClient.buildCollectionParam(opts["byTags"], "csv"),
       by_id: this.apiClient.buildCollectionParam(opts["byId"], "csv"),

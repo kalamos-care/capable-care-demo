@@ -13,9 +13,9 @@
  *
  */
 import { ApiClient } from "../ApiClient";
+import { InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes } from "./InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes";
 import { PatientsPatientEthnicities } from "./PatientsPatientEthnicities";
 import { PatientsPatientRaces } from "./PatientsPatientRaces";
-import { PatientsidPatientAddressesAttributes } from "./PatientsidPatientAddressesAttributes";
 import { PatientsidPatientPhonesAttributes } from "./PatientsidPatientPhonesAttributes";
 
 /**
@@ -69,7 +69,7 @@ export class PatientsidPatient {
         obj.organizationIds = ApiClient.convertToType(data["organization_ids"], ["String"]);
       if (data.hasOwnProperty("addresses_attributes"))
         obj.addressesAttributes = ApiClient.convertToType(data["addresses_attributes"], [
-          PatientsidPatientAddressesAttributes,
+          InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes,
         ]);
       if (data.hasOwnProperty("phones_attributes"))
         obj.phonesAttributes = ApiClient.convertToType(data["phones_attributes"], [
@@ -152,6 +152,12 @@ PatientsidPatient.GenderIdentityEnum = {
    * @const
    */
   transgenderMale: "transgender_male",
+
+  /**
+   * value: "null"
+   * @const
+   */
+  _null: "null",
 };
 /**
  * The gender the patient identifies with. The Patient's gender identity is used as guidance(e.g. for staff) about how to interact with the patient.
@@ -232,7 +238,7 @@ PatientsidPatient.prototype.identityExternalId = undefined;
 PatientsidPatient.prototype.organizationIds = undefined;
 
 /**
- * @member {Array.<module:model/PatientsidPatientAddressesAttributes>} addressesAttributes
+ * @member {Array.<module:model/InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes>} addressesAttributes
  */
 PatientsidPatient.prototype.addressesAttributes = undefined;
 

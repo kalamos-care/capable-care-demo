@@ -51,12 +51,15 @@ export class PatientsApi {
    * @param {Number} opts.page Page number (default to <.>)
    * @param {Number} opts.size Page size (default to <.>)
    * @param {Array.<module:model/String>} opts.sortBy Sort results
+   * @param {Array.<String>} opts.filters *Note: that the strings are stringified and encoded objects.*  Filter with operators.  | Field          | Operator | | ---------------| ---------| | created_at | eq, not_eq, gt, gteq, lt, lteq, in, not_in | | updated_at | eq, not_eq, gt, gteq, lt, lteq, in, not_in | | first_name | eq, not_eq, matches, does_not_match, in, not_in | | last_name | eq, not_eq, matches, does_not_match, in, not_in | | age | eq, not_eq, gt, gteq, lt, lteq, in, not_in | | email | eq, not_eq, matches, does_not_match, in, not_in | | id | eq, not_eq, matches, does_not_match, in, not_in | | tags | eq, not_eq, matches, does_not_match, in, not_in | | primary_phone_number | eq, not_eq, matches, does_not_match, in, not_in | | external_id | eq, not_eq, matches, does_not_match, in, not_in | | identity_id | eq, not_eq, matches, does_not_match, in, not_in |  Example query value: &#x60;&#x60;&#x60; { &#x27;field&#x27;: &#x27;created_at&#x27;, &#x27;operator&#x27;:&#x27;eq&#x27;, &#x27;value&#x27;:&#x27;expected_value&#x27;, } &#x60;&#x60;&#x60;  Example stringified and encoded query value: &#x60;&#x60;&#x60; %7B%22field%22%3A%22%23%7Bcreated_at%7D%22%2C%22operator%22%3A%22eq%22%2C%22value%22%3A%22expected_value%22%7D &#x60;&#x60;&#x60;
+   * @param {module:model/String} opts.filtersOperator Operator to chain filters
    * @param {String} opts.byFirstName Filter by first name
    * @param {String} opts.byLastName Filter by last name
    * @param {Array.<String>} opts.byEmail Filter by email
    * @param {Number} opts.byAge Filter by age
    * @param {Array.<String>} opts.byTags Filter by tags
-   * @param {Array.<String>} opts.byId Filter by IDs
+   * @param {Array.<String>} opts.byId Filter by id
+   * @param {String} opts.byPrimaryPhoneNumber Filter by primary phone number
    * @param {module:api/PatientsApi~patientsGetCallback} callback The callback function, accepting three arguments: error, data, response
    */
   patientsGet(opts, callback) {
@@ -68,12 +71,15 @@ export class PatientsApi {
       page: opts["page"],
       size: opts["size"],
       sort_by: this.apiClient.buildCollectionParam(opts["sortBy"], "csv"),
+      "filters[]": this.apiClient.buildCollectionParam(opts["filters"], "multi"),
+      filters_operator: opts["filtersOperator"],
       by_first_name: opts["byFirstName"],
       by_last_name: opts["byLastName"],
       by_email: this.apiClient.buildCollectionParam(opts["byEmail"], "csv"),
       by_age: opts["byAge"],
       by_tags: this.apiClient.buildCollectionParam(opts["byTags"], "csv"),
       by_id: this.apiClient.buildCollectionParam(opts["byId"], "csv"),
+      by_primary_phone_number: opts["byPrimaryPhoneNumber"],
     };
     let headerParams = {};
     let formParams = {};
@@ -86,6 +92,54 @@ export class PatientsApi {
     return this.apiClient.callApi(
       "/patients",
       "GET",
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      callback
+    );
+  }
+  /**
+   * Callback function to receive the result of the patientsIdArchiveDelete operation.
+   * @callback moduleapi/PatientsApi~patientsIdArchiveDeleteCallback
+   * @param {String} error Error message, if any.
+   * @param data This operation does not return a value.
+   * @param {String} response The complete HTTP response.
+   */
+
+  /**
+   * Archive a Patient
+   * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#10060; &lt;s&gt;Patient&lt;/s&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#10060; &lt;s&gt;Practitioner&lt;/s&gt;&lt;/p&gt;
+   * @param {String} id
+   * @param {module:api/PatientsApi~patientsIdArchiveDeleteCallback} callback The callback function, accepting three arguments: error, data, response
+   */
+  patientsIdArchiveDelete(id, callback) {
+    let postBody = null;
+    // verify the required parameter 'id' is set
+    if (id === undefined || id === null) {
+      throw new Error("Missing the required parameter 'id' when calling patientsIdArchiveDelete");
+    }
+
+    let pathParams = {
+      id: id,
+    };
+    let queryParams = {};
+    let headerParams = {};
+    let formParams = {};
+
+    let authNames = [];
+    let contentTypes = [];
+    let accepts = ["application/json"];
+    let returnType = null;
+
+    return this.apiClient.callApi(
+      "/patients/{id}/archive",
+      "DELETE",
       pathParams,
       queryParams,
       headerParams,

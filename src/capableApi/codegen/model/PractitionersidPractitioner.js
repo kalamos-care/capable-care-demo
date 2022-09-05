@@ -16,6 +16,8 @@ import { ApiClient } from "../ApiClient";
 import { PatientsPatientEthnicities } from "./PatientsPatientEthnicities";
 import { PatientsPatientRaces } from "./PatientsPatientRaces";
 import { PractitionersidPractitionerAddressesAttributes } from "./PractitionersidPractitionerAddressesAttributes";
+import { PractitionersidPractitionerPhonesAttributes } from "./PractitionersidPractitionerPhonesAttributes";
+import { PractitionersinvitePractitionerRenderingNpiAttributes } from "./PractitionersinvitePractitionerRenderingNpiAttributes";
 
 /**
  * The PractitionersidPractitioner model module.
@@ -46,6 +48,8 @@ export class PractitionersidPractitioner {
         obj.middleName = ApiClient.convertToType(data["middle_name"], "String");
       if (data.hasOwnProperty("last_name"))
         obj.lastName = ApiClient.convertToType(data["last_name"], "String");
+      if (data.hasOwnProperty("biography"))
+        obj.biography = ApiClient.convertToType(data["biography"], "String");
       if (data.hasOwnProperty("birth_date"))
         obj.birthDate = ApiClient.convertToType(data["birth_date"], "Date");
       if (data.hasOwnProperty("gender_identity"))
@@ -68,10 +72,19 @@ export class PractitionersidPractitioner {
         obj.addressesAttributes = ApiClient.convertToType(data["addresses_attributes"], [
           PractitionersidPractitionerAddressesAttributes,
         ]);
+      if (data.hasOwnProperty("phones_attributes"))
+        obj.phonesAttributes = ApiClient.convertToType(data["phones_attributes"], [
+          PractitionersidPractitionerPhonesAttributes,
+        ]);
       if (data.hasOwnProperty("tag_list"))
         obj.tagList = ApiClient.convertToType(data["tag_list"], ["String"]);
       if (data.hasOwnProperty("metadata"))
         obj.metadata = ApiClient.convertToType(data["metadata"], { String: Object });
+      if (data.hasOwnProperty("rendering_npi_attributes"))
+        obj.renderingNpiAttributes =
+          PractitionersinvitePractitionerRenderingNpiAttributes.constructFromObject(
+            data["rendering_npi_attributes"]
+          );
     }
     return obj;
   }
@@ -91,6 +104,11 @@ PractitionersidPractitioner.prototype.middleName = undefined;
  * @member {String} lastName
  */
 PractitionersidPractitioner.prototype.lastName = undefined;
+
+/**
+ * @member {String} biography
+ */
+PractitionersidPractitioner.prototype.biography = undefined;
 
 /**
  * yyyy-mm-dd (ISO 8601)
@@ -145,6 +163,12 @@ PractitionersidPractitioner.GenderIdentityEnum = {
    * @const
    */
   transgenderMale: "transgender_male",
+
+  /**
+   * value: "null"
+   * @const
+   */
+  _null: "null",
 };
 /**
  * The gender the practitioner identifies with.
@@ -224,6 +248,11 @@ PractitionersidPractitioner.prototype.organizationIds = undefined;
 PractitionersidPractitioner.prototype.addressesAttributes = undefined;
 
 /**
+ * @member {Array.<module:model/PractitionersidPractitionerPhonesAttributes>} phonesAttributes
+ */
+PractitionersidPractitioner.prototype.phonesAttributes = undefined;
+
+/**
  * Add an array of strings to help manage your resources
  * @member {Array.<String>} tagList
  */
@@ -234,3 +263,8 @@ PractitionersidPractitioner.prototype.tagList = undefined;
  * @member {Object.<String, Object>} metadata
  */
 PractitionersidPractitioner.prototype.metadata = undefined;
+
+/**
+ * @member {module:model/PractitionersinvitePractitionerRenderingNpiAttributes} renderingNpiAttributes
+ */
+PractitionersidPractitioner.prototype.renderingNpiAttributes = undefined;

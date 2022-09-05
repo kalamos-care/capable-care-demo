@@ -100,7 +100,7 @@ PatientsPatientAddressesAttributes.prototype.country = undefined;
 PatientsPatientAddressesAttributes.prototype.zip = undefined;
 
 /**
- * Primary adress. Only one allowed per patient.
+ * Primary address. Only one allowed per patient.
  * @member {Boolean} primary
  */
 PatientsPatientAddressesAttributes.prototype.primary = undefined;

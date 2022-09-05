@@ -13,6 +13,7 @@
  *
  */
 import { ApiClient } from "../ApiClient";
+import { PatientRelatedPersonsBody } from "../model/PatientRelatedPersonsBody";
 
 /**
  * PatientRelatedPersons service.
@@ -47,8 +48,8 @@ export class PatientRelatedPersonsApi {
    * @param {Number} opts.page Page number (default to <.>)
    * @param {Number} opts.size Page size (default to <.>)
    * @param {Array.<module:model/String>} opts.sortBy Sort results
-   * @param {Array.<String>} opts.byId Filter by IDs
-   * @param {Array.<String>} opts.byPatientId Filter by patient ID
+   * @param {Array.<String>} opts.filters *Note: that the strings are stringified and encoded objects.*  Filter with operators.  | Field          | Operator | | ---------------| ---------| | patient_id | eq, not_eq, matches, does_not_match, in, not_in | | id | eq, not_eq, matches, does_not_match, in, not_in | | relationship_type | eq, not_eq, matches, does_not_match, in, not_in | | related_person_id | eq, not_eq, matches, does_not_match, in, not_in |  Example query value: &#x60;&#x60;&#x60; { &#x27;field&#x27;: &#x27;patient_id&#x27;, &#x27;operator&#x27;:&#x27;eq&#x27;, &#x27;value&#x27;:&#x27;expected_value&#x27;, } &#x60;&#x60;&#x60;  Example stringified and encoded query value: &#x60;&#x60;&#x60; %7B%22field%22%3A%22%23%7Bpatient_id%7D%22%2C%22operator%22%3A%22eq%22%2C%22value%22%3A%22expected_value%22%7D &#x60;&#x60;&#x60;
+   * @param {module:model/String} opts.filtersOperator Operator to chain filters
    * @param {module:api/PatientRelatedPersonsApi~patientRelatedPersonsGetCallback} callback The callback function, accepting three arguments: error, data, response
    */
   patientRelatedPersonsGet(opts, callback) {
@@ -60,8 +61,8 @@ export class PatientRelatedPersonsApi {
       page: opts["page"],
       size: opts["size"],
       sort_by: this.apiClient.buildCollectionParam(opts["sortBy"], "csv"),
-      by_id: this.apiClient.buildCollectionParam(opts["byId"], "csv"),
-      by_patient_id: this.apiClient.buildCollectionParam(opts["byPatientId"], "csv"),
+      "filters[]": this.apiClient.buildCollectionParam(opts["filters"], "multi"),
+      filters_operator: opts["filtersOperator"],
     };
     let headerParams = {};
     let formParams = {};
@@ -74,6 +75,149 @@ export class PatientRelatedPersonsApi {
     return this.apiClient.callApi(
       "/patient_related_persons",
       "GET",
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      callback
+    );
+  }
+  /**
+   * Callback function to receive the result of the patientRelatedPersonsIdArchiveDelete operation.
+   * @callback moduleapi/PatientRelatedPersonsApi~patientRelatedPersonsIdArchiveDeleteCallback
+   * @param {String} error Error message, if any.
+   * @param data This operation does not return a value.
+   * @param {String} response The complete HTTP response.
+   */
+
+  /**
+   * Delete a Patient Related Person
+   * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#10060; &lt;s&gt;Patient&lt;/s&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
+   * @param {String} id
+   * @param {module:api/PatientRelatedPersonsApi~patientRelatedPersonsIdArchiveDeleteCallback} callback The callback function, accepting three arguments: error, data, response
+   */
+  patientRelatedPersonsIdArchiveDelete(id, callback) {
+    let postBody = null;
+    // verify the required parameter 'id' is set
+    if (id === undefined || id === null) {
+      throw new Error(
+        "Missing the required parameter 'id' when calling patientRelatedPersonsIdArchiveDelete"
+      );
+    }
+
+    let pathParams = {
+      id: id,
+    };
+    let queryParams = {};
+    let headerParams = {};
+    let formParams = {};
+
+    let authNames = [];
+    let contentTypes = [];
+    let accepts = ["application/json"];
+    let returnType = null;
+
+    return this.apiClient.callApi(
+      "/patient_related_persons/{id}/archive",
+      "DELETE",
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      callback
+    );
+  }
+  /**
+   * Callback function to receive the result of the patientRelatedPersonsIdGet operation.
+   * @callback moduleapi/PatientRelatedPersonsApi~patientRelatedPersonsIdGetCallback
+   * @param {String} error Error message, if any.
+   * @param data This operation does not return a value.
+   * @param {String} response The complete HTTP response.
+   */
+
+  /**
+   * Retrieve a Patient Related Person
+   * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#10060; &lt;s&gt;Patient&lt;/s&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
+   * @param {String} id
+   * @param {module:api/PatientRelatedPersonsApi~patientRelatedPersonsIdGetCallback} callback The callback function, accepting three arguments: error, data, response
+   */
+  patientRelatedPersonsIdGet(id, callback) {
+    let postBody = null;
+    // verify the required parameter 'id' is set
+    if (id === undefined || id === null) {
+      throw new Error(
+        "Missing the required parameter 'id' when calling patientRelatedPersonsIdGet"
+      );
+    }
+
+    let pathParams = {
+      id: id,
+    };
+    let queryParams = {};
+    let headerParams = {};
+    let formParams = {};
+
+    let authNames = [];
+    let contentTypes = [];
+    let accepts = ["application/json"];
+    let returnType = null;
+
+    return this.apiClient.callApi(
+      "/patient_related_persons/{id}",
+      "GET",
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      callback
+    );
+  }
+  /**
+   * Callback function to receive the result of the patientRelatedPersonsPost operation.
+   * @callback moduleapi/PatientRelatedPersonsApi~patientRelatedPersonsPostCallback
+   * @param {String} error Error message, if any.
+   * @param data This operation does not return a value.
+   * @param {String} response The complete HTTP response.
+   */
+
+  /**
+   * Create a Patient relationship
+   * @param {Object} opts Optional parameters
+   * @param {module:model/PatientRelatedPersonsBody} opts.body
+   * @param {module:api/PatientRelatedPersonsApi~patientRelatedPersonsPostCallback} callback The callback function, accepting three arguments: error, data, response
+   */
+  patientRelatedPersonsPost(opts, callback) {
+    opts = opts || {};
+    let postBody = opts["body"];
+
+    let pathParams = {};
+    let queryParams = {};
+    let headerParams = {};
+    let formParams = {};
+
+    let authNames = [];
+    let contentTypes = ["application/json"];
+    let accepts = ["application/json"];
+    let returnType = null;
+
+    return this.apiClient.callApi(
+      "/patient_related_persons",
+      "POST",
       pathParams,
       queryParams,
       headerParams,

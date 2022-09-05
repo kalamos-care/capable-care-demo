@@ -41,6 +41,8 @@ export class ProductsProduct {
     if (data) {
       obj = obj || new ProductsProduct();
       if (data.hasOwnProperty("name")) obj.name = ApiClient.convertToType(data["name"], "String");
+      if (data.hasOwnProperty("retail_price_cents"))
+        obj.retailPriceCents = ApiClient.convertToType(data["retail_price_cents"], "Number");
       if (data.hasOwnProperty("external_id"))
         obj.externalId = ApiClient.convertToType(data["external_id"], "String");
       if (data.hasOwnProperty("metadata"))
@@ -55,10 +57,6 @@ export class ProductsProduct {
         obj.providerProductId = ApiClient.convertToType(data["provider_product_id"], "String");
       if (data.hasOwnProperty("provider_product_type"))
         obj.providerProductType = ApiClient.convertToType(data["provider_product_type"], "String");
-      if (data.hasOwnProperty("mdi_medication_id"))
-        obj.mdiMedicationId = ApiClient.convertToType(data["mdi_medication_id"], "String");
-      if (data.hasOwnProperty("mdi_compound_id"))
-        obj.mdiCompoundId = ApiClient.convertToType(data["mdi_compound_id"], "String");
     }
     return obj;
   }
@@ -69,6 +67,12 @@ export class ProductsProduct {
  * @member {String} name
  */
 ProductsProduct.prototype.name = undefined;
+
+/**
+ * Retail price in cents
+ * @member {Number} retailPriceCents
+ */
+ProductsProduct.prototype.retailPriceCents = undefined;
 
 /**
  * External ID reference for the product
@@ -147,15 +151,3 @@ ProductsProduct.prototype.providerProductId = undefined;
  * @member {String} providerProductType
  */
 ProductsProduct.prototype.providerProductType = undefined;
-
-/**
- * MDI partner_medication_id of the medication
- * @member {String} mdiMedicationId
- */
-ProductsProduct.prototype.mdiMedicationId = undefined;
-
-/**
- * MDI partner_compound_id of the compound
- * @member {String} mdiCompoundId
- */
-ProductsProduct.prototype.mdiCompoundId = undefined;

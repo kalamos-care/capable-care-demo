@@ -36,47 +36,6 @@ export class SubscriptionsApi {
   }
 
   /**
-   * Callback function to receive the result of the subscriptionPlansGet operation.
-   * @callback moduleapi/SubscriptionsApi~subscriptionPlansGetCallback
-   * @param {String} error Error message, if any.
-   * @param data This operation does not return a value.
-   * @param {String} response The complete HTTP response.
-   */
-
-  /**
-   * Stripe Tenant Subscription Plans
-   * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Patient&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
-   * @param {module:api/SubscriptionsApi~subscriptionPlansGetCallback} callback The callback function, accepting three arguments: error, data, response
-   */
-  subscriptionPlansGet(callback) {
-    let postBody = null;
-
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {};
-    let formParams = {};
-
-    let authNames = [];
-    let contentTypes = [];
-    let accepts = ["application/json"];
-    let returnType = null;
-
-    return this.apiClient.callApi(
-      "/subscription_plans",
-      "GET",
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      callback
-    );
-  }
-  /**
    * Callback function to receive the result of the subscriptionsGet operation.
    * @callback moduleapi/SubscriptionsApi~subscriptionsGetCallback
    * @param {String} error Error message, if any.
@@ -85,7 +44,7 @@ export class SubscriptionsApi {
    */
 
   /**
-   * Stripe Customer(Patient) Subscriptions
+   * Retrieve Stripe Subscriptions
    * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Patient&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
    * @param {Object} opts Optional parameters
    * @param {Number} opts.size Page size (default to <.>)
@@ -137,7 +96,7 @@ export class SubscriptionsApi {
    */
 
   /**
-   * Update a Stripe Customer(Patient) Subscription
+   * Cancel a Stripe Subscription
    * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Patient&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
    * @param {String} id
    * @param {Object} opts Optional parameters
@@ -188,7 +147,7 @@ export class SubscriptionsApi {
    */
 
   /**
-   * Update a Stripe Customer(Patient) Subscription
+   * Update a Stripe Subscription
    * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Patient&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
    * @param {String} id
    * @param {Object} opts Optional parameters
@@ -239,7 +198,7 @@ export class SubscriptionsApi {
    */
 
   /**
-   * Create a Stripe Customer(Patient) Subscription
+   * Create a Stripe Subscription
    * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Patient&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
    * @param {Object} opts Optional parameters
    * @param {module:model/SubscriptionsBody} opts.body

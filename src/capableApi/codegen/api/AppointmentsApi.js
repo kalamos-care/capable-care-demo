@@ -48,7 +48,7 @@ export class AppointmentsApi {
    * @param {Object} opts Optional parameters
    * @param {Date} opts.scheduledBefore Filter all appointments before this date (inclusive)
    * @param {Date} opts.scheduledAfter Filter all appointments after this date (inclusive)
-   * @param {Array.<Date>} opts.attendeeIds Filter by attendees
+   * @param {Array.<String>} opts.attendeeIds Filter by attendees
    * @param {Number} opts.page Page number (default to <.>)
    * @param {Number} opts.size Page size (default to <.>)
    * @param {module:api/AppointmentsApi~appointmentsGetCallback} callback The callback function, accepting three arguments: error, data, response
@@ -118,7 +118,7 @@ export class AppointmentsApi {
 
     let authNames = [];
     let contentTypes = [];
-    let accepts = ["application/json"];
+    let accepts = [];
     let returnType = null;
 
     return this.apiClient.callApi(

@@ -48,7 +48,7 @@ export class AttachmentsApi {
    * @param {Number} opts.page Page number (default to <.>)
    * @param {Number} opts.size Page size (default to <.>)
    * @param {Array.<module:model/String>} opts.sortBy Sort results
-   * @param {Array.<String>} opts.byId Filter by IDs
+   * @param {Array.<String>} opts.byId Filter by id
    * @param {Array.<String>} opts.byUserId Filter by user_id
    * @param {Array.<String>} opts.byFileType Filter by file_type
    * @param {module:api/AttachmentsApi~attachmentsGetCallback} callback The callback function, accepting three arguments: error, data, response

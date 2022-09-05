@@ -15,28 +15,28 @@
 import { ApiClient } from "../ApiClient";
 
 /**
- * The PatientsidPatientAddressesAttributes model module.
- * @module model/PatientsidPatientAddressesAttributes
+ * The InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes model module.
+ * @module model/InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes
  * @version v0.3
  */
-export class PatientsidPatientAddressesAttributes {
+export class InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes {
   /**
-   * Constructs a new <code>PatientsidPatientAddressesAttributes</code>.
-   * @alias module:model/PatientsidPatientAddressesAttributes
+   * Constructs a new <code>InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes</code>.
+   * @alias module:model/InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes
    * @class
    */
   constructor() {}
 
   /**
-   * Constructs a <code>PatientsidPatientAddressesAttributes</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/PatientsidPatientAddressesAttributes} obj Optional instance to populate.
-   * @return {module:model/PatientsidPatientAddressesAttributes} The populated <code>PatientsidPatientAddressesAttributes</code> instance.
+   * @param {module:model/InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes} obj Optional instance to populate.
+   * @return {module:model/InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes} The populated <code>InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes</code> instance.
    */
   static constructFromObject(data, obj) {
     if (data) {
-      obj = obj || new PatientsidPatientAddressesAttributes();
+      obj = obj || new InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes();
       if (data.hasOwnProperty("id")) obj.id = ApiClient.convertToType(data["id"], "String");
       if (data.hasOwnProperty("line1"))
         obj.line1 = ApiClient.convertToType(data["line1"], "String");
@@ -63,52 +63,55 @@ export class PatientsidPatientAddressesAttributes {
  * Provide an address ID only when updating an existing address
  * @member {String} id
  */
-PatientsidPatientAddressesAttributes.prototype.id = undefined;
+InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes.prototype.id = undefined;
 
 /**
  * @member {String} line1
  */
-PatientsidPatientAddressesAttributes.prototype.line1 = undefined;
+InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes.prototype.line1 = undefined;
 
 /**
  * @member {String} line2
  */
-PatientsidPatientAddressesAttributes.prototype.line2 = undefined;
+InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes.prototype.line2 = undefined;
 
 /**
  * @member {String} city
  */
-PatientsidPatientAddressesAttributes.prototype.city = undefined;
+InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes.prototype.city = undefined;
 
 /**
  * @member {String} state
  */
-PatientsidPatientAddressesAttributes.prototype.state = undefined;
+InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes.prototype.state = undefined;
 
 /**
  * @member {String} country
  */
-PatientsidPatientAddressesAttributes.prototype.country = undefined;
+InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes.prototype.country =
+  undefined;
 
 /**
  * @member {String} zip
  */
-PatientsidPatientAddressesAttributes.prototype.zip = undefined;
+InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes.prototype.zip = undefined;
 
 /**
- * Primary adress. Only one allowed per patient.
+ * Primary address. Only one allowed per patient.
  * @member {Boolean} primary
  */
-PatientsidPatientAddressesAttributes.prototype.primary = undefined;
+InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes.prototype.primary =
+  undefined;
 
 /**
  * A label for the address, such as \"home\", \"office\", \"grandma's house\", etc.
  * @member {String} label
  */
-PatientsidPatientAddressesAttributes.prototype.label = undefined;
+InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes.prototype.label = undefined;
 
 /**
  * Indicates whether the address is active
  * @member {Boolean} active
  */
-PatientsidPatientAddressesAttributes.prototype.active = undefined;
+InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes.prototype.active =
+  undefined;

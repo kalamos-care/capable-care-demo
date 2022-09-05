@@ -107,6 +107,30 @@ CarePlansCarePlan.StatusEnum = {
    * @const
    */
   revoked: "revoked",
+
+  /**
+   * value: "draft"
+   * @const
+   */
+  draft: "draft",
+
+  /**
+   * value: "on_hold"
+   * @const
+   */
+  onHold: "on_hold",
+
+  /**
+   * value: "entered_in_error"
+   * @const
+   */
+  enteredInError: "entered_in_error",
+
+  /**
+   * value: "unknown"
+   * @const
+   */
+  unknown: "unknown",
 };
 /**
  * Status of the care plan

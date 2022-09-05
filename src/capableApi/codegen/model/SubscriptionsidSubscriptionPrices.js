@@ -48,13 +48,13 @@ export class SubscriptionsidSubscriptionPrices {
 }
 
 /**
- * ID of the price line item you want to update
+ * ID of the Stripe price line item you want to update
  * @member {String} id
  */
 SubscriptionsidSubscriptionPrices.prototype.id = undefined;
 
 /**
- * New price(plan) for the subscription line item
+ * New price (plan) for the subscription line item
  * @member {String} price
  */
 SubscriptionsidSubscriptionPrices.prototype.price = undefined;

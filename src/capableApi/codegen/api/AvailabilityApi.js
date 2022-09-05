@@ -43,10 +43,10 @@ export class AvailabilityApi {
   /**
    * Retrieve all available appointments
    * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Patient&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
-   * @param {String} fromDate The start date &amp; time of when you want to filter.(inclusive)
+   * @param {String} fromDate The start date and time you want to filter by (inclusive). Format: YYYY-MM-DDTHH:MM:SSZ
    * @param {String} appointmentTypeId
    * @param {Object} opts Optional parameters
-   * @param {String} opts.toDate The last date &amp; time you want to filter by. Max 7 days from the from_date. (inclusive)
+   * @param {String} opts.toDate The last date and time you want to filter by (inclusive). Maximum seven days from the from_date. Format: YYYY-MM-DDTHH:MM:SSZ
    * @param {String} opts.calendarId
    * @param {Number} opts.page Page number (default to <.>)
    * @param {Number} opts.size Page size (default to <.>)

@@ -46,13 +46,13 @@ export class CarePlansApi {
    * List all Care Plans
    * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Patient&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
    * @param {Object} opts Optional parameters
-   * @param {Array.<String>} opts.byPatientId Filter by patient ID
+   * @param {Array.<String>} opts.byPatientId Filter by patient id
    * @param {Number} opts.page Page number (default to <.>)
    * @param {Number} opts.size Page size (default to <.>)
    * @param {Array.<module:model/String>} opts.sortBy Sort results
    * @param {String} opts.byName Filter by name
    * @param {Array.<String>} opts.byTags Filter by tags
-   * @param {Array.<String>} opts.byId Filter by IDs
+   * @param {Array.<String>} opts.byId Filter by id
    * @param {String} opts.search Search records against name and description
    * @param {module:api/CarePlansApi~carePlansGetCallback} callback The callback function, accepting three arguments: error, data, response
    */

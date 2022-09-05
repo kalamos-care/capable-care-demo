@@ -52,7 +52,7 @@ export class GoalTemplatesApi {
    * @param {String} opts.byName Filter by name
    * @param {String} opts.byExternalId Filter by external ID
    * @param {Array.<String>} opts.byTags Filter by tags
-   * @param {Array.<String>} opts.byId Filter by IDs
+   * @param {Array.<String>} opts.byId Filter by id
    * @param {module:api/GoalTemplatesApi~goalsTemplatesGetCallback} callback The callback function, accepting three arguments: error, data, response
    */
   goalsTemplatesGet(opts, callback) {

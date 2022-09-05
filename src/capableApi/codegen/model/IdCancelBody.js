@@ -13,7 +13,7 @@
  *
  */
 import { ApiClient } from "../ApiClient";
-import { SubscriptionsSubscription } from "./SubscriptionsSubscription";
+import { SubscriptionsidcancelSubscription } from "./SubscriptionsidcancelSubscription";
 
 /**
  * The IdCancelBody model module.
@@ -39,13 +39,15 @@ export class IdCancelBody {
     if (data) {
       obj = obj || new IdCancelBody();
       if (data.hasOwnProperty("subscription"))
-        obj.subscription = SubscriptionsSubscription.constructFromObject(data["subscription"]);
+        obj.subscription = SubscriptionsidcancelSubscription.constructFromObject(
+          data["subscription"]
+        );
     }
     return obj;
   }
 }
 
 /**
- * @member {module:model/SubscriptionsSubscription} subscription
+ * @member {module:model/SubscriptionsidcancelSubscription} subscription
  */
 IdCancelBody.prototype.subscription = undefined;

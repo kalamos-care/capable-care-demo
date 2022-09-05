@@ -51,6 +51,16 @@ export class IntegrationscurexaCurexaIntegration1 {
           data["automatic_order_creation"],
           "Boolean"
         );
+      if (data.hasOwnProperty("allow_patient_bypass_of_order_approval"))
+        obj.allowPatientBypassOfOrderApproval = ApiClient.convertToType(
+          data["allow_patient_bypass_of_order_approval"],
+          "Boolean"
+        );
+      if (data.hasOwnProperty("require_payment_for_patient_orders"))
+        obj.requirePaymentForPatientOrders = ApiClient.convertToType(
+          data["require_payment_for_patient_orders"],
+          "Boolean"
+        );
     }
     return obj;
   }
@@ -76,3 +86,17 @@ IntegrationscurexaCurexaIntegration1.prototype.enabled = undefined;
  * @member {Boolean} automaticOrderCreation
  */
 IntegrationscurexaCurexaIntegration1.prototype.automaticOrderCreation = undefined;
+
+/**
+ * If set to 'true', requests made with a patient token will be authorized to create orders that don't require tenant approval.
+ * @member {Boolean} allowPatientBypassOfOrderApproval
+ * @default false
+ */
+IntegrationscurexaCurexaIntegration1.prototype.allowPatientBypassOfOrderApproval = false;
+
+/**
+ * If set to 'true', orders will be created with a status of 'awaiting_payment' until the patient pays for the order.
+ * @member {Boolean} requirePaymentForPatientOrders
+ * @default false
+ */
+IntegrationscurexaCurexaIntegration1.prototype.requirePaymentForPatientOrders = false;

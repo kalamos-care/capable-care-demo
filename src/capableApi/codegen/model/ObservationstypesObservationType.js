@@ -274,6 +274,12 @@ ObservationstypesObservationType.UnitEnum = {
    * @const
    */
   ratio: "ratio",
+
+  /**
+   * value: "Enzyme Unit Per Liter"
+   * @const
+   */
+  enzymeUnitPerLiter: "Enzyme Unit Per Liter",
 };
 /**
  * Unit of the measured value. Must be populated for any data type of integer or float

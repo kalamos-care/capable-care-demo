@@ -178,9 +178,12 @@ export class ConversationsApi {
    * Retrieve Conversations
    * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#10060; &lt;s&gt;Patient&lt;/s&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
    * @param {Object} opts Optional parameters
-   * @param {Array.<String>} opts.byUserId Filter by user ID
+   * @param {Array.<String>} opts.byId Filter by id
+   * @param {Array.<String>} opts.byUserId Filter by user id
    * @param {Array.<String>} opts.byTwilioSid Filter by Twilio SID
    * @param {Array.<String>} opts.byConversationType Filter by conversation type
+   * @param {Number} opts.page Page number (default to <.>)
+   * @param {Number} opts.size Page size (default to <.>)
    * @param {module:api/ConversationsApi~conversationsGetCallback} callback The callback function, accepting three arguments: error, data, response
    */
   conversationsGet(opts, callback) {
@@ -189,9 +192,12 @@ export class ConversationsApi {
 
     let pathParams = {};
     let queryParams = {
+      by_id: this.apiClient.buildCollectionParam(opts["byId"], "csv"),
       by_user_id: this.apiClient.buildCollectionParam(opts["byUserId"], "csv"),
       by_twilio_sid: this.apiClient.buildCollectionParam(opts["byTwilioSid"], "csv"),
       by_conversation_type: this.apiClient.buildCollectionParam(opts["byConversationType"], "csv"),
+      page: opts["page"],
+      size: opts["size"],
     };
     let headerParams = {};
     let formParams = {};

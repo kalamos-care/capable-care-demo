@@ -51,6 +51,8 @@ export class WorkflowsPersonalizationRuleSet {
         obj.description = ApiClient.convertToType(data["description"], "String");
       if (data.hasOwnProperty("active"))
         obj.active = ApiClient.convertToType(data["active"], "Boolean");
+      if (data.hasOwnProperty("triggers"))
+        obj.triggers = ApiClient.convertToType(data["triggers"], ["String"]);
       if (data.hasOwnProperty("rules"))
         obj.rules = ApiClient.convertToType(data["rules"], [WorkflowsPersonalizationRuleSetRules]);
       if (data.hasOwnProperty("nodes"))
@@ -77,6 +79,41 @@ WorkflowsPersonalizationRuleSet.prototype.description = undefined;
  * @member {Boolean} active
  */
 WorkflowsPersonalizationRuleSet.prototype.active = undefined;
+
+/**
+ * Allowed values for the <code>triggers</code> property.
+ * @enum {String}
+ * @readonly
+ */
+WorkflowsPersonalizationRuleSet.TriggersEnum = {
+  /**
+   * value: "patient create"
+   * @const
+   */
+  patientCreate: "patient create",
+
+  /**
+   * value: "patient update"
+   * @const
+   */
+  patientUpdate: "patient update",
+
+  /**
+   * value: "submission create"
+   * @const
+   */
+  submissionCreate: "submission create",
+
+  /**
+   * value: "submission update"
+   * @const
+   */
+  submissionUpdate: "submission update",
+};
+/**
+ * @member {Array.<module:model/WorkflowsPersonalizationRuleSet.TriggersEnum>} triggers
+ */
+WorkflowsPersonalizationRuleSet.prototype.triggers = undefined;
 
 /**
  * @member {Array.<module:model/WorkflowsPersonalizationRuleSetRules>} rules

@@ -49,7 +49,7 @@ export class OrganizationsApi {
    * @param {Number} opts.page Page number (default to <.>)
    * @param {Number} opts.size Page size (default to <.>)
    * @param {Array.<module:model/String>} opts.sortBy Sort results
-   * @param {Array.<String>} opts.byId Filter by IDs
+   * @param {Array.<String>} opts.byId Filter by id
    * @param {module:api/OrganizationsApi~organizationsGetCallback} callback The callback function, accepting three arguments: error, data, response
    */
   organizationsGet(opts, callback) {

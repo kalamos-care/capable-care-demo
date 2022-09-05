@@ -50,6 +50,8 @@ export class PatientsinvitePatient {
         );
       if (data.hasOwnProperty("relationship_type"))
         obj.relationshipType = ApiClient.convertToType(data["relationship_type"], "String");
+      if (data.hasOwnProperty("send_invite_sms"))
+        obj.sendInviteSms = ApiClient.convertToType(data["send_invite_sms"], "Boolean");
       if (data.hasOwnProperty("email"))
         obj.email = ApiClient.convertToType(data["email"], "String");
       if (data.hasOwnProperty("first_name"))
@@ -814,12 +816,25 @@ PatientsinvitePatient.RelationshipTypeEnum = {
    * @const
    */
   roommate: "Roommate",
+
+  /**
+   * value: "Practitioner"
+   * @const
+   */
+  practitioner: "Practitioner",
 };
 /**
  * If the patient wants to be related to the patient he invites (Only available when a Patient invites another Patient)
  * @member {module:model/PatientsinvitePatient.RelationshipTypeEnum} relationshipType
  */
 PatientsinvitePatient.prototype.relationshipType = undefined;
+
+/**
+ * If this parameter is set to `true`, a welcome message will be sent via SMS to the invited Patient (applies only to Patients using passwordless login)
+ * @member {Boolean} sendInviteSms
+ * @default true
+ */
+PatientsinvitePatient.prototype.sendInviteSms = true;
 
 /**
  * @member {String} email

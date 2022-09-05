@@ -30,6 +30,14 @@ import { ConversationsCreateGroupChatBody } from "./model/ConversationsCreateGro
 import { ConversationsCreateGroupSmsBody } from "./model/ConversationsCreateGroupSmsBody";
 import { ConversationsaddChatParticipantConversation } from "./model/ConversationsaddChatParticipantConversation";
 import { ConversationscreateGroupChatConversation } from "./model/ConversationscreateGroupChatConversation";
+import { EligibilitiesBody } from "./model/EligibilitiesBody";
+import { EligibilitiesEligibility } from "./model/EligibilitiesEligibility";
+import { EncountersBody } from "./model/EncountersBody";
+import { EncountersEncounter } from "./model/EncountersEncounter";
+import { EncountersEncounterNotesAttributes } from "./model/EncountersEncounterNotesAttributes";
+import { EncountersIdBody } from "./model/EncountersIdBody";
+import { EncountersidEncounter } from "./model/EncountersidEncounter";
+import { EncountersidEncounterNotesAttributes } from "./model/EncountersidEncounterNotesAttributes";
 import { GoalsBody } from "./model/GoalsBody";
 import { GoalsGoal } from "./model/GoalsGoal";
 import { GoalsGoalTargetsAttributes } from "./model/GoalsGoalTargetsAttributes";
@@ -44,12 +52,29 @@ import { IdAddMedicationsBody } from "./model/IdAddMedicationsBody";
 import { IdAvatarBody } from "./model/IdAvatarBody";
 import { IdAvatarBody1 } from "./model/IdAvatarBody1";
 import { IdCancelBody } from "./model/IdCancelBody";
+import { IdCardBody } from "./model/IdCardBody";
 import { IdLogoBody } from "./model/IdLogoBody";
 import { IdRescheduleBody } from "./model/IdRescheduleBody";
+import { InsuranceClaimsBody } from "./model/InsuranceClaimsBody";
+import { InsuranceClaimsInsuranceClaim } from "./model/InsuranceClaimsInsuranceClaim";
+import { InsuranceClaimsInsuranceClaimAddressAttributes } from "./model/InsuranceClaimsInsuranceClaimAddressAttributes";
+import { InsuranceClaimsInsuranceClaimInsuranceClaimLineDiagnosesAttributes } from "./model/InsuranceClaimsInsuranceClaimInsuranceClaimLineDiagnosesAttributes";
+import { InsuranceClaimsInsuranceClaimInsuranceClaimLinesAttributes } from "./model/InsuranceClaimsInsuranceClaimInsuranceClaimLinesAttributes";
+import { InsurancePoliciesBody } from "./model/InsurancePoliciesBody";
+import { InsurancePoliciesIdBody } from "./model/InsurancePoliciesIdBody";
+import { InsurancePoliciesInsurancePolicy } from "./model/InsurancePoliciesInsurancePolicy";
+import { InsurancePoliciesInsurancePolicyPayerIdentificationAttributes } from "./model/InsurancePoliciesInsurancePolicyPayerIdentificationAttributes";
+import { InsurancePoliciesInsurancePolicySubscriberAttributes } from "./model/InsurancePoliciesInsurancePolicySubscriberAttributes";
+import { InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes } from "./model/InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes";
+import { InsurancePoliciesidInsurancePolicy } from "./model/InsurancePoliciesidInsurancePolicy";
+import { InsurancePoliciesidInsurancePolicySubscriberAttributes } from "./model/InsurancePoliciesidInsurancePolicySubscriberAttributes";
+import { InsurancePoliciesidcardInsurancePolicy } from "./model/InsurancePoliciesidcardInsurancePolicy";
 import { IntegrationsAcuityBody } from "./model/IntegrationsAcuityBody";
 import { IntegrationsAcuityBody1 } from "./model/IntegrationsAcuityBody1";
 import { IntegrationsButterflyLabsBody } from "./model/IntegrationsButterflyLabsBody";
 import { IntegrationsButterflyLabsBody1 } from "./model/IntegrationsButterflyLabsBody1";
+import { IntegrationsCandidBody } from "./model/IntegrationsCandidBody";
+import { IntegrationsCandidBody1 } from "./model/IntegrationsCandidBody1";
 import { IntegrationsCurexaBody } from "./model/IntegrationsCurexaBody";
 import { IntegrationsCurexaBody1 } from "./model/IntegrationsCurexaBody1";
 import { IntegrationsFreshpaintBody } from "./model/IntegrationsFreshpaintBody";
@@ -62,6 +87,8 @@ import { IntegrationsMdiBody } from "./model/IntegrationsMdiBody";
 import { IntegrationsMdiBody1 } from "./model/IntegrationsMdiBody1";
 import { IntegrationsSegmentBody } from "./model/IntegrationsSegmentBody";
 import { IntegrationsSegmentBody1 } from "./model/IntegrationsSegmentBody1";
+import { IntegrationsShopifyBody } from "./model/IntegrationsShopifyBody";
+import { IntegrationsShopifyBody1 } from "./model/IntegrationsShopifyBody1";
 import { IntegrationsStripeBody } from "./model/IntegrationsStripeBody";
 import { IntegrationsStripeBody1 } from "./model/IntegrationsStripeBody1";
 import { IntegrationsacuityAcuityIntegration } from "./model/IntegrationsacuityAcuityIntegration";
@@ -74,6 +101,8 @@ import { IntegrationsfreshpaintFreshpaintIntegration } from "./model/Integration
 import { IntegrationsfreshpaintFreshpaintIntegration1 } from "./model/IntegrationsfreshpaintFreshpaintIntegration1";
 import { IntegrationsimawareImawareIntegration } from "./model/IntegrationsimawareImawareIntegration";
 import { IntegrationsimawareImawareIntegration1 } from "./model/IntegrationsimawareImawareIntegration1";
+import { IntegrationsshopifyShopifyIntegration } from "./model/IntegrationsshopifyShopifyIntegration";
+import { IntegrationsshopifyShopifyIntegration1 } from "./model/IntegrationsshopifyShopifyIntegration1";
 import { IntegrationsstripeStripeIntegration } from "./model/IntegrationsstripeStripeIntegration";
 import { LabTestOrdersBody } from "./model/LabTestOrdersBody";
 import { LabTestOrdersLabTestOrder } from "./model/LabTestOrdersLabTestOrder";
@@ -82,8 +111,6 @@ import { LeadsBody } from "./model/LeadsBody";
 import { LeadsIdBody } from "./model/LeadsIdBody";
 import { LeadsLead } from "./model/LeadsLead";
 import { LeadsidLead } from "./model/LeadsidLead";
-import { MdiPatientCasesBody } from "./model/MdiPatientCasesBody";
-import { MdipatientCasesMdiCase } from "./model/MdipatientCasesMdiCase";
 import { MedicationOrdersBody } from "./model/MedicationOrdersBody";
 import { MedicationOrdersMedicationOrder } from "./model/MedicationOrdersMedicationOrder";
 import { MedicationOrdersidaddMedicationsMedicationOrder } from "./model/MedicationOrdersidaddMedicationsMedicationOrder";
@@ -94,11 +121,18 @@ import { ObservationstypesObservationType } from "./model/ObservationstypesObser
 import { ObservationstypesidObservationType } from "./model/ObservationstypesidObservationType";
 import { OneOfobservationsObservationObservedValue } from "./model/OneOfobservationsObservationObservedValue";
 import { OneOfworkflowsPersonalizationRuleSetInputsValue } from "./model/OneOfworkflowsPersonalizationRuleSetInputsValue";
+import { OrdersBody } from "./model/OrdersBody";
+import { OrdersOrder } from "./model/OrdersOrder";
+import { OrdersOrderBillingAddress } from "./model/OrdersOrderBillingAddress";
+import { OrdersOrderOrderLineItems } from "./model/OrdersOrderOrderLineItems";
+import { OrdersOrderShippingAddress } from "./model/OrdersOrderShippingAddress";
 import { OrganizationsBody } from "./model/OrganizationsBody";
 import { OrganizationsIdBody } from "./model/OrganizationsIdBody";
 import { OrganizationsOrganization } from "./model/OrganizationsOrganization";
 import { OrganizationsidOrganization } from "./model/OrganizationsidOrganization";
 import { OrganizationsidlogoOrganization } from "./model/OrganizationsidlogoOrganization";
+import { PatientRelatedPersonsBody } from "./model/PatientRelatedPersonsBody";
+import { PatientRelatedPersonsPatientRelatedPerson } from "./model/PatientRelatedPersonsPatientRelatedPerson";
 import { PatientsBody } from "./model/PatientsBody";
 import { PatientsIdBody } from "./model/PatientsIdBody";
 import { PatientsInviteBody } from "./model/PatientsInviteBody";
@@ -108,15 +142,18 @@ import { PatientsPatientEthnicities } from "./model/PatientsPatientEthnicities";
 import { PatientsPatientPhonesAttributes } from "./model/PatientsPatientPhonesAttributes";
 import { PatientsPatientRaces } from "./model/PatientsPatientRaces";
 import { PatientsidPatient } from "./model/PatientsidPatient";
-import { PatientsidPatientAddressesAttributes } from "./model/PatientsidPatientAddressesAttributes";
 import { PatientsidPatientPhonesAttributes } from "./model/PatientsidPatientPhonesAttributes";
 import { PatientsidavatarPatient } from "./model/PatientsidavatarPatient";
 import { PatientsinvitePatient } from "./model/PatientsinvitePatient";
+import { PaymentIntentsBody } from "./model/PaymentIntentsBody";
+import { PaymentIntentsPaymentIntent } from "./model/PaymentIntentsPaymentIntent";
 import { PractitionersIdBody } from "./model/PractitionersIdBody";
 import { PractitionersInviteBody } from "./model/PractitionersInviteBody";
 import { PractitionersidPractitioner } from "./model/PractitionersidPractitioner";
 import { PractitionersidPractitionerAddressesAttributes } from "./model/PractitionersidPractitionerAddressesAttributes";
+import { PractitionersidPractitionerPhonesAttributes } from "./model/PractitionersidPractitionerPhonesAttributes";
 import { PractitionersinvitePractitioner } from "./model/PractitionersinvitePractitioner";
+import { PractitionersinvitePractitionerRenderingNpiAttributes } from "./model/PractitionersinvitePractitionerRenderingNpiAttributes";
 import { ProductsBody } from "./model/ProductsBody";
 import { ProductsIdBody } from "./model/ProductsIdBody";
 import { ProductsProduct } from "./model/ProductsProduct";
@@ -129,12 +166,15 @@ import { QuestionnairesQuestionnaireQuestionsAttributes } from "./model/Question
 import { QuestionnairesidQuestionnaire } from "./model/QuestionnairesidQuestionnaire";
 import { QuestionnairesidQuestionnaireAnswersAttributes } from "./model/QuestionnairesidQuestionnaireAnswersAttributes";
 import { QuestionnairesidQuestionnaireQuestionsAttributes } from "./model/QuestionnairesidQuestionnaireQuestionsAttributes";
+import { SetupIntentsBody } from "./model/SetupIntentsBody";
+import { SetupIntentsSetupIntent } from "./model/SetupIntentsSetupIntent";
 import { SubmissionsLinkBody } from "./model/SubmissionsLinkBody";
 import { SubscriptionsBody } from "./model/SubscriptionsBody";
 import { SubscriptionsIdBody } from "./model/SubscriptionsIdBody";
 import { SubscriptionsSubscription } from "./model/SubscriptionsSubscription";
 import { SubscriptionsidSubscription } from "./model/SubscriptionsidSubscription";
 import { SubscriptionsidSubscriptionPrices } from "./model/SubscriptionsidSubscriptionPrices";
+import { SubscriptionsidcancelSubscription } from "./model/SubscriptionsidcancelSubscription";
 import { SurveysSubmissionsBody } from "./model/SurveysSubmissionsBody";
 import { SurveyssubmissionsSubmission } from "./model/SurveyssubmissionsSubmission";
 import { SurveyssubmissionsSubmissionQuestions } from "./model/SurveyssubmissionsSubmissionQuestions";
@@ -179,15 +219,22 @@ import { AppointmentTypesApi } from "./api/AppointmentTypesApi";
 import { AppointmentsApi } from "./api/AppointmentsApi";
 import { AttachmentsApi } from "./api/AttachmentsApi";
 import { AvailabilityApi } from "./api/AvailabilityApi";
+import { CPTCodesApi } from "./api/CPTCodesApi";
 import { CalendarsApi } from "./api/CalendarsApi";
 import { CarePlanTemplatesApi } from "./api/CarePlanTemplatesApi";
 import { CarePlansApi } from "./api/CarePlansApi";
 import { CasesApi } from "./api/CasesApi";
 import { CompoundsApi } from "./api/CompoundsApi";
 import { ConversationsApi } from "./api/ConversationsApi";
+import { EligibilitiesApi } from "./api/EligibilitiesApi";
+import { EncountersApi } from "./api/EncountersApi";
 import { EthnicitiesApi } from "./api/EthnicitiesApi";
+import { EventsApi } from "./api/EventsApi";
 import { GoalTemplatesApi } from "./api/GoalTemplatesApi";
 import { GoalsApi } from "./api/GoalsApi";
+import { ICDCodesApi } from "./api/ICDCodesApi";
+import { InsuranceClaimsApi } from "./api/InsuranceClaimsApi";
+import { InsurancePoliciesApi } from "./api/InsurancePoliciesApi";
 import { IntegrationsApi } from "./api/IntegrationsApi";
 import { LabTestOrdersApi } from "./api/LabTestOrdersApi";
 import { LabTestsApi } from "./api/LabTestsApi";
@@ -196,18 +243,26 @@ import { MedicationOrdersApi } from "./api/MedicationOrdersApi";
 import { MedicationsApi } from "./api/MedicationsApi";
 import { ObservationTypesApi } from "./api/ObservationTypesApi";
 import { ObservationsApi } from "./api/ObservationsApi";
+import { OrdersApi } from "./api/OrdersApi";
 import { OrganizationsApi } from "./api/OrganizationsApi";
 import { PatientLabTestsApi } from "./api/PatientLabTestsApi";
 import { PatientMedicationsApi } from "./api/PatientMedicationsApi";
+import { PatientPrescriptionsApi } from "./api/PatientPrescriptionsApi";
 import { PatientRelatedPersonsApi } from "./api/PatientRelatedPersonsApi";
 import { PatientsApi } from "./api/PatientsApi";
+import { PayerIdentificationsApi } from "./api/PayerIdentificationsApi";
+import { PaymentIntentApi } from "./api/PaymentIntentApi";
 import { PaymentsApi } from "./api/PaymentsApi";
 import { PharmaciesApi } from "./api/PharmaciesApi";
 import { PractitionersApi } from "./api/PractitionersApi";
+import { PrescriptionsApi } from "./api/PrescriptionsApi";
 import { ProductsApi } from "./api/ProductsApi";
+import { PermissionsApi } from "./api/PermissionsApi";
 import { QuestionnairesApi } from "./api/QuestionnairesApi";
 import { RacesApi } from "./api/RacesApi";
+import { SetupIntentApi } from "./api/SetupIntentApi";
 import { SubmissionsApi } from "./api/SubmissionsApi";
+import { SubscriptionPlansApi } from "./api/SubscriptionPlansApi";
 import { SubscriptionsApi } from "./api/SubscriptionsApi";
 import { SurveysApi } from "./api/SurveysApi";
 import { TagsApi } from "./api/TagsApi";
@@ -219,6 +274,7 @@ import { TenantAdminsApi } from "./api/TenantAdminsApi";
 import { UsersApi } from "./api/UsersApi";
 import { VideoCallsApi } from "./api/VideoCallsApi";
 import { WebhooksApi } from "./api/WebhooksApi";
+import { WorkflowLogsApi } from "./api/WorkflowLogsApi";
 import { WorkflowsApi } from "./api/WorkflowsApi";
 
 /**
@@ -344,6 +400,46 @@ export {
    */
   ConversationscreateGroupChatConversation,
   /**
+   * The EligibilitiesBody model constructor.
+   * @property {module:model/EligibilitiesBody}
+   */
+  EligibilitiesBody,
+  /**
+   * The EligibilitiesEligibility model constructor.
+   * @property {module:model/EligibilitiesEligibility}
+   */
+  EligibilitiesEligibility,
+  /**
+   * The EncountersBody model constructor.
+   * @property {module:model/EncountersBody}
+   */
+  EncountersBody,
+  /**
+   * The EncountersEncounter model constructor.
+   * @property {module:model/EncountersEncounter}
+   */
+  EncountersEncounter,
+  /**
+   * The EncountersEncounterNotesAttributes model constructor.
+   * @property {module:model/EncountersEncounterNotesAttributes}
+   */
+  EncountersEncounterNotesAttributes,
+  /**
+   * The EncountersIdBody model constructor.
+   * @property {module:model/EncountersIdBody}
+   */
+  EncountersIdBody,
+  /**
+   * The EncountersidEncounter model constructor.
+   * @property {module:model/EncountersidEncounter}
+   */
+  EncountersidEncounter,
+  /**
+   * The EncountersidEncounterNotesAttributes model constructor.
+   * @property {module:model/EncountersidEncounterNotesAttributes}
+   */
+  EncountersidEncounterNotesAttributes,
+  /**
    * The GoalsBody model constructor.
    * @property {module:model/GoalsBody}
    */
@@ -414,6 +510,11 @@ export {
    */
   IdCancelBody,
   /**
+   * The IdCardBody model constructor.
+   * @property {module:model/IdCardBody}
+   */
+  IdCardBody,
+  /**
    * The IdLogoBody model constructor.
    * @property {module:model/IdLogoBody}
    */
@@ -423,6 +524,76 @@ export {
    * @property {module:model/IdRescheduleBody}
    */
   IdRescheduleBody,
+  /**
+   * The InsuranceClaimsBody model constructor.
+   * @property {module:model/InsuranceClaimsBody}
+   */
+  InsuranceClaimsBody,
+  /**
+   * The InsuranceClaimsInsuranceClaim model constructor.
+   * @property {module:model/InsuranceClaimsInsuranceClaim}
+   */
+  InsuranceClaimsInsuranceClaim,
+  /**
+   * The InsuranceClaimsInsuranceClaimAddressAttributes model constructor.
+   * @property {module:model/InsuranceClaimsInsuranceClaimAddressAttributes}
+   */
+  InsuranceClaimsInsuranceClaimAddressAttributes,
+  /**
+   * The InsuranceClaimsInsuranceClaimInsuranceClaimLineDiagnosesAttributes model constructor.
+   * @property {module:model/InsuranceClaimsInsuranceClaimInsuranceClaimLineDiagnosesAttributes}
+   */
+  InsuranceClaimsInsuranceClaimInsuranceClaimLineDiagnosesAttributes,
+  /**
+   * The InsuranceClaimsInsuranceClaimInsuranceClaimLinesAttributes model constructor.
+   * @property {module:model/InsuranceClaimsInsuranceClaimInsuranceClaimLinesAttributes}
+   */
+  InsuranceClaimsInsuranceClaimInsuranceClaimLinesAttributes,
+  /**
+   * The InsurancePoliciesBody model constructor.
+   * @property {module:model/InsurancePoliciesBody}
+   */
+  InsurancePoliciesBody,
+  /**
+   * The InsurancePoliciesIdBody model constructor.
+   * @property {module:model/InsurancePoliciesIdBody}
+   */
+  InsurancePoliciesIdBody,
+  /**
+   * The InsurancePoliciesInsurancePolicy model constructor.
+   * @property {module:model/InsurancePoliciesInsurancePolicy}
+   */
+  InsurancePoliciesInsurancePolicy,
+  /**
+   * The InsurancePoliciesInsurancePolicyPayerIdentificationAttributes model constructor.
+   * @property {module:model/InsurancePoliciesInsurancePolicyPayerIdentificationAttributes}
+   */
+  InsurancePoliciesInsurancePolicyPayerIdentificationAttributes,
+  /**
+   * The InsurancePoliciesInsurancePolicySubscriberAttributes model constructor.
+   * @property {module:model/InsurancePoliciesInsurancePolicySubscriberAttributes}
+   */
+  InsurancePoliciesInsurancePolicySubscriberAttributes,
+  /**
+   * The InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes model constructor.
+   * @property {module:model/InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes}
+   */
+  InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes,
+  /**
+   * The InsurancePoliciesidInsurancePolicy model constructor.
+   * @property {module:model/InsurancePoliciesidInsurancePolicy}
+   */
+  InsurancePoliciesidInsurancePolicy,
+  /**
+   * The InsurancePoliciesidInsurancePolicySubscriberAttributes model constructor.
+   * @property {module:model/InsurancePoliciesidInsurancePolicySubscriberAttributes}
+   */
+  InsurancePoliciesidInsurancePolicySubscriberAttributes,
+  /**
+   * The InsurancePoliciesidcardInsurancePolicy model constructor.
+   * @property {module:model/InsurancePoliciesidcardInsurancePolicy}
+   */
+  InsurancePoliciesidcardInsurancePolicy,
   /**
    * The IntegrationsAcuityBody model constructor.
    * @property {module:model/IntegrationsAcuityBody}
@@ -443,6 +614,16 @@ export {
    * @property {module:model/IntegrationsButterflyLabsBody1}
    */
   IntegrationsButterflyLabsBody1,
+  /**
+   * The IntegrationsCandidBody model constructor.
+   * @property {module:model/IntegrationsCandidBody}
+   */
+  IntegrationsCandidBody,
+  /**
+   * The IntegrationsCandidBody1 model constructor.
+   * @property {module:model/IntegrationsCandidBody1}
+   */
+  IntegrationsCandidBody1,
   /**
    * The IntegrationsCurexaBody model constructor.
    * @property {module:model/IntegrationsCurexaBody}
@@ -504,6 +685,16 @@ export {
    */
   IntegrationsSegmentBody1,
   /**
+   * The IntegrationsShopifyBody model constructor.
+   * @property {module:model/IntegrationsShopifyBody}
+   */
+  IntegrationsShopifyBody,
+  /**
+   * The IntegrationsShopifyBody1 model constructor.
+   * @property {module:model/IntegrationsShopifyBody1}
+   */
+  IntegrationsShopifyBody1,
+  /**
    * The IntegrationsStripeBody model constructor.
    * @property {module:model/IntegrationsStripeBody}
    */
@@ -564,6 +755,16 @@ export {
    */
   IntegrationsimawareImawareIntegration1,
   /**
+   * The IntegrationsshopifyShopifyIntegration model constructor.
+   * @property {module:model/IntegrationsshopifyShopifyIntegration}
+   */
+  IntegrationsshopifyShopifyIntegration,
+  /**
+   * The IntegrationsshopifyShopifyIntegration1 model constructor.
+   * @property {module:model/IntegrationsshopifyShopifyIntegration1}
+   */
+  IntegrationsshopifyShopifyIntegration1,
+  /**
    * The IntegrationsstripeStripeIntegration model constructor.
    * @property {module:model/IntegrationsstripeStripeIntegration}
    */
@@ -603,16 +804,6 @@ export {
    * @property {module:model/LeadsidLead}
    */
   LeadsidLead,
-  /**
-   * The MdiPatientCasesBody model constructor.
-   * @property {module:model/MdiPatientCasesBody}
-   */
-  MdiPatientCasesBody,
-  /**
-   * The MdipatientCasesMdiCase model constructor.
-   * @property {module:model/MdipatientCasesMdiCase}
-   */
-  MdipatientCasesMdiCase,
   /**
    * The MedicationOrdersBody model constructor.
    * @property {module:model/MedicationOrdersBody}
@@ -664,6 +855,31 @@ export {
    */
   OneOfworkflowsPersonalizationRuleSetInputsValue,
   /**
+   * The OrdersBody model constructor.
+   * @property {module:model/OrdersBody}
+   */
+  OrdersBody,
+  /**
+   * The OrdersOrder model constructor.
+   * @property {module:model/OrdersOrder}
+   */
+  OrdersOrder,
+  /**
+   * The OrdersOrderBillingAddress model constructor.
+   * @property {module:model/OrdersOrderBillingAddress}
+   */
+  OrdersOrderBillingAddress,
+  /**
+   * The OrdersOrderOrderLineItems model constructor.
+   * @property {module:model/OrdersOrderOrderLineItems}
+   */
+  OrdersOrderOrderLineItems,
+  /**
+   * The OrdersOrderShippingAddress model constructor.
+   * @property {module:model/OrdersOrderShippingAddress}
+   */
+  OrdersOrderShippingAddress,
+  /**
    * The OrganizationsBody model constructor.
    * @property {module:model/OrganizationsBody}
    */
@@ -688,6 +904,16 @@ export {
    * @property {module:model/OrganizationsidlogoOrganization}
    */
   OrganizationsidlogoOrganization,
+  /**
+   * The PatientRelatedPersonsBody model constructor.
+   * @property {module:model/PatientRelatedPersonsBody}
+   */
+  PatientRelatedPersonsBody,
+  /**
+   * The PatientRelatedPersonsPatientRelatedPerson model constructor.
+   * @property {module:model/PatientRelatedPersonsPatientRelatedPerson}
+   */
+  PatientRelatedPersonsPatientRelatedPerson,
   /**
    * The PatientsBody model constructor.
    * @property {module:model/PatientsBody}
@@ -734,11 +960,6 @@ export {
    */
   PatientsidPatient,
   /**
-   * The PatientsidPatientAddressesAttributes model constructor.
-   * @property {module:model/PatientsidPatientAddressesAttributes}
-   */
-  PatientsidPatientAddressesAttributes,
-  /**
    * The PatientsidPatientPhonesAttributes model constructor.
    * @property {module:model/PatientsidPatientPhonesAttributes}
    */
@@ -753,6 +974,21 @@ export {
    * @property {module:model/PatientsinvitePatient}
    */
   PatientsinvitePatient,
+  /**
+   * The PaymentIntentsBody model constructor.
+   * @property {module:model/PaymentIntentsBody}
+   */
+  PaymentIntentsBody,
+  /**
+   * The PaymentIntentsPaymentIntent model constructor.
+   * @property {module:model/PaymentIntentsPaymentIntent}
+   */
+  PaymentIntentsPaymentIntent,
+  /**
+   * The PermissionsApi service constructor.
+   * @property {module:api/PermissionsApi}
+   */
+  PermissionsApi,
   /**
    * The PractitionersIdBody model constructor.
    * @property {module:model/PractitionersIdBody}
@@ -774,10 +1010,20 @@ export {
    */
   PractitionersidPractitionerAddressesAttributes,
   /**
+   * The PractitionersidPractitionerPhonesAttributes model constructor.
+   * @property {module:model/PractitionersidPractitionerPhonesAttributes}
+   */
+  PractitionersidPractitionerPhonesAttributes,
+  /**
    * The PractitionersinvitePractitioner model constructor.
    * @property {module:model/PractitionersinvitePractitioner}
    */
   PractitionersinvitePractitioner,
+  /**
+   * The PractitionersinvitePractitionerRenderingNpiAttributes model constructor.
+   * @property {module:model/PractitionersinvitePractitionerRenderingNpiAttributes}
+   */
+  PractitionersinvitePractitionerRenderingNpiAttributes,
   /**
    * The ProductsBody model constructor.
    * @property {module:model/ProductsBody}
@@ -839,6 +1085,16 @@ export {
    */
   QuestionnairesidQuestionnaireQuestionsAttributes,
   /**
+   * The SetupIntentsBody model constructor.
+   * @property {module:model/SetupIntentsBody}
+   */
+  SetupIntentsBody,
+  /**
+   * The SetupIntentsSetupIntent model constructor.
+   * @property {module:model/SetupIntentsSetupIntent}
+   */
+  SetupIntentsSetupIntent,
+  /**
    * The SubmissionsLinkBody model constructor.
    * @property {module:model/SubmissionsLinkBody}
    */
@@ -868,6 +1124,11 @@ export {
    * @property {module:model/SubscriptionsidSubscriptionPrices}
    */
   SubscriptionsidSubscriptionPrices,
+  /**
+   * The SubscriptionsidcancelSubscription model constructor.
+   * @property {module:model/SubscriptionsidcancelSubscription}
+   */
+  SubscriptionsidcancelSubscription,
   /**
    * The SurveysSubmissionsBody model constructor.
    * @property {module:model/SurveysSubmissionsBody}
@@ -1054,8 +1315,8 @@ export {
    */
   WorkflowsPersonalizationRuleSetRules,
   /**
-   * The WorkflowsPersonalizationRuleSetTargets model constructor.
-   * @property {module:model/WorkflowsPersonalizationRuleSetTargets}
+   * The WorkflowsRunBody model constructor.
+   * @property {module:model/WorkflowsRunBody}
    */
   WorkflowsPersonalizationRuleSetTargets,
   /**
@@ -1089,6 +1350,11 @@ export {
    */
   AvailabilityApi,
   /**
+   * The CPTCodesApi service constructor.
+   * @property {module:api/CPTCodesApi}
+   */
+  CPTCodesApi,
+  /**
    * The CalendarsApi service constructor.
    * @property {module:api/CalendarsApi}
    */
@@ -1119,10 +1385,25 @@ export {
    */
   ConversationsApi,
   /**
+   * The EligibilitiesApi service constructor.
+   * @property {module:api/EligibilitiesApi}
+   */
+  EligibilitiesApi,
+  /**
+   * The EncountersApi service constructor.
+   * @property {module:api/EncountersApi}
+   */
+  EncountersApi,
+  /**
    * The EthnicitiesApi service constructor.
    * @property {module:api/EthnicitiesApi}
    */
   EthnicitiesApi,
+  /**
+   * The EventsApi service constructor.
+   * @property {module:api/EventsApi}
+   */
+  EventsApi,
   /**
    * The GoalTemplatesApi service constructor.
    * @property {module:api/GoalTemplatesApi}
@@ -1133,6 +1414,21 @@ export {
    * @property {module:api/GoalsApi}
    */
   GoalsApi,
+  /**
+   * The ICDCodesApi service constructor.
+   * @property {module:api/ICDCodesApi}
+   */
+  ICDCodesApi,
+  /**
+   * The InsuranceClaimsApi service constructor.
+   * @property {module:api/InsuranceClaimsApi}
+   */
+  InsuranceClaimsApi,
+  /**
+   * The InsurancePoliciesApi service constructor.
+   * @property {module:api/InsurancePoliciesApi}
+   */
+  InsurancePoliciesApi,
   /**
    * The IntegrationsApi service constructor.
    * @property {module:api/IntegrationsApi}
@@ -1174,6 +1470,11 @@ export {
    */
   ObservationsApi,
   /**
+   * The OrdersApi service constructor.
+   * @property {module:api/OrdersApi}
+   */
+  OrdersApi,
+  /**
    * The OrganizationsApi service constructor.
    * @property {module:api/OrganizationsApi}
    */
@@ -1189,6 +1490,11 @@ export {
    */
   PatientMedicationsApi,
   /**
+   * The PatientPrescriptionsApi service constructor.
+   * @property {module:api/PatientPrescriptionsApi}
+   */
+  PatientPrescriptionsApi,
+  /**
    * The PatientRelatedPersonsApi service constructor.
    * @property {module:api/PatientRelatedPersonsApi}
    */
@@ -1198,6 +1504,16 @@ export {
    * @property {module:api/PatientsApi}
    */
   PatientsApi,
+  /**
+   * The PayerIdentificationsApi service constructor.
+   * @property {module:api/PayerIdentificationsApi}
+   */
+  PayerIdentificationsApi,
+  /**
+   * The PaymentIntentApi service constructor.
+   * @property {module:api/PaymentIntentApi}
+   */
+  PaymentIntentApi,
   /**
    * The PaymentsApi service constructor.
    * @property {module:api/PaymentsApi}
@@ -1214,6 +1530,11 @@ export {
    */
   PractitionersApi,
   /**
+   * The PrescriptionsApi service constructor.
+   * @property {module:api/PrescriptionsApi}
+   */
+  PrescriptionsApi,
+  /**
    * The ProductsApi service constructor.
    * @property {module:api/ProductsApi}
    */
@@ -1229,10 +1550,20 @@ export {
    */
   RacesApi,
   /**
+   * The SetupIntentApi service constructor.
+   * @property {module:api/SetupIntentApi}
+   */
+  SetupIntentApi,
+  /**
    * The SubmissionsApi service constructor.
    * @property {module:api/SubmissionsApi}
    */
   SubmissionsApi,
+  /**
+   * The SubscriptionPlansApi service constructor.
+   * @property {module:api/SubscriptionPlansApi}
+   */
+  SubscriptionPlansApi,
   /**
    * The SubscriptionsApi service constructor.
    * @property {module:api/SubscriptionsApi}
@@ -1288,6 +1619,11 @@ export {
    * @property {module:api/WebhooksApi}
    */
   WebhooksApi,
+  /**
+   * The WorkflowLogsApi service constructor.
+   * @property {module:api/WorkflowLogsApi}
+   */
+  WorkflowLogsApi,
   /**
    * The WorkflowsApi service constructor.
    * @property {module:api/WorkflowsApi}

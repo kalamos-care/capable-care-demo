@@ -49,7 +49,7 @@ export class TenantAdminsApi {
    * @param {Number} opts.size Page size (default to <.>)
    * @param {Array.<module:model/String>} opts.sortBy Sort results
    * @param {Array.<String>} opts.byEmail Filter by email
-   * @param {Array.<String>} opts.byId Filter by IDs
+   * @param {Array.<String>} opts.byId Filter by id
    * @param {module:api/TenantAdminsApi~tenantAdminsGetCallback} callback The callback function, accepting three arguments: error, data, response
    */
   tenantAdminsGet(opts, callback) {

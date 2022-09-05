@@ -46,6 +46,8 @@ export class SubscriptionsSubscription {
         obj.patientId = ApiClient.convertToType(data["patient_id"], "String");
       if (data.hasOwnProperty("price_ids"))
         obj.priceIds = ApiClient.convertToType(data["price_ids"], ["String"]);
+      if (data.hasOwnProperty("promotion_code"))
+        obj.promotionCode = ApiClient.convertToType(data["promotion_code"], "String");
     }
     return obj;
   }
@@ -61,3 +63,9 @@ SubscriptionsSubscription.prototype.patientId = undefined;
  * @member {Array.<String>} priceIds
  */
 SubscriptionsSubscription.prototype.priceIds = undefined;
+
+/**
+ * The Stripe promotion code to apply to this subscription
+ * @member {String} promotionCode
+ */
+SubscriptionsSubscription.prototype.promotionCode = undefined;

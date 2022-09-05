@@ -46,7 +46,7 @@ export class RacesApi {
    * @param {Object} opts Optional parameters
    * @param {Array.<String>} opts.byParentCode Filter all races by parent code
    * @param {Array.<String>} opts.byLevel Filter all ethnicities by level
-   * @param {Array.<String>} opts.byId Filter by IDs
+   * @param {Array.<String>} opts.byId Filter by id
    * @param {Number} opts.page Page number (default to <.>)
    * @param {Number} opts.size Page size (default to <.>)
    * @param {module:api/RacesApi~racesGetCallback} callback The callback function, accepting three arguments: error, data, response

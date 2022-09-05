@@ -53,7 +53,7 @@ export class WebhooksApi {
    * @param {String} opts.byTargetUrl Filter by target URL
    * @param {Boolean} opts.byEnabled Filter by enabled
    * @param {Boolean} opts.byValidated Filter by validated
-   * @param {Array.<String>} opts.byId Filter by IDs
+   * @param {Array.<String>} opts.byId Filter by id
    * @param {module:api/WebhooksApi~webhookEndpointsGetCallback} callback The callback function, accepting three arguments: error, data, response
    */
   webhookEndpointsGet(opts, callback) {

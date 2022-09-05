@@ -13,7 +13,6 @@
  *
  */
 import { ApiClient } from "../ApiClient";
-import { MdiPatientCasesBody } from "../model/MdiPatientCasesBody";
 
 /**
  * Cases service.
@@ -115,50 +114,6 @@ export class CasesApi {
     return this.apiClient.callApi(
       "/mdi/patient_cases/{id}",
       "GET",
-      pathParams,
-      queryParams,
-      headerParams,
-      formParams,
-      postBody,
-      authNames,
-      contentTypes,
-      accepts,
-      returnType,
-      callback
-    );
-  }
-  /**
-   * Callback function to receive the result of the mdiPatientCasesPost operation.
-   * @callback moduleapi/CasesApi~mdiPatientCasesPostCallback
-   * @param {String} error Error message, if any.
-   * @param data This operation does not return a value.
-   * @param {String} response The complete HTTP response.
-   */
-
-  /**
-   * Create a Patient Case
-   * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Patient&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
-   * @param {Object} opts Optional parameters
-   * @param {module:model/MdiPatientCasesBody} opts.body
-   * @param {module:api/CasesApi~mdiPatientCasesPostCallback} callback The callback function, accepting three arguments: error, data, response
-   */
-  mdiPatientCasesPost(opts, callback) {
-    opts = opts || {};
-    let postBody = opts["body"];
-
-    let pathParams = {};
-    let queryParams = {};
-    let headerParams = {};
-    let formParams = {};
-
-    let authNames = [];
-    let contentTypes = ["application/json"];
-    let accepts = ["application/json"];
-    let returnType = null;
-
-    return this.apiClient.callApi(
-      "/mdi/patient_cases",
-      "POST",
       pathParams,
       queryParams,
       headerParams,

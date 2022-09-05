@@ -51,7 +51,7 @@ export class TargetTemplatesApi {
    * @param {Array.<module:model/String>} opts.sortBy Sort results
    * @param {String} opts.byName Filter by name
    * @param {Array.<String>} opts.byTags Filter by tags
-   * @param {Array.<String>} opts.byId Filter by IDs
+   * @param {Array.<String>} opts.byId Filter by id
    * @param {module:api/TargetTemplatesApi~targetsTemplatesGetCallback} callback The callback function, accepting three arguments: error, data, response
    */
   targetsTemplatesGet(opts, callback) {

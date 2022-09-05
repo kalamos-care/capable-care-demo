@@ -46,11 +46,11 @@ export class LabTestOrdersApi {
    * List all Lab Test Orders
    * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Patient&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
    * @param {Object} opts Optional parameters
-   * @param {Array.<String>} opts.byPatientId Filter by patient ID
+   * @param {Array.<String>} opts.byPatientId Filter by patient id
    * @param {Number} opts.page Page number (default to <.>)
    * @param {Number} opts.size Page size (default to <.>)
    * @param {Array.<module:model/String>} opts.sortBy Sort results
-   * @param {Array.<String>} opts.byId Filter by IDs
+   * @param {Array.<String>} opts.byId Filter by id
    * @param {module:api/LabTestOrdersApi~labTestOrdersGetCallback} callback The callback function, accepting three arguments: error, data, response
    */
   labTestOrdersGet(opts, callback) {
@@ -226,6 +226,55 @@ export class LabTestOrdersApi {
 
     return this.apiClient.callApi(
       "/lab_test_orders/{id}",
+      "GET",
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      callback
+    );
+  }
+  /**
+   * Callback function to receive the result of the labTestOrdersIdResultsGet operation.
+   * @callback moduleapi/LabTestOrdersApi~labTestOrdersIdResultsGetCallback
+   * @param {String} error Error message, if any.
+   * @param {'Blob'{ data The data returned by the service call.
+   * @param {String} response The complete HTTP response.
+   */
+
+  /**
+   * Retrieve results PDF
+   * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#10060; &lt;s&gt;Patient&lt;/s&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
+   * @param {String} id
+   * @param {module:api/LabTestOrdersApi~labTestOrdersIdResultsGetCallback} callback The callback function, accepting three arguments: error, data, response
+   * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
+   */
+  labTestOrdersIdResultsGet(id, callback) {
+    let postBody = null;
+    // verify the required parameter 'id' is set
+    if (id === undefined || id === null) {
+      throw new Error("Missing the required parameter 'id' when calling labTestOrdersIdResultsGet");
+    }
+
+    let pathParams = {
+      id: id,
+    };
+    let queryParams = {};
+    let headerParams = {};
+    let formParams = {};
+
+    let authNames = [];
+    let contentTypes = [];
+    let accepts = ["application/json"];
+    let returnType = "Blob";
+
+    return this.apiClient.callApi(
+      "/lab_test_orders/{id}/results",
       "GET",
       pathParams,
       queryParams,
