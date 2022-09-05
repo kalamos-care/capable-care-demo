@@ -2,13 +2,10 @@ import { Conversation, Message } from "@twilio/conversations";
 import { useEffect, useState, Fragment } from "react";
 import Box from "@mui/material/Box";
 
-import {
-  BarnardConversation,
-  ConversationTypes,
-} from "../../../models/conversations/BarnardConversation.types";
+import { BarnardConversation } from "models/conversations/BarnardConversation.types";
 import { ConversationPreview } from "./ConversationPreview";
 import { ConversationWithMessage } from "../hooks/useConversations.hook";
-import { User } from "../../../models/users/User.types";
+import { User } from "models/users/User.types";
 
 export const ConversationsList = ({
   conversations,
@@ -52,7 +49,6 @@ export const ConversationsList = ({
           key={twilioConversation.sid}
           twilioConversation={twilioConversation}
           barnardConversation={barnardConversation}
-          conversationType={ConversationTypes.CHAT}
           lastMessage={lastMessage}
           participants={participants}
           top={i === 0}
@@ -67,28 +63,7 @@ export const ConversationsList = ({
   return (
     <>
       {selectedConversations.length > 0 ? (
-        <Box sx={{ paddingTop: (theme) => theme.spacing(4) }}>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "flex-end",
-                paddingBottom: (theme) => theme.spacing(1),
-                gap: (theme) => theme.spacing(2),
-                padding: "auto",
-              }}
-            >
-              {newConversationButton}
-            </Box>
-          </Box>
+        <Box sx={{ height: "100%", overflow: "scroll" }}>
           {conversationList}
         </Box>
       ) : (

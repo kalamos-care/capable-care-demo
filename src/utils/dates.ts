@@ -54,3 +54,60 @@ export const getMessageTimestampLabel = (sent: any): string => {
   }
   return timeLabel;
 };
+
+export const formatTime = (dateTime) => {
+  return dateTime
+    .toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })
+    .replace("AM", "am")
+    .replace("PM", "pm");
+};
+
+const weekDays = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+const datesAreOnSameDay = (first: Date, second: Date) =>
+  first.getFullYear() === second.getFullYear() &&
+  first.getMonth() === second.getMonth() &&
+  first.getDate() === second.getDate();
+
+const isYesterday = (date: Date) => {
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  if (yesterday.toDateString() === date.toDateString()) {
+    return true;
+  }
+
+  return false;
+};
+
+const withinLastWeek = (date: Date) => {
+  const sixDaysAgo = new Date();
+  sixDaysAgo.setDate(sixDaysAgo.getDate() - 6);
+  const sixDaysAgoWithoutTimestamp = new Date(sixDaysAgo.toDateString());
+  return date > sixDaysAgoWithoutTimestamp;
+};
+
+export const getMessageDateLabel = (sent) => {
+  const now = new Date();
+  const sentDate = new Date(sent);
+
+  let timeLabel;
+  if (datesAreOnSameDay(now, sentDate)) {
+    timeLabel = formatTime(sent);
+  } else if (isYesterday(sentDate)) {
+    timeLabel = "Yesterday";
+  } else if (withinLastWeek(sentDate)) {
+    timeLabel = weekDays[sentDate.getDay()];
+  } else {
+    timeLabel = format(sentDate, "MM/dd/yy");
+  }
+  return timeLabel;
+};

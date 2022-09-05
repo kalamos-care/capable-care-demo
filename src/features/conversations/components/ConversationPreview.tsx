@@ -1,49 +1,54 @@
 import { Conversation, Message } from "@twilio/conversations";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Box from "@mui/material/Box/Box";
 import Typography from "@mui/material/Typography/Typography";
 
-import {
-  BarnardConversation,
-  ConversationType,
-} from "models/conversations/BarnardConversation.types";
+import { BarnardConversation } from "models/conversations/BarnardConversation.types";
 import { colors } from "styles/colors";
 import { displayName } from "utils/strings";
 import { ForwardArrowIcon } from "components/icons";
+import { getMessageDateLabel } from "utils/dates";
+import { useCurrentPatient } from "fetchDataHooks";
 import { User } from "models/users/User.types";
 import Avatar from "components/Avatar";
 
 export const ConversationPreview = ({
   twilioConversation,
   barnardConversation,
-  conversationType,
   lastMessage,
   participants,
   top,
 }: {
   twilioConversation: Conversation;
   barnardConversation: BarnardConversation;
-  conversationType: ConversationType;
   lastMessage: Message;
   participants: Record<string, User>;
   top?: boolean;
   bottom?: boolean;
 }) => {
-  const { id } = useParams<{ id: string }>();
+  const { currentPatient } = useCurrentPatient();
+
   const author = participants[lastMessage.author];
-  const authorName = author
+  const sentByMe =
+    lastMessage.author === currentPatient?.email ||
+    lastMessage.author === `${currentPatient?.id}@capable-chat.com`;
+
+  const authorName = sentByMe
+    ? "You"
+    : author
     ? displayName(author)
     : process.env.REACT_APP_SENDER_NAME || "Care Team";
 
   return (
     <Link
-      to={`/patients/${id}/conversations/${conversationType}/${barnardConversation.id}`}
+      to={`/chat/${barnardConversation.id}`}
       style={{ textDecoration: "none" }}
     >
       <Box
         sx={{
           display: "flex",
           flexDirection: "row",
+          paddingY: (theme) => theme.spacing(2),
           borderTop: top ? 1 : 0,
           borderBottom: 1,
           borderColor: colors.lightGrey5,
@@ -81,47 +86,46 @@ export const ConversationPreview = ({
               width: "100%",
             }}
           >
+            <Typography
+              sx={{
+                marginRight: (theme) => theme.spacing(2),
+                flexBasis: "content",
+                whiteSpace: "nowrap",
+                fontWeight: "bold",
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+              }}
+            >
+              {authorName}
+            </Typography>
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "row",
+                alignItems: "center",
                 flexWrap: "nowrap",
-                minWidth: 0,
+                gap: (theme) => theme.spacing(1),
               }}
             >
-              {twilioConversation.friendlyName && (
-                <Typography
-                  sx={{
-                    marginRight: (theme) => theme.spacing(1),
-                    fontWeight: "bold",
-                    textOverflow: "ellipsis",
-                    overflow: "hidden",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {twilioConversation.friendlyName}
-                </Typography>
-              )}
-              {twilioConversation.friendlyName && (
-                <Typography sx={{ marginX: (theme) => theme.spacing(1) }}>
-                  •
-                </Typography>
-              )}
-              <Typography
-                sx={{
-                  marginRight: (theme) => theme.spacing(2),
-                  flexBasis: "content",
-                  whiteSpace: "nowrap",
-                  fontWeight: "bold",
-                }}
-              >
-                {authorName}
+              <Typography>
+                {getMessageDateLabel(lastMessage.dateCreated)}
               </Typography>
-            </Box>
-            <Box>
               <ForwardArrowIcon />
             </Box>
           </Box>
+          {twilioConversation.friendlyName && (
+            <Typography
+              sx={{
+                marginRight: (theme) => theme.spacing(1),
+                fontWeight: "bold",
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {twilioConversation.friendlyName}
+            </Typography>
+          )}
           <Typography
             sx={{
               fontWeight: "400",

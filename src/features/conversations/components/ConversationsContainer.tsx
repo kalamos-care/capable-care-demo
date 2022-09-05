@@ -17,7 +17,7 @@ const ConversationsContainer = () => {
     return (
       <Box
         sx={{
-          height: "500px",
+          height: "100%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

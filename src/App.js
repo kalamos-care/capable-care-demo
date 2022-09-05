@@ -5,21 +5,24 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { SWRConfig } from "swr";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// Providers
-import AppAuthenticator from "./AppAuthenticator";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-// pages
-import Home from "./pages/Home";
-import Chat from "./pages/Chat";
-import CarePlans from "./pages/CarePlans";
-import Goal from "./pages/Goal";
-import Target from "./pages/Target";
-import Profile from "./pages/Profile";
-import Observation from "./pages/Observation";
-import Appointments from "./pages/Appointments";
-import Survey from "./pages/Survey";
 
+// providers
+import AppAuthenticator from "./AppAuthenticator";
+
+// pages
+import Appointments from "./pages/Appointments";
+import CarePlans from "./pages/CarePlans";
+import Conversation from "features/conversations/pages/Conversation";
+import Conversations from "features/conversations/pages/Conversations";
+import Goal from "./pages/Goal";
+import Home from "./pages/Home";
+import Observation from "./pages/Observation";
+import Profile from "./pages/Profile";
+import Survey from "./pages/Survey";
+import Target from "./pages/Target";
 // components
 import { MobileContainer } from "./components";
 import { WithNavigation } from "./layouts/WithNavigation";
@@ -33,7 +36,7 @@ import SubscriptionRouteManager from "./SubscriptionRouteManager";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY, {
   stripeAccount: process.env.REACT_APP_STRIPE_ACCOUNT_ID,
-})
+});
 
 export const queryClient = new QueryClient();
 
@@ -62,7 +65,12 @@ export default function App() {
                           path="/home/:care_plan_id"
                           element={<Home />}
                         />
-                        <Route exact path="/chat" element={<Chat />} />
+                        <Route exact path="/chat" element={<Conversations />} />
+                        <Route
+                          exact
+                          path="/chat/:conversationId"
+                          element={<Conversation />}
+                        />
                         <Route
                           exact
                           path="/appointments"
@@ -76,7 +84,11 @@ export default function App() {
                       </Route>
 
                       <Route element={<WithoutNavigation />}>
-                        <Route exact path="/care_plans" element={<CarePlans />} />
+                        <Route
+                          exact
+                          path="/care_plans"
+                          element={<CarePlans />}
+                        />
                         <Route exact path="/goal" element={<Goal />} />
                         <Route exact path="/log" element={<Observation />} />
                         <Route exact path="/target" element={<Target />} />
@@ -85,6 +97,7 @@ export default function App() {
                     </SubscriptionRouteManager>
                   </Elements>
                 </BrowserRouter>
+                <ReactQueryDevtools initialIsOpen={false} />
               </QueryClientProvider>
             </SWRConfig>
           )}

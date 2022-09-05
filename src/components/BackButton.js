@@ -2,7 +2,13 @@ import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import { ArrowBackIosRounded } from "@mui/icons-material";
 
-export default function BackButton({ route, params, sx, onClick }) {
+export default function BackButton({
+  route,
+  params,
+  size = "small",
+  sx,
+  onClick,
+}) {
   const navigate = useNavigate();
 
   const changePage = (route, params) => {
@@ -11,7 +17,7 @@ export default function BackButton({ route, params, sx, onClick }) {
 
   return (
     <IconButton
-      size="small"
+      size={size}
       sx={{
         backgroundColor: "background.paper",
         margin: 2,
@@ -20,7 +26,7 @@ export default function BackButton({ route, params, sx, onClick }) {
         },
         ...sx,
       }}
-      onClick={() => onClick ? onClick() : changePage(route, params)}
+      onClick={() => (onClick ? onClick() : changePage(route, params))}
     >
       <ArrowBackIosRounded
         sx={{

@@ -37,6 +37,9 @@ export const formatError = (e: any): string => {
 };
 
 export const displayName = (user: User | Patient): string => {
+  if (!user) {
+    return "Unknown";
+  }
   let identity: string;
   if (user?.first_name) {
     identity = user.last_name
@@ -66,4 +69,15 @@ export const convertRetailPriceCentsToRetailPrice = (retailCents: number) => {
 
 export const capitalize = (word: string) => {
   return word.charAt(0).toUpperCase() + word.slice(1);
-}
+};
+export const conversationParticipantsLabel = (
+  participants: User[] | undefined
+) => {
+  const label = participants?.reduce((label, p) => {
+    label.length
+      ? (label += `, ${displayName(p)}`)
+      : (label += `${displayName(p)}`);
+    return label;
+  }, "");
+  return label ?? "";
+};
