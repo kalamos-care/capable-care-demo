@@ -19,6 +19,7 @@ import Auth from "@capable-health/capable-auth-sdk";
 import identityProvider from "@capable-health/capable-auth-sdk/dist/esm/helpers/identity-provider";
 import React, { useEffect, useState } from "react";
 import { useLDClient } from "launchdarkly-react-client-sdk";
+import * as Sentry from "@sentry/react";
 
 import { formFieldConfig } from "./config/auth";
 import { authComponents } from "./components/Auth";
@@ -125,8 +126,10 @@ function PasswordlessAuthenticator({ children }) {
           break;
         default:
           console.log("Unknown auth state:", authState);
+          Sentry.captureMessage("Unknown auth state", { level: "error", authState });
       }
     } catch (error) {
+      Sentry.captureException(error, { level: "warning" });
       setSubmitError(error.message);
       return;
     }
@@ -136,6 +139,7 @@ function PasswordlessAuthenticator({ children }) {
     Auth.user.signOut();
     setCurrentUser(null);
     setAuthState(AuthState.SignIn);
+    Sentry.setUser(null);
   };
 
   const PasswordlessComponent = () => {
@@ -339,9 +343,17 @@ function AppAuthenticator(props) {
             },
             undefined
           );
+
+          Sentry.setUser({
+            id: payload.userId,
+            tenantId: payload.tenantId,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            userType: payload.userType,
+          });
         })
         .catch((error) => {
           console.log("User is not signed in");
+          Sentry.captureException(error, { level: "warning" });
         });
     } else {
       ldClient
