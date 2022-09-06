@@ -13,10 +13,11 @@ import {
   CardCvcElement,
 } from "@stripe/react-stripe-js";
 import api from '../capableApi'
-import { useCurrentPatient } from "../fetchDataHooks";
+import { useCurrentPatient, useExistingPaymentMethod } from "../fetchDataHooks";
 import { SubscriptionScheduleDetail, SubscriptionOption } from "models/subscriptions/Subscription.types";
 import { useNavigate } from "react-router-dom";
 import useActiveSubscription from "fetchDataHooks/useActiveSubscription";
+import * as Sentry from "@sentry/react";
 
 const SubscriptionHeader = ({title, content}: {title: string, content: string}) => (
   <Box sx={{ backgroundColor: "background.paper" }}>
@@ -148,119 +149,137 @@ const StripeErrorMessage = ({ message } : { message: string }) => (
 const SubscriptionPayment = (
   {
     selectedSubscription,
-    setPageView
+    setPageView,
+    currentPatient,
+    existingPaymentMethod,
   } : {
     selectedSubscription: SubscriptionOption,
-    setPageView: (view: string) => void
+    setPageView: (view: string) => void,
+    currentPatient: any,
+    existingPaymentMethod: string
   }) => {
   const stripe = useStripe();
   const elements= useElements();
-  const { currentPatient } = useCurrentPatient();
   const [clientSecret, setClientSecret] = useState<string>();
   const [zipCode, setZipcode] = useState<string>();
   const [stripeError, setStripeError] = useState<string | null>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [useNewCard, setUseNewCard] = useState<boolean>(false);
 
-  const handleCreateTrialSubscription = async () => {
-    let secret = clientSecret;
-    if (!secret) {
-      const intent = await api.client.SetupIntent.create({ body: {
-          setup_intent: {
-            patient_id: currentPatient.id
-          }
-        }})
-
-      if (intent.error) {
-        throw new Error('Woops something went wrong');
-      }
-      secret = intent.body.client_secret;
-      setClientSecret(secret);
-    }
-
-    const { error, setupIntent } = await stripe.confirmCardSetup(
-      secret,
-      {
-        payment_method: {
-          card: elements.getElement(CardNumberElement),
-          billing_details: {
-            email: `${currentPatient.email}`,
-            phone: `${currentPatient.phone_number}`,
-            address: {
-              postal_code: zipCode
-            }
-          }
-        }
-      }
-    )
-
-    if (error) {
-      setStripeError(error.message)
-      setLoading(false);
-    } else if (setupIntent.status === 'succeeded') {
-      const subscriptionResponse = await api.client.Subscription.create({ body: {
-          subscription: {
-            patient_id: currentPatient.id,
-            price_ids: [selectedSubscription.id]
-          }
-        }})
-
-      if (subscriptionResponse.error) {
-        throw new Error('Woops something went wrong');
-      }
-
-      setLoading(false);
-      setPageView('PaymentSuccess')
-    }
-  }
-
-  const handleCreatePaidSubscription = async () => {
-    let secret = clientSecret;
-    if (!secret) {
-      const paymentIntent = await api.client.Subscription.create({ body: {
+  const createSubscription = async () => {
+    const subscriptionResponse = await api.client.Subscription.create({ body: {
         subscription: {
           patient_id: currentPatient.id,
           price_ids: [selectedSubscription.id]
         }
       }})
 
-      if (paymentIntent.error) {
-        throw new Error('Woops something went wrong');
+    if (subscriptionResponse.error) {
+      throw new Error(`Failed to create capable subscription: ${subscriptionResponse.error}`);
+    }
+    return subscriptionResponse
+  }
+
+  const handleCreateTrialSubscription = async () => {
+    try {
+      if (!existingPaymentMethod || useNewCard) {
+        let secret = clientSecret;
+        if (!secret) {
+          const intent = await api.client.SetupIntent.create({
+            body: {
+              setup_intent: {
+                patient_id: currentPatient.id
+              }
+            }
+          })
+
+          if (intent.error) {
+            throw new Error(`Failed to create capable setup intent: ${intent.error}`);
+          }
+          secret = intent.body.client_secret;
+          setClientSecret(secret);
+        }
+
+        const {error, setupIntent} = await stripe.confirmCardSetup(
+          secret,
+          {
+            payment_method: {
+              card: elements.getElement(CardNumberElement),
+              billing_details: {
+                email: currentPatient.email,
+                phone: currentPatient.phone_number,
+                address: {
+                  postal_code: zipCode
+                }
+              }
+            }
+          }
+        )
+
+        if (error) {
+          setStripeError(error.message);
+          setLoading(false);
+        } else if (setupIntent.status === 'succeeded') {
+          await createSubscription();
+          setLoading(false);
+          setPageView('PaymentSuccess');
+        }
+      } else {
+        await createSubscription();
+        setLoading(false);
+        setPageView('PaymentSuccess');
+      }
+    } catch (error) {
+      Sentry.captureException(error);
+      console.error("Subscription trial failed", error);
+      setLoading(false);
+    }
+  }
+
+  const handleCreatePaidSubscription = async () => {
+    try {
+      let secret = clientSecret;
+      if (!secret) {
+        const paymentIntent = await createSubscription();
+        secret = paymentIntent.body.latest_invoice.payment_intent.client_secret;
+        setClientSecret(secret);
       }
 
-      secret = paymentIntent.body.latest_invoice.payment_intent.client_secret;
-      setClientSecret(secret);
-    }
-
-    const { error, paymentIntent } = await stripe.confirmCardPayment(
-      secret,
-      {
-        payment_method: {
-          card: elements.getElement(CardNumberElement),
-          billing_details: {
-            email: `${currentPatient.email}`,
-            phone: `${currentPatient.phone_number}`,
-            address: {
-              postal_code: zipCode
+      const {error, paymentIntent} = await stripe.confirmCardPayment(
+        secret,
+        {
+          payment_method: existingPaymentMethod && !useNewCard ? existingPaymentMethod : {
+            card: elements.getElement(CardNumberElement),
+            billing_details: {
+              email: currentPatient.email,
+              phone: currentPatient.phone_number,
+              address: {
+                postal_code: zipCode
+              }
             }
           }
         }
-      }
-    )
+      )
 
-    setLoading(false);
-    if (error) {
-      setStripeError(error.message)
-    } else if (paymentIntent.status === 'succeeded') {
-      setPageView('PaymentSuccess')
+      setLoading(false);
+      if (error) {
+        setStripeError(error.message);
+      } else if (paymentIntent.status === 'succeeded') {
+        setPageView('PaymentSuccess');
+      }
+    } catch (error) {
+      Sentry.captureException(error);
+      console.error("Subscription payment failed", error);
+      setLoading(false);
     }
   }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true)
+    setLoading(true);
     setStripeError(null);
 
-    const hasTrial = !!selectedSubscription.metadata?.trial_period_in_days
+    const hasTrial = !!selectedSubscription.metadata?.trial_period_in_days;
 
     if (hasTrial) {
       await handleCreateTrialSubscription();
@@ -281,55 +300,76 @@ const SubscriptionPayment = (
           subscription={selectedSubscription}
         />
         <StripeErrorMessage message={stripeError}/>
-        <form onSubmit={handleSubmit}>
+        { existingPaymentMethod && !useNewCard ? (
           <Box>
-            <Typography variant="h6">Card Number</Typography>
-            <CardNumberElement />
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              width: "100%",
-              justifyContent: "space-between"
-            }}
-          >
-            <Box sx={{ width: "45%"}}>
-              <Typography variant="h6">Expiration</Typography>
-              <CardExpiryElement />
+            <Box sx={{ padding: "1rem 0 3rem" }}>
+              Looks like we already have a credit card on file for you. Click Pay to use this card for payment.
             </Box>
-            <Box sx={{ width: "45%"}}>
-              <Typography variant="h6">CVC</Typography>
-              <CardCvcElement />
+            <Button
+              width="100%"
+              type="submit"
+              variation="primary"
+              disabled={!stripe || !elements || !currentPatient || loading}
+              onClick={handleSubmit}
+            >
+              { loading ? <Loader /> : "Pay" }
+            </Button>
+            <Box sx={{ padding: "1rem", textAlign: "center" }}>
+              {/*@ts-ignore*/}
+              <Typography variant="eyebrow" sx={{ cursor: "pointer"}} onClick={() => (setUseNewCard(true))}>
+                + Pay with another card
+              </Typography>
             </Box>
           </Box>
-          <Box>
+        ) : (
+          <form onSubmit={handleSubmit}>
             <Box>
-              <Typography variant="h6">Zip</Typography>
+              <Typography variant="h6">Card Number</Typography>
+              <CardNumberElement />
             </Box>
-            <input
-              className="StripeElement"
-              name="zipCode"
-              pattern="^\d{5}(-\d{4})?$"
-              title="Five digit zip code"
-              value={zipCode ?? ""}
-              onChange={(e) => setZipcode(e.target.value)}
-            />
-          </Box>
-          <Button
-            width="100%"
-            type="submit"
-            variation="primary"
-            disabled={!stripe || !elements || !currentPatient || !zipCode || loading
-          }>
-            { loading ? <Loader /> : "Pay" }
-          </Button>
-        </form>
+            <Box
+              sx={{
+                display: "flex",
+                width: "100%",
+                justifyContent: "space-between"
+              }}
+            >
+              <Box sx={{ width: "45%"}}>
+                <Typography variant="h6">Expiration</Typography>
+                <CardExpiryElement />
+              </Box>
+              <Box sx={{ width: "45%"}}>
+                <Typography variant="h6">CVC</Typography>
+                <CardCvcElement />
+              </Box>
+            </Box>
+            <Box>
+              <Box>
+                <Typography variant="h6">Zip</Typography>
+              </Box>
+              <input
+                className="StripeElement"
+                name="zipCode"
+                pattern="^\d{5}(-\d{4})?$"
+                title="Five digit zip code"
+                value={zipCode ?? ""}
+                onChange={(e) => setZipcode(e.target.value)}
+              />
+            </Box>
+            <Button
+              width="100%"
+              type="submit"
+              variation="primary"
+              disabled={!stripe || !elements || !currentPatient || !zipCode || loading
+            }>
+              { loading ? <Loader /> : "Pay" }
+            </Button>
+          </form>
+        )}
       </Box>
     </Box>
   )
 }
-
-const color = '#0100c8'
 
 const PaymentSuccess = ({selectedSubscription} : {selectedSubscription: SubscriptionOption}) => {
   const navigate = useNavigate();
@@ -371,21 +411,25 @@ export const Subscriptions = () => {
   const [pageView, setPageView] = useState('SubscriptionOptions')
   const [selectedSubscription, setSelectedSubscription] = useState();
   const [activeSubscriptionOptions, setActiveSubscriptionOptions] = useState([])
+  const { currentPatient } = useCurrentPatient();
+  const { data: existingPaymentMethod, isLoading: paymentMethodLoading } = useExistingPaymentMethod(currentPatient?.id)
 
   useEffect(() => {
     if (!isLoading && !plansLoading && subscriptionPlans && subscriptionPlans.length > 0) {
       const options = subscriptionPlans.filter((plan) => (
         plan.active && plan.type === "recurring"
       ))
-      setActiveSubscriptionOptions(options)
-      setSelectedSubscription(options[0])
+      setActiveSubscriptionOptions(options);
+      setSelectedSubscription(options[0]);
     }
   }, [isLoading, plansLoading, subscriptionPlans])
 
-  if (isLoading || plansLoading) { return <Skeleton variant="rectangular" animation="wave" height={280} /> }
+  if (isLoading || plansLoading || paymentMethodLoading) {
+    return <Skeleton variant="rectangular" animation="wave" height={280} />
+  }
 
   if (isError) {
-    console.log("Failed to fetch tenant subscription plans:", isError)
+    console.log("Failed to fetch tenant subscription plans:", isError);
     return <div>Woops something went wrong...</div>;
   }
 
@@ -400,6 +444,7 @@ export const Subscriptions = () => {
           <>
             <SubscriptionHeader title={data.name} content={subscriptionContent}/>
             <SubscriptionSelection
+              existingPaymentMethod={existingPaymentMethod}
               plans={activeSubscriptionOptions}
               setPageView={setPageView}
               selectedSubscription={selectedSubscription}
@@ -411,8 +456,10 @@ export const Subscriptions = () => {
       case 'Payment':
         return (
           <SubscriptionPayment
+            currentPatient={currentPatient}
             selectedSubscription={selectedSubscription}
             setPageView={setPageView}
+            existingPaymentMethod={existingPaymentMethod}
           />
         )
       case 'PaymentSuccess':

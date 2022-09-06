@@ -14,7 +14,7 @@ const fetchPatientActiveSubscription = async (patientId) => {
   })
 
   if (subscriptionResponse.error) {
-    throw new Error("test")
+    throw new Error("Failed to fetch patient's capable subscriptions")
   }
 
   return findCurrentActiveSubscription(subscriptionResponse.body)
