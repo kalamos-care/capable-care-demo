@@ -164,11 +164,11 @@ function PasswordlessAuthenticator({ children }) {
       />
     );
 
-    const InputButton = ({ submitText, authState }) => {
-      const [checked, setChecked] = useState(authState === AuthState.SignIn);
+    const InputButton = ({ submitText, showConsentMessage, showConsentCheck }) => {
+      const [checked, setChecked] = useState(showConsentCheck && showConsentCheck ? false : true);
 
       const consentText = `By submitting your phone number, you consent to receive a one-time login code from ${process.env.REACT_APP_NAME} at the number provided. Message and data rates may apply.`;
-      const ConsentText = authState === AuthState.SignUp
+      const ConsentText = showConsentCheck
         ? (
           <CheckboxField
             label={consentText}
@@ -176,7 +176,7 @@ function PasswordlessAuthenticator({ children }) {
             onChange={(e) => setChecked(e.target.checked)}
           />
           )
-        : <span>{consentText}</span>;
+        : showConsentMessage && <span>{consentText}</span>;
 
       if (isLoading) {
         return (
@@ -201,6 +201,8 @@ function PasswordlessAuthenticator({ children }) {
       submitText,
       authState,
       inputElement,
+      showConsentMessage,
+      showConsentCheck,
     }) => (
       <Flex direction="column" gap="unset">
         <Heading textAlign="center" level={4}>
@@ -213,7 +215,11 @@ function PasswordlessAuthenticator({ children }) {
           padding={tokens.space.xl}
         >
           {inputElement}
-          <InputButton submitText={submitText} authState={authState} />
+          <InputButton
+            submitText={submitText}
+            showConsentMessage={showConsentMessage}
+            showConsentCheck={showConsentCheck}
+          />
         </Flex>
       </Flex>
     );
@@ -241,6 +247,8 @@ function PasswordlessAuthenticator({ children }) {
                 submitText="Get Code"
                 authState={AuthState.SignIn}
                 inputElement={PhoneNumberInput}
+                showConsentMessage={true}
+                showConsentCheck={false}
               />
             </TabItem>
             <TabItem title="Sign Up">
@@ -249,6 +257,8 @@ function PasswordlessAuthenticator({ children }) {
                 submitText="Sign Up"
                 authState={AuthState.SignUp}
                 inputElement={PhoneNumberInput}
+                showConsentMessage={true}
+                showConsentCheck={true}
               />
             </TabItem>
           </Tabs>
@@ -262,6 +272,8 @@ function PasswordlessAuthenticator({ children }) {
             submitText="Validate Code"
             authState={AuthState.ConfirmSignIn}
             inputElement={ConfirmationCodeInput}
+            showConsentMessage={false}
+            showConsentCheck={false}
           />
         </Layout>
       );
