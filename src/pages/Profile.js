@@ -49,13 +49,12 @@ function Header() {
   const memberSince = currentPatient?.joinedAt || "2021"; // hardcode default for demo.
 
   let avatarUrl;
-  if (currentPatient && process.env.REACT_APP_USAGE_MODE === "demo")  {
+  if (currentPatient && process.env.REACT_APP_USAGE_MODE === "demo") {
     avatarUrl =
       currentPatient.avatar_url ||
       (currentPatient.email && gravatar(currentPatient.email));
-  }
-  else if (currentPatient) {
-    avatarUrl = currentPatient.avatar_url
+  } else if (currentPatient) {
+    avatarUrl = currentPatient.avatar_url;
   }
 
   return (
@@ -87,16 +86,17 @@ const CareTeamMember = ({ practitionerName }) => {
         alignItems: "center",
       }}
     >
-      <ProfileIcon/>
+      <ProfileIcon />
       <Typography variant="h6" component="div" marginLeft={1} width="100%">
         {practitionerName}
       </Typography>
     </StyledCard>
   );
-}
+};
 
 const CareTeam = () => {
-  const { patientRelatedPersons, isLoading, isError } = usePatientRelatedPersons();
+  const { patientRelatedPersons, isLoading, isError } =
+    usePatientRelatedPersons();
 
   if (isLoading) {
     return <Skeleton variant="rectangular" animation="wave" height={280} />;
@@ -112,17 +112,18 @@ const CareTeam = () => {
         My Care Team
       </Typography>
 
-      {
-        patientRelatedPersons && patientRelatedPersons.map(({ related_person: { first_name, last_name } }) => (
-          <CareTeamMember
-            avatarSrc={require("../assets/profile-member-02.png")}
-            practitionerName={`${first_name} ${last_name}`}
-          />
-        ))
-      }
+      {patientRelatedPersons &&
+        patientRelatedPersons.map(
+          ({ related_person: { first_name, last_name } }) => (
+            <CareTeamMember
+              avatarSrc={require("../assets/profile-member-02.png")}
+              practitionerName={`${first_name} ${last_name}`}
+            />
+          )
+        )}
     </Container>
-  )
-}
+  );
+};
 
 function ModalContent({ copy }) {
   return (
@@ -163,76 +164,65 @@ export default function Profile({ signOut }) {
     navigate("/");
     signOut();
   };
-  const MyInformation = ({ usageMode, surveyId }) => {
-    const components = [];
-    if (surveyId !== "") {
-      components.push(
-        <IconListLink
-          icon={<WellnessIcon />}
-          text="Wellness Profile"
-          onClick={() => navigate("/survey")}
-        />
-      );
-    }
-    if (usageMode === "demo") {
-      components.push(
-        <IconListLink
-          icon={<AllergiesIcon />}
-          text="Allergies"
-          onClick={() =>
-            handleOpenModal("This section may be populated by intake survey")
-          }
-        />
-      );
-      components.push(
-        <IconListLink
-          icon={<MedicationsIcon />}
-          text="Current Medications"
-          onClick={() =>
-            handleOpenModal(
-              "This section may be populated by observations recorded by patient"
-            )
-          }
-        />
-      );
-      components.push(
-        <IconListLink
-          icon={<VitalsIcon />}
-          text="Vitals & Trends"
-          onClick={() =>
-            handleOpenModal(
-              "This section may be populated by observations recorded by patient"
-            )
-          }
-        />
-      );
-      components.push(
-        <IconListLink
-          icon={<PreferencesIcon />}
-          text="Care preferences"
-          onClick={() =>
-            handleOpenModal("This section may launch a questionnaire")
-          }
-        />
-      );
-    }
-    if (components.length !== 0) {
-      return (
-        <Container sx={{ marginTop: 3 }}>
-          <Typography variant="h6" component="h2">
-            My Information
-          </Typography>
 
-          <StyledCard sx={{ paddingY: 0 }}>
-            <List>
-              {components.reduce((prev, curr) => [prev, <Divider />, curr])}
-            </List>
-          </StyledCard>
-        </Container>
-      );
-    } else {
-      return null;
-    }
+  const MyInformation = () => {
+    const surveyId = process.env.REACT_APP_WELLNESS_SURVEY_ID ?? "";
+
+    return (
+      <Container sx={{ marginTop: 3 }}>
+        <Typography variant="h6" component="h2">
+          My Information
+        </Typography>
+
+        <StyledCard sx={{ paddingY: 0 }}>
+          <List>
+            <IconListLink
+              icon={<WellnessIcon />}
+              text="Wellness Profile"
+              onClick={() => navigate(`/survey/${surveyId}`)}
+            />
+            <Divider />
+            <IconListLink
+              icon={<AllergiesIcon />}
+              text="Allergies"
+              onClick={() =>
+                handleOpenModal(
+                  "This section may be populated by intake survey"
+                )
+              }
+            />
+            <Divider />
+            <IconListLink
+              icon={<MedicationsIcon />}
+              text="Current Medications"
+              onClick={() =>
+                handleOpenModal(
+                  "This section may be populated by observations recorded by patient"
+                )
+              }
+            />
+            <Divider />
+            <IconListLink
+              icon={<VitalsIcon />}
+              text="Vitals & Trends"
+              onClick={() =>
+                handleOpenModal(
+                  "This section may be populated by observations recorded by patient"
+                )
+              }
+            />
+            <Divider />
+            <IconListLink
+              icon={<PreferencesIcon />}
+              text="Care preferences"
+              onClick={() =>
+                handleOpenModal("This section may launch a questionnaire")
+              }
+            />
+          </List>
+        </StyledCard>
+      </Container>
+    );
   };
 
   return (
@@ -245,12 +235,9 @@ export default function Profile({ signOut }) {
 
       <Header />
 
-      <CareTeam/>
+      <CareTeam />
 
-      <MyInformation
-        usageMode={process.env.REACT_APP_USAGE_MODE}
-        surveyId={process.env.REACT_APP_WELLNESS_SURVEY_ID}
-      />
+      {process.env.REACT_APP_USAGE_MODE === "demo" && <MyInformation />}
 
       <Container sx={{ marginTop: 3 }}>
         <StyledCard sx={{ paddingY: 0 }}>

@@ -92,7 +92,11 @@ export default function App() {
                         <Route exact path="/goal" element={<Goal />} />
                         <Route exact path="/log" element={<Observation />} />
                         <Route exact path="/target" element={<Target />} />
-                        <Route exact path="/survey" element={<Survey />} />
+                        <Route
+                          exact
+                          path="/survey/:surveyId"
+                          element={<Survey />}
+                        />
                       </Route>
                     </SubscriptionRouteManager>
                   </Elements>

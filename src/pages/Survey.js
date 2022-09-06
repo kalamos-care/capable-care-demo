@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -20,14 +19,17 @@ import {
   ToggleButtonGroup,
   Typography,
 } from "@mui/material";
-import CircleIcon from "@mui/icons-material/Circle";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import * as Sentry from "@sentry/react";
+import CircleIcon from "@mui/icons-material/Circle";
+
 import { BackButton, StyledCard } from "../components";
-import PrimaryHeader from "../components/PrimaryHeader";
-import ErrorMessage from "../components/ErrorMessage";
 import { useCurrentPatient, useSurvey } from "../fetchDataHooks";
 import api from "../capableApi";
+import ErrorMessage from "../components/ErrorMessage";
 import groupBy from "../utils/groupBy";
+import PrimaryHeader from "../components/PrimaryHeader";
 
 // NOTE: Due to us using a mixture of <input>, MUI <TextareaAutosize>
 //       and <TextField>, we need to set a consistent border style.
@@ -508,12 +510,9 @@ function Submission({ submission }) {
 }
 
 export default function Survey() {
+  const { surveyId } = useParams();
   const { currentPatient, isError: patientError } = useCurrentPatient();
-  const {
-    survey,
-    isLoading,
-    isError: surveyError,
-  } = useSurvey(process.env.REACT_APP_WELLNESS_SURVEY_ID);
+  const { survey, isLoading, isError: surveyError } = useSurvey(surveyId);
   const [submission, setSubmission] = useState();
 
   if (isLoading)
