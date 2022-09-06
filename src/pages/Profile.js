@@ -106,21 +106,28 @@ const CareTeam = () => {
     return null;
   }
 
+  const filteredPatientRelatedPersons = patientRelatedPersons && patientRelatedPersons.filter((patientRelatedPerson) => {
+    return patientRelatedPerson.relationship_type === "Practitioner";
+  });
+
+  if (!filteredPatientRelatedPersons || filteredPatientRelatedPersons.length === 0) {
+    return null;
+  }
+
   return (
     <Container sx={{ marginTop: 3 }}>
       <Typography variant="h6" component="h2">
         My Care Team
       </Typography>
 
-      {patientRelatedPersons &&
-        patientRelatedPersons.map(
-          ({ related_person: { first_name, last_name } }) => (
-            <CareTeamMember
-              avatarSrc={require("../assets/profile-member-02.png")}
-              practitionerName={`${first_name} ${last_name}`}
-            />
-          )
-        )}
+      {filteredPatientRelatedPersons.map(
+        ({ related_person: { first_name, last_name } }) => (
+          <CareTeamMember
+            avatarSrc={require("../assets/profile-member-02.png")}
+            practitionerName={`${first_name} ${last_name}`}
+          />
+        )
+      )}
     </Container>
   );
 };
