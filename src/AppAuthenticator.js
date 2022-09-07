@@ -72,7 +72,7 @@ const useCurrentUser = () => {
   return [currentUser, setCurrentUser];
 };
 
-function PasswordlessAuthenticator({ children }) {
+function PasswordlessAuthenticator({ children, hideSignUp }) {
   const [authState, setAuthState] = useAuthState();
   const [currentUser, setCurrentUser] = useCurrentUser();
   const [submitError, setSubmitError] = useState(undefined);
@@ -233,6 +233,47 @@ function PasswordlessAuthenticator({ children }) {
       </View>
     );
 
+    const SignIn = (
+      <InputField
+        headerText="Sign in to your account"
+        submitText="Get Code"
+        authState={AuthState.SignIn}
+        inputElement={PhoneNumberInput}
+        showConsentMessage={true}
+        showConsentCheck={false}
+      />
+    );
+    
+    const SignUp = (
+      <InputField
+        headerText="Create a new account"
+        submitText="Sign Up"
+        authState={AuthState.SignUp}
+        inputElement={PhoneNumberInput}
+        showConsentMessage={true}
+        showConsentCheck={true}
+      />
+    );
+    
+    const ConfirmSignIn = (
+      <InputField
+        headerText="Confirm Sign In"
+        submitText="Validate Code"
+        authState={AuthState.ConfirmSignIn}
+        inputElement={ConfirmationCodeInput}
+        showConsentMessage={false}
+        showConsentCheck={false}
+      />
+    );
+
+    if (hideSignUp && authState === AuthState.SignIn) {
+      return (
+        <Layout>
+          {SignIn}
+        </Layout>
+      );
+    }
+
     if ([AuthState.SignIn, AuthState.SignUp].includes(authState)) {
       return (
         <Layout>
@@ -242,42 +283,25 @@ function PasswordlessAuthenticator({ children }) {
             defaultIndex={authState === AuthState.SignIn ? 0 : 1}
           >
             <TabItem title="Sign In">
-              <InputField
-                headerText="Sign in to your account"
-                submitText="Get Code"
-                authState={AuthState.SignIn}
-                inputElement={PhoneNumberInput}
-                showConsentMessage={true}
-                showConsentCheck={false}
-              />
+              {SignIn}
             </TabItem>
             <TabItem title="Sign Up">
-              <InputField
-                headerText="Create a new account"
-                submitText="Sign Up"
-                authState={AuthState.SignUp}
-                inputElement={PhoneNumberInput}
-                showConsentMessage={true}
-                showConsentCheck={true}
-              />
+              {SignUp}
             </TabItem>
           </Tabs>
         </Layout>
       );
-    } else if (authState === AuthState.ConfirmSignIn) {
+    }
+    
+    if (authState === AuthState.ConfirmSignIn) {
       return (
         <Layout>
-          <InputField
-            headerText="Confirm Sign In"
-            submitText="Validate Code"
-            authState={AuthState.ConfirmSignIn}
-            inputElement={ConfirmationCodeInput}
-            showConsentMessage={false}
-            showConsentCheck={false}
-          />
+          {ConfirmSignIn}
         </Layout>
       );
     }
+
+    return null;
   };
 
   return authState === AuthState.SignedIn && currentUser
@@ -393,11 +417,13 @@ function AppAuthenticator(props) {
     return null;
   }
 
+  const hideSignUp = process.env.REACT_APP_DISABLE_SIGNUP === "true";
+
   // This allows to switch back and forth between passwordless auth and credentials auth
   return authFlow === PASSWORDLESS ? (
-    <PasswordlessAuthenticator children={props.children} />
+    <PasswordlessAuthenticator children={props.children} hideSignUp={hideSignUp} />
   ) : (
-    <Authenticator formFields={formFieldConfig} components={authComponents}>
+    <Authenticator formFields={formFieldConfig} components={authComponents} hideSignUp={hideSignUp}>
       {props.children}
     </Authenticator>
   );
