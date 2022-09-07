@@ -56,7 +56,14 @@ const LastLog = ({ observation }) => {
 // See the useCRMContent function for more details.
 const GoalCard = ({ goal }) => {
   const navigate = useNavigate();
+  // NOTE: We modify the goal object with content from Contentful here. If you
+  //       have forked this app, you most likely will **not** need to do this.
+  const { isLoading } = useCRMContent(goal);
   const observation = latestObservation(goal);
+
+  if (isLoading) {
+    return <></>
+  }
 
   return (
     <StyledCard

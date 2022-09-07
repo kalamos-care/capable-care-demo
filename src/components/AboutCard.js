@@ -8,7 +8,7 @@ import { HeaderImage, RichText } from "../components";
 export default function AboutCard({ carePlan }) {
   // NOTE: We modify the currentPlan object with content from Contentful here. If you
   //       have forked this app, you most likely will **not** need to do this.
-  const { isLoading, data: currentPlan } = useCRMContent(carePlan);
+  const { isLoading } = useCRMContent(carePlan);
 
   if (isLoading) {
     return (
@@ -18,11 +18,11 @@ export default function AboutCard({ carePlan }) {
 
   return (
     <>
-      <HeaderImage data={currentPlan} />
+      <HeaderImage data={carePlan} />
 
       <Container sx={{ marginBottom: 5 }}>
         <RichText
-          content={currentPlan.description}
+          content={carePlan.description}
           sx={{
             marginBottom: "0rem",
             letterSpacing: "0.015rem",
