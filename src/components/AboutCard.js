@@ -9,7 +9,7 @@ export default function AboutCard({ carePlan }) {
   // NOTE: We modify the currentPlan object with content from Contentful here. If you
   //       have forked this app, you most likely will **not** need to do this.
   const { isLoading, data: currentPlan } = useCRMContent(carePlan);
-  
+
   if (isLoading) {
     return (
       <Skeleton variant="rectangular" animation="wave" height={280} />

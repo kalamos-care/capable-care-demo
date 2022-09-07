@@ -1,4 +1,4 @@
-import { Box, Card, Container, Stack, Typography } from "@mui/material";
+import {Box, Card, Container, Skeleton, Stack, Typography} from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check';
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -6,6 +6,7 @@ import BackButton from "../components/BackButton";
 import { HeaderImage, LinkButton, ObservationLog, Recurrence, RichText, StyledCard } from "../components";
 import { ForwardArrowIcon } from "../components/icons";
 import api from "../capableApi/index";
+import {useCRMContent} from "../fetchDataHooks";
 
 // Render a card detailing the target & linking to the target page to show it's observations.
 function TargetCard({ target, goal }) {
@@ -66,7 +67,7 @@ export default function Goal() {
   const { state } = useLocation();
   const navigate = useNavigate();
   const { goal } = state;
-
+  const { data: currentGoal, isLoading } = useCRMContent(goal);
   const isGoalAchieved = goal.achievement_status === "achieved" || goal.achievement_status === "not_attainable";
 
   const updateAchievementStatus = async () => {
@@ -82,13 +83,25 @@ export default function Goal() {
     navigate("/goal", { state: { goal: { ...goal, achievement_status: new_achievement_status }}})
   };
 
+  if (isLoading) {
+    return (
+      <Skeleton variant="rectangular" animation="wave" height={280} />
+    );
+  }
+
   return (
     <>
-      <Card sx={{ position: "relative" }}>
-        <BackButton route={`/home/${goal.care_plan_id}`} sx={{ position: "absolute", zIndex: 100 }} />
+      {
+        currentGoal.imageUrl ? (
+          <Card sx={{ position: "relative" }}>
+            <BackButton route={`/home/${goal.care_plan_id}`} sx={{ position: "absolute", zIndex: 100 }} />
 
-        <HeaderImage data={goal} />
-      </Card>
+            <HeaderImage data={currentGoal} />
+          </Card>
+        ) : (
+          <BackButton route={`/home/${goal.care_plan_id}`} />
+        )
+      }
 
       <Container sx={{
         overflow: "scroll",

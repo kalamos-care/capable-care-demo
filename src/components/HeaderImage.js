@@ -7,8 +7,8 @@ import { CardMedia } from "@mui/material";
 export default function HeaderImage({ data }) {
   // use a backup image if not available on the data object.
   const headerImage = data.imageUrl
-    ? data.imageUrl
-    : require("../assets/goal-header.jpeg");
+
+  if (!headerImage) { return null }
   // Note: we are relying on a naming convention in this app to determine
   // whether this is an image or a video.
   const headerIsVideo = /\/\/videos/.test(data.imageUrl);
