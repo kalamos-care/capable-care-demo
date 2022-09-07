@@ -1,4 +1,4 @@
-import Box from "@mui/material/Box";
+import { Avatar as MUIAvatar } from "@mui/material";
 
 import { colors } from "styles/colors";
 import { getInitials } from "utils/strings";
@@ -8,6 +8,7 @@ const Avatar = ({
   color,
   diameter,
   style,
+  imageUrl,
 }: {
   user?: any;
   color?: string;
@@ -15,11 +16,14 @@ const Avatar = ({
   style?: any;
   imageUrl?: string;
 }): JSX.Element => {
-  const initials = user ? getInitials(user.first_name, user.last_name) : "";
-  const imageUrl = user?.avatar_url || "";
+  const initials = user
+    ? getInitials(user.first_name, user.last_name) || undefined
+    : undefined;
+  const imageSrc = imageUrl ?? user?.avatar_url ?? "";
 
   return (
-    <Box
+    <MUIAvatar
+      src={imageSrc}
       sx={{
         border: "1px solid",
         borderColor: color || colors.avatarBlue,
@@ -27,30 +31,13 @@ const Avatar = ({
         fontWeight: "bold",
         height: diameter ? diameter : "42px",
         width: diameter ? diameter : "42px",
-        borderRadius: "50%",
-        display: "flex",
-        overflow: "hidden",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: "16px",
         color: colors.white,
+        fontSize: "16px",
         ...style,
       }}
     >
-      {imageUrl ? (
-        <img
-          src={imageUrl}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
-          alt={""}
-        />
-      ) : (
-        initials?.toUpperCase()
-      )}
-    </Box>
+      {initials?.toUpperCase()}
+    </MUIAvatar>
   );
 };
 
