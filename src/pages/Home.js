@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Typography, Box, CardMedia, Avatar, Skeleton, Stack } from "@mui/material";
+import { Box, Card, CardMedia, Container, Avatar, Skeleton, Stack, Typography } from "@mui/material";
 
 import { AboutCard, ArrowLink, ControlledTabs, GoalCards, TaskCards } from "../components";
 import { useCarePlans, useCurrentPatient } from "../fetchDataHooks";
@@ -22,7 +22,7 @@ function Header({ carePlan, patient }) {
     ? <ArrowLink copy={carePlan.name} url={"/care_plans"}/>
       : (
         <Typography
-          variant="headline"
+          variant="subtitle"
           sx={{
             flexGrow: 1,
             display: "flex",
@@ -30,14 +30,20 @@ function Header({ carePlan, patient }) {
             justifyContent: "space-between",
             width: 1,
             alignItems: "center",
+            fontSize: "20px",
+            marginTop: "0.25rem",
           }}
         >
-          No plan
+          No active care plans
         </Typography>
       )
 
   return (
-    <Box sx={{ backgroundColor: "background.paper" }}>
+    <Box
+      sx={{
+        backgroundColor: "background.paper",
+        boxShadow: !carePlan ? ["rgb(2 2 40 / 8%) 0px 4px 6px"] : null,
+      }}>
       <CardMedia
         component="img"
         width="375"
@@ -96,7 +102,38 @@ const HomeContent = ({ carePlan }) => {
   const [tab, setTab] = useState(tabs[0]);
 
   if (!carePlan) {
-    return null;
+    const NoCarePlanCard = ({text, textColor, left, top}) => (
+      <Card
+        sx={{
+          width: "50%",
+          padding: "0.5rem 1rem",
+          borderRadius: "8px",
+          boxShadow: "0px 4px 20px rgb(177 179 203 / 80%)",
+          textAlign: "left",
+          position: "absolute",
+          left,
+          top,
+        }}
+      >
+        <Typography variant="eyebrow" style={{ color: textColor }}>{text}</Typography>
+        <Skeleton animation={false} height={"0.5rem"} width={"75%"} sx={{ backgroundColor: "#D9DBE9" }} />
+        <Skeleton animation={false} height={"0.5rem"} sx={{ backgroundColor: "#EFF0F7" }} />
+        <Skeleton animation={false} height={"0.5rem"} width={"80%"} sx={{ backgroundColor: "#EFF0F7" }} />
+      </Card>
+    );
+    return (
+      <div style={{ padding: "3rem 36px 36px", textAlign: "center" }}>
+        <div style={{ position: "relative", height: "125px" }}>
+          <NoCarePlanCard text={"Recommended goal"} textColor={"#4C4CD8"} left={"20%"} top={"0"} />
+          <NoCarePlanCard text={"Recommended task"} textColor={"#F8BE39"} left={"35%"} top={"30%"} />
+        </div>
+        <div style={{ position: "relative" }}>
+          <Typography variant="body2">
+            A Care Plan is your action plan tailored to help you achieve your health goals. As your Care Team gets to know you, you will see what they recommend and assign to you here.
+          </Typography>
+        </div>
+      </div>
+    );
   }
 
   return (
