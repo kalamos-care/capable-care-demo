@@ -38,7 +38,7 @@ const CarePlan = ({ carePlan, completedGoalsCount, openGoalsCount }) => {
 
 const CarePlansForStatus = ({ status, carePlans, goals }) => {
   return (
-    <Box sx={{ marginBottom: "1rem" }}>
+    <Box sx={{ marginTop: "1rem" }}>
       <Typography variant="subtitle">{status}</Typography>
       {
         carePlans.map((carePlan) => {
@@ -87,9 +87,10 @@ export default function CarePlans() {
   return (
     <>
       <Box>
-        <BackButton route="/home" />
+        <BackButton sx={{ backgroundColor: "#F3F4F5" }} route="/home" />
       </Box>
       <Box sx={{ margin: "16px" }}>
+        <Typography variant="headline">Care Plans</Typography>
         {ActiveCarePlans}
         {CompletedCarePlans}
       </Box>
