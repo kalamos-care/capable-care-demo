@@ -2,6 +2,7 @@ import AboutCard from "./AboutCard";
 import ArrowLink from "./ArrowLink";
 import BackButton from "./BackButton";
 import BasicModal from "./BasicModal";
+import CopyrightFooter from "./CopyrightFooter";
 import GoalCards from "./GoalCards";
 import HeaderImage from "./HeaderImage";
 import IconListLink from "./IconListLink";
@@ -26,6 +27,7 @@ export {
   BackButton,
   BasicModal,
   ControlledTabs,
+  CopyrightFooter,
   GoalCards,
   HeaderImage,
   IconListLink,

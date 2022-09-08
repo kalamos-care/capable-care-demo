@@ -1,5 +1,7 @@
 import { useTheme, View, Image, Heading } from "@aws-amplify/ui-react";
 
+import CopyrightFooter from "./CopyrightFooter";
+
 function HeaderText(props) {
   const { tokens } = useTheme();
 
@@ -30,6 +32,9 @@ function Logo() {
 export const authComponents = {
   Header() {
     return <Logo />;
+  },
+  Footer() {
+    return <CopyrightFooter />;
   },
   SignIn: {
     Header() {

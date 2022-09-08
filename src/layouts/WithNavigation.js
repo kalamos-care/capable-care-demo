@@ -2,7 +2,9 @@ import { Box } from "@mui/material";
 import { Navigation } from "../components";
 import { Outlet } from "react-router";
 
-export const WithNavigation = () => {
+import { CopyrightFooter } from "../components";
+
+export const WithNavigation = ({ withCopyRight }) => {
   return (
     <>
       {/* Main content box */}
@@ -15,6 +17,8 @@ export const WithNavigation = () => {
       >
         <Outlet />
       </Box>
+
+      {withCopyRight && <CopyrightFooter backgroundColor="#fafafa" />}
 
       <Navigation />
     </>

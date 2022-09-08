@@ -21,9 +21,11 @@ export default function Navigation() {
     <BottomNavigation
       sx={{
         borderTop: 1,
+        borderBottom: 1,
         borderColor: "grey.400",
         padding: "10px 0",
         height: "auto",
+        backgroundColor: "#fafafa",
       }}
       value={value}
       onChange={handleChange}

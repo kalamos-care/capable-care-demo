@@ -77,6 +77,9 @@ export default function App() {
                           path="/appointments"
                           element={<Appointments />}
                         />
+                      </Route>
+
+                      <Route element={<WithNavigation withCopyRight={true} />}>
                         <Route
                           exact
                           path="/profile"

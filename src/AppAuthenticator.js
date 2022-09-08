@@ -23,6 +23,7 @@ import * as Sentry from "@sentry/react";
 
 import { formFieldConfig } from "./config/auth";
 import { authComponents } from "./components/Auth";
+import { CopyrightFooter } from "./components";
 
 import "@aws-amplify/ui-react/styles.css";
 import "./styles/authenticator.css";
@@ -230,6 +231,7 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
           <Image alt="Logo" src={process.env.REACT_APP_LOGO_DARK} />
         </View>
         <Card variation="outlined">{children}</Card>
+        <CopyrightFooter />
       </View>
     );
 
