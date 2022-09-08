@@ -1,0 +1,86 @@
+/*
+  Overriding the default survey CSS
+  https://surveyjs.io/Examples/Library/?id=custom-theme-v2&platform=Reactjs&theme=defaultV2#content-css
+*/
+
+.sv_main {
+  font-family: 'Rubik', sans-serif;
+  font-size: 18px;
+  line-height: 26px;
+}
+.sv_main .sv_custom_header {
+  display: none;
+}
+.sv_main .sv_container {
+  color: #000;
+}
+.sv_main .sv_container .sv_header {
+  display: none;
+}
+.sv_main .sv_body {
+  border: 0;
+  padding: 0;
+}
+.sv_main .sv_body .sv_row {
+  border: 0;
+  margin-top: 30px;
+}
+.sv_main .sv_body .sv_row:first-child {
+  margin-top: 0;
+}
+.sv_main .sv_body .sv_row:nth-child(even) {
+  background: #fff;
+}
+.sv_main .sv_body .sv_progress {
+  height: 6px;
+}
+.sv_main .sv_body .sv_progress span {
+  font-size: 13px;
+  padding: 5px;
+  color: #777;
+}
+.sv_main .sv_body .sv_q {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.07), 0px 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  padding: 20px 30px 30px;
+  border: 1px solid #f1f1f1;
+}
+.sv_main input[type="button"], .sv_main button {
+  padding: 4px 24px;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: 'Rubik', sans-serif;
+  text-transform: uppercase;
+  border-radius: 4px;
+  border: 0;
+  transition: ease 0.3s all;
+}
+.sv_main input[type="button"]:hover, .sv_main button:hover {
+  background: #000;
+}
+.sv_main input[type="button"].sv_prev_btn, .sv_main button.sv_prev_btn {
+  background: #ccc;
+}
+.sv_main input[type="button"].sv_prev_btn:hover, .sv_main button.sv_prev_btn:hover {
+  background: #999;
+}
+@media (max-width: 600px) {
+  .sv_main input[type="button"], .sv_main button {
+    padding: 4px 16px;
+ }
+}
+.sv_main input, .sv_main .sv_q_text_root, .sv_main .sv_q_dropdown_control, .sv_main input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="image"]):not([type="checkbox"]):not([type="radio"]), .sv_main select, .sv_main textarea {
+  border: 1px solid #d1d1d1;
+  border-radius: 2px;
+}
+.sv_main input[type="checkbox"] {
+  appearance: none;
+  margin-top: 0.5rem;
+}
+.sv_main input[type="checkbox"]:checked {
+  background-size: 14px;
+}
+
+.sv_main .sv_container .sv_body .sv_p_root .sv_q_title {
+  font-weight: 500;
+}

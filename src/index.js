@@ -6,7 +6,10 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import configureAuthenticator from "./config/auth";
 import configureErrorReporting from "./config/errorReporting";
+
 import "./styles/index.css";
+import "./styles/survey.css";
+import "./styles/survey.js";
 
 (async () => {
   // configure Sentry

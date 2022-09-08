@@ -151,7 +151,7 @@ const HomeContent = ({ carePlan }) => {
 export default function Home() {
   const { currentPatient } = useCurrentPatient();
   const { carePlans, isLoading, isError } = useCarePlans();
-  const { care_plan_id } = useParams();
+  const { carePlanId } = useParams();
   
   if (isLoading) {
     return (
@@ -169,8 +169,8 @@ export default function Home() {
   const activeCarePlans = carePlans.filter(carePlan => carePlan.status === "active");
   const completedCarePlans = carePlans.filter(carePlan => carePlan.status === "completed");
 
-  if (care_plan_id) {
-    currentCarePlan = [...activeCarePlans, ...completedCarePlans].find(carePlan => carePlan.id === care_plan_id);
+  if (carePlanId) {
+    currentCarePlan = [...activeCarePlans, ...completedCarePlans].find(carePlan => carePlan.id === carePlanId);
   } else if (activeCarePlans.length > 0) {
     currentCarePlan = activeCarePlans[0];
   } else if (completedCarePlans.length > 0) {

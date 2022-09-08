@@ -5,6 +5,7 @@
   "dependencies": {
     "@aws-amplify/ui-react": "^3.3.0",
     "@capable-health/capable-auth-sdk": "^1.0.6",
+    "@contentful/rich-text-html-renderer": "^15.13.1",
     "@contentful/rich-text-react-renderer": "^15.12.0",
     "@daily-co/daily-js": "^0.25.0",
     "@emotion/react": "^11.8.2",
@@ -39,6 +40,8 @@
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
     "superagent": "^7.1.2",
+    "survey-react": "^1.9.47",
+    "surveyjs-widgets": "^1.9.47",
     "swr": "^1.2.2",
     "typescript": "^4.6.3",
     "web-vitals": "^2.1.0"

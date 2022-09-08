@@ -11,6 +11,7 @@ import MobileContainer from "./MobileContainer";
 import Navigation from "./Navigation";
 import Observation from "./Observation";
 import ObservationLog from "./ObservationLog";
+import Questionnaire from "./Questionnaire";
 import Recurrence from "./Recurrence";
 import RichText from "./RichText";
 import StyledCard from "./StyledCard";
@@ -34,6 +35,7 @@ export {
   Navigation,
   Observation,
   ObservationLog,
+  Questionnaire,
   Recurrence,
   RichText,
   StyledCard,
