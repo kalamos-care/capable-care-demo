@@ -18,6 +18,7 @@ import CarePlans from "./pages/CarePlans";
 import Conversation from "features/conversations/pages/Conversation";
 import Conversations from "features/conversations/pages/Conversations";
 import Goal from "./pages/Goal";
+import Task from "features/tasks/pages/Task";
 import Home from "./pages/Home";
 import Observation from "./pages/Observation";
 import Profile from "./pages/Profile";
@@ -90,6 +91,7 @@ export default function App() {
                           element={<CarePlans />}
                         />
                         <Route exact path="/goal" element={<Goal />} />
+                        <Route exact path="/task/:taskId" element={<Task />} />
                         <Route exact path="/log" element={<Observation />} />
                         <Route exact path="/target" element={<Target />} />
                         <Route

@@ -1,21 +1,21 @@
-import { useState } from "react";
-import * as Sentry from "@sentry/react";
-import useTasksByStatus from "../fetchDataHooks/useTasksByStatus";
 import {
   Box,
   CardContent,
   Typography,
   ToggleButton,
   DialogActions,
-  Alert,
   Skeleton,
 } from "@mui/material";
-import StyledCard from "./StyledCard";
-import BasicModal from "./BasicModal";
+import { useNavigate } from "react-router-dom";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CheckCircleOutlineSharpIcon from "@mui/icons-material/CheckCircleOutlineSharp";
 import RadioButtonUncheckedSharpIcon from "@mui/icons-material/RadioButtonUncheckedSharp";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import api from "../capableApi/index";
+
+import { filterAndSortTasks } from "features/tasks/utils/taskUtils.utils";
+import { useTasks } from "features/tasks/hooks/useTasks.hook";
+import { useUpdateTask } from "features/tasks/hooks/useUpdateTask.hook";
+import BasicModal from "./BasicModal";
+import StyledCard from "./StyledCard";
 import titlecase from "../utils/titlecase";
 
 // Function to render the correct check box icon based on the state.
@@ -102,62 +102,66 @@ const AddToDoLink = () => {
   );
 };
 */
+
 // Renders a single task, which can be toggled between checked and unchecked.
 const TaskCard = ({ task }) => {
-  // NOTE: Capable tasks can have 1 of 3 states (in_progress, completed,
-  //       cancelled). This app only allows the user to toggle
-  //       between in_progress and completed.
-  const isTaskCompleted = task.achievement_status == "completed";
-  const [completedState, updateCompletedState] = useState(isTaskCompleted);
-  const [failedRequest, updateFailedRequest] = useState(false);
+  const { mutate: updateTask } = useUpdateTask();
+  const navigate = useNavigate();
 
-  // Updates the state of the todo in Capable and if successful updates the
-  // state of the task in the react app.
-  const updateTask = async () => {
-    const toggledState = !completedState;
-    const newStatus = toggledState ? "completed" : "in_progress";
-    try {
-      await api.client.Task.update(task.id, {
-        body: { task: { achievement_status: newStatus } },
-      });
-      updateCompletedState(toggledState);
-      updateFailedRequest(false);
-    } catch (e) {
-      Sentry.captureException(e);
-      console.error("Update failed!");
-      updateFailedRequest(true);
-    }
+  const isTaskCompleted =
+    task?.achievement_status === "completed" ||
+    task?.achievement_status === "not_attainable";
+
+  const toggleAchievementStatus = async () => {
+    const new_achievement_status = isTaskCompleted
+      ? "in_progress"
+      : "completed";
+
+    updateTask({
+      taskId: task.id,
+      task: {
+        achievement_status: new_achievement_status,
+      },
+    });
   };
 
   return (
     <StyledCard
       key={task.id}
-      sx={{ marginBottom: "1rem", marginTop: 0, padding: 0 }}
+      sx={{
+        marginBottom: "0.75rem",
+        marginTop: 0,
+        textTransform: "none",
+        border: "none",
+        textAlign: "left",
+        padding: "0.75rem",
+      }}
+      onClick={(e) => {
+        navigate(`/task/${task.id}`);
+      }}
     >
-      <ToggleButton
-        value="check"
-        onChange={updateTask}
-        fullWidth={true}
+      <Box
         sx={{
-          textTransform: "none",
-          boxShadow: "none",
-          border: "none",
-          textAlign: "left",
-          padding: "0.75rem",
+          display: "flex",
+          flexDirection: "row",
+          gap: "1rem",
         }}
       >
-        <CardContent sx={{ padding: 0, width: 1 }}>
-          <Box sx={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
-            <CheckBoxIcon isCompleted={completedState} />
-            <TaskDetails task={task} />
-          </Box>
-        </CardContent>
-      </ToggleButton>
-      {failedRequest && (
-        <Alert severity="error">
-          Woops something went wrong. Please try again!
-        </Alert>
-      )}
+        <ToggleButton
+          value="check"
+          onChange={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            toggleAchievementStatus();
+          }}
+          sx={{
+            border: "none",
+          }}
+        >
+          <CheckBoxIcon isCompleted={isTaskCompleted} />
+        </ToggleButton>
+        <TaskDetails task={task} />
+      </Box>
     </StyledCard>
   );
 };
@@ -183,29 +187,26 @@ const TaskCards = ({ tasks, status }) => {
 };
 
 const TaskCardsByStatus = ({ carePlan }) => {
-  const { tasks, isLoading, isError } = useTasksByStatus();
+  const { data: tasks, isLoading, isError } = useTasks();
+  const filteredTasks = filterAndSortTasks(tasks, carePlan.id);
 
   if (isLoading) {
-    return (
-      <Skeleton variant="rectangular" animation="wave" height={280} />
-    );
+    return <Skeleton variant="rectangular" animation="wave" height={280} />;
   }
 
   if (isError) {
-    return (
-      <div>Woops something went wrong...</div>
-    );
+    return <div>Woops something went wrong...</div>;
   }
 
-  const openTasks = tasks.open.filter(openTask => openTask.care_plan_id === carePlan.id);
-  const OpenTasks = openTasks.length > 0
-    ? <TaskCards tasks={openTasks} status="open" />
-    : null;
+  const OpenTasks =
+    filteredTasks?.open?.length > 0 ? (
+      <TaskCards tasks={filteredTasks?.open} status="open" />
+    ) : null;
 
-  const completedTasks = tasks.completed.filter(completedTask => completedTask.care_plan_id === carePlan.id);
-  const CompletedTasks = completedTasks.length > 0
-    ? <TaskCards tasks={completedTasks} status="completed" />
-    : null;
+  const CompletedTasks =
+    filteredTasks?.completed?.length > 0 ? (
+      <TaskCards tasks={filteredTasks?.completed} status="completed" />
+    ) : null;
 
   return (
     <>

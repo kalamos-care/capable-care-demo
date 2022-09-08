@@ -12,35 +12,37 @@ const client = createClient({
 const fetcher = (entry_id) => client.getEntry(entry_id);
 
 const fetchCRMContent = async (capableObject) => {
+  if (!capableObject) return;
+  if (capableObject?.cms_entry_id === "") {
+    return capableObject;
+  }
   try {
-    if (capableObject.cms_entry_id === "") {
-      return capableObject
-    }
-
-    const data = await fetcher(capableObject.cms_entry_id)
+    const data = await fetcher(capableObject.cms_entry_id);
 
     if (data && data.fields) {
+      const imageUrl = data.fields.headerImage?.fields?.file?.url;
+      if (imageUrl) {
+        capableObject.imageUrl = `https:${imageUrl}`;
+      }
       capableObject.name = data.fields.title;
-      capableObject.imageUrl = `https:${data.fields.headerImage?.fields?.file.url}`;
       capableObject.description = data.fields.description;
     }
 
-    return capableObject
+    return capableObject;
   } catch (error) {
     Sentry.captureException(error);
     console.error(error);
-    return capableObject
+    return capableObject;
   }
-}
+};
 
 // Fetch the content from the CMS and merge it into the argument object.
 // The argument object should have a `cms_entry_id` attribute.
 // Example: const goal = useCRMContent(props.goal);
 // Example: const currentPlan = useCRMContent(props.currentCarePlan);
 export default function useCRMContent(capableObject) {
-  const cms_entry_id = capableObject.cms_entry_id
-  return useQuery(
-    [ReactQueryKeys.CMS_ENTRY, cms_entry_id],
-    () => fetchCRMContent(capableObject)
-  )
+  const cms_entry_id = capableObject?.cms_entry_id;
+  return useQuery([ReactQueryKeys.CMS_ENTRY, cms_entry_id], () =>
+    fetchCRMContent(capableObject)
+  );
 }
