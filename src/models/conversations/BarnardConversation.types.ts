@@ -5,7 +5,8 @@ export const ConversationTypes = {
   CHAT: "chat",
 } as const;
 
-export type ConversationType = typeof ConversationTypes[keyof typeof ConversationTypes];
+export type ConversationType =
+  typeof ConversationTypes[keyof typeof ConversationTypes];
 
 export interface BarnardConversation {
   id: string;

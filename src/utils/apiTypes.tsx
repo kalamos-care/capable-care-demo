@@ -18,6 +18,7 @@ export enum API_Type {
   PatientMedication = "PatientMedication",
   Practitioner = "Practitioner",
   Product = "Product",
+  PromotionCode = "PromotionCode",
   Questionnaire = "Questionnaire",
   Race = "Race",
   SetupIntent = "SetupIntent",

@@ -257,6 +257,7 @@ import { PharmaciesApi } from "./api/PharmaciesApi";
 import { PractitionersApi } from "./api/PractitionersApi";
 import { PrescriptionsApi } from "./api/PrescriptionsApi";
 import { ProductsApi } from "./api/ProductsApi";
+import { PromotionCodesApi } from "./api/PromotionCodesApi";
 import { PermissionsApi } from "./api/PermissionsApi";
 import { QuestionnairesApi } from "./api/QuestionnairesApi";
 import { RacesApi } from "./api/RacesApi";
@@ -1539,6 +1540,11 @@ export {
    * @property {module:api/ProductsApi}
    */
   ProductsApi,
+  /**
+   * The PromotionCodesApi service constructor.
+   * @property {module:api/PromotionCodesApi}
+   */
+  PromotionCodesApi,
   /**
    * The QuestionnairesApi service constructor.
    * @property {module:api/QuestionnairesApi}

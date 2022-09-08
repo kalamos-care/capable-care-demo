@@ -106,11 +106,16 @@ const CareTeam = () => {
     return null;
   }
 
-  const filteredPatientRelatedPersons = patientRelatedPersons && patientRelatedPersons.filter((patientRelatedPerson) => {
-    return patientRelatedPerson.relationship_type === "Practitioner";
-  });
+  const filteredPatientRelatedPersons =
+    patientRelatedPersons &&
+    patientRelatedPersons.filter((patientRelatedPerson) => {
+      return patientRelatedPerson.relationship_type === "Practitioner";
+    });
 
-  if (!filteredPatientRelatedPersons || filteredPatientRelatedPersons.length === 0) {
+  if (
+    !filteredPatientRelatedPersons ||
+    filteredPatientRelatedPersons.length === 0
+  ) {
     return null;
   }
 

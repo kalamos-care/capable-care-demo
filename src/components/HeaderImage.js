@@ -6,9 +6,11 @@ import { CardMedia } from "@mui/material";
 // Example: <HeaderImage data={currentPlan} />
 export default function HeaderImage({ data }) {
   // use a backup image if not available on the data object.
-  const headerImage = data.imageUrl
+  const headerImage = data.imageUrl;
 
-  if (!headerImage) { return null }
+  if (!headerImage) {
+    return null;
+  }
   // Note: we are relying on a naming convention in this app to determine
   // whether this is an image or a video.
   const headerIsVideo = /\/\/videos/.test(data.imageUrl);

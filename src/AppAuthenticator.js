@@ -127,7 +127,10 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
           break;
         default:
           console.log("Unknown auth state:", authState);
-          Sentry.captureMessage("Unknown auth state", { level: "error", authState });
+          Sentry.captureMessage("Unknown auth state", {
+            level: "error",
+            authState,
+          });
       }
     } catch (error) {
       Sentry.captureException(error, { level: "warning" });
@@ -165,19 +168,25 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
       />
     );
 
-    const InputButton = ({ submitText, showConsentMessage, showConsentCheck }) => {
-      const [checked, setChecked] = useState(showConsentCheck && showConsentCheck ? false : true);
+    const InputButton = ({
+      submitText,
+      showConsentMessage,
+      showConsentCheck,
+    }) => {
+      const [checked, setChecked] = useState(
+        showConsentCheck && showConsentCheck ? false : true
+      );
 
       const consentText = `By submitting your phone number, you consent to receive a one-time login code from ${process.env.REACT_APP_NAME} at the number provided. Message and data rates may apply.`;
-      const ConsentText = showConsentCheck
-        ? (
-          <CheckboxField
-            label={consentText}
-            checked={checked}
-            onChange={(e) => setChecked(e.target.checked)}
-          />
-          )
-        : showConsentMessage && <span>{consentText}</span>;
+      const ConsentText = showConsentCheck ? (
+        <CheckboxField
+          label={consentText}
+          checked={checked}
+          onChange={(e) => setChecked(e.target.checked)}
+        />
+      ) : (
+        showConsentMessage && <span>{consentText}</span>
+      );
 
       if (isLoading) {
         return (
@@ -245,7 +254,7 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
         showConsentCheck={false}
       />
     );
-    
+
     const SignUp = (
       <InputField
         headerText="Create a new account"
@@ -256,7 +265,7 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
         showConsentCheck={true}
       />
     );
-    
+
     const ConfirmSignIn = (
       <InputField
         headerText="Confirm Sign In"
@@ -269,11 +278,7 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
     );
 
     if (hideSignUp && authState === AuthState.SignIn) {
-      return (
-        <Layout>
-          {SignIn}
-        </Layout>
-      );
+      return <Layout>{SignIn}</Layout>;
     }
 
     if ([AuthState.SignIn, AuthState.SignUp].includes(authState)) {
@@ -284,23 +289,15 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
             indicatorPosition="top"
             defaultIndex={authState === AuthState.SignIn ? 0 : 1}
           >
-            <TabItem title="Sign In">
-              {SignIn}
-            </TabItem>
-            <TabItem title="Sign Up">
-              {SignUp}
-            </TabItem>
+            <TabItem title="Sign In">{SignIn}</TabItem>
+            <TabItem title="Sign Up">{SignUp}</TabItem>
           </Tabs>
         </Layout>
       );
     }
-    
+
     if (authState === AuthState.ConfirmSignIn) {
-      return (
-        <Layout>
-          {ConfirmSignIn}
-        </Layout>
-      );
+      return <Layout>{ConfirmSignIn}</Layout>;
     }
 
     return null;
@@ -340,17 +337,21 @@ function AppAuthenticator(props) {
 
   useEffect(() => {
     const userPoolId = process.env.REACT_APP_COGNITO_USER_POOL_ID;
-    const userPoolWebClientId = authFlow === PASSWORDLESS
+    const userPoolWebClientId =
+      authFlow === PASSWORDLESS
         ? process.env.REACT_APP_COGNITO_USER_POOL_WEB_CLIENT_ID_PASSWORDLESS
-        : process.env.REACT_APP_COGNITO_USER_POOL_WEB_CLIENT_ID_END_USER_LOGIN
+        : process.env.REACT_APP_COGNITO_USER_POOL_WEB_CLIENT_ID_END_USER_LOGIN;
 
     const configureAmplify = () => {
       const authConfig = {
         userPoolId,
         userPoolWebClientId,
       };
-  
-      const tenantMigration = !!ldClient.variation("tenant-test-migration", false);
+
+      const tenantMigration = !!ldClient.variation(
+        "tenant-test-migration",
+        false
+      );
       if (tenantMigration && authFlow === CREDENTIALS) {
         // This is important for allowing the migration
         // It should be removed once the migration is complete
@@ -423,9 +424,16 @@ function AppAuthenticator(props) {
 
   // This allows to switch back and forth between passwordless auth and credentials auth
   return authFlow === PASSWORDLESS ? (
-    <PasswordlessAuthenticator children={props.children} hideSignUp={hideSignUp} />
+    <PasswordlessAuthenticator
+      children={props.children}
+      hideSignUp={hideSignUp}
+    />
   ) : (
-    <Authenticator formFields={formFieldConfig} components={authComponents} hideSignUp={hideSignUp}>
+    <Authenticator
+      formFields={formFieldConfig}
+      components={authComponents}
+      hideSignUp={hideSignUp}
+    >
       {props.children}
     </Authenticator>
   );

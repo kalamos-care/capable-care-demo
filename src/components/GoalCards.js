@@ -62,7 +62,7 @@ const GoalCard = ({ goal }) => {
   const observation = latestObservation(goal);
 
   if (isLoading) {
-    return <></>
+    return <></>;
   }
 
   return (
@@ -120,26 +120,26 @@ const GoalCardsByStatus = ({ carePlan }) => {
   const { goals, isLoading, isError } = useGoalsByStatus();
 
   if (isLoading) {
-    return (
-      <Skeleton variant="rectangular" animation="wave" height={280} />
-    );
+    return <Skeleton variant="rectangular" animation="wave" height={280} />;
   }
 
   if (isError) {
-    return (
-      <div>Woops something went wrong...</div>
-    );
+    return <div>Woops something went wrong...</div>;
   }
 
-  const openGoals = goals.open.filter(openGoal => openGoal.care_plan_id === carePlan.id);
-  const OpenGoals = openGoals.length > 0
-    ? <GoalCards goals={openGoals} status="open" />
-    : null;
+  const openGoals = goals.open.filter(
+    (openGoal) => openGoal.care_plan_id === carePlan.id
+  );
+  const OpenGoals =
+    openGoals.length > 0 ? <GoalCards goals={openGoals} status="open" /> : null;
 
-  const completedGoals = goals.completed.filter(completedGoal => completedGoal.care_plan_id === carePlan.id);
-  const CompletedGoals = completedGoals.length > 0
-    ? <GoalCards goals={completedGoals} status="completed" />
-    : null;
+  const completedGoals = goals.completed.filter(
+    (completedGoal) => completedGoal.care_plan_id === carePlan.id
+  );
+  const CompletedGoals =
+    completedGoals.length > 0 ? (
+      <GoalCards goals={completedGoals} status="completed" />
+    ) : null;
 
   return (
     <>

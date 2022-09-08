@@ -3,7 +3,7 @@ import titlecase from "../utils/titlecase";
 
 // Renders the tabs and their corresponding goals.
 export default function ControlledTabs({ tabs, tab, handleTabChange }) {
-  const tabTitles = tabs.map(tab => tab.title);
+  const tabTitles = tabs.map((tab) => tab.title);
   return (
     <>
       <Tabs
@@ -31,9 +31,7 @@ export default function ControlledTabs({ tabs, tab, handleTabChange }) {
         ))}
       </Tabs>
       <div role="tabpanel" aria-labelledby={`tab-${tab.title}`}>
-        <Container>
-          {tab.content}
-        </Container>
+        <Container>{tab.content}</Container>
       </div>
     </>
   );

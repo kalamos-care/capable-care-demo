@@ -18,7 +18,12 @@ const CarePlan = ({ carePlan, completedGoalsCount, openGoalsCount }) => {
       sx={{ marginTop: "1rem", padding: 0, cursor: "pointer" }}
       onClick={() => navigate(`/home/${carePlan.id}`)}
     >
-      <LinearProgress variant="determinate" value={completedGoalsCount / (completedGoalsCount + openGoalsCount) * 100} />
+      <LinearProgress
+        variant="determinate"
+        value={
+          (completedGoalsCount / (completedGoalsCount + openGoalsCount)) * 100
+        }
+      />
       <CardContent sx={{ paddingBottom: 0 }}>
         <Typography variant="subtitle" sx={{ letterSpacing: "0.01rem" }}>
           {carePlan.name}
@@ -33,56 +38,76 @@ const CarePlan = ({ carePlan, completedGoalsCount, openGoalsCount }) => {
         </div>
       </CardContent>
     </StyledCard>
-  )
-}
+  );
+};
 
 const CarePlansForStatus = ({ status, carePlans, goals }) => {
   return (
     <Box sx={{ marginTop: "1rem" }}>
       <Typography variant="subtitle">{status}</Typography>
-      {
-        carePlans.map((carePlan) => {
-          const openGoalsCount = goals.open.filter(goal => goal.care_plan_id === carePlan.id).length;
-          const completedGoalsCount = goals.completed.filter(goal => goal.care_plan_id === carePlan.id).length;
+      {carePlans.map((carePlan) => {
+        const openGoalsCount = goals.open.filter(
+          (goal) => goal.care_plan_id === carePlan.id
+        ).length;
+        const completedGoalsCount = goals.completed.filter(
+          (goal) => goal.care_plan_id === carePlan.id
+        ).length;
 
-          return (
-            <CarePlan
-              carePlan={carePlan}
-              openGoalsCount={openGoalsCount}
-              completedGoalsCount={completedGoalsCount}
-            />
-          );
-        })
-      }
+        return (
+          <CarePlan
+            carePlan={carePlan}
+            openGoalsCount={openGoalsCount}
+            completedGoalsCount={completedGoalsCount}
+          />
+        );
+      })}
     </Box>
-  )
-}
+  );
+};
 
 export default function CarePlans() {
-  const { carePlans, isLoading: isLoadingCarePlans, isError: isErrorCarePlans } = useCarePlans();
-  const { goals, isLoading: isLoadingGoalsByStatus, isError: isErrorGoalsByStatus } = useGoalsByStatus();
-  
+  const {
+    carePlans,
+    isLoading: isLoadingCarePlans,
+    isError: isErrorCarePlans,
+  } = useCarePlans();
+  const {
+    goals,
+    isLoading: isLoadingGoalsByStatus,
+    isError: isErrorGoalsByStatus,
+  } = useGoalsByStatus();
+
   if (isLoadingCarePlans || isLoadingGoalsByStatus) {
-    return (
-      <Skeleton variant="rectangular" animation="wave" height={280} />
-    );
+    return <Skeleton variant="rectangular" animation="wave" height={280} />;
   }
 
   if (isErrorCarePlans || isErrorGoalsByStatus) {
-    return (
-      <div>Woops something went wrong...</div>
-    );
+    return <div>Woops something went wrong...</div>;
   }
 
-  const activeCarePlans = carePlans.filter(carePlan => carePlan.status === "active");
-  const ActiveCarePlans = activeCarePlans.length > 0
-    ? <CarePlansForStatus status={"Active"} carePlans={activeCarePlans} goals={goals} />
-    : null;
+  const activeCarePlans = carePlans.filter(
+    (carePlan) => carePlan.status === "active"
+  );
+  const ActiveCarePlans =
+    activeCarePlans.length > 0 ? (
+      <CarePlansForStatus
+        status={"Active"}
+        carePlans={activeCarePlans}
+        goals={goals}
+      />
+    ) : null;
 
-  const completedCarePlans = carePlans.filter(carePlan => carePlan.status === "completed");
-  const CompletedCarePlans = completedCarePlans.length > 0
-    ? <CarePlansForStatus status={"Completed"} carePlans={completedCarePlans} goals={goals} />
-    : null;
+  const completedCarePlans = carePlans.filter(
+    (carePlan) => carePlan.status === "completed"
+  );
+  const CompletedCarePlans =
+    completedCarePlans.length > 0 ? (
+      <CarePlansForStatus
+        status={"Completed"}
+        carePlans={completedCarePlans}
+        goals={goals}
+      />
+    ) : null;
 
   return (
     <>

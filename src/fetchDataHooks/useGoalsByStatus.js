@@ -4,10 +4,7 @@ import fetcher from "./fetcher";
 
 // Fetch the patient's goals.
 export default function useGoalsByStatus() {
-  const { data, error } = useSWR(
-    ["Goal", "list", {}],
-    fetcher
-  );
+  const { data, error } = useSWR(["Goal", "list", {}], fetcher);
 
   if (error) {
     Sentry.captureException(error);

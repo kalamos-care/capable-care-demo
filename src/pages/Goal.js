@@ -1,9 +1,23 @@
-import { Box, Card, Container, Skeleton, Stack, Typography } from "@mui/material";
-import CheckIcon from '@mui/icons-material/Check';
+import {
+  Box,
+  Card,
+  Container,
+  Skeleton,
+  Stack,
+  Typography,
+} from "@mui/material";
+import CheckIcon from "@mui/icons-material/Check";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import BackButton from "../components/BackButton";
-import { HeaderImage, LinkButton, ObservationLog, Recurrence, RichText, StyledCard } from "../components";
+import {
+  HeaderImage,
+  LinkButton,
+  ObservationLog,
+  Recurrence,
+  RichText,
+  StyledCard,
+} from "../components";
 import { ForwardArrowIcon } from "../components/icons";
 import api from "../capableApi/index";
 import { useCRMContent } from "../fetchDataHooks";
@@ -68,11 +82,13 @@ export default function Goal() {
   const navigate = useNavigate();
   const { goal } = state;
   const { isLoading } = useCRMContent(goal);
-  const isGoalAchieved = goal.achievement_status === "achieved" || goal.achievement_status === "not_attainable";
+  const isGoalAchieved =
+    goal.achievement_status === "achieved" ||
+    goal.achievement_status === "not_attainable";
 
   const updateAchievementStatus = async () => {
     const new_achievement_status = isGoalAchieved ? "in_progress" : "achieved";
-    
+
     await api.client.Goal.update(goal.id, {
       body: {
         goal: {
@@ -80,33 +96,36 @@ export default function Goal() {
         },
       },
     });
-    navigate("/goal", { state: { goal: { ...goal, achievement_status: new_achievement_status }}})
+    navigate("/goal", {
+      state: { goal: { ...goal, achievement_status: new_achievement_status } },
+    });
   };
 
   if (isLoading) {
-    return (
-      <Skeleton variant="rectangular" animation="wave" height={280} />
-    );
+    return <Skeleton variant="rectangular" animation="wave" height={280} />;
   }
 
   return (
     <>
-      {
-        goal.imageUrl ? (
-          <Card sx={{ position: "relative" }}>
-            <BackButton route={`/home/${goal.care_plan_id}`} sx={{ position: "absolute", zIndex: 100 }} />
+      {goal.imageUrl ? (
+        <Card sx={{ position: "relative" }}>
+          <BackButton
+            route={`/home/${goal.care_plan_id}`}
+            sx={{ position: "absolute", zIndex: 100 }}
+          />
 
-            <HeaderImage data={goal} />
-          </Card>
-        ) : (
-          <BackButton route={`/home/${goal.care_plan_id}`} />
-        )
-      }
+          <HeaderImage data={goal} />
+        </Card>
+      ) : (
+        <BackButton route={`/home/${goal.care_plan_id}`} />
+      )}
 
-      <Container sx={{
-        overflow: "scroll",
-        position: "relative",
-      }}>
+      <Container
+        sx={{
+          overflow: "scroll",
+          position: "relative",
+        }}
+      >
         <Typography variant="headline" component="h2" sx={{ marginY: 3 }}>
           {goal.name}
         </Typography>
@@ -121,7 +140,11 @@ export default function Goal() {
               <CheckIcon fontSize="1rem" color="black" />
               <Typography
                 variant="eyebrow"
-                sx={{ fontWeight: 300, marginTop: "auto", marginBottom: "auto" }}
+                sx={{
+                  fontWeight: 300,
+                  marginTop: "auto",
+                  marginBottom: "auto",
+                }}
               >
                 Complete
               </Typography>
@@ -134,15 +157,19 @@ export default function Goal() {
         {renderTargetsOrObservations(goal)}
       </Container>
 
-      <Container sx={{
-        position: !isGoalAchieved && "sticky",
-        bottom: "1rem",
-        marginBottom: "1rem",
-        marginTop: "1rem",
-      }}>
+      <Container
+        sx={{
+          position: !isGoalAchieved && "sticky",
+          bottom: "1rem",
+          marginBottom: "1rem",
+          marginTop: "1rem",
+        }}
+      >
         <Card
           sx={{
-            backgroundColor: isGoalAchieved ? "white" : process.env.REACT_APP_COLOR,
+            backgroundColor: isGoalAchieved
+              ? "white"
+              : process.env.REACT_APP_COLOR,
             cursor: "pointer",
           }}
           onClick={updateAchievementStatus}
@@ -157,7 +184,7 @@ export default function Goal() {
             }}
           >
             {isGoalAchieved ? "Mark as Open" : "Mark Complete"}
-          </Typography> 
+          </Typography>
         </Card>
       </Container>
     </>

@@ -6,11 +6,7 @@ import { ForwardArrowIcon } from "./icons";
 const ArrowLink = ({ copy, url }) => {
   const navigate = useNavigate();
   return (
-    <Link
-      onClick={() => navigate(url)}
-      underline="none"
-      component="button"
-    >
+    <Link onClick={() => navigate(url)} underline="none" component="button">
       <Typography
         variant="headline"
         sx={{

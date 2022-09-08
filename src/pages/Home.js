@@ -1,8 +1,23 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { Box, Card, CardMedia, Container, Avatar, Skeleton, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardMedia,
+  Container,
+  Avatar,
+  Skeleton,
+  Stack,
+  Typography,
+} from "@mui/material";
 
-import { AboutCard, ArrowLink, ControlledTabs, GoalCards, TaskCards } from "../components";
+import {
+  AboutCard,
+  ArrowLink,
+  ControlledTabs,
+  GoalCards,
+  TaskCards,
+} from "../components";
 import { useCarePlans, useCurrentPatient } from "../fetchDataHooks";
 import gravatar from "../utils/gravatar";
 
@@ -12,38 +27,40 @@ function Header({ carePlan, patient }) {
   const firstName = patient?.name;
 
   let avatarUrl;
-  if (patient && process.env.REACT_APP_USAGE_MODE === "demo")  {
-    avatarUrl = patient.avatar_url || (patient.email && gravatar(patient.email));
+  if (patient && process.env.REACT_APP_USAGE_MODE === "demo") {
+    avatarUrl =
+      patient.avatar_url || (patient.email && gravatar(patient.email));
   } else if (patient) {
     avatarUrl = patient.avatar_url;
   }
 
-  const CarePlans = carePlan
-    ? <ArrowLink copy={carePlan.name} url={"/care_plans"}/>
-      : (
-        <Typography
-          variant="subtitle"
-          sx={{
-            flexGrow: 1,
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            width: 1,
-            alignItems: "center",
-            fontSize: "20px",
-            marginTop: "0.25rem",
-          }}
-        >
-          No active care plans
-        </Typography>
-      )
+  const CarePlans = carePlan ? (
+    <ArrowLink copy={carePlan.name} url={"/care_plans"} />
+  ) : (
+    <Typography
+      variant="subtitle"
+      sx={{
+        flexGrow: 1,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        width: 1,
+        alignItems: "center",
+        fontSize: "20px",
+        marginTop: "0.25rem",
+      }}
+    >
+      No active care plans
+    </Typography>
+  );
 
   return (
     <Box
       sx={{
         backgroundColor: "background.paper",
         boxShadow: !carePlan ? ["rgb(2 2 40 / 8%) 0px 4px 6px"] : null,
-      }}>
+      }}
+    >
       <CardMedia
         component="img"
         width="375"
@@ -86,15 +103,15 @@ function Header({ carePlan, patient }) {
 const HomeContent = ({ carePlan }) => {
   const tabs = [
     {
-      title: 'Tasks',
+      title: "Tasks",
       content: <TaskCards carePlan={carePlan} />,
     },
     {
-      title: 'Goals',
+      title: "Goals",
       content: <GoalCards carePlan={carePlan} />,
     },
     {
-      title: 'About',
+      title: "About",
       content: <AboutCard carePlan={carePlan} />,
     },
   ];
@@ -102,7 +119,7 @@ const HomeContent = ({ carePlan }) => {
   const [tab, setTab] = useState(tabs[0]);
 
   if (!carePlan) {
-    const NoCarePlanCard = ({text, textColor, left, top}) => (
+    const NoCarePlanCard = ({ text, textColor, left, top }) => (
       <Card
         sx={{
           width: "50%",
@@ -115,21 +132,49 @@ const HomeContent = ({ carePlan }) => {
           top,
         }}
       >
-        <Typography variant="eyebrow" style={{ color: textColor }}>{text}</Typography>
-        <Skeleton animation={false} height={"0.5rem"} width={"75%"} sx={{ backgroundColor: "#D9DBE9" }} />
-        <Skeleton animation={false} height={"0.5rem"} sx={{ backgroundColor: "#EFF0F7" }} />
-        <Skeleton animation={false} height={"0.5rem"} width={"80%"} sx={{ backgroundColor: "#EFF0F7" }} />
+        <Typography variant="eyebrow" style={{ color: textColor }}>
+          {text}
+        </Typography>
+        <Skeleton
+          animation={false}
+          height={"0.5rem"}
+          width={"75%"}
+          sx={{ backgroundColor: "#D9DBE9" }}
+        />
+        <Skeleton
+          animation={false}
+          height={"0.5rem"}
+          sx={{ backgroundColor: "#EFF0F7" }}
+        />
+        <Skeleton
+          animation={false}
+          height={"0.5rem"}
+          width={"80%"}
+          sx={{ backgroundColor: "#EFF0F7" }}
+        />
       </Card>
     );
     return (
       <div style={{ padding: "3rem 36px 36px", textAlign: "center" }}>
         <div style={{ position: "relative", height: "125px" }}>
-          <NoCarePlanCard text={"Recommended goal"} textColor={"#4C4CD8"} left={"20%"} top={"0"} />
-          <NoCarePlanCard text={"Recommended task"} textColor={"#F8BE39"} left={"35%"} top={"30%"} />
+          <NoCarePlanCard
+            text={"Recommended goal"}
+            textColor={"#4C4CD8"}
+            left={"20%"}
+            top={"0"}
+          />
+          <NoCarePlanCard
+            text={"Recommended task"}
+            textColor={"#F8BE39"}
+            left={"35%"}
+            top={"30%"}
+          />
         </div>
         <div style={{ position: "relative" }}>
           <Typography variant="body2">
-            A Care Plan is your action plan tailored to help you achieve your health goals. As your Care Team gets to know you, you will see what they recommend and assign to you here.
+            A Care Plan is your action plan tailored to help you achieve your
+            health goals. As your Care Team gets to know you, you will see what
+            they recommend and assign to you here.
           </Typography>
         </div>
       </div>
@@ -141,36 +186,38 @@ const HomeContent = ({ carePlan }) => {
       tabs={tabs}
       tab={tab}
       handleTabChange={(_, tabTitle) => {
-        const tab = tabs.find(tab => tab.title === tabTitle);
+        const tab = tabs.find((tab) => tab.title === tabTitle);
         setTab(tab);
       }}
     />
   );
-}
+};
 
 export default function Home() {
   const { currentPatient } = useCurrentPatient();
   const { carePlans, isLoading, isError } = useCarePlans();
   const { carePlanId } = useParams();
-  
+
   if (isLoading) {
-    return (
-      <Skeleton variant="rectangular" animation="wave" height={280} />
-    );
+    return <Skeleton variant="rectangular" animation="wave" height={280} />;
   }
 
   if (isError) {
-    return (
-      <div>Woops something went wrong...</div>
-    );
+    return <div>Woops something went wrong...</div>;
   }
 
   let currentCarePlan;
-  const activeCarePlans = carePlans.filter(carePlan => carePlan.status === "active");
-  const completedCarePlans = carePlans.filter(carePlan => carePlan.status === "completed");
+  const activeCarePlans = carePlans.filter(
+    (carePlan) => carePlan.status === "active"
+  );
+  const completedCarePlans = carePlans.filter(
+    (carePlan) => carePlan.status === "completed"
+  );
 
   if (carePlanId) {
-    currentCarePlan = [...activeCarePlans, ...completedCarePlans].find(carePlan => carePlan.id === carePlanId);
+    currentCarePlan = [...activeCarePlans, ...completedCarePlans].find(
+      (carePlan) => carePlan.id === carePlanId
+    );
   } else if (activeCarePlans.length > 0) {
     currentCarePlan = activeCarePlans[0];
   } else if (completedCarePlans.length > 0) {

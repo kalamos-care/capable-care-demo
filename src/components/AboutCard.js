@@ -1,7 +1,4 @@
-import {
-  Container,
-  Skeleton,
-} from "@mui/material";
+import { Container, Skeleton } from "@mui/material";
 import { useCRMContent } from "../fetchDataHooks";
 import { HeaderImage, RichText } from "../components";
 
@@ -11,9 +8,7 @@ export default function AboutCard({ carePlan }) {
   const { isLoading } = useCRMContent(carePlan);
 
   if (isLoading) {
-    return (
-      <Skeleton variant="rectangular" animation="wave" height={280} />
-    );
+    return <Skeleton variant="rectangular" animation="wave" height={280} />;
   }
 
   return (
