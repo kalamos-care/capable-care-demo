@@ -14,15 +14,26 @@ export default function Target() {
 
   return (
     <>
-      <Card sx={{ position: "relative" }}>
-        <BackButton
-          route="/goal"
-          params={{ goal: goal }}
-          sx={{ position: "absolute", zIndex: 100 }}
-        />
+      {
+        goal.imageUrl
+          ? (
+            <Card sx={{ position: "relative" }}>
+              <BackButton
+                route={`/goal`}
+                params={{ goal: goal }}
+                sx={{ position: "absolute", zIndex: 100 }}
+              />
 
-        <HeaderImage data={goal} />
-      </Card>
+              <HeaderImage data={goal} />
+            </Card>
+          )
+          : (
+            <BackButton
+              route={`/goal`}
+              params={{ goal: goal }}
+            />
+          )
+      }
 
       {targetData && (
         <Container sx={{ marginBottom: 5 }}>
