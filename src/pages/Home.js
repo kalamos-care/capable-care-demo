@@ -11,13 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import {
-  AboutCard,
-  ArrowLink,
-  ControlledTabs,
-  GoalCards,
-  TaskCards,
-} from "../components";
+import { AboutCard, ArrowLink, ControlledTabs, GoalCards, NoDataCards, TaskCards } from "../components";
 import { useCarePlans, useCurrentPatient } from "../fetchDataHooks";
 import gravatar from "../utils/gravatar";
 
@@ -119,66 +113,13 @@ const HomeContent = ({ carePlan }) => {
   const [tab, setTab] = useState(tabs[0]);
 
   if (!carePlan) {
-    const NoCarePlanCard = ({ text, textColor, left, top }) => (
-      <Card
-        sx={{
-          width: "50%",
-          padding: "0.5rem 1rem",
-          borderRadius: "8px",
-          boxShadow: "0px 4px 20px rgb(177 179 203 / 80%)",
-          textAlign: "left",
-          position: "absolute",
-          left,
-          top,
-        }}
-      >
-        <Typography variant="eyebrow" style={{ color: textColor }}>
-          {text}
-        </Typography>
-        <Skeleton
-          animation={false}
-          height={"0.5rem"}
-          width={"75%"}
-          sx={{ backgroundColor: "#D9DBE9" }}
-        />
-        <Skeleton
-          animation={false}
-          height={"0.5rem"}
-          sx={{ backgroundColor: "#EFF0F7" }}
-        />
-        <Skeleton
-          animation={false}
-          height={"0.5rem"}
-          width={"80%"}
-          sx={{ backgroundColor: "#EFF0F7" }}
-        />
-      </Card>
-    );
     return (
-      <div style={{ padding: "3rem 36px 36px", textAlign: "center" }}>
-        <div style={{ position: "relative", height: "125px" }}>
-          <NoCarePlanCard
-            text={"Recommended goal"}
-            textColor={"#4C4CD8"}
-            left={"20%"}
-            top={"0"}
-          />
-          <NoCarePlanCard
-            text={"Recommended task"}
-            textColor={"#F8BE39"}
-            left={"35%"}
-            top={"30%"}
-          />
-        </div>
-        <div style={{ position: "relative" }}>
-          <Typography variant="body2">
-            A Care Plan is your action plan tailored to help you achieve your
-            health goals. As your Care Team gets to know you, you will see what
-            they recommend and assign to you here.
-          </Typography>
-        </div>
-      </div>
-    );
+      <NoDataCards
+        firstText={"Recommended goal"}
+        secondText={"Recommended task"}
+        body={"A Care Plan is your action plan tailored to help you achieve your health goals. As your Care Team gets to know you, you will see what they recommend and assign to you here."}
+      />
+    )
   }
 
   return (

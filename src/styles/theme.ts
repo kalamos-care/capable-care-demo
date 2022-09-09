@@ -12,6 +12,39 @@ const grey = "#73778C";
 const darkGrey = "#474849";
 const black = "#020228";
 
+declare module '@mui/material/styles' {
+  interface TypographyVariants {
+    eyebrow: React.CSSProperties;
+    h7: React.CSSProperties;
+    headline: React.CSSProperties;
+    subtitle: React.CSSProperties;
+    small: React.CSSProperties;
+    modal: React.CSSProperties;
+  }
+
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
+    eyebrow?: React.CSSProperties;
+    h7?: React.CSSProperties;
+    headline?: React.CSSProperties;
+    subtitle?: React.CSSProperties;
+    small?: React.CSSProperties;
+    modal?: React.CSSProperties;
+  }
+}
+
+// Update the Typography's variant prop options
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    eyebrow: true;
+    h7: true;
+    headline: true;
+    subtitle: true;
+    small: true;
+    modal: true;
+  }
+}
+
 let theme = createTheme({
   palette: {
     background: {
@@ -30,6 +63,7 @@ let theme = createTheme({
     },
     text: {
       primary: black,
+      // @ts-ignore
       card: "#1c1c1e",
     },
     icon: {

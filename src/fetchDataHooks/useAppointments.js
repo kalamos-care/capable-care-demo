@@ -1,17 +1,14 @@
 import useSWR from "swr";
 import * as Sentry from "@sentry/react";
+
 import fetcher from "./fetcher";
 import Appointment from "../dataModels/Appointment";
 
 // Fetch the patient's appointments.
-export default function useAppointments(page = 1, size = 100) {
-  const today = new Date();
-  // round time to the nearest hour to prevent SWR from polling every second.
-  const date = roundToNearestHour(today).toISOString();
+export default function useAppointments() {
   // retrieve upcoming appointments.
-  // NOTE: the scheduled_after filter is inclusive.
   const { data, error } = useSWR(
-    ["Appointment", "list", { page: page, size: size, scheduledAfter: date }],
+    ["Appointment", "list", {}],
     fetcher
   );
 
@@ -19,17 +16,26 @@ export default function useAppointments(page = 1, size = 100) {
     Sentry.captureException(error);
   }
 
-  let appointments = [];
+  const appointments = {
+    past: [],
+    upcoming: [],
+  };
+
   if (data) {
     // sort by start time, soonest first.
-    appointments = data.sort(
-      (prevApp, currentApp) =>
-        new Date(prevApp.start) - new Date(currentApp.start)
-    );
-    // initialize model
-    appointments = appointments.map(
-      (appointment) => new Appointment(appointment)
-    );
+    const sortedAppointments = data.sort((prevApp, currentApp) => {
+      return new Date(prevApp.start) - new Date(currentApp.start)
+    });
+
+    sortedAppointments.forEach((appointment) => {
+      const today = new Date();
+
+      if (new Date(appointment.start) < today) {
+        appointments.past.push(new Appointment(appointment));
+      } else {
+        appointments.upcoming.push(new Appointment(appointment));
+      }
+    });
   }
 
   return {
@@ -37,11 +43,4 @@ export default function useAppointments(page = 1, size = 100) {
     isLoading: !error && !data,
     isError: error,
   };
-}
-
-function roundToNearestHour(date) {
-  date.setMinutes(date.getMinutes() + 30);
-  date.setMinutes(0, 0, 0);
-
-  return date;
 }

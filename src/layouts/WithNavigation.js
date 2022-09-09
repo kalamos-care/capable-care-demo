@@ -10,12 +10,14 @@ export const WithNavigation = ({ withCopyRight }) => {
       {/* Main content box */}
       <Box
         sx={{
+          display: "flex",
+          flexDirection: "column",
           flexGrow: 1,
           overflowY: "scroll",
           backgroundColor: "background.default",
         }}
       >
-        <Outlet />
+        <Outlet sx={{ flexGrow: 1 }} />
       </Box>
 
       {withCopyRight && <CopyrightFooter backgroundColor="#fafafa" />}
