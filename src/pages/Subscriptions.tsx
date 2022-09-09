@@ -401,7 +401,7 @@ const SubscriptionPayment = ({
             card: elements.getElement(CardNumberElement),
             billing_details: {
               email: currentPatient.email,
-              phone: currentPatient.phone_number,
+              phone: currentPatient.phone_number?.number,
               address: {
                 postal_code: zipCode,
               },
@@ -446,7 +446,7 @@ const SubscriptionPayment = ({
                 card: elements.getElement(CardNumberElement),
                 billing_details: {
                   email: currentPatient.email,
-                  phone: currentPatient.phone_number,
+                  phone: currentPatient.phone_number?.number,
                   address: {
                     postal_code: zipCode,
                   },
