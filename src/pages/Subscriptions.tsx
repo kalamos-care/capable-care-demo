@@ -215,7 +215,6 @@ const PromoCode = ({
   promoCode: string;
 }) => {
   const timeout = useRef<number>();
-  const [] = useState();
   const handleOnChange = (event) => {
     const promoCode = event.target.value;
     setPromoCode(promoCode);

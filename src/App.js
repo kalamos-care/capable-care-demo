@@ -7,7 +7,7 @@ import { SWRConfig } from "swr";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { loadStripe } from "@stripe/stripe-js";
-
+import ScrollToTop from "./ScrollToTop";
 // providers
 import AppAuthenticator from "./AppAuthenticator";
 
@@ -64,6 +64,8 @@ export default function App() {
                   {/* Global reset */}
                   <CssBaseline />
                   {/* Page Content */}
+                  <ScrollToTop />
+                  {/* Scroll to top on page change */}
                   <SubscriptionRouteManager stripePromise={stripePromise}>
                     <Route element={<WithNavigation />}>
                       <Route exact path="/" element={<Home />} />
