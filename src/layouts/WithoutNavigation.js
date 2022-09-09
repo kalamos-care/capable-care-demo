@@ -6,7 +6,7 @@ export const WithoutNavigation = () => {
     <Box
       sx={{
         flexGrow: 1,
-        overflowY: "scroll",
+        overflowY: "auto",
         backgroundColor: "background.default",
       }}
     >

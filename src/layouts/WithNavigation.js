@@ -13,7 +13,7 @@ export const WithNavigation = ({ withCopyRight }) => {
           display: "flex",
           flexDirection: "column",
           flexGrow: 1,
-          overflowY: "scroll",
+          overflowY: "auto",
           backgroundColor: "background.default",
         }}
       >

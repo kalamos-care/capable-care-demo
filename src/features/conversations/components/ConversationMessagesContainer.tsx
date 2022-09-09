@@ -116,7 +116,7 @@ export const ConversationMessagesContainer = ({
         marginLeft: (theme) => theme.spacing(1),
         marginRight: (theme) => theme.spacing(3),
         marginBottom: (theme) => theme.spacing(1),
-        overflowY: "scroll",
+        overflowY: "auto",
         display: "flex",
         flexDirection: "column-reverse",
         scrollBehavior: "smooth",

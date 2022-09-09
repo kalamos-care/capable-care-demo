@@ -152,7 +152,7 @@ function PreviousMessages({
         bottom: "0px",
         left: "0px",
         height: "100%",
-        overflowY: "scroll",
+        overflowY: "auto",
         display: "flex",
         flexDirection: "column-reverse",
         scrollBehavior: "smooth",

@@ -218,9 +218,6 @@ const PromoCode = ({
   const handleOnChange = (event) => {
     const promoCode = event.target.value;
     setPromoCode(promoCode);
-    setPromoDiscount(null);
-    setPromoCodeError(null);
-    setPromoCodeMessage(null);
     if (promoCode.length > 2) {
       handleDebouncedCheckPromo(promoCode);
     }
@@ -229,6 +226,9 @@ const PromoCode = ({
   const [promoCodeMessage, setPromoCodeMessage] = useState<string>(null);
 
   const fetchPromoCode = async (codex: string) => {
+    setPromoDiscount(null);
+    setPromoCodeError(null);
+    setPromoCodeMessage(null);
     try {
       const codeResponse = await api.client.PromotionCode.promotionCodesCodeGet(
         codex
