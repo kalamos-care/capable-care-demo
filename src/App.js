@@ -70,7 +70,7 @@ export default function App() {
                       <Route exact path="/home" element={<Home />} />
                       <Route
                         exact
-                        path="/home/:care_plan_id"
+                        path="/home/:carePlanId"
                         element={<Home />}
                       />
                       <Route exact path="/chat" element={<Conversations />} />
