@@ -3,6 +3,12 @@ export interface SubscriptionScheduleDetail {
   interval_count: number;
 }
 
+interface  ProductMetadata {
+  description: string,
+  name: string,
+  images: string[]
+}
+
 export interface SubscriptionOption {
   id: string;
   nickname: string;
@@ -12,6 +18,7 @@ export interface SubscriptionOption {
   type: "recurring" | "one-time";
   recurring: SubscriptionScheduleDetail;
   product: string;
+  capable_health_metadata?: ProductMetadata
   // Not a value returned by capable api. Temp variable to store a name created by frontend if no nickname is available
   temp_name?: string;
 }

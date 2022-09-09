@@ -104,8 +104,7 @@ const SubscriptionOptionCard = ({
           fontWeight: "500",
         }}
       >
-        {/* TODO: need backend provide plan product details for name */}
-        <Box>{subscription.nickname || subscription.temp_name}</Box>
+        <Box>{subscription.capable_health_metadata.name || subscription.temp_name}</Box>
         <Box>${convertRetailPriceCentsToRetailPrice(subscription.unit_amount)}</Box>
       </Box>
       <Box
@@ -126,6 +125,9 @@ const SubscriptionOptionCard = ({
         <Typography variant="eyebrow">
           {formatPayScheduleDetail(subscription.recurring)}
         </Typography>
+      </Box>
+      <Box sx={{ fontSize: "0.9rem", paddingTop: "1rem" }}>
+        {subscription.capable_health_metadata.description}
       </Box>
     </Box>
   );
@@ -149,7 +151,7 @@ const SubscriptionSelection = ({
         Choose your plan
       </Box>
       {plans.map((planOption, index) => {
-        if (!planOption.nickname) {
+        if (!planOption.capable_health_metadata.name) {
           counter += 1;
           planOption.temp_name = `Subscription Plan ${counter}`;
         }
