@@ -3,6 +3,8 @@ import * as Survey from "survey-react";
 import { compact, groupBy, sortBy, toString } from "lodash";
 import * as widgets from "surveyjs-widgets";
 
+import api from "../capableApi/index";
+
 import "survey-react/survey.css";
 
 // Allow to store extra attribute on question object
@@ -126,26 +128,20 @@ const Questionnaire = ({ survey }) => {
   // Add input masks
   widgets.inputmask(Survey);
 
-  const onComplete = (results) => {
-    const submissionParams = {
-      submission: {
-        questionnaire_id: survey.id,
-        metadata: {
-          submitted_at: new Date(),
-        },
-        questions: serializeResults(results),
-        status: "completed",
-      },
-    };
+  const onComplete = async (results) => {
 
-    fetch(
-      `${process.env.REACT_APP_API_PATH}/surveys/submissions`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(submissionParams),
+    await api.client.Submission.create({
+      body: {
+        submission: {
+          questionnaire_id: survey.id,
+          metadata: {
+            submitted_at: new Date(),
+          },
+          questions: serializeResults(results),
+          status: "completed",
+        },
       },
-    );
+    });
   };
 
   const surveyModel = new Survey.Model({
