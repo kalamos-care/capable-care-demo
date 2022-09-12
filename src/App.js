@@ -66,7 +66,7 @@ export default function App() {
                   {/* Page Content */}
                   <ScrollToTop />
                   {/* Scroll to top on page change */}
-                  <SubscriptionRouteManager stripePromise={stripePromise}>
+                  <SubscriptionRouteManager stripePromise={stripePromise} signOut={signOut}>
                     <Route element={<WithNavigation />}>
                       <Route exact path="/" element={<Home />} />
                       <Route exact path="/home" element={<Home />} />

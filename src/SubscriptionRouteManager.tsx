@@ -15,6 +15,7 @@ function SubscriptionRouteManager(props) {
     isLoading: subscriptionLoading,
     isError: subscriptionError,
   } = useActiveSubscription(currentPatient?.id);
+  const { signOut, stripePromise } = props;
 
   if (patientError || subscriptionError) {
     return <div>Woops something went wrong...</div>;
@@ -29,15 +30,15 @@ function SubscriptionRouteManager(props) {
     props.stripePromise
   ) {
     return (
-      <Elements stripe={props.stripePromise}>
+      <Elements stripe={stripePromise}>
         {currentActiveSubscription ? (
           <Routes>
             {props.children}
-            <Route path="/subscriptions" element={<Subscriptions />} />
+            <Route path="/subscriptions" element={<Subscriptions signOut={signOut} />} />
           </Routes>
         ) : (
           <Routes>
-            <Route path="/subscriptions" element={<Subscriptions />} />
+            <Route path="/subscriptions" element={<Subscriptions signOut={signOut} />} />
             <Route path="*" element={<Navigate to="/subscriptions" />} />
           </Routes>
         )}

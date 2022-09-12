@@ -126,9 +126,11 @@ const SubscriptionOptionCard = ({
           {formatPayScheduleDetail(subscription.recurring)}
         </Typography>
       </Box>
-      <Box sx={{ fontSize: "0.9rem", paddingTop: "1rem" }}>
-        {subscription.capable_health_metadata.description}
-      </Box>
+      { subscription.capable_health_metadata?.description && (
+        <Box sx={{fontSize: "0.9rem", paddingTop: "1rem"}}>
+          {subscription.capable_health_metadata.description}
+        </Box>
+      )}
     </Box>
   );
 };
@@ -138,11 +140,13 @@ const SubscriptionSelection = ({
   setSelectedSubscription,
   plans,
   setPageView,
+  signOut,
 }: {
   selectedSubscription: SubscriptionOption;
   setSelectedSubscription: (plan: SubscriptionOption) => void;
   plans: SubscriptionOption[];
   setPageView: (view: string) => void;
+  signOut: () => void;
 }) => {
   let counter = 0;
   return (
@@ -172,6 +176,15 @@ const SubscriptionSelection = ({
           onClick={() => setPageView("Payment")}
         >
           Continue to payment
+        </Button>
+        <Button
+          variation="link"
+          size="small"
+          onClick={signOut}
+          type="button"
+          color={process.env.REACT_APP_COLOR}
+        >
+          Log out
         </Button>
       </Box>
     </Box>
@@ -628,7 +641,7 @@ const PaymentSuccess = ({
   );
 };
 
-export const Subscriptions = () => {
+export const Subscriptions = ({ signOut }: { signOut: () => void }) => {
   const { isLoading, data } = useCRMContent({
     cms_entry_id: process.env.REACT_APP_CONTENTFUL_COMPANY_DESCRIPTION_ID,
   });
@@ -692,6 +705,7 @@ export const Subscriptions = () => {
               selectedSubscription={selectedSubscription}
               // @ts-ignore
               setSelectedSubscription={setSelectedSubscription}
+              signOut={signOut}
             />
           </>
         );
