@@ -64,7 +64,7 @@ const Task = () => {
 
       <Container
         sx={{
-          overflow: "scroll",
+          overflow: "auto",
           position: "relative",
         }}
       >

@@ -122,7 +122,7 @@ export default function Goal() {
 
       <Container
         sx={{
-          overflow: "scroll",
+          overflow: "auto",
           position: "relative",
         }}
       >

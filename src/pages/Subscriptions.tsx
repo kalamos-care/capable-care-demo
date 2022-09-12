@@ -483,7 +483,7 @@ const SubscriptionPayment = ({
   };
 
   return (
-    <Box sx={{ background: "#FAFAFA", height: "100%", overflow: "scroll" }}>
+    <Box sx={{ background: "#FAFAFA", height: "100%", overflow: "auto" }}>
       <BackButton onClick={() => setPageView("SubscriptionOptions")} />
       <Box sx={{ padding: "1rem" }}>
         <Box sx={{ paddingBottom: "1rem", fontWeight: "500" }}>Your plan</Box>
@@ -710,7 +710,7 @@ export const Subscriptions = () => {
   };
 
   return (
-    <Box sx={{ overflow: "scroll", height: "100%" }}>
+    <Box sx={{ overflow: "auto", height: "100%" }}>
       {renderSubscriptionPage()}
     </Box>
   );

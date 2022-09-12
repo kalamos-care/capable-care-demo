@@ -63,7 +63,7 @@ export const ConversationsList = ({
   return (
     <>
       {selectedConversations.length > 0 ? (
-        <Box sx={{ height: "100%", overflow: "scroll" }}>
+        <Box sx={{ height: "100%", overflow: "auto" }}>
           {conversationList}
         </Box>
       ) : (
