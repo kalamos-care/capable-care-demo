@@ -2,8 +2,8 @@ import ChatIcon from "components/icons/ChatIcon";
 import PrimaryHeader from "components/PrimaryHeader";
 import Typography from "@mui/material/Typography/Typography";
 
-const ConversationsHeader = () => (
-  <PrimaryHeader sx={{ height: "8rem", paddingTop: "0.5rem" }}>
+const ConversationHeader = () => (
+  <PrimaryHeader sx={{ height: "8rem", paddingTop: "0.5rem", position: "relative" }}>
     <ChatIcon
       sx={{
         fontSize: "6rem",
@@ -17,4 +17,4 @@ const ConversationsHeader = () => (
   </PrimaryHeader>
 );
 
-export default ConversationsHeader;
+export default ConversationHeader;

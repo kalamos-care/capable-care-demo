@@ -1,5 +1,5 @@
 import { CircularProgress, Input } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -97,10 +97,7 @@ const ConversationCreateContainer = () => {
           borderColor: colors.lightGrey3,
         }}
       >
-        <MessageSendBar
-          onSend={onSendFirstMessage}
-          sendDisabled={!subjectIsValid}
-        />
+        <MessageSendBar onSend={onSendFirstMessage} sendDisabled={!subjectIsValid} />
       </Box>
     </Card>
   );
