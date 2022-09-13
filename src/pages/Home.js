@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Box,
-  Card,
   CardMedia,
   Container,
   Avatar,
@@ -10,10 +9,12 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useAtom } from "jotai";
 
 import { AboutCard, ArrowLink, ControlledTabs, GoalCards, NoDataCards, TaskCards } from "../components";
 import { useCarePlans, useCurrentPatient } from "../fetchDataHooks";
 import gravatar from "../utils/gravatar";
+import { carePlanAtom } from "../atoms";
 
 function Header({ carePlan, patient }) {
   // Ignoring any errors because it's just for the avatar URL / email
@@ -138,6 +139,7 @@ export default function Home() {
   const { currentPatient } = useCurrentPatient();
   const { carePlans, isLoading, isError } = useCarePlans();
   const { carePlanId } = useParams();
+  const [carePlan, setCarePlan] = useAtom(carePlanAtom);
 
   if (isLoading) {
     return <Skeleton variant="rectangular" animation="wave" height={280} />;
@@ -147,7 +149,6 @@ export default function Home() {
     return <div>Woops something went wrong...</div>;
   }
 
-  let currentCarePlan;
   const activeCarePlans = carePlans.filter(
     (carePlan) => carePlan.status === "active"
   );
@@ -155,20 +156,27 @@ export default function Home() {
     (carePlan) => carePlan.status === "completed"
   );
 
+  let currentCarePlan;
   if (carePlanId) {
     currentCarePlan = [...activeCarePlans, ...completedCarePlans].find(
       (carePlan) => carePlan.id === carePlanId
     );
-  } else if (activeCarePlans.length > 0) {
-    currentCarePlan = activeCarePlans[0];
-  } else if (completedCarePlans.length > 0) {
-    currentCarePlan = completedCarePlans[0];
-  }
+
+    setCarePlan(currentCarePlan);
+  } else if (!carePlan) {
+    if (activeCarePlans.length > 0) {
+      currentCarePlan = activeCarePlans[0];
+    } else if (completedCarePlans.length > 0) {
+      currentCarePlan = completedCarePlans[0];
+    }
+
+    setCarePlan(currentCarePlan);
+  }  
 
   return (
     <>
-      <Header carePlan={currentCarePlan} patient={currentPatient} />
-      <HomeContent carePlan={currentCarePlan} />
+      <Header carePlan={carePlan} patient={currentPatient} />
+      <HomeContent carePlan={carePlan} />
     </>
   );
 }

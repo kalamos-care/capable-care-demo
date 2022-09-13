@@ -6,17 +6,23 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useAtom } from "jotai";
 
 import { BackButton, StyledCard } from "../components";
 import { useCarePlans, useGoalsByStatus } from "../fetchDataHooks";
+import { carePlanAtom } from "../atoms";
 
 const CarePlan = ({ carePlan, completedGoalsCount, openGoalsCount }) => {
   const navigate = useNavigate();
+  const [, setCarePlan] = useAtom(carePlanAtom);
 
   return (
     <StyledCard
       sx={{ marginTop: "1rem", padding: 0, cursor: "pointer" }}
-      onClick={() => navigate(`/home/${carePlan.id}`)}
+      onClick={() => {
+        setCarePlan(carePlan);
+        navigate(`/home/${carePlan.id}`);
+      }}
     >
       <LinearProgress
         variant="determinate"
