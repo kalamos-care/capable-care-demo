@@ -8,13 +8,6 @@ import Recurrence from "./Recurrence";
 import Observation from "./Observation";
 import titlecase from "../utils/titlecase";
 
-// Helper to build a string to display the number of completed goals.
-const progressString = (goalList) => {
-  const goalCount = goalList.length;
-  const goalsCompleted = goalList.filter((goal) => goal.achievement_status == "achieved").length;
-  return `${goalsCompleted}/${goalCount} Complete`;
-};
-
 // Returns the latest observation for a goal.
 const latestObservation = (goal) => {
   if (goal.observations.length < 1) {
@@ -91,9 +84,6 @@ const GoalCards = ({ goals, status }) => {
         }}
       >
         <Typography variant="subtitle">{titlecase(status)}</Typography>
-        <Typography variant="subtitle" sx={{ display: "flex", gap: 1, fontSize: "0.88rem" }}>
-          {progressString(goals)}
-        </Typography>
       </Box>
       {goals.map((goal) => (
         <GoalCard key={goal.id} goal={goal} />
