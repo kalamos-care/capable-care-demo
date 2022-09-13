@@ -70,7 +70,7 @@ function Header() {
         {firstName}
       </Typography>
 
-      <Typography variant="small" component="small">
+      <Typography variant="medium" component="small">
         Member since {memberSince}
       </Typography>
     </PrimaryHeader>

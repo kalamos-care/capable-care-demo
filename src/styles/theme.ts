@@ -18,6 +18,7 @@ declare module "@mui/material/styles" {
     h7: React.CSSProperties;
     headline: React.CSSProperties;
     subtitle: React.CSSProperties;
+    medium: React.CSSProperties;
     small: React.CSSProperties;
     modal: React.CSSProperties;
   }
@@ -28,6 +29,7 @@ declare module "@mui/material/styles" {
     h7?: React.CSSProperties;
     headline?: React.CSSProperties;
     subtitle?: React.CSSProperties;
+    medium?: React.CSSProperties;
     small?: React.CSSProperties;
     modal?: React.CSSProperties;
   }
@@ -153,6 +155,13 @@ let theme = createTheme({
       fontSize: "0.75rem",
       lineHeight: "1rem",
       color: grey,
+    },
+    medium: {
+      textTransform: "uppercase",
+      fontSize: "0.8rem",
+      letterSpacing: "0.25px",
+      opacity: "0.7",
+      color: "#FFFFFF",
     },
     small: {
       textTransform: "uppercase",
