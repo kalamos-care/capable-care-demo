@@ -8,6 +8,7 @@ import ProfileIcon from "./ProfileIcon";
 import VitalsIcon from "./VitalsIcon";
 import WellnessIcon from "./WellnessIcon";
 import RocketIcon from "./RocketIcon";
+import CreditCardIcon from "./CreditCardIcon";
 
 export {
   OnlineIcon,
@@ -20,4 +21,5 @@ export {
   VitalsIcon,
   WellnessIcon,
   RocketIcon,
+  CreditCardIcon,
 };
