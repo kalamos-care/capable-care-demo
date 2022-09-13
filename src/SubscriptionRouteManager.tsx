@@ -3,6 +3,7 @@ import Subscriptions from "pages/Subscriptions";
 import { useCurrentPatient, useActiveSubscription } from "./fetchDataHooks";
 import { Skeleton } from "@mui/material";
 import { Elements } from "@stripe/react-stripe-js";
+import { WithNavigation } from "./layouts/WithNavigation";
 
 function SubscriptionRouteManager(props) {
   const { currentPatient, isLoading: patientLoading, isError: patientError } = useCurrentPatient();
@@ -27,7 +28,9 @@ function SubscriptionRouteManager(props) {
         {currentActiveSubscription ? (
           <Routes>
             {props.children}
-            <Route path="/subscriptions" element={<Subscriptions signOut={signOut} />} />
+            <Route element={<WithNavigation />}>
+              <Route path="/subscriptions" element={<Subscriptions signOut={signOut} />} />
+            </Route>
           </Routes>
         ) : (
           <Routes>

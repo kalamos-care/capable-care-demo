@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, Dispatch, SetStateAction } from "react";
-import { Box, CardMedia, Container, Skeleton, Typography } from "@mui/material";
+import { Box, CardMedia, Container, Skeleton, Typography, Divider } from "@mui/material";
 import useCRMContent from "../fetchDataHooks/useCRMContent";
 import { Button, Heading, Loader } from "@aws-amplify/ui-react";
 import useSubscriptionPlans from "../fetchDataHooks/useSubscriptionPlans";
@@ -18,12 +18,13 @@ import {
 import api from "../capableApi";
 import { useCurrentPatient, useExistingPaymentMethod } from "../fetchDataHooks";
 import {
-  SubscriptionScheduleDetail,
+  Subscription,
   SubscriptionOption,
 } from "models/subscriptions/Subscription.types";
 import { useNavigate } from "react-router-dom";
 import useActiveSubscription from "fetchDataHooks/useActiveSubscription";
 import * as Sentry from "@sentry/react";
+import { formatDateString } from "utils/dates";
 
 const SubscriptionHeader = ({ title, content }: { title: string; content: string }) => (
   <Box sx={{ backgroundColor: "background.paper" }}>
@@ -55,9 +56,11 @@ const intervalToPeriodicMap = {
   year: "Yearly",
 };
 
-const formatPayScheduleDetail = (subscriptionDetail: SubscriptionScheduleDetail) => {
-  const { interval, interval_count: count } = subscriptionDetail;
-  if (!subscriptionDetail) return "";
+const formatPayScheduleDetail = (
+  interval: string,
+  count: number
+) => {
+  if (!interval || !count) return "";
   if (count === 1) return intervalToPeriodicMap[interval];
   return `Every ${count} ${capitalize(interval)}s`;
 };
@@ -112,8 +115,9 @@ const SubscriptionOptionCard = ({
               } Free Trial`
             : null}
         </Typography>
-        {/*@ts-ignore*/}
-        <Typography variant="eyebrow">{formatPayScheduleDetail(subscription.recurring)}</Typography>
+        <Typography variant="eyebrow">
+          {formatPayScheduleDetail(subscription.recurring?.interval, subscription.recurring?.interval_count)}
+        </Typography>
       </Box>
       {subscription.capable_health_metadata?.description && (
         <Box sx={{ fontSize: "0.9rem", paddingTop: "1rem" }}>
@@ -260,7 +264,10 @@ const PromoCode = ({
   const handleDebouncedCheckPromo = async (inputValue: string) => {
     return await new Promise<void>((resolve) => {
       clearTimeout(timeout.current);
-      timeout.current = window.setTimeout(() => resolve(fetchPromoCode(inputValue)), 600);
+      timeout.current = window.setTimeout(
+        () => resolve(fetchPromoCode(inputValue)),
+        600
+      );
     });
   };
 
@@ -328,11 +335,13 @@ const SubscriptionPayment = ({
   setPageView,
   currentPatient,
   existingPaymentMethod,
+  setShowConfirmPage,
 }: {
   selectedSubscription: SubscriptionOption;
   setPageView: (view: string) => void;
   currentPatient: any;
   existingPaymentMethod: string;
+  setShowConfirmPage: (show: boolean) => void;
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -407,11 +416,13 @@ const SubscriptionPayment = ({
         } else if (setupIntent.status === "succeeded") {
           await createSubscription();
           setLoading(false);
+          setShowConfirmPage(true);
           setPageView("PaymentSuccess");
         }
       } else {
         await createSubscription();
         setLoading(false);
+        setShowConfirmPage(true);
         setPageView("PaymentSuccess");
       }
     } catch (error) {
@@ -450,6 +461,7 @@ const SubscriptionPayment = ({
       if (error) {
         setStripeError(error.message);
       } else if (paymentIntent.status === "succeeded") {
+        setShowConfirmPage(true);
         setPageView("PaymentSuccess");
       }
     } catch (error) {
@@ -614,33 +626,123 @@ const PaymentSuccess = ({ selectedSubscription }: { selectedSubscription: Subscr
   );
 };
 
+const Dot = ({ color } : { color: string }) => (
+  <span style={{
+    width: "10px",
+    height: "10px",
+    marginRight: "0.5rem",
+    display: "inline-block",
+    borderRadius: "50%",
+    background: color
+  }}/>
+)
+
+const SubscriptionCard = ({ subscription } : { subscription: Subscription }) => {
+  return (
+    <Box>
+      <Typography variant="eyebrow" sx={{ fontSize: "1rem" }}>
+        PLAN
+      </Typography>
+      <Typography variant="body1" sx={{ padding: "0.5rem 0"}}>
+        {subscription.name}
+      </Typography>
+      <Divider sx={{ margin: "0.5rem 0" }}/>
+      <Typography variant="eyebrow" sx={{ fontSize: "1rem" }}>
+        STATUS
+      </Typography>
+      <Typography variant="body1" sx={{ padding: "0.5rem 0"}}>
+        {(subscription.status === "active" ? <Dot color="green" /> : <Dot color="lightgreen" />)}
+        {capitalize(subscription.status)}
+      </Typography>
+      <Divider sx={{ margin: "0.5rem 0" }}/>
+      <Typography variant="eyebrow" sx={{ fontSize: "1rem" }}>
+        RECURS
+      </Typography>
+      <Typography variant="body1" sx={{ padding: "0.5rem 0"}}>
+        {formatPayScheduleDetail(subscription.billing_period, subscription.billing_interval)}
+      </Typography>
+      <Divider sx={{ margin: "0.5rem 0" }}/>
+      <Typography variant="eyebrow" sx={{ fontSize: "1rem" }}>
+        AMOUNT
+      </Typography>
+      <Typography variant="body1" sx={{ padding: "0.5rem 0"}}>
+        ${convertRetailPriceCentsToRetailPrice(subscription.plan_price)}
+      </Typography>
+      <Divider sx={{ margin: "0.5rem 0" }}/>
+      <Typography variant="eyebrow" sx={{ fontSize: "1rem" }}>
+        {subscription.status === "active" ? "START DATE" : "TRIAL START"}
+      </Typography>
+      <Typography variant="body1" sx={{ padding: "0.5rem 0"}}>
+        {formatDateString(subscription.created_at)}
+      </Typography>
+      <Divider sx={{ margin: "0.5rem 0" }}/>
+      {subscription.trial_end && (
+        <Box>
+          <Typography variant="eyebrow" sx={{ fontSize: "1rem" }}>
+            TRIAL END
+          </Typography>
+          <Typography variant="body1" sx={{ padding: "0.5rem 0"}}>
+            {formatDateString(subscription.trial_end)}
+          </Typography>
+          <Divider sx={{ margin: "0.5rem 0" }}/>
+        </Box>
+      )}
+      <Typography variant="eyebrow" sx={{ fontSize: "1rem" }}>
+        {subscription.cancel_at ? "END DATE" : "NEXT BILL"}
+      </Typography>
+      <Typography variant="body1" sx={{ padding: "0.5rem 0"}}>
+        {formatDateString(subscription.cancel_at ? subscription.cancel_at : subscription.upcoming_invoice_date)}
+      </Typography>
+    </Box>
+  )
+}
+
 export const Subscriptions = ({ signOut }: { signOut: () => void }) => {
   const { isLoading, data } = useCRMContent({
     cms_entry_id: process.env.REACT_APP_CONTENTFUL_COMPANY_DESCRIPTION_ID,
   });
-  const { subscriptionPlans, isLoading: plansLoading, isError } = useSubscriptionPlans();
+  const { currentPatient } = useCurrentPatient();
+  const {
+    subscriptionPlans,
+    isLoading: plansLoading,
+    isError,
+  } = useSubscriptionPlans();
+  const {
+    data: activeSubscriptions,
+    isLoading: subscriptionsLoading,
+    isError: subError,
+  } = useActiveSubscription(currentPatient?.id);
   const [pageView, setPageView] = useState("SubscriptionOptions");
   const [selectedSubscription, setSelectedSubscription] = useState();
-  const [activeSubscriptionOptions, setActiveSubscriptionOptions] = useState([]);
-  const { currentPatient } = useCurrentPatient();
-  const { data: existingPaymentMethod, isLoading: paymentMethodLoading } = useExistingPaymentMethod(
-    currentPatient?.id
+  const [activeSubscriptionOptions, setActiveSubscriptionOptions] = useState(
+    []
   );
+  const [showConfirmPage, setShowConfirmPage] = useState<boolean>(false);
+  const { data: existingPaymentMethod, isLoading: paymentMethodLoading } =
+    useExistingPaymentMethod(currentPatient?.id);
 
   useEffect(() => {
-    if (!isLoading && !plansLoading && subscriptionPlans && subscriptionPlans.length > 0) {
-      const options = subscriptionPlans.filter((plan) => plan.active && plan.type === "recurring");
+    if (
+      !isLoading &&
+      !subscriptionsLoading &&
+      !plansLoading &&
+      subscriptionPlans &&
+      subscriptionPlans.length > 0
+    ) {
+      const options = subscriptionPlans.filter(
+        (plan) => plan.active && plan.type === "recurring"
+      );
       setActiveSubscriptionOptions(options);
       setSelectedSubscription(options[0]);
     }
-  }, [isLoading, plansLoading, subscriptionPlans]);
+  }, [isLoading, plansLoading, subscriptionPlans, subscriptionsLoading]);
 
-  if (isLoading || plansLoading || paymentMethodLoading) {
+  if (isLoading || plansLoading || paymentMethodLoading || subscriptionsLoading) {
     return <Skeleton variant="rectangular" animation="wave" height={280} />;
   }
 
-  if (isError) {
-    console.log("Failed to fetch tenant subscription plans:", isError);
+  if (isError || subError) {
+    console.log("Failed to fetch subscriptions:", isError ?? subError);
     return <div>Woops something went wrong...</div>;
   }
 
@@ -674,6 +776,7 @@ export const Subscriptions = ({ signOut }: { signOut: () => void }) => {
             selectedSubscription={selectedSubscription}
             setPageView={setPageView}
             existingPaymentMethod={existingPaymentMethod}
+            setShowConfirmPage={setShowConfirmPage}
           />
         );
       case "PaymentSuccess":
@@ -681,7 +784,34 @@ export const Subscriptions = ({ signOut }: { signOut: () => void }) => {
     }
   };
 
-  return <Box sx={{ overflow: "auto", height: "100%" }}>{renderSubscriptionPage()}</Box>;
+  return (
+    <Box sx={{ overflow: "auto", height: "100%" }}>
+      {activeSubscriptions?.length > 0 && !showConfirmPage ? (
+        <Box>
+          <ActionButton
+            type="back"
+            route="/profile"
+          />
+          <Box sx={{ padding: "1rem" }}>
+            <Heading>Subscriptions</Heading>
+            {activeSubscriptions.map((subscription, index) => (
+              <Box key ={index} sx={{
+                borderRadius: "4px",
+                marginTop: "2rem",
+                padding: "1rem",
+                boxShadow: "rgb(2 2 40 / 8%) 0px 4px 6px",
+              }}>
+                <SubscriptionCard subscription={subscription}/>
+              </Box>
+            ))}
+            <Typography variant="body2" sx={{ paddingTop: "1.5rem", textAlign: "center" }}>
+              To manage your subscriptions, please reach out to us via chat.
+            </Typography>
+          </Box>
+        </Box>
+      ) : renderSubscriptionPage()}
+    </Box>
+  );
 };
 
 export default Subscriptions;

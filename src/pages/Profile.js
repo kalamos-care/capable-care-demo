@@ -307,7 +307,23 @@ export default function Profile({ signOut }) {
 
       <CareTeam />
 
-      {process.env.REACT_APP_USAGE_MODE === "demo" && <MyInformation />}
+      {process.env.REACT_APP_USAGE_MODE !== "demo" ? <MyInformation/> : (
+        <Container sx={{marginTop: 3}}>
+          <Typography variant="h6" component="h2">
+            My Information
+          </Typography>
+
+          <StyledCard sx={{paddingY: 0}}>
+            <List>
+              <IconListLink
+                icon={<WellnessIcon/>}
+                text="Subscriptions"
+                onClick={() => navigate(`/subscriptions`)}
+              />
+            </List>
+          </StyledCard>
+        </Container>
+      )}
 
       <Container sx={{ marginTop: 3 }}>
         <StyledCard sx={{ paddingY: 0 }}>

@@ -29,6 +29,10 @@ export interface Subscription {
   status: string;
   upcoming_invoice_date: string;
   patient_id: string;
-  billing_period: string;
+  billing_period: "day" | "week" | "month" | "year";
+  billing_interval: number;
   created_at: string;
+  cancel_at: string;
+  trial_end: string;
+  plan_price: number;
 }

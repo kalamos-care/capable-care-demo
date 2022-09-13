@@ -13,8 +13,10 @@ export default function useSubscriptionPlans(page = 1, size = 100) {
     Sentry.captureException(error);
   }
 
+  const sortedSubscriptionPlans = subscriptionPlans?.sort((a,b) => a.unit_amount - b.unit_amount);
+
   return {
-    subscriptionPlans,
+    subscriptionPlans: sortedSubscriptionPlans,
     isLoading: !error && !subscriptionPlans,
     isError: error,
   };
