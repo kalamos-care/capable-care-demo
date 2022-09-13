@@ -16,5 +16,5 @@ style.sheet.insertRule(
   `.sv_main input[type="checkbox"]:focus {outline: 1px dotted ${process.env.REACT_APP_COLOR}}`
 );
 style.sheet.insertRule(
-  `.sv_main input[type="checkbox"]:checked {background: ${process.env.REACT_APP_COLOR} url('../assets/icon-check.svg') no-repeat center center}`
+  `.sv_main input[type="checkbox"]:checked {background: ${process.env.REACT_APP_COLOR} url('../assets/icons/check.svg') no-repeat center center}`
 );

@@ -20,6 +20,7 @@
 .sv_main .sv_body {
   border: 0;
   padding: 0;
+  background: #fafafa
 }
 .sv_main .sv_body .sv_row {
   border: 0;
@@ -27,9 +28,6 @@
 }
 .sv_main .sv_body .sv_row:first-child {
   margin-top: 0;
-}
-.sv_main .sv_body .sv_row:nth-child(even) {
-  background: #fff;
 }
 .sv_main .sv_body .sv_progress {
   height: 6px;
@@ -83,4 +81,41 @@
 
 .sv_main .sv_container .sv_body .sv_p_root .sv_q_title {
   font-weight: 500;
+}
+
+.sv_main .sv_container .sv_body .sv_nav {
+  display: flex;
+}
+
+.sv_main .sv_container .sv_body .sv_nav .sv-action {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#sv-nav-prev :not(.sv-action--hidden) {
+  margin-right: 1rem;
+}
+
+.sv_main .sv_container .sv_body .sv_nav .sv-action__content {
+  width: 100%;
+}
+
+.sv_main .sv_container .sv_body .sv_nav .sv_nav_btn, .sv_main .sv_container .sv_body .sv_nav .sv_start_btn, .sv_main .sv_container .sv_body .sv_nav .sv_next_btn, .sv_main .sv_container .sv_body .sv_nav .sv_complete_btn {
+  float: unset;
+  margin: unset;
+  width: 100%;
+  text-transform: unset;
+}
+
+.sv_main .sv-action--hidden {
+  width: 0 !important;
+}
+
+.sv_body .sv_completed_page {
+  background-color: #fafafa;
+}
+
+.sv_main .sv_container .sv_body.sv_completed_page {
+  padding: 2rem 1rem;
 }

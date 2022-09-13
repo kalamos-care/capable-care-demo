@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { CardMedia, Container, Skeleton } from "@mui/material";
+import { Container, Skeleton, Typography } from "@mui/material";
 
-import { Questionnaire } from "../components";
+import { BackButton, PrimaryHeader, Questionnaire } from "../components";
 import { useSurvey } from "../fetchDataHooks";
 
 export default function Survey() {
@@ -23,13 +23,17 @@ export default function Survey() {
 
   return (
     <>
-      <CardMedia
-        component="img"
-        width="375"
-        image={process.env.REACT_APP_LOGO}
-        alt={process.env.REACT_APP_NAME}
-      />
-      <Container sx={{ marginBottom: 5, backgroundColor: "background.paper" }}>
+      <PrimaryHeader sx={{ position: "relative", textAlign: "center", padding: "16px" }}>
+        <BackButton
+          route="/"
+          sx={{ alignSelf: "baseline", zIndex: 100, position: "absolute" , top: 0}}
+        />
+
+        <Typography variant="h4" component="h1" sx={{ width: "70%" }}>
+          {survey.title}
+        </Typography>
+      </PrimaryHeader>
+      <Container sx={{ marginBottom: 5 }}>
         <Questionnaire survey={survey} />
       </Container>
     </>

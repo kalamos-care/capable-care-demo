@@ -1,7 +1,10 @@
 import React, { memo } from "react";
+import ReactDOMServer from "react-dom/server";
 import * as Survey from "survey-react";
 import { compact, groupBy, sortBy, toString } from "lodash";
 import * as widgets from "surveyjs-widgets";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { Typography } from "@mui/material";
 
 import api from "../capableApi/index";
 
@@ -115,6 +118,20 @@ const serializeResults = (results) => {
   return serializedResults;
 };
 
+const PostQuestionnaire = () => {
+  return (
+    <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <CheckCircleIcon sx={{ color: "#73EBA3", fontSize: "3rem", marginBottom: "1rem" }} />
+      <Typography sx={{ fontSize: "1rem", lineHeight: "1.5rem", letterSpacing: -0.25, fontWeight: 600 }}>
+        All set! Your responses have been submitted.
+      </Typography>
+      <Typography sx={{ fontSize: "0.75rem", lineHeight: "1rem", color: "#4A4A4E" }}>
+        Your Care Team will review your responses.
+      </Typography>
+    </div>
+  );
+}
+
 const Questionnaire = ({ survey }) => {
   const grouped_questions = groupBy(survey.questions, question => question.metadata.page);
   const ordered_pages = sortBy(Object.entries(grouped_questions), (page_number, _questions) => parseInt(page_number));
@@ -129,7 +146,6 @@ const Questionnaire = ({ survey }) => {
   widgets.inputmask(Survey);
 
   const onComplete = async (results) => {
-
     await api.client.Submission.create({
       body: {
         submission: {
@@ -147,7 +163,9 @@ const Questionnaire = ({ survey }) => {
   const surveyModel = new Survey.Model({
     showProgressBar: "bottom",
     title: survey.title,
-    pages: pages
+    pages: pages,
+    completeText: "Submit",
+    completedHtml: ReactDOMServer.renderToString(<PostQuestionnaire />),
   });
 
   surveyModel.onComplete.add(onComplete);
