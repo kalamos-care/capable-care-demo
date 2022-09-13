@@ -12,9 +12,7 @@ export const getParticipantsByAuthor = (usersData?: User[]) =>
     return obj;
   }, {} as Record<string, User>);
 
-export const getAllUserIds = (
-  barnardConversationsData: BarnardConversation[] | undefined
-) => {
+export const getAllUserIds = (barnardConversationsData: BarnardConversation[] | undefined) => {
   const allUserIds =
     barnardConversationsData?.reduce((arr, c) => {
       arr.push(...c.user_ids);

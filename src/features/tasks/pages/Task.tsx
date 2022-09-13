@@ -11,12 +11,7 @@ import useCRMContent from "fetchDataHooks/useCRMContent";
 
 const Task = () => {
   const { taskId } = useParams<{ taskId: string }>();
-  const {
-    data: task,
-    isLoading: taskLoading,
-    isError: taskError,
-    refetch,
-  } = useTask(taskId);
+  const { data: task, isLoading: taskLoading, isError: taskError, refetch } = useTask(taskId);
   const {
     data: taskWithCRM,
     isLoading: taskWithCRMLoading,
@@ -24,8 +19,7 @@ const Task = () => {
   } = useCRMContent(task);
   const { mutate: updateTask } = useUpdateTask();
 
-  const isTaskCompleted =
-    task?.achievement_status === TaskAchievementStatus.COMPLETED;
+  const isTaskCompleted = task?.achievement_status === TaskAchievementStatus.COMPLETED;
 
   const toggleAchievementStatus = async () => {
     const new_achievement_status = isTaskCompleted
@@ -111,9 +105,7 @@ const Task = () => {
       >
         <Card
           sx={{
-            backgroundColor: isTaskCompleted
-              ? "white"
-              : process.env.REACT_APP_COLOR,
+            backgroundColor: isTaskCompleted ? "white" : process.env.REACT_APP_COLOR,
             cursor: "pointer",
           }}
           onClick={toggleAchievementStatus}

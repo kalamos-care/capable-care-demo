@@ -62,15 +62,7 @@ export const formatTime = (dateTime) => {
     .replace("PM", "pm");
 };
 
-const weekDays = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
+const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 const datesAreOnSameDay = (first: Date, second: Date) =>
   first.getFullYear() === second.getFullYear() &&

@@ -71,11 +71,7 @@ export default function App() {
                     <Route element={<WithNavigation />}>
                       <Route exact path="/" element={<Home />} />
                       <Route exact path="/home" element={<Home />} />
-                      <Route
-                        exact
-                        path="/home/:carePlanId"
-                        element={<Home />}
-                      />
+                      <Route exact path="/home/:carePlanId" element={<Home />} />
                       <Route exact path="/chat" element={<Conversations />} />
                       <Route
                         exact
@@ -95,11 +91,7 @@ export default function App() {
                     </Route>
 
                     <Route element={<WithNavigation withCopyRight={true} />}>
-                      <Route
-                        exact
-                        path="/profile"
-                        element={<Profile signOut={signOut} />}
-                      />
+                      <Route exact path="/profile" element={<Profile signOut={signOut} />} />
                     </Route>
 
                     <Route element={<WithoutNavigation />}>
@@ -108,11 +100,7 @@ export default function App() {
                       <Route exact path="/task/:taskId" element={<Task />} />
                       <Route exact path="/log" element={<Observation />} />
                       <Route exact path="/target" element={<Target />} />
-                      <Route
-                        exact
-                        path="/survey/:surveyId"
-                        element={<Survey />}
-                      />
+                      <Route exact path="/survey/:surveyId" element={<Survey />} />
                     </Route>
                   </SubscriptionRouteManager>
                 </BrowserRouter>

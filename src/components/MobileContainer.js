@@ -6,10 +6,9 @@ export default function MobileContainer({ children }) {
   const height = use100vh();
   // If we're on a desktop browser, wrap the whole page in a grey container,
   // otherwise give the full viewport to the app.
-  const isMobile =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    );
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
 
   if (isMobile) {
     return (

@@ -10,14 +10,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import LoadingButton from '@mui/lab/LoadingButton';
-import {
-  CalendarMonth,
-  Delete,
-  Edit,
-  Event,
-  LocationOn,
-} from "@mui/icons-material";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { CalendarMonth, Delete, Edit, Event, LocationOn } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 import api from "capableApi/index";
@@ -57,15 +51,20 @@ function WebinarCallModal({ appointment, isWebinarCallModelOpen, setIsWebinarCal
   );
 }
 
-const AppointmentActionModal = ({ isOpen, setIsOpen, title, body, error, isLoading, onClickActionButton, actionButtonTitle }) => {
+const AppointmentActionModal = ({
+  isOpen,
+  setIsOpen,
+  title,
+  body,
+  error,
+  isLoading,
+  onClickActionButton,
+  actionButtonTitle,
+}) => {
   const closeModal = () => setIsOpen(false);
 
   return (
-    <Modal
-      open={isOpen}
-      aria-labelledby="modal"
-      aria-describedby="modal"
-    >
+    <Modal open={isOpen} aria-labelledby="modal" aria-describedby="modal">
       <Box
         onClick={closeModal}
         sx={{
@@ -75,7 +74,8 @@ const AppointmentActionModal = ({ isOpen, setIsOpen, title, body, error, isLoadi
           height: "100%",
           textAlign: "center",
           position: "relative",
-        }}>
+        }}
+      >
         <Card
           onClick={(event) => event.stopPropagation()} // stops modal from being closed on click
           sx={{
@@ -87,11 +87,24 @@ const AppointmentActionModal = ({ isOpen, setIsOpen, title, body, error, isLoadi
             transform: "translate(-50%, -50%)",
           }}
         >
-          <Typography sx={{ fontSize: "0.825rem", color: "text.card", marginBottom: "1rem", fontWeight: 500 }}>
+          <Typography
+            sx={{
+              fontSize: "0.825rem",
+              color: "text.card",
+              marginBottom: "1rem",
+              fontWeight: 500,
+            }}
+          >
             {title}
           </Typography>
 
-          <Typography sx={{ fontSize: "0.825rem", color: "text.card", marginBottom: "1rem" }}>
+          <Typography
+            sx={{
+              fontSize: "0.825rem",
+              color: "text.card",
+              marginBottom: "1rem",
+            }}
+          >
             {body}
           </Typography>
 
@@ -113,16 +126,23 @@ const AppointmentActionModal = ({ isOpen, setIsOpen, title, body, error, isLoadi
             </LoadingButton>
           </div>
 
-          { error &&
-            <Typography sx={{ fontSize: "0.825rem", color: "red", marginTop: "1rem", fontWeight: 500 }}>
+          {error && (
+            <Typography
+              sx={{
+                fontSize: "0.825rem",
+                color: "red",
+                marginTop: "1rem",
+                fontWeight: 500,
+              }}
+            >
               {error}
             </Typography>
-          }
+          )}
         </Card>
       </Box>
     </Modal>
   );
-}
+};
 
 const CancelAppointmentModal = ({
   appointment,
@@ -154,11 +174,12 @@ const CancelAppointmentModal = ({
     setError("");
     setIsLoading(false);
 
-    const updatedAppointments = appointments.filter(oldAppointment => oldAppointment.id !== appointment.id);
+    const updatedAppointments = appointments.filter(
+      (oldAppointment) => oldAppointment.id !== appointment.id
+    );
     setAppointments(updatedAppointments);
 
     toggleCancelAppointmentModal();
-    
   };
 
   return (
@@ -173,9 +194,12 @@ const CancelAppointmentModal = ({
       isLoading={isLoading}
     />
   );
-}
+};
 
-const RescheduleAppointmentModal = ({ isRescheduleAppointmentModelOpen, setIsRescheduleAppointmentModelOpen }) => {
+const RescheduleAppointmentModal = ({
+  isRescheduleAppointmentModelOpen,
+  setIsRescheduleAppointmentModelOpen,
+}) => {
   const navigate = useNavigate();
 
   return (
@@ -188,7 +212,7 @@ const RescheduleAppointmentModal = ({ isRescheduleAppointmentModelOpen, setIsRes
       onClickActionButton={() => navigate("/chat")}
     />
   );
-}
+};
 
 function AppointmentCard(props) {
   const {
@@ -204,7 +228,6 @@ function AppointmentCard(props) {
     setIsWebinarCallModelOpen,
     status,
   } = props;
-
 
   // if the user is already in a meeting, close it, otherwise activate this appointment.
   const toggleWebinar = () => {
@@ -245,12 +268,12 @@ function AppointmentCard(props) {
           />
         </Box>
       </div>
-    )
+    );
   };
 
   return (
     <StyledCard sx={{ marginBottom: 2 }}>
-      <div style={{ display: "flex", "justifyContent": "space-between" }}>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Stack>
           <Typography component="h3" sx={{ fontSize: "1rem", fontWeight: 500 }}>
             {appointment.appointment_type}
@@ -266,23 +289,22 @@ function AppointmentCard(props) {
         </Stack>
 
         <AppointmentActions />
-        
       </div>
 
-      <Divider sx={{ marginY: 2, border: "1px solid #F3F4F5", backgroundColor: "#F3F4F5" }} />
+      <Divider
+        sx={{
+          marginY: 2,
+          border: "1px solid #F3F4F5",
+          backgroundColor: "#F3F4F5",
+        }}
+      />
 
       <Stack sx={{ marginY: 2 }}>
         <Box sx={{ display: "flex", marginTop: 1 }}>
-          <LocationOn
-            fontSize="small"
-            sx={{ color: "grey.500", marginRight: 2 }}
-          />
+          <LocationOn fontSize="small" sx={{ color: "grey.500", marginRight: 2 }} />
 
           {isValidHttpUrl(appointment.location) ? (
-            <LinkToVideo
-              onClick={() => !hideActions && toggleWebinar()}
-              status={status}
-            />
+            <LinkToVideo onClick={() => !hideActions && toggleWebinar()} status={status} />
           ) : (
             <Typography sx={{ fontSize: "0.825rem", color: "grey.900" }}>
               {appointment.location}
@@ -291,15 +313,9 @@ function AppointmentCard(props) {
         </Box>
 
         <Box sx={{ display: "flex", marginTop: 1 }}>
-          <Event
-            fontSize="small"
-            sx={{ color: "grey.500", marginRight: 2 }}
-          />
+          <Event fontSize="small" sx={{ color: "grey.500", marginRight: 2 }} />
 
-          <Typography
-            component="p"
-            sx={{ fontSize: "0.825rem", color: "grey.900" }}
-          >
+          <Typography component="p" sx={{ fontSize: "0.825rem", color: "grey.900" }}>
             {appointment.calendar}
           </Typography>
         </Box>
@@ -324,23 +340,24 @@ const AppointmentList = ({ appointments, status, ...props }) => {
       >
         <Typography variant="subtitle">{titlecase(status)}</Typography>
       </Box>
-      {
-        appointments.map((appointment) => (
-          <AppointmentCard
-            key={appointment.id}
-            appointment={appointment}
-            status={status}
-            {...props}
-          />
-        ))
-      }
+      {appointments.map((appointment) => (
+        <AppointmentCard
+          key={appointment.id}
+          appointment={appointment}
+          status={status}
+          {...props}
+        />
+      ))}
     </>
   );
-}
+};
 
 const useAppointmentsHook = () => {
   const { appointments, isLoading } = useAppointments();
-  const [appointmentsState, setAppointmentsState] = useState({ past: [], upcoming: [] });
+  const [appointmentsState, setAppointmentsState] = useState({
+    past: [],
+    upcoming: [],
+  });
   const [isLoadingAppointments, setIsLoadingAppointments] = useState(true);
 
   useEffect(() => {
@@ -350,12 +367,18 @@ const useAppointmentsHook = () => {
     }
   }, [isLoading]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return [appointmentsState.past, appointmentsState.upcoming, setAppointmentsState, isLoadingAppointments];
+  return [
+    appointmentsState.past,
+    appointmentsState.upcoming,
+    setAppointmentsState,
+    isLoadingAppointments,
+  ];
 };
 
 export default function Appointments() {
   const [activeAppointment, setActiveAppointment] = useState(null);
-  const [pastAppointments, upcomingAppointments, setAppointments, isLoading] = useAppointmentsHook();
+  const [pastAppointments, upcomingAppointments, setAppointments, isLoading] =
+    useAppointmentsHook();
   const [isCancelAppointmentModelOpen, setIsCancelAppointmentModelOpen] = useState(false);
   const [isRescheduleAppointmentModelOpen, setIsRescheduleAppointmentModelOpen] = useState(false);
   const [isWebinarCallModelOpen, setIsWebinarCallModelOpen] = useState(false);
@@ -383,12 +406,7 @@ export default function Appointments() {
             }}
           />
 
-          <Typography
-            marginBottom={0.5}
-            color="common.white"
-            variant="h5"
-            component="h1"
-          >
+          <Typography marginBottom={0.5} color="common.white" variant="h5" component="h1">
             Appointments
           </Typography>
         </PrimaryHeader>
@@ -396,7 +414,7 @@ export default function Appointments() {
         {children}
       </>
     );
-  }
+  };
 
   if (isLoading) {
     return (
@@ -411,7 +429,10 @@ export default function Appointments() {
     );
   }
 
-  if ((!pastAppointments && !upcomingAppointments) || (pastAppointments.length === 0 && upcomingAppointments.length === 0)) {
+  if (
+    (!pastAppointments && !upcomingAppointments) ||
+    (pastAppointments.length === 0 && upcomingAppointments.length === 0)
+  ) {
     return (
       <Layout>
         <NoDataCards
@@ -439,7 +460,7 @@ export default function Appointments() {
         isCancelAppointmentModelOpen={isCancelAppointmentModelOpen}
         setIsCancelAppointmentModelOpen={setIsCancelAppointmentModelOpen}
       />
-      
+
       <RescheduleAppointmentModal
         appointment={activeAppointment}
         isRescheduleAppointmentModelOpen={isRescheduleAppointmentModelOpen}
@@ -448,8 +469,17 @@ export default function Appointments() {
 
       <Layout>
         <Container>
-          <AppointmentList appointments={upcomingAppointments} status="upcoming" {...appointmentProps} />
-          <AppointmentList appointments={pastAppointments} status="past" hideActions={true} {...appointmentProps} />
+          <AppointmentList
+            appointments={upcomingAppointments}
+            status="upcoming"
+            {...appointmentProps}
+          />
+          <AppointmentList
+            appointments={pastAppointments}
+            status="past"
+            hideActions={true}
+            {...appointmentProps}
+          />
         </Container>
       </Layout>
     </>

@@ -45,31 +45,23 @@
   Otherways, a few exception mechanisms are in place in the overrides.ts file to handle the non-standard cases.
 */
 
-import Auth from "@capable-health/capable-auth-sdk";
+import auth from "../auth";
 import * as CapableHealthApi from "../codegen";
 import { clientMethodFor } from "./methods";
 import { constructorNameFor, isSupportedApiClass } from "./namespaces";
 import { BASE_API_PATH } from "./config";
 
-function clientProxy(
-  client: any,
-  parentClassName: string,
-  constructorName: string
-) {
+export function clientProxy(client: any, parentClassName: string, constructorName: string) {
   return new Proxy(client, {
     get(client: any, method: string) {
-      const clientMethod = clientMethodFor(
-        method,
-        parentClassName,
-        constructorName
-      );
+      const clientMethod = clientMethodFor(method, parentClassName, constructorName);
 
       if (typeof client[clientMethod] !== "function")
         throw Error(`No API target method named: ${method}`);
 
       return async (...args) => {
         client.apiClient.basePath = BASE_API_PATH;
-        const token = await Auth.user.getAccessToken();
+        const token = await auth.getAccessToken();
         client.apiClient.defaultHeaders["Authorization"] = "Bearer " + token;
 
         return new Promise((resolve, reject) => {
@@ -99,6 +91,6 @@ const client: any = new Proxy(new Object(), {
   },
 });
 
-export { BASE_API_PATH, clientProxy };
+export * from "./config";
 
 export default client;

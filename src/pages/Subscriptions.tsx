@@ -25,20 +25,9 @@ import { useNavigate } from "react-router-dom";
 import useActiveSubscription from "fetchDataHooks/useActiveSubscription";
 import * as Sentry from "@sentry/react";
 
-const SubscriptionHeader = ({
-  title,
-  content,
-}: {
-  title: string;
-  content: string;
-}) => (
+const SubscriptionHeader = ({ title, content }: { title: string; content: string }) => (
   <Box sx={{ backgroundColor: "background.paper" }}>
-    <CardMedia
-      component="img"
-      width="375"
-      image={process.env.REACT_APP_LOGO}
-      alt="Logo image"
-    />
+    <CardMedia component="img" width="375" image={process.env.REACT_APP_LOGO} alt="Logo image" />
     <Container
       sx={{
         padding: "2rem 1rem 1rem 1rem",
@@ -66,9 +55,7 @@ const intervalToPeriodicMap = {
   year: "Yearly",
 };
 
-const formatPayScheduleDetail = (
-  subscriptionDetail: SubscriptionScheduleDetail
-) => {
+const formatPayScheduleDetail = (subscriptionDetail: SubscriptionScheduleDetail) => {
   const { interval, interval_count: count } = subscriptionDetail;
   if (!subscriptionDetail) return "";
   if (count === 1) return intervalToPeriodicMap[interval];
@@ -126,9 +113,7 @@ const SubscriptionOptionCard = ({
             : null}
         </Typography>
         {/*@ts-ignore*/}
-        <Typography variant="eyebrow">
-          {formatPayScheduleDetail(subscription.recurring)}
-        </Typography>
+        <Typography variant="eyebrow">{formatPayScheduleDetail(subscription.recurring)}</Typography>
       </Box>
       {subscription.capable_health_metadata?.description && (
         <Box sx={{ fontSize: "0.9rem", paddingTop: "1rem" }}>
@@ -155,9 +140,7 @@ const SubscriptionSelection = ({
   let counter = 0;
   return (
     <Box sx={{ padding: "1rem", background: "#FAFAFA", height: "100%" }}>
-      <Box sx={{ paddingBottom: "1rem", fontWeight: "500" }}>
-        Choose your plan
-      </Box>
+      <Box sx={{ paddingBottom: "1rem", fontWeight: "500" }}>Choose your plan</Box>
       {plans.map((planOption, index) => {
         if (!planOption.capable_health_metadata.name) {
           counter += 1;
@@ -208,10 +191,7 @@ const StripeErrorMessage = ({ message }: { message: string }) => (
   </Box>
 );
 
-const calculateDiscount = (
-  total: number,
-  coupon: { amount_off: number; percent_off: number }
-) => {
+const calculateDiscount = (total: number, coupon: { amount_off: number; percent_off: number }) => {
   const { amount_off, percent_off } = coupon;
   if (amount_off) {
     return amount_off;
@@ -249,9 +229,7 @@ const PromoCode = ({
     setPromoCodeError(null);
     setPromoCodeMessage(null);
     try {
-      const codeResponse = await api.client.PromotionCode.promotionCodesCodeGet(
-        codex
-      );
+      const codeResponse = await api.client.PromotionCode.promotionCodesCodeGet(codex);
       const code = codeResponse.body;
 
       if (!code.active) {
@@ -271,9 +249,7 @@ const PromoCode = ({
       ) {
         setPromoCodeError("Promo code cannot be applied to this subscription");
       } else {
-        setPromoDiscount(
-          calculateDiscount(selectedSubscription.unit_amount, code.coupon)
-        );
+        setPromoDiscount(calculateDiscount(selectedSubscription.unit_amount, code.coupon));
         setPromoCodeMessage("Promo code code successfully applied!");
       }
     } catch (e) {
@@ -284,10 +260,7 @@ const PromoCode = ({
   const handleDebouncedCheckPromo = async (inputValue: string) => {
     return await new Promise<void>((resolve) => {
       clearTimeout(timeout.current);
-      timeout.current = window.setTimeout(
-        () => resolve(fetchPromoCode(inputValue)),
-        600
-      );
+      timeout.current = window.setTimeout(() => resolve(fetchPromoCode(inputValue)), 600);
     });
   };
 
@@ -390,9 +363,7 @@ const SubscriptionPayment = ({
     });
 
     if (subscriptionResponse.error) {
-      throw new Error(
-        `Failed to create capable subscription: ${subscriptionResponse.error}`
-      );
+      throw new Error(`Failed to create capable subscription: ${subscriptionResponse.error}`);
     }
     return subscriptionResponse;
   };
@@ -411,9 +382,7 @@ const SubscriptionPayment = ({
           });
 
           if (intent.error) {
-            throw new Error(
-              `Failed to create capable setup intent: ${intent.error}`
-            );
+            throw new Error(`Failed to create capable setup intent: ${intent.error}`);
           }
           secret = intent.body.client_secret;
           setClientSecret(secret);
@@ -517,8 +486,8 @@ const SubscriptionPayment = ({
         {existingPaymentMethod && !useNewCard ? (
           <Box>
             <Box sx={{ padding: "1rem 0 3rem" }}>
-              Looks like we already have a credit card on file for you. Click
-              Pay to use this card for payment.
+              Looks like we already have a credit card on file for you. Click Pay to use this card
+              for payment.
             </Box>
             <PromoCode
               setPromoDiscount={setPromoDiscount}
@@ -600,9 +569,7 @@ const SubscriptionPayment = ({
               width="100%"
               type="submit"
               variation="primary"
-              disabled={
-                !stripe || !elements || !currentPatient || !zipCode || loading
-              }
+              disabled={!stripe || !elements || !currentPatient || !zipCode || loading}
             >
               {loading ? <Loader /> : "Pay"}
             </Button>
@@ -613,11 +580,7 @@ const SubscriptionPayment = ({
   );
 };
 
-const PaymentSuccess = ({
-  selectedSubscription,
-}: {
-  selectedSubscription: SubscriptionOption;
-}) => {
+const PaymentSuccess = ({ selectedSubscription }: { selectedSubscription: SubscriptionOption }) => {
   const navigate = useNavigate();
   const { currentPatient } = useCurrentPatient();
   const { isLoading } = useActiveSubscription(currentPatient?.id);
@@ -632,24 +595,19 @@ const PaymentSuccess = ({
         <>
           <Heading level={5}>Trial Started</Heading>
           <Typography variant="h6" sx={{ padding: "1rem 0 2rem" }}>
-            Your free {selectedSubscription?.metadata?.trial_period_in_days}-day
-            trial has begun. You may now continue to your account!
+            Your free {selectedSubscription?.metadata?.trial_period_in_days}-day trial has begun.
+            You may now continue to your account!
           </Typography>
         </>
       ) : (
         <>
           <Heading level={5}>Payment Successful</Heading>
           <Typography variant="h6" sx={{ padding: "1rem 0 2rem" }}>
-            Your payment has been processed. You may now continue to your
-            account!
+            Your payment has been processed. You may now continue to your account!
           </Typography>
         </>
       )}
-      <Button
-        width="100%"
-        variation="primary"
-        onClick={() => navigate("/home")}
-      >
+      <Button width="100%" variation="primary" onClick={() => navigate("/home")}>
         Continue
       </Button>
     </Box>
@@ -660,30 +618,18 @@ export const Subscriptions = ({ signOut }: { signOut: () => void }) => {
   const { isLoading, data } = useCRMContent({
     cms_entry_id: process.env.REACT_APP_CONTENTFUL_COMPANY_DESCRIPTION_ID,
   });
-  const {
-    subscriptionPlans,
-    isLoading: plansLoading,
-    isError,
-  } = useSubscriptionPlans();
+  const { subscriptionPlans, isLoading: plansLoading, isError } = useSubscriptionPlans();
   const [pageView, setPageView] = useState("SubscriptionOptions");
   const [selectedSubscription, setSelectedSubscription] = useState();
-  const [activeSubscriptionOptions, setActiveSubscriptionOptions] = useState(
-    []
-  );
+  const [activeSubscriptionOptions, setActiveSubscriptionOptions] = useState([]);
   const { currentPatient } = useCurrentPatient();
-  const { data: existingPaymentMethod, isLoading: paymentMethodLoading } =
-    useExistingPaymentMethod(currentPatient?.id);
+  const { data: existingPaymentMethod, isLoading: paymentMethodLoading } = useExistingPaymentMethod(
+    currentPatient?.id
+  );
 
   useEffect(() => {
-    if (
-      !isLoading &&
-      !plansLoading &&
-      subscriptionPlans &&
-      subscriptionPlans.length > 0
-    ) {
-      const options = subscriptionPlans.filter(
-        (plan) => plan.active && plan.type === "recurring"
-      );
+    if (!isLoading && !plansLoading && subscriptionPlans && subscriptionPlans.length > 0) {
+      const options = subscriptionPlans.filter((plan) => plan.active && plan.type === "recurring");
       setActiveSubscriptionOptions(options);
       setSelectedSubscription(options[0]);
     }
@@ -709,10 +655,7 @@ export const Subscriptions = ({ signOut }: { signOut: () => void }) => {
       case "SubscriptionOptions":
         return (
           <>
-            <SubscriptionHeader
-              title={data.name}
-              content={subscriptionContent}
-            />
+            <SubscriptionHeader title={data.name} content={subscriptionContent} />
             <SubscriptionSelection
               existingPaymentMethod={existingPaymentMethod}
               plans={activeSubscriptionOptions}
@@ -738,11 +681,7 @@ export const Subscriptions = ({ signOut }: { signOut: () => void }) => {
     }
   };
 
-  return (
-    <Box sx={{ overflow: "auto", height: "100%" }}>
-      {renderSubscriptionPage()}
-    </Box>
-  );
+  return <Box sx={{ overflow: "auto", height: "100%" }}>{renderSubscriptionPage()}</Box>;
 };
 
 export default Subscriptions;

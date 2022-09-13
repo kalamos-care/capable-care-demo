@@ -1,18 +1,9 @@
-import {
-  Typography,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-} from "@mui/material";
+import { Typography, ListItem, ListItemText, ListItemIcon } from "@mui/material";
 import { ForwardArrowIcon } from "../components/icons";
 
 export default function ListLink({ onClick, text, textColor }) {
   return (
-    <ListItem
-      onClick={onClick}
-      sx={{ cursor: "pointer", paddingY: 1 }}
-      disablePadding
-    >
+    <ListItem onClick={onClick} sx={{ cursor: "pointer", paddingY: 1 }} disablePadding>
       <ListItemText
         sx={{ marginLeft: 1 }}
         disableTypography

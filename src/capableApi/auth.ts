@@ -19,18 +19,11 @@ function getAuthProperties(): {
   if (userPoolId === null || userPoolWebClientId === null)
     throw new AuthConfigurationError("No Auth Configuration Properties given.");
 
-  console.log(
-    `Using auth properties from ${
-      urlParams.has("up") ? "url params" : "localstorage"
-    }`
-  );
+  console.log(`Using auth properties from ${urlParams.has("up") ? "url params" : "localstorage"}`);
   return { userPoolId, userPoolWebClientId };
 }
 
-function storeAuthProperties(
-  userPoolId: string,
-  userPoolWebClientId: string
-): void {
+function storeAuthProperties(userPoolId: string, userPoolWebClientId: string): void {
   if (userPoolId === null || userPoolWebClientId === null)
     console.log("Could not store null auth properties.");
   else {
@@ -58,22 +51,14 @@ function initFromLocationOrStorage(): void {
 }
 
 async function signOut(): Promise<void> {
-  return Auth.signOut().catch((error) =>
-    console.log("could not SignOut:", error)
-  );
+  return Auth.signOut().catch((error) => console.log("could not SignOut:", error));
 }
 
-async function signIn(
-  username: string,
-  password: string
-): Promise<CognitoUser | any> {
+async function signIn(username: string, password: string): Promise<CognitoUser | any> {
   return Auth.signIn(username, password);
 }
 
-async function completeNewPassword(
-  user: CognitoUser,
-  newPassword: string
-): Promise<any> {
+async function completeNewPassword(user: CognitoUser, newPassword: string): Promise<any> {
   return Auth.completeNewPassword(user, newPassword);
 }
 

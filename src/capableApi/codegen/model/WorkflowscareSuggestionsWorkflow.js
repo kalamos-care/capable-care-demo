@@ -39,6 +39,8 @@ export class WorkflowscareSuggestionsWorkflow {
       obj = obj || new WorkflowscareSuggestionsWorkflow();
       if (data.hasOwnProperty("submission_id"))
         obj.submissionId = ApiClient.convertToType(data["submission_id"], "String");
+      if (data.hasOwnProperty("event_id"))
+        obj.eventId = ApiClient.convertToType(data["event_id"], "String");
       if (data.hasOwnProperty("patient_id"))
         obj.patientId = ApiClient.convertToType(data["patient_id"], "String");
       if (data.hasOwnProperty("workflow_ids"))
@@ -49,19 +51,25 @@ export class WorkflowscareSuggestionsWorkflow {
 }
 
 /**
- * ID of the Submission on which to base suggestions
+ * ID of the Submission on which to run the workflow(s)
  * @member {String} submissionId
  */
 WorkflowscareSuggestionsWorkflow.prototype.submissionId = undefined;
 
 /**
- * ID of the Patient on which to base suggestions
+ * ID of the Event on which to run the workflow(s)
+ * @member {String} eventId
+ */
+WorkflowscareSuggestionsWorkflow.prototype.eventId = undefined;
+
+/**
+ * ID of the Patient on which to run the workflow(s)
  * @member {String} patientId
  */
 WorkflowscareSuggestionsWorkflow.prototype.patientId = undefined;
 
 /**
- * IDs of the Workflows you want to run on the given Submission or Patient. When no IDs are provided, all Workflows will be run.
+ * IDs of the Workflows you want to run on the given resource. When no IDs are provided, all Workflows will be run.
  * @member {Array.<String>} workflowIds
  */
 WorkflowscareSuggestionsWorkflow.prototype.workflowIds = undefined;

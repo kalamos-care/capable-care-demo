@@ -27,9 +27,7 @@ const gravatar = (email) => {
 
   email = stripPlus(email);
 
-  const uri = `${GRAVATAR_URI}${md5(
-    email
-  )}?size=${size}&d=${defaultImage}&rating=${rating}`;
+  const uri = `${GRAVATAR_URI}${md5(email)}?size=${size}&d=${defaultImage}&rating=${rating}`;
 
   return uri;
 };

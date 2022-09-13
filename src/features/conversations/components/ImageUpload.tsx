@@ -23,12 +23,7 @@ const ImageUpload = ({ conversation }) => {
         justifyContent: "center",
       }}
     >
-      <Input
-        id="file-upload-button"
-        type="file"
-        sx={{ display: "none" }}
-        onChange={onUpload}
-      />
+      <Input id="file-upload-button" type="file" sx={{ display: "none" }} onChange={onUpload} />
       <Button color="primary" aria-label="upload picture" component="span">
         <PanoramaOutlinedIcon sx={{ color: "grey.700" }} />
       </Button>

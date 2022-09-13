@@ -25,10 +25,7 @@ export const ConversationMessagesLoader = () => {
 
 const MessageSkeleton = () => {
   const randomHeight = useMemo(() => Math.floor(Math.random() * 50) + 50, []);
-  const randomTitleWidth = useMemo(
-    () => Math.floor(Math.random() * 50) + 50,
-    []
-  );
+  const randomTitleWidth = useMemo(() => Math.floor(Math.random() * 50) + 50, []);
   return (
     <Box
       sx={{

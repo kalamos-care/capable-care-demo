@@ -3,12 +3,7 @@ import * as Sentry from "@sentry/react";
 import fetcher from "./fetcher";
 
 // Fetch the patient's observations, filtered by goal & sorted by most recent observed_date.
-export default function useObservations(
-  goalId,
-  targetId,
-  page = 1,
-  size = 100
-) {
+export default function useObservations(goalId, targetId, page = 1, size = 100) {
   const { data, error } = useSWR(
     [
       "Observation",
@@ -30,9 +25,7 @@ export default function useObservations(
   // select the observations for the target
   let observations;
   if (data) {
-    observations = data.filter(
-      (observation) => observation.target_id == targetId
-    );
+    observations = data.filter((observation) => observation.target_id == targetId);
     observations = observations.sort(
       (o1, o2) => new Date(o2.observed_date) - new Date(o1.observed_date)
     );

@@ -13,7 +13,6 @@
  *
  */
 import { ApiClient } from "../ApiClient";
-import { AttachmentsAttachment } from "./AttachmentsAttachment";
 
 /**
  * The AttachmentsBody model module.
@@ -25,8 +24,15 @@ export class AttachmentsBody {
    * Constructs a new <code>AttachmentsBody</code>.
    * @alias module:model/AttachmentsBody
    * @class
+   * @param userId {String}
+   * @param fileType {String}
+   * @param file {Blob}
    */
-  constructor() {}
+  constructor(userId, fileType, file) {
+    this.userId = userId;
+    this.fileType = fileType;
+    this.file = file;
+  }
 
   /**
    * Constructs a <code>AttachmentsBody</code> from a plain JavaScript object, optionally creating a new instance.
@@ -38,14 +44,34 @@ export class AttachmentsBody {
   static constructFromObject(data, obj) {
     if (data) {
       obj = obj || new AttachmentsBody();
-      if (data.hasOwnProperty("attachment"))
-        obj.attachment = AttachmentsAttachment.constructFromObject(data["attachment"]);
+      if (data.hasOwnProperty("user_id"))
+        obj.userId = ApiClient.convertToType(data["user_id"], "String");
+      if (data.hasOwnProperty("description"))
+        obj.description = ApiClient.convertToType(data["description"], "String");
+      if (data.hasOwnProperty("file_type"))
+        obj.fileType = ApiClient.convertToType(data["file_type"], "String");
+      if (data.hasOwnProperty("file")) obj.file = ApiClient.convertToType(data["file"], "Blob");
     }
     return obj;
   }
 }
 
 /**
- * @member {module:model/AttachmentsAttachment} attachment
+ * @member {String} userId
  */
-AttachmentsBody.prototype.attachment = undefined;
+AttachmentsBody.prototype.userId = undefined;
+
+/**
+ * @member {String} description
+ */
+AttachmentsBody.prototype.description = undefined;
+
+/**
+ * @member {String} fileType
+ */
+AttachmentsBody.prototype.fileType = undefined;
+
+/**
+ * @member {Blob} file
+ */
+AttachmentsBody.prototype.file = undefined;

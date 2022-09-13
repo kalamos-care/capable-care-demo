@@ -15,27 +15,21 @@ export type ConversationWithMessage = {
   lastMessage: Message;
 };
 
-export const useConversations = (
-  patient?: Patient,
-  conversationType?: ConversationType
-) => {
+export const useConversations = (patient?: Patient, conversationType?: ConversationType) => {
   // Retrieve conversations in which given patient is a member
   const {
     data: barnardConversationsData,
     isLoading: barnardConversationsLoading,
     isError: barnardConversationsError,
   } = useBarnardConversationsForPatient(patient, conversationType);
-  const barnardConversationsDataBody: BarnardConversation[] =
-    barnardConversationsData ?? [];
+  const barnardConversationsDataBody: BarnardConversation[] = barnardConversationsData ?? [];
 
   // Retrieve user objects of all participants in any conversations retrieved
   const {
     data: participants,
     isLoading: participantsLoading,
     isError: participantsError,
-  } = useConversationsParticipants(
-    barnardConversationsDataBody?.map((c) => c.id) ?? []
-  );
+  } = useConversationsParticipants(barnardConversationsDataBody?.map((c) => c.id) ?? []);
 
   // Retrieve twilio conversation objects from barnard metadata
   const {
@@ -59,13 +53,7 @@ export const useConversations = (
   return {
     conversations: sortedConversations as ConversationWithMessage[] | undefined,
     participants,
-    isLoading:
-      barnardConversationsLoading ||
-      twilioConversationsLoading ||
-      participantsLoading,
-    isError:
-      barnardConversationsError ||
-      twilioConversationsError ||
-      participantsError,
+    isLoading: barnardConversationsLoading || twilioConversationsLoading || participantsLoading,
+    isError: barnardConversationsError || twilioConversationsError || participantsError,
   };
 };

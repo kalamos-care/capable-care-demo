@@ -1,14 +1,7 @@
 import { useState } from "react";
 import * as Sentry from "@sentry/react";
 import { useNavigate, useLocation } from "react-router-dom";
-import {
-  Box,
-  Button,
-  Container,
-  Typography,
-  Alert,
-  Snackbar,
-} from "@mui/material";
+import { Box, Button, Container, Typography, Alert, Snackbar } from "@mui/material";
 import api from "../capableApi";
 import ObservationField from "../components/ObservationField";
 import { DateInput } from "../components/ObservationField";
@@ -36,15 +29,7 @@ const isBooleanValue = (value) => {
 };
 
 // Component to manage the state of the create observation form.
-const Form = ({
-  observedValue,
-  observedDate,
-  target,
-  goal,
-  origin,
-  saveable,
-  children,
-}) => {
+const Form = ({ observedValue, observedDate, target, goal, origin, saveable, children }) => {
   const navigate = useNavigate();
 
   let value = observedValue;
@@ -141,9 +126,7 @@ export default function Observation() {
   // If the observed value is a datetime we don't need to record the observed date as well.
   const showObservedDate = inputDataType !== "datetime";
   // Enable the save button when all required fields are filled in.
-  const saveable = showObservedDate
-    ? observedDate && observedValue
-    : observedValue;
+  const saveable = showObservedDate ? observedDate && observedValue : observedValue;
 
   return (
     <Container sx={{ paddingTop: "1rem" }}>

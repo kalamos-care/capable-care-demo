@@ -16,9 +16,7 @@ const Avatar = ({
   style?: any;
   imageUrl?: string;
 }): JSX.Element => {
-  const initials = user
-    ? getInitials(user.first_name, user.last_name) || undefined
-    : undefined;
+  const initials = user ? getInitials(user.first_name, user.last_name) || undefined : undefined;
   const imageSrc = imageUrl ?? user?.avatar_url ?? "";
 
   return (

@@ -37,11 +37,7 @@ export const useBarnardConversationsForPatient = (
   conversationType?: ConversationType
 ) => {
   return useQuery(
-    [
-      ReactQueryKeys.PATIENT_BARNARD_CONVERSATIONS,
-      patient?.id,
-      conversationType,
-    ],
+    [ReactQueryKeys.PATIENT_BARNARD_CONVERSATIONS, patient?.id, conversationType],
     () =>
       fetchBarnardConversationsForPatient(patient, conversationType) as Promise<
         BarnardConversation[]
@@ -53,10 +49,7 @@ export const useBarnardConversationsForPatient = (
 export const useBarnardConversations = (conversationIds: string[]) => {
   return useQuery(
     [ReactQueryKeys.BARNARD_CONVERSATIONS, ...conversationIds],
-    () =>
-      fetchBarnardConversations(conversationIds) as Promise<
-        BarnardConversation[]
-      >,
+    () => fetchBarnardConversations(conversationIds) as Promise<BarnardConversation[]>,
     { enabled: !!conversationIds?.length, staleTime: Infinity }
   );
 };

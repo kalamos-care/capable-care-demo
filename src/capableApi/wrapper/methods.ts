@@ -13,6 +13,7 @@ const SMS_OWNER_TOKEN = "smsOwnerToken";
 const CHAT_TOKEN = "chatToken";
 const CHAT_OWNER_TOKEN = "chatOwnerToken";
 const ME = "me";
+const HINT = "hint";
 const SUGGESTION = "suggestion";
 const RESCHEDULE = "reschedule";
 const SEARCH = "search";
@@ -22,24 +23,28 @@ const LINK = "link";
 const EXPORT = "export";
 const INVITE = "invite";
 const AVATAR_UPLOAD = "avatarUpload";
+const UPLOAD_CARD = "uploadCard";
 const ADD_CHAT_PARTICIPANT = "addChatParticipant";
 const CREATE_GROUP_SMS = "createGroupSms";
 const CREATE_GROUP_CHAT = "createGroupChat";
 const CREATE_VIDEO_CALL = "privateRoom";
 const ONBOARDING_LINK = "onboardingLink";
 const CONFIRM = "confirm";
+const RESULTS = "results";
+const SUBMIT = "submit";
 
 const ACTION_OVERRIDES = {
   [CREATE]: "Post",
   [UPDATE]: "IdPatch",
   [LIST]: "Get",
   [GET]: "IdGet",
-  [DELETE]: "IdDelete",
+  [DELETE]: "IdArchiveDelete",
   [SMS_TOKEN]: "TwilioSmsTokenGet",
   [SMS_OWNER_TOKEN]: "TwilioSmsOwnerTokenGet",
   [CHAT_TOKEN]: "TwilioChatTokenGet",
   [CHAT_OWNER_TOKEN]: "TwilioChatOwnerTokenGet",
   [ME]: "MeGet",
+  [HINT]: "HintsGet",
   [SUGGESTION]: "CareSuggestionsPost",
   [SEARCH]: "SearchGet",
   [SELECT]: "SelectGet",
@@ -48,6 +53,7 @@ const ACTION_OVERRIDES = {
   [INVITE]: "InvitePost",
   [SECRET]: "IdSecretGet",
   [AVATAR_UPLOAD]: "IdAvatarPost",
+  [UPLOAD_CARD]: "IdCardPatch",
   [ADD_CHAT_PARTICIPANT]: "AddChatParticipantPatch",
   [CREATE_GROUP_SMS]: "CreateGroupSmsPost",
   [CREATE_GROUP_CHAT]: "CreateGroupChatPost",
@@ -56,17 +62,15 @@ const ACTION_OVERRIDES = {
   [CANCEL]: "IdCancelPost",
   [RESCHEDULE]: "IdReschedulePost",
   [CONFIRM]: "IdConfirmPost",
+  [RESULTS]: "IdResultsGet",
+  [SUBMIT]: "IdSubmitPost",
 };
 const METHOD_OVERRIDES = Object.keys(ACTION_OVERRIDES);
 function isMethodOverride(method: string): boolean {
   return METHOD_OVERRIDES.includes(method);
 }
 
-function clientMethodFor(
-  method: string,
-  parentClassName: string,
-  constructorName: string
-): string {
+function clientMethodFor(method: string, parentClassName: string, constructorName: string): string {
   let clientMethod = method;
 
   if (isMethodOverride(method)) {
@@ -76,12 +80,8 @@ function clientMethodFor(
       className = CLASS_OVERRIDES_MATCHES[constructorName];
     } else {
       if (isSubclassOverride(constructorName)) {
-        className =
-          parentClassName.charAt(0).toLowerCase() + parentClassName.slice(1);
-      } else
-        className =
-          constructorName.charAt(0).toLowerCase() +
-          constructorName.slice(1, -3);
+        className = parentClassName.charAt(0).toLowerCase() + parentClassName.slice(1);
+      } else className = constructorName.charAt(0).toLowerCase() + constructorName.slice(1, -3);
 
       if (parentClassName.endsWith("Template")) {
         // template class have a second 's' midway
@@ -121,8 +121,10 @@ export {
   LINK,
   LIST,
   ME,
+  HINT,
   ONBOARDING_LINK,
   RESCHEDULE,
+  RESULTS,
   SEARCH,
   SECRET,
   SELECT,
@@ -130,4 +132,6 @@ export {
   SMS_TOKEN,
   SUGGESTION,
   UPDATE,
+  UPLOAD_CARD,
+  SUBMIT,
 };

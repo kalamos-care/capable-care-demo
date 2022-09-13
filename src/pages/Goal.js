@@ -1,11 +1,4 @@
-import {
-  Box,
-  Card,
-  Container,
-  Skeleton,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Card, Container, Skeleton, Stack, Typography } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -39,9 +32,7 @@ function TargetCard({ target, goal }) {
 
         <Typography variant="h7">{target.description}</Typography>
 
-        <Box
-          sx={{ display: "flex", justifyContent: "end", alignItems: "center" }}
-        >
+        <Box sx={{ display: "flex", justifyContent: "end", alignItems: "center" }}>
           <LinkButton>View logs</LinkButton>
 
           <ForwardArrowIcon sx={{ marginLeft: 1, fontSize: "0.625rem" }} />
@@ -69,11 +60,7 @@ function renderTargetsOrObservations(goal) {
     );
   } else {
     const [target] = targets;
-    return target ? (
-      <ObservationLog key={target.id} target={target} goal={goal} />
-    ) : (
-      <></>
-    );
+    return target ? <ObservationLog key={target.id} target={target} goal={goal} /> : <></>;
   }
 }
 
@@ -83,8 +70,7 @@ export default function Goal() {
   const { goal } = state;
   const { isLoading } = useCRMContent(goal);
   const isGoalAchieved =
-    goal.achievement_status === "achieved" ||
-    goal.achievement_status === "not_attainable";
+    goal.achievement_status === "achieved" || goal.achievement_status === "not_attainable";
 
   const updateAchievementStatus = async () => {
     const new_achievement_status = isGoalAchieved ? "in_progress" : "achieved";
@@ -132,9 +118,7 @@ export default function Goal() {
         </Typography>
 
         <div style={{ display: "flex", gap: "1.5rem" }}>
-          {goal.cron_expression && (
-            <Recurrence cron_expression={goal.cron_expression} />
-          )}
+          {goal.cron_expression && <Recurrence cron_expression={goal.cron_expression} />}
 
           {isGoalAchieved && (
             <Box sx={{ display: "flex", gap: 0.5, marginTop: "0.5rem" }}>
@@ -168,9 +152,7 @@ export default function Goal() {
       >
         <Card
           sx={{
-            backgroundColor: isGoalAchieved
-              ? "white"
-              : process.env.REACT_APP_COLOR,
+            backgroundColor: isGoalAchieved ? "white" : process.env.REACT_APP_COLOR,
             cursor: "pointer",
           }}
           onClick={updateAchievementStatus}

@@ -30,12 +30,7 @@ export default function Navigation() {
       value={value}
       onChange={handleChange}
     >
-      <BottomNavigationAction
-        showLabel
-        label="Home"
-        value="/"
-        icon={<HomeIcon />}
-      />
+      <BottomNavigationAction showLabel label="Home" value="/" icon={<HomeIcon />} />
 
       <BottomNavigationAction
         showLabel
@@ -51,12 +46,7 @@ export default function Navigation() {
         icon={<CalendarMonthIcon color="secondary" />}
       />
 
-      <BottomNavigationAction
-        showLabel
-        label="Profile"
-        value="profile"
-        icon={<ProfileIcon />}
-      />
+      <BottomNavigationAction showLabel label="Profile" value="profile" icon={<ProfileIcon />} />
     </BottomNavigation>
   );
 }

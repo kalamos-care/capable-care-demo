@@ -16,15 +16,12 @@ const ConversationContainer = () => {
     conversationId: string;
   }>();
 
-  const { data: barnardConversation } = useBarnardConversation(
-    conversationId ?? ""
-  );
+  const { data: barnardConversation } = useBarnardConversation(conversationId ?? "");
 
-  const { data: twilioConversation, isLoading: twilioConversationLoading } =
-    useTwilioConversation(
-      barnardConversation?.twilio_sid ?? "",
-      ConversationTypes.CHAT
-    );
+  const { data: twilioConversation, isLoading: twilioConversationLoading } = useTwilioConversation(
+    barnardConversation?.twilio_sid ?? "",
+    ConversationTypes.CHAT
+  );
 
   const { mutate: sendMessage } = useSendMessageByConversationSid(
     barnardConversation?.twilio_sid ?? "",
@@ -33,14 +30,7 @@ const ConversationContainer = () => {
 
   const Subject = () => {
     if (twilioConversationLoading) {
-      return (
-        <Skeleton
-          style={{ display: "flex" }}
-          animation="wave"
-          height={20}
-          width={300}
-        />
-      );
+      return <Skeleton style={{ display: "flex" }} animation="wave" height={20} width={300} />;
     }
     if (twilioConversation) {
       return (

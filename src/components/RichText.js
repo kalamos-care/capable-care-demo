@@ -6,9 +6,7 @@ import { Typography } from "@mui/material";
 // https://github.com/contentful/rich-text/tree/master/packages/rich-text-react-renderer
 const RichText = ({ content, sx }) => {
   const formattedContent =
-    content?.nodeType == "document"
-      ? documentToReactComponents(content)
-      : content;
+    content?.nodeType == "document" ? documentToReactComponents(content) : content;
 
   return (
     <>

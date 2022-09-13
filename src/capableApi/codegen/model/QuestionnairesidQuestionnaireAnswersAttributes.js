@@ -44,6 +44,10 @@ export class QuestionnairesidQuestionnaireAnswersAttributes {
       if (data.hasOwnProperty("status"))
         obj.status = ApiClient.convertToType(data["status"], "String");
       if (data.hasOwnProperty("id")) obj.id = ApiClient.convertToType(data["id"], "String");
+      if (data.hasOwnProperty("external_id"))
+        obj.externalId = ApiClient.convertToType(data["external_id"], "String");
+      if (data.hasOwnProperty("external_source"))
+        obj.externalSource = ApiClient.convertToType(data["external_source"], "String");
     }
     return obj;
   }
@@ -87,3 +91,31 @@ QuestionnairesidQuestionnaireAnswersAttributes.prototype.status = undefined;
  * @member {String} id
  */
 QuestionnairesidQuestionnaireAnswersAttributes.prototype.id = undefined;
+
+/**
+ * @member {String} externalId
+ */
+QuestionnairesidQuestionnaireAnswersAttributes.prototype.externalId = undefined;
+
+/**
+ * Allowed values for the <code>externalSource</code> property.
+ * @enum {String}
+ * @readonly
+ */
+QuestionnairesidQuestionnaireAnswersAttributes.ExternalSourceEnum = {
+  /**
+   * value: "FormSort"
+   * @const
+   */
+  formSort: "FormSort",
+
+  /**
+   * value: "null"
+   * @const
+   */
+  _null: "null",
+};
+/**
+ * @member {module:model/QuestionnairesidQuestionnaireAnswersAttributes.ExternalSourceEnum} externalSource
+ */
+QuestionnairesidQuestionnaireAnswersAttributes.prototype.externalSource = undefined;

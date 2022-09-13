@@ -15,7 +15,6 @@
 import { ApiClient } from "../ApiClient";
 import { InsurancePoliciesBody } from "../model/InsurancePoliciesBody";
 import { InsurancePoliciesIdBody } from "../model/InsurancePoliciesIdBody";
-import { InsurancePoliciesidcardInsurancePolicy } from "../model/InsurancePoliciesidcardInsurancePolicy";
 
 /**
  * InsurancePolicies service.
@@ -102,7 +101,8 @@ export class InsurancePoliciesApi {
    * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Patient&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
    * @param {String} id
    * @param {Object} opts Optional parameters
-   * @param {module:model/InsurancePoliciesidcardInsurancePolicy} opts.insurancePolicy
+   * @param {Blob} opts.insuranceCardFront
+   * @param {Blob} opts.insuranceCardBack
    * @param {module:api/InsurancePoliciesApi~insurancePoliciesIdCardPatchCallback} callback The callback function, accepting three arguments: error, data, response
    */
   insurancePoliciesIdCardPatch(id, opts, callback) {
@@ -121,7 +121,8 @@ export class InsurancePoliciesApi {
     let queryParams = {};
     let headerParams = {};
     let formParams = {
-      insurance_policy: opts["insurancePolicy"],
+      insurance_card_front: opts["insuranceCardFront"],
+      insurance_card_back: opts["insuranceCardBack"],
     };
 
     let authNames = [];
@@ -256,7 +257,6 @@ export class InsurancePoliciesApi {
    * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Patient&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
    * @param {Object} opts Optional parameters
    * @param {module:model/InsurancePoliciesBody} opts.body
-   * * @param {Array.<String>} opts.byPatientId Filter by patient ID
    * @param {module:api/InsurancePoliciesApi~insurancePoliciesPostCallback} callback The callback function, accepting three arguments: error, data, response
    */
   insurancePoliciesPost(opts, callback) {
@@ -264,9 +264,7 @@ export class InsurancePoliciesApi {
     let postBody = opts["body"];
 
     let pathParams = {};
-    let queryParams = {
-      by_patient_id: this.apiClient.buildCollectionParam(opts["byPatientId"], "csv"),
-    };
+    let queryParams = {};
     let headerParams = {};
     let formParams = {};
 

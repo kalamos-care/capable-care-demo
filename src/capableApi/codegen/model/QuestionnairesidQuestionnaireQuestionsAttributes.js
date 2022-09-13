@@ -46,12 +46,18 @@ export class QuestionnairesidQuestionnaireQuestionsAttributes {
         obj.status = ApiClient.convertToType(data["status"], "String");
       if (data.hasOwnProperty("type")) obj.type = ApiClient.convertToType(data["type"], "String");
       if (data.hasOwnProperty("id")) obj.id = ApiClient.convertToType(data["id"], "String");
+      if (data.hasOwnProperty("external_id"))
+        obj.externalId = ApiClient.convertToType(data["external_id"], "String");
+      if (data.hasOwnProperty("external_source"))
+        obj.externalSource = ApiClient.convertToType(data["external_source"], "String");
       if (data.hasOwnProperty("required"))
         obj.required = ApiClient.convertToType(data["required"], "Boolean");
       if (data.hasOwnProperty("observation_type_id"))
         obj.observationTypeId = ApiClient.convertToType(data["observation_type_id"], "String");
       if (data.hasOwnProperty("metadata"))
-        obj.metadata = ApiClient.convertToType(data["metadata"], { String: Object });
+        obj.metadata = ApiClient.convertToType(data["metadata"], {
+          String: Object,
+        });
       if (data.hasOwnProperty("answers_attributes"))
         obj.answersAttributes = ApiClient.convertToType(data["answers_attributes"], [
           QuestionnairesidQuestionnaireAnswersAttributes,
@@ -182,6 +188,34 @@ QuestionnairesidQuestionnaireQuestionsAttributes.prototype.type = undefined;
  * @member {String} id
  */
 QuestionnairesidQuestionnaireQuestionsAttributes.prototype.id = undefined;
+
+/**
+ * @member {String} externalId
+ */
+QuestionnairesidQuestionnaireQuestionsAttributes.prototype.externalId = undefined;
+
+/**
+ * Allowed values for the <code>externalSource</code> property.
+ * @enum {String}
+ * @readonly
+ */
+QuestionnairesidQuestionnaireQuestionsAttributes.ExternalSourceEnum = {
+  /**
+   * value: "FormSort"
+   * @const
+   */
+  formSort: "FormSort",
+
+  /**
+   * value: "null"
+   * @const
+   */
+  _null: "null",
+};
+/**
+ * @member {module:model/QuestionnairesidQuestionnaireQuestionsAttributes.ExternalSourceEnum} externalSource
+ */
+QuestionnairesidQuestionnaireQuestionsAttributes.prototype.externalSource = undefined;
 
 /**
  * Indicates whether a response to this question is required for the submission to be completed

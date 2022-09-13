@@ -4,13 +4,7 @@ import { ReactQueryKeys } from "constants/keys";
 import { Task } from "../models/Task";
 import api from "capableApi/index";
 
-export const updateTask = async ({
-  taskId,
-  task,
-}: {
-  taskId: string;
-  task;
-}) => {
+export const updateTask = async ({ taskId, task }: { taskId: string; task }) => {
   const response = await api.client.Task.update(taskId, {
     body: {
       task,

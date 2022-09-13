@@ -52,6 +52,10 @@ export class AppointmentsAppointment {
         obj.fromDate = ApiClient.convertToType(data["from_date"], "String");
       if (data.hasOwnProperty("calendar_id"))
         obj.calendarId = ApiClient.convertToType(data["calendar_id"], "String");
+      if (data.hasOwnProperty("metadata"))
+        obj.metadata = ApiClient.convertToType(data["metadata"], {
+          String: Object,
+        });
     }
     return obj;
   }
@@ -80,3 +84,9 @@ AppointmentsAppointment.prototype.fromDate = undefined;
  * @member {String} calendarId
  */
 AppointmentsAppointment.prototype.calendarId = undefined;
+
+/**
+ * Any JSON-formatted data you want to associate with this object
+ * @member {Object.<String, Object>} metadata
+ */
+AppointmentsAppointment.prototype.metadata = undefined;

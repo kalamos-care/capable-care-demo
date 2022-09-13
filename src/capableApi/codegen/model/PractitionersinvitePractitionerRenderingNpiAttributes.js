@@ -13,7 +13,7 @@
  *
  */
 import { ApiClient } from "../ApiClient";
-import { PractitionersinvitePractitionerRenderingNpiAttributesAddressesAttributes } from "./PractitionersinvitePractitionerRenderingNpiAttributesAddressesAttributes";
+import { InsuranceClaimsInsuranceClaimAddressAttributes } from "./InsuranceClaimsInsuranceClaimAddressAttributes";
 
 /**
  * The PractitionersinvitePractitionerRenderingNpiAttributes model module.
@@ -42,7 +42,7 @@ export class PractitionersinvitePractitionerRenderingNpiAttributes {
         obj._number = ApiClient.convertToType(data["number"], "String");
       if (data.hasOwnProperty("addresses_attributes"))
         obj.addressesAttributes = ApiClient.convertToType(data["addresses_attributes"], [
-          PractitionersinvitePractitionerRenderingNpiAttributesAddressesAttributes,
+          InsuranceClaimsInsuranceClaimAddressAttributes,
         ]);
     }
     return obj;
@@ -56,6 +56,6 @@ export class PractitionersinvitePractitionerRenderingNpiAttributes {
 PractitionersinvitePractitionerRenderingNpiAttributes.prototype._number = undefined;
 
 /**
- * @member {Array.<module:model/PractitionersinvitePractitionerRenderingNpiAttributesAddressesAttributes>} addressesAttributes
+ * @member {Array.<module:model/InsuranceClaimsInsuranceClaimAddressAttributes>} addressesAttributes
  */
 PractitionersinvitePractitionerRenderingNpiAttributes.prototype.addressesAttributes = undefined;

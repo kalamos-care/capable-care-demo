@@ -47,6 +47,10 @@ export class WorkflowsPersonalizationRuleSetInputs {
         obj.inputId = ApiClient.convertToType(data["input_id"], "String");
       if (data.hasOwnProperty("comparison_operator"))
         obj.comparisonOperator = ApiClient.convertToType(data["comparison_operator"], "String");
+      if (data.hasOwnProperty("params"))
+        obj.params = ApiClient.convertToType(data["params"], {
+          String: Object,
+        });
     }
     return obj;
   }
@@ -99,6 +103,12 @@ WorkflowsPersonalizationRuleSetInputs.InputModelEnum = {
    * @const
    */
   patientEthnicities: "PatientEthnicities",
+
+  /**
+   * value: "EventAttribute"
+   * @const
+   */
+  eventAttribute: "EventAttribute",
 };
 /**
  * @member {module:model/WorkflowsPersonalizationRuleSetInputs.InputModelEnum} inputModel
@@ -119,3 +129,8 @@ WorkflowsPersonalizationRuleSetInputs.prototype.inputId = undefined;
  * @member {String} comparisonOperator
  */
 WorkflowsPersonalizationRuleSetInputs.prototype.comparisonOperator = undefined;
+
+/**
+ * @member {Object.<String, Object>} params
+ */
+WorkflowsPersonalizationRuleSetInputs.prototype.params = undefined;

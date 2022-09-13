@@ -13,7 +13,6 @@
  *
  */
 import { ApiClient } from "../ApiClient";
-import { PatientsidavatarPatient } from "./PatientsidavatarPatient";
 
 /**
  * The IdAvatarBody model module.
@@ -25,8 +24,11 @@ export class IdAvatarBody {
    * Constructs a new <code>IdAvatarBody</code>.
    * @alias module:model/IdAvatarBody
    * @class
+   * @param avatar {Blob} File that will be uploaded as an attachment and associated as the avatar
    */
-  constructor() {}
+  constructor(avatar) {
+    this.avatar = avatar;
+  }
 
   /**
    * Constructs a <code>IdAvatarBody</code> from a plain JavaScript object, optionally creating a new instance.
@@ -38,14 +40,15 @@ export class IdAvatarBody {
   static constructFromObject(data, obj) {
     if (data) {
       obj = obj || new IdAvatarBody();
-      if (data.hasOwnProperty("patient"))
-        obj.patient = PatientsidavatarPatient.constructFromObject(data["patient"]);
+      if (data.hasOwnProperty("avatar"))
+        obj.avatar = ApiClient.convertToType(data["avatar"], "Blob");
     }
     return obj;
   }
 }
 
 /**
- * @member {module:model/PatientsidavatarPatient} patient
+ * File that will be uploaded as an attachment and associated as the avatar
+ * @member {Blob} avatar
  */
-IdAvatarBody.prototype.patient = undefined;
+IdAvatarBody.prototype.avatar = undefined;

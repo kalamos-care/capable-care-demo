@@ -16,6 +16,7 @@ import { ApiClient } from "../ApiClient";
 import { WorkflowsBody } from "../model/WorkflowsBody";
 import { WorkflowsCareSuggestionsBody } from "../model/WorkflowsCareSuggestionsBody";
 import { WorkflowsIdBody } from "../model/WorkflowsIdBody";
+import { WorkflowsRunBody } from "../model/WorkflowsRunBody";
 
 /**
  * Workflows service.
@@ -96,7 +97,7 @@ export class WorkflowsApi {
    * @param {Array.<module:model/String>} opts.sortBy Sort results
    * @param {String} opts.byName Filter by name
    * @param {Boolean} opts.byActive Filter by active
-   * @param {Array.<String>} opts.byId Filter by IDs
+   * @param {Array.<String>} opts.byId Filter by id
    * @param {String} opts.search Search records against name and description
    * @param {module:api/WorkflowsApi~workflowsGetCallback} callback The callback function, accepting three arguments: error, data, response
    */
@@ -267,6 +268,50 @@ export class WorkflowsApi {
 
     return this.apiClient.callApi(
       "/workflows",
+      "POST",
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      callback
+    );
+  }
+  /**
+   * Callback function to receive the result of the workflowsRunPost operation.
+   * @callback moduleapi/WorkflowsApi~workflowsRunPostCallback
+   * @param {String} error Error message, if any.
+   * @param data This operation does not return a value.
+   * @param {String} response The complete HTTP response.
+   */
+
+  /**
+   * Run a workflow
+   * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Patient&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
+   * @param {Object} opts Optional parameters
+   * @param {module:model/WorkflowsRunBody} opts.body
+   * @param {module:api/WorkflowsApi~workflowsRunPostCallback} callback The callback function, accepting three arguments: error, data, response
+   */
+  workflowsRunPost(opts, callback) {
+    opts = opts || {};
+    let postBody = opts["body"];
+
+    let pathParams = {};
+    let queryParams = {};
+    let headerParams = {};
+    let formParams = {};
+
+    let authNames = [];
+    let contentTypes = ["application/json"];
+    let accepts = ["application/json"];
+    let returnType = null;
+
+    return this.apiClient.callApi(
+      "/workflows/run",
       "POST",
       pathParams,
       queryParams,

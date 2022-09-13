@@ -26,8 +26,17 @@ export class InsuranceClaimsInsuranceClaim {
    * Constructs a new <code>InsuranceClaimsInsuranceClaim</code>.
    * @alias module:model/InsuranceClaimsInsuranceClaim
    * @class
+   * @param encounterId {String} ID of encounter for insurance claim.
+   * @param placeOfService {module:model/InsuranceClaimsInsuranceClaim.PlaceOfServiceEnum} Place of service code
+   * @param addressAttributes {module:model/InsuranceClaimsInsuranceClaimAddressAttributes}
+   * @param insuranceClaimLinesAttributes {Array.<module:model/InsuranceClaimsInsuranceClaimInsuranceClaimLinesAttributes>}
    */
-  constructor() {}
+  constructor(encounterId, placeOfService, addressAttributes, insuranceClaimLinesAttributes) {
+    this.encounterId = encounterId;
+    this.placeOfService = placeOfService;
+    this.addressAttributes = addressAttributes;
+    this.insuranceClaimLinesAttributes = insuranceClaimLinesAttributes;
+  }
 
   /**
    * Constructs a <code>InsuranceClaimsInsuranceClaim</code> from a plain JavaScript object, optionally creating a new instance.
@@ -39,7 +48,6 @@ export class InsuranceClaimsInsuranceClaim {
   static constructFromObject(data, obj) {
     if (data) {
       obj = obj || new InsuranceClaimsInsuranceClaim();
-      if (data.hasOwnProperty("id")) obj.id = ApiClient.convertToType(data["id"], "String");
       if (data.hasOwnProperty("encounter_id"))
         obj.encounterId = ApiClient.convertToType(data["encounter_id"], "String");
       if (data.hasOwnProperty("place_of_service"))
@@ -59,13 +67,7 @@ export class InsuranceClaimsInsuranceClaim {
 }
 
 /**
- * Specify a insurance claim ID only when you want to update an existing insurance claim
- * @member {String} id
- */
-InsuranceClaimsInsuranceClaim.prototype.id = undefined;
-
-/**
- * ID of encounter for insurance claim. Encounter ID cannot be updated.
+ * ID of encounter for insurance claim.
  * @member {String} encounterId
  */
 InsuranceClaimsInsuranceClaim.prototype.encounterId = undefined;

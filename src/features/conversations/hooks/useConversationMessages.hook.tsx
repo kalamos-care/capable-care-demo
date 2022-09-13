@@ -1,15 +1,8 @@
-import {
-  InfiniteData,
-  useInfiniteQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { InfiniteData, useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { Message, Paginator } from "@twilio/conversations";
 import { useEffect, useMemo, useState } from "react";
 
-import {
-  addMessage,
-  generateEmptyConversationMessages,
-} from "./useConversationMessages.utils";
+import { addMessage, generateEmptyConversationMessages } from "./useConversationMessages.utils";
 import { ConversationClientType } from "./useTwilioToken.hook";
 import { ReactQueryKeys } from "constants/keys";
 import { useTwilioConversation } from "./useTwilioConversation.hook";
@@ -27,16 +20,15 @@ export const useConversationMessages = ({
   onMessageAdded?: () => void;
   conversationClientType: ConversationClientType;
 }) => {
-  const { data: twilioConversation, isError: isErrorTwilioConversation } =
-    useTwilioConversation(conversationSid, conversationClientType);
+  const { data: twilioConversation, isError: isErrorTwilioConversation } = useTwilioConversation(
+    conversationSid,
+    conversationClientType
+  );
   const queryClient = useQueryClient();
 
   const [paginator, setPaginator] = useState<Paginator<Message> | undefined>();
   const [isSubscribed, setIsSubscribed] = useState(false);
-  const queryKey = useMemo(
-    () => [ReactQueryKeys.MESSAGES, conversationSid],
-    [conversationSid]
-  );
+  const queryKey = useMemo(() => [ReactQueryKeys.MESSAGES, conversationSid], [conversationSid]);
 
   useEffect(() => {
     //Reset cache and get the first page of messages on mount
@@ -58,17 +50,13 @@ export const useConversationMessages = ({
     return messages;
   };
 
-  const infiniteQuery = useInfiniteQuery(
-    queryKey,
-    () => fetchConversationMessages(),
-    {
-      getPreviousPageParam: () => {
-        return !!paginator?.hasPrevPage;
-      },
-      enabled: !!twilioConversation,
-      staleTime: Infinity,
-    }
-  );
+  const infiniteQuery = useInfiniteQuery(queryKey, () => fetchConversationMessages(), {
+    getPreviousPageParam: () => {
+      return !!paginator?.hasPrevPage;
+    },
+    enabled: !!twilioConversation,
+    staleTime: Infinity,
+  });
 
   useEffect(() => {
     if (!twilioConversation) {
@@ -100,14 +88,7 @@ export const useConversationMessages = ({
     return () => {
       twilioConversation._unsubscribe();
     };
-  }, [
-    twilioConversation,
-    onMessageAdded,
-    queryClient,
-    queryKey,
-    infiniteQuery,
-    isSubscribed,
-  ]);
+  }, [twilioConversation, onMessageAdded, queryClient, queryKey, infiniteQuery, isSubscribed]);
 
   return {
     ...infiniteQuery,

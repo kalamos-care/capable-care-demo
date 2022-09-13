@@ -23,15 +23,7 @@ function ObservationEmoji({ value, type }) {
 }
 
 function ObservationCopy(props) {
-  return (
-    <Typography
-      color="grey.900"
-      variant="h7"
-      textAlign="right"
-      width="50%"
-      {...props}
-    />
-  );
+  return <Typography color="grey.900" variant="h7" textAlign="right" width="50%" {...props} />;
 }
 
 // Display the observed value as a string or as an emoji depending on target type.
@@ -39,9 +31,7 @@ function ObservedValue({ target, observation }) {
   // Show a relevant emoji for targets with 'type:wellness' or 'type:thumbs' tags.
   const targetType = findOneTagByType(target.tag_list, "type");
   if (targetType) {
-    return (
-      <ObservationEmoji value={observation.observed_value} type={targetType} />
-    );
+    return <ObservationEmoji value={observation.observed_value} type={targetType} />;
   }
 
   // If there's no 'type' tag then show the observation as copy.
@@ -55,16 +45,13 @@ function ObservedValue({ target, observation }) {
 }
 
 function DatetimeObservation({ observation }) {
-  const observedValue = new Date(observation.observed_value).toLocaleString(
-    "en-US",
-    {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-    }
-  );
+  const observedValue = new Date(observation.observed_value).toLocaleString("en-US", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
 
   return (
     <Box
@@ -98,11 +85,7 @@ export default function Observation({ target, observation }) {
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
       <Box color="grey.900" sx={{ display: "flex", alignItems: "center" }}>
-        <CalendarMonthIcon
-          color="grey.900"
-          fontSize="small"
-          sx={{ marginRight: 2 }}
-        />
+        <CalendarMonthIcon color="grey.900" fontSize="small" sx={{ marginRight: 2 }} />
 
         <Typography color="grey.900" variant="h7">
           {observationDate}

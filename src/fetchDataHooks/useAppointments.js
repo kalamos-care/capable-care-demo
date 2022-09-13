@@ -7,10 +7,7 @@ import Appointment from "../dataModels/Appointment";
 // Fetch the patient's appointments.
 export default function useAppointments() {
   // retrieve upcoming appointments.
-  const { data, error } = useSWR(
-    ["Appointment", "list", {}],
-    fetcher
-  );
+  const { data, error } = useSWR(["Appointment", "list", {}], fetcher);
 
   if (error) {
     Sentry.captureException(error);
@@ -24,7 +21,7 @@ export default function useAppointments() {
   if (data) {
     // sort by start time, soonest first.
     const sortedAppointments = data.sort((prevApp, currentApp) => {
-      return new Date(prevApp.start) - new Date(currentApp.start)
+      return new Date(prevApp.start) - new Date(currentApp.start);
     });
 
     sortedAppointments.forEach((appointment) => {

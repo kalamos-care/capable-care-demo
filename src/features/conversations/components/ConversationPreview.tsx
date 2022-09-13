@@ -40,10 +40,7 @@ export const ConversationPreview = ({
     : process.env.REACT_APP_SENDER_NAME || "Care Team";
 
   return (
-    <Link
-      to={`/chat/${barnardConversation.id}`}
-      style={{ textDecoration: "none" }}
-    >
+    <Link to={`/chat/${barnardConversation.id}`} style={{ textDecoration: "none" }}>
       <Box
         sx={{
           display: "flex",
@@ -107,9 +104,7 @@ export const ConversationPreview = ({
                 gap: (theme) => theme.spacing(1),
               }}
             >
-              <Typography>
-                {getMessageDateLabel(lastMessage.dateCreated)}
-              </Typography>
+              <Typography>{getMessageDateLabel(lastMessage.dateCreated)}</Typography>
               <ForwardArrowIcon />
             </Box>
           </Box>
@@ -134,9 +129,7 @@ export const ConversationPreview = ({
               whiteSpace: "nowrap",
             }}
           >
-            {lastMessage.type === "text"
-              ? lastMessage.body
-              : `${authorName} sent media`}
+            {lastMessage.type === "text" ? lastMessage.body : `${authorName} sent media`}
           </Typography>
         </Box>
       </Box>

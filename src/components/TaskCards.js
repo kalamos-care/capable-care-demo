@@ -1,11 +1,4 @@
-import {
-  Box,
-  CardContent,
-  Typography,
-  ToggleButton,
-  DialogActions,
-  Skeleton,
-} from "@mui/material";
+import { Box, CardContent, Typography, ToggleButton, DialogActions, Skeleton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CheckCircleOutlineSharpIcon from "@mui/icons-material/CheckCircleOutlineSharp";
@@ -21,11 +14,7 @@ import titlecase from "../utils/titlecase";
 // Function to render the correct check box icon based on the state.
 const CheckBoxIcon = ({ isCompleted }) => {
   if (isCompleted) {
-    return (
-      <CheckCircleOutlineSharpIcon
-        sx={{ color: "icon.primary", marginY: "auto" }}
-      />
-    );
+    return <CheckCircleOutlineSharpIcon sx={{ color: "icon.primary", marginY: "auto" }} />;
   } else {
     return <RadioButtonUncheckedSharpIcon sx={{ marginY: "auto" }} />;
   }
@@ -109,13 +98,10 @@ const TaskCard = ({ task }) => {
   const navigate = useNavigate();
 
   const isTaskCompleted =
-    task?.achievement_status === "completed" ||
-    task?.achievement_status === "not_attainable";
+    task?.achievement_status === "completed" || task?.achievement_status === "not_attainable";
 
   const toggleAchievementStatus = async () => {
-    const new_achievement_status = isTaskCompleted
-      ? "in_progress"
-      : "completed";
+    const new_achievement_status = isTaskCompleted ? "in_progress" : "completed";
 
     updateTask({
       taskId: task.id,

@@ -13,7 +13,6 @@
  *
  */
 import { ApiClient } from "../ApiClient";
-import { InsurancePoliciesidcardInsurancePolicy } from "./InsurancePoliciesidcardInsurancePolicy";
 
 /**
  * The IdCardBody model module.
@@ -25,8 +24,13 @@ export class IdCardBody {
    * Constructs a new <code>IdCardBody</code>.
    * @alias module:model/IdCardBody
    * @class
+   * @param insuranceCardFront {Blob}
+   * @param insuranceCardBack {Blob}
    */
-  constructor() {}
+  constructor(insuranceCardFront, insuranceCardBack) {
+    this.insuranceCardFront = insuranceCardFront;
+    this.insuranceCardBack = insuranceCardBack;
+  }
 
   /**
    * Constructs a <code>IdCardBody</code> from a plain JavaScript object, optionally creating a new instance.
@@ -38,16 +42,21 @@ export class IdCardBody {
   static constructFromObject(data, obj) {
     if (data) {
       obj = obj || new IdCardBody();
-      if (data.hasOwnProperty("insurance_policy"))
-        obj.insurancePolicy = InsurancePoliciesidcardInsurancePolicy.constructFromObject(
-          data["insurance_policy"]
-        );
+      if (data.hasOwnProperty("insurance_card_front"))
+        obj.insuranceCardFront = ApiClient.convertToType(data["insurance_card_front"], "Blob");
+      if (data.hasOwnProperty("insurance_card_back"))
+        obj.insuranceCardBack = ApiClient.convertToType(data["insurance_card_back"], "Blob");
     }
     return obj;
   }
 }
 
 /**
- * @member {module:model/InsurancePoliciesidcardInsurancePolicy} insurancePolicy
+ * @member {Blob} insuranceCardFront
  */
-IdCardBody.prototype.insurancePolicy = undefined;
+IdCardBody.prototype.insuranceCardFront = undefined;
+
+/**
+ * @member {Blob} insuranceCardBack
+ */
+IdCardBody.prototype.insuranceCardBack = undefined;

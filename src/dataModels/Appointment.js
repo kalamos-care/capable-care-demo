@@ -12,10 +12,7 @@ class Appointment extends DataWrapper {
 
   get time() {
     const formatting = { hour: "2-digit", minute: "2-digit", hour12: false };
-    const startTime = new Date(this.start).toLocaleTimeString(
-      "en-US",
-      formatting
-    );
+    const startTime = new Date(this.start).toLocaleTimeString("en-US", formatting);
     const endTime = new Date(this.end).toLocaleTimeString("en-US", formatting);
     return `${startTime} - ${endTime}`;
   }

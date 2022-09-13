@@ -4,7 +4,7 @@
 */
 
 .sv_main {
-  font-family: 'Rubik', sans-serif;
+  font-family: "Rubik", sans-serif;
   font-size: 18px;
   line-height: 26px;
 }
@@ -43,31 +43,42 @@
   padding: 20px 30px 30px;
   border: 1px solid #f1f1f1;
 }
-.sv_main input[type="button"], .sv_main button {
+.sv_main input[type="button"],
+.sv_main button {
   padding: 4px 24px;
   font-weight: 600;
   font-size: 14px;
-  font-family: 'Rubik', sans-serif;
+  font-family: "Rubik", sans-serif;
   text-transform: uppercase;
   border-radius: 4px;
   border: 0;
   transition: ease 0.3s all;
 }
-.sv_main input[type="button"]:hover, .sv_main button:hover {
+.sv_main input[type="button"]:hover,
+.sv_main button:hover {
   background: #000;
 }
-.sv_main input[type="button"].sv_prev_btn, .sv_main button.sv_prev_btn {
+.sv_main input[type="button"].sv_prev_btn,
+.sv_main button.sv_prev_btn {
   background: #ccc;
 }
-.sv_main input[type="button"].sv_prev_btn:hover, .sv_main button.sv_prev_btn:hover {
+.sv_main input[type="button"].sv_prev_btn:hover,
+.sv_main button.sv_prev_btn:hover {
   background: #999;
 }
 @media (max-width: 600px) {
-  .sv_main input[type="button"], .sv_main button {
+  .sv_main input[type="button"],
+  .sv_main button {
     padding: 4px 16px;
- }
+  }
 }
-.sv_main input, .sv_main .sv_q_text_root, .sv_main .sv_q_dropdown_control, .sv_main input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="image"]):not([type="checkbox"]):not([type="radio"]), .sv_main select, .sv_main textarea {
+.sv_main input,
+.sv_main .sv_q_text_root,
+.sv_main .sv_q_dropdown_control,
+.sv_main
+  input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="image"]):not([type="checkbox"]):not([type="radio"]),
+.sv_main select,
+.sv_main textarea {
   border: 1px solid #d1d1d1;
   border-radius: 2px;
 }

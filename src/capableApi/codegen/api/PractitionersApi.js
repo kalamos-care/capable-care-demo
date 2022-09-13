@@ -13,7 +13,6 @@
  *
  */
 import { ApiClient } from "../ApiClient";
-import { PatientsidavatarPatient } from "../model/PatientsidavatarPatient";
 import { PractitionersIdBody } from "../model/PractitionersIdBody";
 import { PractitionersInviteBody } from "../model/PractitionersInviteBody";
 
@@ -108,7 +107,7 @@ export class PractitionersApi {
    * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#10060; &lt;s&gt;Patient&lt;/s&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
    * @param {String} id
    * @param {Object} opts Optional parameters
-   * @param {module:model/PatientsidavatarPatient} opts.practitioner
+   * @param {Blob} opts.avatar
    * @param {module:api/PractitionersApi~practitionersIdAvatarPostCallback} callback The callback function, accepting three arguments: error, data, response
    */
   practitionersIdAvatarPost(id, opts, callback) {
@@ -125,7 +124,7 @@ export class PractitionersApi {
     let queryParams = {};
     let headerParams = {};
     let formParams = {
-      practitioner: opts["practitioner"],
+      avatar: opts["avatar"],
     };
 
     let authNames = [];

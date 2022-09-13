@@ -11,7 +11,14 @@ import {
 } from "@mui/material";
 import { useAtom } from "jotai";
 
-import { AboutCard, ArrowLink, ControlledTabs, GoalCards, NoDataCards, TaskCards } from "../components";
+import {
+  AboutCard,
+  ArrowLink,
+  ControlledTabs,
+  GoalCards,
+  NoDataCards,
+  TaskCards,
+} from "../components";
 import { useCarePlans, useCurrentPatient } from "../fetchDataHooks";
 import gravatar from "../utils/gravatar";
 import { carePlanAtom } from "../atoms";
@@ -23,8 +30,7 @@ function Header({ carePlan, patient }) {
 
   let avatarUrl;
   if (patient && process.env.REACT_APP_USAGE_MODE === "demo") {
-    avatarUrl =
-      patient.avatar_url || (patient.email && gravatar(patient.email));
+    avatarUrl = patient.avatar_url || (patient.email && gravatar(patient.email));
   } else if (patient) {
     avatarUrl = patient.avatar_url;
   }
@@ -56,12 +62,7 @@ function Header({ carePlan, patient }) {
         boxShadow: !carePlan ? ["rgb(2 2 40 / 8%) 0px 4px 6px"] : null,
       }}
     >
-      <CardMedia
-        component="img"
-        width="375"
-        image={process.env.REACT_APP_LOGO}
-        alt="Logo image"
-      />
+      <CardMedia component="img" width="375" image={process.env.REACT_APP_LOGO} alt="Logo image" />
 
       <Box
         sx={{
@@ -77,12 +78,7 @@ function Header({ carePlan, patient }) {
       </Box>
 
       <Container>
-        <Typography
-          sx={{ marginBottom: "1rem" }}
-          color="primary"
-          variant="h6"
-          component="h1"
-        >
+        <Typography sx={{ marginBottom: "1rem" }} color="primary" variant="h6" component="h1">
           Welcome{firstName ? `, ${firstName}` : ""}!
         </Typography>
 
@@ -118,9 +114,11 @@ const HomeContent = ({ carePlan }) => {
       <NoDataCards
         firstText={"Recommended goal"}
         secondText={"Recommended task"}
-        body={"A Care Plan is your action plan tailored to help you achieve your health goals. As your Care Team gets to know you, you will see what they recommend and assign to you here."}
+        body={
+          "A Care Plan is your action plan tailored to help you achieve your health goals. As your Care Team gets to know you, you will see what they recommend and assign to you here."
+        }
       />
-    )
+    );
   }
 
   return (
@@ -149,14 +147,10 @@ export default function Home() {
     return <div>Woops something went wrong...</div>;
   }
 
-  const activeCarePlans = carePlans.filter(
-    (carePlan) => carePlan.status === "active"
-  );
-  const completedCarePlans = carePlans.filter(
-    (carePlan) => carePlan.status === "completed"
-  );
-
   let currentCarePlan;
+  const activeCarePlans = carePlans.filter((carePlan) => carePlan.status === "active");
+  const completedCarePlans = carePlans.filter((carePlan) => carePlan.status === "completed");
+
   if (carePlanId) {
     currentCarePlan = [...activeCarePlans, ...completedCarePlans].find(
       (carePlan) => carePlan.id === carePlanId

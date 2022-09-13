@@ -66,10 +66,7 @@ function Conversation({ conversation }) {
       try {
         setLoadingMessages(true);
         const prevPaginator = await paginator.prevPage();
-        setMessages((moreRecentMessages) => [
-          ...prevPaginator.items,
-          ...moreRecentMessages,
-        ]);
+        setMessages((moreRecentMessages) => [...prevPaginator.items, ...moreRecentMessages]);
         setPaginator(prevPaginator);
         scrollableContainerRef.current?.scrollIntoView({
           block: "end",

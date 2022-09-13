@@ -7,12 +7,16 @@ const SUBCLASS_OVERRIDES = {
     "Integrations",
     "IntegrationsAcuity",
     "IntegrationsButterflyLabs",
+    "IntegrationsCandid",
     "IntegrationsCurexa",
     "IntegrationsFreshpaint",
     "IntegrationsImaware",
+    "IntegrationsLooker",
     "IntegrationsMdi",
     "IntegrationsSegment",
+    "IntegrationsShopify",
     "IntegrationsStripe",
+    "IntegrationsPhotonHealth",
   ],
   PatientRelatedPersonsApi: ["PatientRelatedPerson"],
   AvailabilityApi: ["Availability"],
@@ -29,6 +33,9 @@ const CLASS_OVERRIDES_MATCHES = {
   SubmissionsApi: "surveysSubmissions",
   PatientRelatedPersonsApi: "patientRelatedPersons",
   APICredentialsApi: "apiCredentials",
+  CPTCodesApi: "cptCodes",
+  ICDCodesApi: "icdCodes",
+  WorkflowLogsApi: "workflowsLogs",
 };
 const CLASS_OVERRIDES = Object.keys(CLASS_OVERRIDES_MATCHES);
 

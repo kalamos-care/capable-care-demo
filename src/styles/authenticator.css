@@ -10,9 +10,7 @@
   --amplify-components-authenticator-container-width-max: 365px;
 
   /* Buttons */
-  --amplify-components-button-primary-background-color: var(
-    --amplify-colors-brand-primary-100
-  );
+  --amplify-components-button-primary-background-color: var(--amplify-colors-brand-primary-100);
   --amplify-components-button-primary-hover-background-color: var(
     --amplify-components-button-primary-background-color
   );
@@ -21,9 +19,7 @@
   --amplify-components-checkbox-align-items: flex-start;
 
   /* Tabs */
-  --amplify-components-tabs-item-hover-color: var(
-    --amplify-components-tabs-item-color
-  );
+  --amplify-components-tabs-item-hover-color: var(--amplify-components-tabs-item-color);
   --amplify-components-button-link-color: var(--amplify-colors-font-secondary);
 
   /* Links */
@@ -33,27 +29,21 @@
   --amplify-components-button-link-hover-border-color: var(
     --amplify-components-button-link-border-color
   );
-  --amplify-components-button-link-hover-color: var(
-    --amplify-components-button-link-color
-  );
+  --amplify-components-button-link-hover-color: var(--amplify-components-button-link-color);
   --amplify-components-button-link-active-background-color: var(
     --amplify-components-button-link-background-color
   );
   --amplify-components-button-link-active-border-color: var(
     --amplify-components-button-link-border-color
   );
-  --amplify-components-button-link-active-color: var(
-    --amplify-components-button-link-color
-  );
+  --amplify-components-button-link-active-color: var(--amplify-components-button-link-color);
   --amplify-components-button-link-focus-background-color: var(
     --amplify-components-button-link-background-color
   );
   --amplify-components-button-link-focus-border-color: var(
     --amplify-components-button-link-border-color
   );
-  --amplify-components-button-link-focus-color: var(
-    --amplify-components-button-link-color
-  );
+  --amplify-components-button-link-focus-color: var(--amplify-components-button-link-color);
   --amplify-components-button-link-focus-box-shadow: var(
     --amplify-components-button-link-box-shadow
   );
@@ -65,9 +55,7 @@
 }
 
 .amplify-tabs-item[data-state="inactive"] {
-  background-color: var(
-    --amplify-components-authenticator-state-inactive-background-color
-  );
+  background-color: var(--amplify-components-authenticator-state-inactive-background-color);
 }
 
 .amplify-checkbox__button {

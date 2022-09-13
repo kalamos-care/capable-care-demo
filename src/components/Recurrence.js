@@ -2,8 +2,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Box, Typography } from "@mui/material";
 
 // Small helper method to humanize the cron_expression
-const recurrenceString = (cron_expression) =>
-  `repeats ${cron_expression.substring(1)}`;
+const recurrenceString = (cron_expression) => `repeats ${cron_expression.substring(1)}`;
 
 // Renders the recurrence with an clock icon.
 const Recurrence = ({ cron_expression }) => {

@@ -18,10 +18,7 @@ export default function useGoalsByStatus() {
 
   if (data) {
     data.forEach((goal) => {
-      if (
-        goal.achievement_status === "achieved" ||
-        goal.achievement_status === "not_attainable"
-      ) {
+      if (goal.achievement_status === "achieved" || goal.achievement_status === "not_attainable") {
         goals.completed.push(goal);
       } else {
         goals.open.push(goal);

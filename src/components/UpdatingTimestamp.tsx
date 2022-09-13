@@ -26,9 +26,7 @@ const UpdatingTimestamp = ({
     };
   }, [convertToLabel, autoUpdateInterval, time]);
 
-  return (
-    <Typography sx={{ fontSize: "12px", ...style }}>{updatedTime}</Typography>
-  );
+  return <Typography sx={{ fontSize: "12px", ...style }}>{updatedTime}</Typography>;
 };
 
 export default UpdatingTimestamp;

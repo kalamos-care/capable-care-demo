@@ -2,14 +2,7 @@ import { useNavigate } from "react-router-dom";
 import useCRMContent from "../fetchDataHooks/useCRMContent";
 import useGoalsByStatus from "../fetchDataHooks/useGoalsByStatus";
 import useTarget from "../fetchDataHooks/useTarget";
-import {
-  Box,
-  CardContent,
-  LinearProgress,
-  Typography,
-  Divider,
-  Skeleton,
-} from "@mui/material";
+import { Box, CardContent, LinearProgress, Typography, Divider, Skeleton } from "@mui/material";
 import StyledCard from "./StyledCard";
 import Recurrence from "./Recurrence";
 import Observation from "./Observation";
@@ -18,9 +11,7 @@ import titlecase from "../utils/titlecase";
 // Helper to build a string to display the number of completed goals.
 const progressString = (goalList) => {
   const goalCount = goalList.length;
-  const goalsCompleted = goalList.filter(
-    (goal) => goal.achievement_status == "achieved"
-  ).length;
+  const goalsCompleted = goalList.filter((goal) => goal.achievement_status == "achieved").length;
   return `${goalsCompleted}/${goalCount} Complete`;
 };
 
@@ -80,9 +71,7 @@ const GoalCard = ({ goal }) => {
         <Typography variant="subtitle" sx={{ letterSpacing: "0.01rem" }}>
           {goal.name}
         </Typography>
-        {goal.cron_expression && (
-          <Recurrence cron_expression={goal.cron_expression} />
-        )}
+        {goal.cron_expression && <Recurrence cron_expression={goal.cron_expression} />}
 
         {observation && <LastLog observation={observation} />}
       </CardContent>
@@ -102,10 +91,7 @@ const GoalCards = ({ goals, status }) => {
         }}
       >
         <Typography variant="subtitle">{titlecase(status)}</Typography>
-        <Typography
-          variant="subtitle"
-          sx={{ display: "flex", gap: 1, fontSize: "0.88rem" }}
-        >
+        <Typography variant="subtitle" sx={{ display: "flex", gap: 1, fontSize: "0.88rem" }}>
           {progressString(goals)}
         </Typography>
       </Box>
@@ -127,19 +113,14 @@ const GoalCardsByStatus = ({ carePlan }) => {
     return <div>Woops something went wrong...</div>;
   }
 
-  const openGoals = goals.open.filter(
-    (openGoal) => openGoal.care_plan_id === carePlan.id
-  );
-  const OpenGoals =
-    openGoals.length > 0 ? <GoalCards goals={openGoals} status="open" /> : null;
+  const openGoals = goals.open.filter((openGoal) => openGoal.care_plan_id === carePlan.id);
+  const OpenGoals = openGoals.length > 0 ? <GoalCards goals={openGoals} status="open" /> : null;
 
   const completedGoals = goals.completed.filter(
     (completedGoal) => completedGoal.care_plan_id === carePlan.id
   );
   const CompletedGoals =
-    completedGoals.length > 0 ? (
-      <GoalCards goals={completedGoals} status="completed" />
-    ) : null;
+    completedGoals.length > 0 ? <GoalCards goals={completedGoals} status="completed" /> : null;
 
   return (
     <>

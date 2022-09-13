@@ -25,11 +25,7 @@ const MessagePlaceholder = ({ text }: { text: string }) => {
         flexDirection: "column",
       }}
     >
-      <Typography
-        textAlign={"center"}
-        marginY={"auto"}
-        color={colors.lightGrey5}
-      >
+      <Typography textAlign={"center"} marginY={"auto"} color={colors.lightGrey5}>
         {text}
       </Typography>
     </Box>
@@ -58,25 +54,17 @@ export const ConversationMessagesContainer = ({
     data: participants,
     isLoading: participantsIsLoading,
     isError: participantsIsError,
-  } = useConversationsParticipants(
-    barnardConversation?.id ? [barnardConversation?.id] : undefined
-  );
+  } = useConversationsParticipants(barnardConversation?.id ? [barnardConversation?.id] : undefined);
 
-  const {
-    data,
-    isLoading,
-    fetchPreviousPage,
-    isFetchingPreviousPage,
-    hasPreviousPage,
-    isError,
-  } = useConversationMessages({
-    conversationSid: barnardConversation?.twilio_sid ?? "",
-    onMessageAdded: () => {
-      setScrollToBottom(true);
-    },
-    // Don't have a good default case for this function, didn't want to make the param optional though
-    conversationClientType: ConversationTypes.CHAT,
-  });
+  const { data, isLoading, fetchPreviousPage, isFetchingPreviousPage, hasPreviousPage, isError } =
+    useConversationMessages({
+      conversationSid: barnardConversation?.twilio_sid ?? "",
+      onMessageAdded: () => {
+        setScrollToBottom(true);
+      },
+      // Don't have a good default case for this function, didn't want to make the param optional though
+      conversationClientType: ConversationTypes.CHAT,
+    });
 
   useEffect(() => {
     if (scrollToBottom && !isLoading) {
@@ -102,9 +90,7 @@ export const ConversationMessagesContainer = ({
   }
 
   if (data?.pages[0].length === 0) {
-    return (
-      <MessagePlaceholder text="Start this conversation by sending a message" />
-    );
+    return <MessagePlaceholder text="Start this conversation by sending a message" />;
   }
 
   return (
@@ -144,10 +130,7 @@ export const ConversationMessagesContainer = ({
           }}
         >
           {messages.map((message) => {
-            const author =
-              participants && message?.author
-                ? participants[message?.author]
-                : null;
+            const author = participants && message?.author ? participants[message?.author] : null;
 
             const key = message.sid + message?.dateCreated?.getTime();
             return (

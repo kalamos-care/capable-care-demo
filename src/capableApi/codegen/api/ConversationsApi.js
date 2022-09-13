@@ -223,6 +223,54 @@ export class ConversationsApi {
     );
   }
   /**
+   * Callback function to receive the result of the conversationsIdGet operation.
+   * @callback moduleapi/ConversationsApi~conversationsIdGetCallback
+   * @param {String} error Error message, if any.
+   * @param data This operation does not return a value.
+   * @param {String} response The complete HTTP response.
+   */
+
+  /**
+   * Retrieve a Conversation
+   * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Patient&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
+   * @param {String} id
+   * @param {module:api/ConversationsApi~conversationsIdGetCallback} callback The callback function, accepting three arguments: error, data, response
+   */
+  conversationsIdGet(id, callback) {
+    let postBody = null;
+    // verify the required parameter 'id' is set
+    if (id === undefined || id === null) {
+      throw new Error("Missing the required parameter 'id' when calling conversationsIdGet");
+    }
+
+    let pathParams = {
+      id: id,
+    };
+    let queryParams = {};
+    let headerParams = {};
+    let formParams = {};
+
+    let authNames = [];
+    let contentTypes = [];
+    let accepts = ["application/json"];
+    let returnType = null;
+
+    return this.apiClient.callApi(
+      "/conversations/{id}",
+      "GET",
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      callback
+    );
+  }
+  /**
    * Callback function to receive the result of the conversationsPost operation.
    * @callback moduleapi/ConversationsApi~conversationsPostCallback
    * @param {String} error Error message, if any.

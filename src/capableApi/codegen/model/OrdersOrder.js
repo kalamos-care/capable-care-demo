@@ -63,6 +63,8 @@ export class OrdersOrder {
         ]);
       if (data.hasOwnProperty("submission_id"))
         obj.submissionId = ApiClient.convertToType(data["submission_id"], "String");
+      if (data.hasOwnProperty("promotion_code"))
+        obj.promotionCode = ApiClient.convertToType(data["promotion_code"], "String");
       if (data.hasOwnProperty("shipping_address"))
         obj.shippingAddress = OrdersOrderShippingAddress.constructFromObject(
           data["shipping_address"]
@@ -117,22 +119,10 @@ OrdersOrder.prototype.carrier = "USPS";
  */
 OrdersOrder.OrderTypeEnum = {
   /**
-   * value: "product"
-   * @const
-   */
-  product: "product",
-
-  /**
    * value: "medication"
    * @const
    */
   medication: "medication",
-
-  /**
-   * value: "lab_kit"
-   * @const
-   */
-  labKit: "lab_kit",
 
   /**
    * value: "encounter"
@@ -142,9 +132,9 @@ OrdersOrder.OrderTypeEnum = {
 };
 /**
  * @member {module:model/OrdersOrder.OrderTypeEnum} orderType
- * @default 'product'
+ * @default 'medication'
  */
-OrdersOrder.prototype.orderType = "product";
+OrdersOrder.prototype.orderType = "medication";
 
 /**
  * ID of the patient being assigned the order
@@ -153,7 +143,7 @@ OrdersOrder.prototype.orderType = "product";
 OrdersOrder.prototype.patientId = undefined;
 
 /**
- * If `requires_approval` is false, the order will be placed with Curexa right away.  If not, the order will wait after MDI completes the case (if a case need to be created first) or the payment is completed and will need to be approved later on by a subsequent call.  If `false` while the order contains first time prescribed medications (through product_ids parameter), an error will be raised, as a case will need to be created and approved first.A patient token is allowed to create an order, but not to place it.
+ * In the case where `order_type` is `\"medication\"` and the order contains any line items withproducts that have `provider_product_type` of either `\"medication\"` or `\"compound\"`,setting `requires_approval` to `true` will make it so that after MDI completes the case, theorder will not be placed with Curexa until the order is approved via a subsequent API call.Otherwise, if `requires_approval` is set to `false`, the order will be placed with Curexaimmediately after MDI completes the case. In the case were `order_type` is `\"medication\"` and the order only contains line itemswith products that have `provider_product_type` set to `\"otc_medication\"`, setting`requires_approval` to `true` will make it so that the order will not be placed with Curexauntil the order is approved via a subsequent API call. Otherwise, if `requires_approval` isset to `false`, the order will be placed with Curexa immediately. In the case where `order_type` is `\"encounter\"`, setting `requires_approval` to `true`will make it so that an MDI case is not created until the order is approved via a subsequentAPI call. Otherwise, if `requires_approval` is set to `false`, the MDI case will be createdimmediately.
  * @member {Boolean} requiresApproval
  * @default false
  */
@@ -169,6 +159,12 @@ OrdersOrder.prototype.orderLineItems = undefined;
  * @member {String} submissionId
  */
 OrdersOrder.prototype.submissionId = undefined;
+
+/**
+ * The Stripe promotion code to apply to this order
+ * @member {String} promotionCode
+ */
+OrdersOrder.prototype.promotionCode = undefined;
 
 /**
  * @member {module:model/OrdersOrderShippingAddress} shippingAddress

@@ -80,6 +80,11 @@ export class PatientsinvitePatient {
         obj.externalId = ApiClient.convertToType(data["external_id"], "String");
       if (data.hasOwnProperty("identity_external_id"))
         obj.identityExternalId = ApiClient.convertToType(data["identity_external_id"], "String");
+      if (data.hasOwnProperty("photon_health_patient_id"))
+        obj.photonHealthPatientId = ApiClient.convertToType(
+          data["photon_health_patient_id"],
+          "String"
+        );
       if (data.hasOwnProperty("addresses_attributes"))
         obj.addressesAttributes = ApiClient.convertToType(data["addresses_attributes"], [
           PatientsPatientAddressesAttributes,
@@ -91,7 +96,9 @@ export class PatientsinvitePatient {
       if (data.hasOwnProperty("tag_list"))
         obj.tagList = ApiClient.convertToType(data["tag_list"], ["String"]);
       if (data.hasOwnProperty("metadata"))
-        obj.metadata = ApiClient.convertToType(data["metadata"], { String: Object });
+        obj.metadata = ApiClient.convertToType(data["metadata"], {
+          String: Object,
+        });
     }
     return obj;
   }
@@ -985,6 +992,12 @@ PatientsinvitePatient.prototype.externalId = undefined;
  * @member {String} identityExternalId
  */
 PatientsinvitePatient.prototype.identityExternalId = undefined;
+
+/**
+ * Provide the ID of the associated Photon Health patient.
+ * @member {String} photonHealthPatientId
+ */
+PatientsinvitePatient.prototype.photonHealthPatientId = undefined;
 
 /**
  * @member {Array.<module:model/PatientsPatientAddressesAttributes>} addressesAttributes

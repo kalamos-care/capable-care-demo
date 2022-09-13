@@ -2,10 +2,7 @@ import { isPatient } from "./patients";
 import { Patient } from "models/patients/Patient.types";
 import { User } from "models/users/User.types";
 
-export const getInitials = (
-  firstName: string | null,
-  lastName: string | null
-): string => {
+export const getInitials = (firstName: string | null, lastName: string | null): string => {
   let initials = "";
   if (firstName) {
     initials += firstName[0].toUpperCase();
@@ -42,9 +39,7 @@ export const displayName = (user: User | Patient): string => {
   }
   let identity: string;
   if (user?.first_name) {
-    identity = user.last_name
-      ? `${user.first_name} ${user.last_name}`
-      : user.first_name;
+    identity = user.last_name ? `${user.first_name} ${user.last_name}` : user.first_name;
   } else if (user?.email) {
     identity = user.email;
   } else if (isPatient(user)) {
@@ -70,13 +65,9 @@ export const convertRetailPriceCentsToRetailPrice = (retailCents: number) => {
 export const capitalize = (word: string) => {
   return word.charAt(0).toUpperCase() + word.slice(1);
 };
-export const conversationParticipantsLabel = (
-  participants: User[] | undefined
-) => {
+export const conversationParticipantsLabel = (participants: User[] | undefined) => {
   const label = participants?.reduce((label, p) => {
-    label.length
-      ? (label += `, ${displayName(p)}`)
-      : (label += `${displayName(p)}`);
+    label.length ? (label += `, ${displayName(p)}`) : (label += `${displayName(p)}`);
     return label;
   }, "");
   return label ?? "";

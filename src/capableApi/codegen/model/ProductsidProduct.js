@@ -43,7 +43,9 @@ export class ProductsidProduct {
       if (data.hasOwnProperty("external_id"))
         obj.externalId = ApiClient.convertToType(data["external_id"], "String");
       if (data.hasOwnProperty("metadata"))
-        obj.metadata = ApiClient.convertToType(data["metadata"], { String: Object });
+        obj.metadata = ApiClient.convertToType(data["metadata"], {
+          String: Object,
+        });
       if (data.hasOwnProperty("cms_entry_id"))
         obj.cmsEntryId = ApiClient.convertToType(data["cms_entry_id"], "String");
       if (data.hasOwnProperty("tag_list"))

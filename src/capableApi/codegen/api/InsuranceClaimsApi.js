@@ -14,6 +14,7 @@
  */
 import { ApiClient } from "../ApiClient";
 import { InsuranceClaimsBody } from "../model/InsuranceClaimsBody";
+import { InsuranceClaimsIdBody } from "../model/InsuranceClaimsIdBody";
 
 /**
  * InsuranceClaims service.
@@ -138,6 +139,106 @@ export class InsuranceClaimsApi {
     );
   }
   /**
+   * Callback function to receive the result of the insuranceClaimsIdPatch operation.
+   * @callback moduleapi/InsuranceClaimsApi~insuranceClaimsIdPatchCallback
+   * @param {String} error Error message, if any.
+   * @param data This operation does not return a value.
+   * @param {String} response The complete HTTP response.
+   */
+
+  /**
+   * Update an existing Insurance Claim
+   * @param {String} id
+   * @param {Object} opts Optional parameters
+   * @param {module:model/InsuranceClaimsIdBody} opts.body
+   * @param {module:api/InsuranceClaimsApi~insuranceClaimsIdPatchCallback} callback The callback function, accepting three arguments: error, data, response
+   */
+  insuranceClaimsIdPatch(id, opts, callback) {
+    opts = opts || {};
+    let postBody = opts["body"];
+    // verify the required parameter 'id' is set
+    if (id === undefined || id === null) {
+      throw new Error("Missing the required parameter 'id' when calling insuranceClaimsIdPatch");
+    }
+
+    let pathParams = {
+      id: id,
+    };
+    let queryParams = {};
+    let headerParams = {};
+    let formParams = {};
+
+    let authNames = [];
+    let contentTypes = ["application/json"];
+    let accepts = ["application/json"];
+    let returnType = null;
+
+    return this.apiClient.callApi(
+      "/insurance_claims/{id}",
+      "PATCH",
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      callback
+    );
+  }
+  /**
+   * Callback function to receive the result of the insuranceClaimsIdSubmitPost operation.
+   * @callback moduleapi/InsuranceClaimsApi~insuranceClaimsIdSubmitPostCallback
+   * @param {String} error Error message, if any.
+   * @param data This operation does not return a value.
+   * @param {String} response The complete HTTP response.
+   */
+
+  /**
+   * submit insurance claim
+   * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#10060; &lt;s&gt;Patient&lt;/s&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
+   * @param {String} id
+   * @param {module:api/InsuranceClaimsApi~insuranceClaimsIdSubmitPostCallback} callback The callback function, accepting three arguments: error, data, response
+   */
+  insuranceClaimsIdSubmitPost(id, callback) {
+    let postBody = null;
+    // verify the required parameter 'id' is set
+    if (id === undefined || id === null) {
+      throw new Error(
+        "Missing the required parameter 'id' when calling insuranceClaimsIdSubmitPost"
+      );
+    }
+
+    let pathParams = {
+      id: id,
+    };
+    let queryParams = {};
+    let headerParams = {};
+    let formParams = {};
+
+    let authNames = [];
+    let contentTypes = [];
+    let accepts = ["application/json"];
+    let returnType = null;
+
+    return this.apiClient.callApi(
+      "/insurance_claims/{id}/submit",
+      "POST",
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      callback
+    );
+  }
+  /**
    * Callback function to receive the result of the insuranceClaimsPost operation.
    * @callback moduleapi/InsuranceClaimsApi~insuranceClaimsPostCallback
    * @param {String} error Error message, if any.
@@ -146,7 +247,7 @@ export class InsuranceClaimsApi {
    */
 
   /**
-   * Create or Update a partial Insurance Claim
+   * Create an Insurance Claim
    * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#10060; &lt;s&gt;Patient&lt;/s&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
    * @param {Object} opts Optional parameters
    * @param {module:model/InsuranceClaimsBody} opts.body

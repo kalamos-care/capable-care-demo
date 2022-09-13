@@ -5,11 +5,7 @@ import fetcher from "./fetcher";
 // Fetch the patient's related persons.
 export default function usePatientRelatedPersons() {
   const { data, error } = useSWR(
-    [
-      "PatientRelatedPerson",
-      "list",
-      { page: "1", size: "10", sortBy: ["-created_at"] },
-    ],
+    ["PatientRelatedPerson", "list", { page: "1", size: "10", sortBy: ["-created_at"] }],
     fetcher
   );
 

@@ -5,11 +5,7 @@ import { Skeleton } from "@mui/material";
 import { Elements } from "@stripe/react-stripe-js";
 
 function SubscriptionRouteManager(props) {
-  const {
-    currentPatient,
-    isLoading: patientLoading,
-    isError: patientError,
-  } = useCurrentPatient();
+  const { currentPatient, isLoading: patientLoading, isError: patientError } = useCurrentPatient();
   const {
     data: currentActiveSubscription,
     isLoading: subscriptionLoading,
@@ -25,10 +21,7 @@ function SubscriptionRouteManager(props) {
     return <Skeleton variant="rectangular" height="100%" animation="wave" />;
   }
 
-  if (
-    process.env.REACT_APP_ENABLE_REQUIRE_SUBSCRIPTION === "true" &&
-    props.stripePromise
-  ) {
+  if (process.env.REACT_APP_ENABLE_REQUIRE_SUBSCRIPTION === "true" && props.stripePromise) {
     return (
       <Elements stripe={stripePromise}>
         {currentActiveSubscription ? (

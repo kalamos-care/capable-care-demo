@@ -65,6 +65,11 @@ export class PatientsidPatient {
         obj.externalId = ApiClient.convertToType(data["external_id"], "String");
       if (data.hasOwnProperty("identity_external_id"))
         obj.identityExternalId = ApiClient.convertToType(data["identity_external_id"], "String");
+      if (data.hasOwnProperty("photon_health_patient_id"))
+        obj.photonHealthPatientId = ApiClient.convertToType(
+          data["photon_health_patient_id"],
+          "String"
+        );
       if (data.hasOwnProperty("organization_ids"))
         obj.organizationIds = ApiClient.convertToType(data["organization_ids"], ["String"]);
       if (data.hasOwnProperty("addresses_attributes"))
@@ -78,7 +83,9 @@ export class PatientsidPatient {
       if (data.hasOwnProperty("tag_list"))
         obj.tagList = ApiClient.convertToType(data["tag_list"], ["String"]);
       if (data.hasOwnProperty("metadata"))
-        obj.metadata = ApiClient.convertToType(data["metadata"], { String: Object });
+        obj.metadata = ApiClient.convertToType(data["metadata"], {
+          String: Object,
+        });
     }
     return obj;
   }
@@ -230,6 +237,12 @@ PatientsidPatient.prototype.externalId = undefined;
  * @member {String} identityExternalId
  */
 PatientsidPatient.prototype.identityExternalId = undefined;
+
+/**
+ * Provide the ID of the associated Photon Health patient.
+ * @member {String} photonHealthPatientId
+ */
+PatientsidPatient.prototype.photonHealthPatientId = undefined;
 
 /**
  * Associate the patient with organizations.

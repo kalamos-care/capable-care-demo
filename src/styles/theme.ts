@@ -12,7 +12,7 @@ const grey = "#73778C";
 const darkGrey = "#474849";
 const black = "#020228";
 
-declare module '@mui/material/styles' {
+declare module "@mui/material/styles" {
   interface TypographyVariants {
     eyebrow: React.CSSProperties;
     h7: React.CSSProperties;
@@ -34,7 +34,7 @@ declare module '@mui/material/styles' {
 }
 
 // Update the Typography's variant prop options
-declare module '@mui/material/Typography' {
+declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
     eyebrow: true;
     h7: true;

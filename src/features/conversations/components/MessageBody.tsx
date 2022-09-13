@@ -50,9 +50,7 @@ const MessageBody = ({ message }) => {
       <Linkify
         componentDecorator={(decoratedHref, decoratedText, key) => (
           <Link target="_blank" rel="noopener" href={decoratedHref} key={key}>
-            {decoratedText.match("daily.co")
-              ? "Join video chat"
-              : decoratedText}
+            {decoratedText.match("daily.co") ? "Join video chat" : decoratedText}
           </Link>
         )}
       >

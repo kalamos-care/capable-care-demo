@@ -29,10 +29,7 @@ const WebinarCall = ({ callUrl, onLeave }) => {
     if (!videoRef || !videoRef.current || callframe) return;
     CALL_OPTIONS.url = callUrl;
 
-    const newCallframe = DailyIframe.createFrame(
-      videoRef.current,
-      CALL_OPTIONS
-    );
+    const newCallframe = DailyIframe.createFrame(videoRef.current, CALL_OPTIONS);
 
     // you can customize how your app responds to Daily events
     // using callback functions. https://docs.daily.co/reference/daily-js/events

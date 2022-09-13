@@ -25,17 +25,8 @@ export class OrdersOrderShippingAddress {
    * Shipping address for the order
    * @alias module:model/OrdersOrderShippingAddress
    * @class
-   * @param city {String}
-   * @param state {String}
-   * @param zip {String}
-   * @param country {String}
    */
-  constructor(city, state, zip, country) {
-    this.city = city;
-    this.state = state;
-    this.zip = zip;
-    this.country = country;
-  }
+  constructor() {}
 
   /**
    * Constructs a <code>OrdersOrderShippingAddress</code> from a plain JavaScript object, optionally creating a new instance.

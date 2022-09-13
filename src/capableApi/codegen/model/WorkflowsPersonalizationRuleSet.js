@@ -109,6 +109,12 @@ WorkflowsPersonalizationRuleSet.TriggersEnum = {
    * @const
    */
   submissionUpdate: "submission update",
+
+  /**
+   * value: "message added"
+   * @const
+   */
+  messageAdded: "message added",
 };
 /**
  * @member {Array.<module:model/WorkflowsPersonalizationRuleSet.TriggersEnum>} triggers

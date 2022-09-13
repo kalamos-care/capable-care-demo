@@ -13,10 +13,11 @@
  *
  */
 import { ApiClient } from "./ApiClient";
+import { AnyOfworkflowsPersonalizationRuleSetNodesTargetsItems } from "./model/AnyOfworkflowsPersonalizationRuleSetNodesTargetsItems";
+import { AnyOfworkflowsPersonalizationRuleSetRulesTargetsItems } from "./model/AnyOfworkflowsPersonalizationRuleSetRulesTargetsItems";
 import { AppointmentsAppointment } from "./model/AppointmentsAppointment";
 import { AppointmentsBody } from "./model/AppointmentsBody";
 import { AppointmentsidrescheduleAppointment } from "./model/AppointmentsidrescheduleAppointment";
-import { AttachmentsAttachment } from "./model/AttachmentsAttachment";
 import { AttachmentsBody } from "./model/AttachmentsBody";
 import { CarePlansBody } from "./model/CarePlansBody";
 import { CarePlansCarePlan } from "./model/CarePlansCarePlan";
@@ -56,10 +57,14 @@ import { IdCardBody } from "./model/IdCardBody";
 import { IdLogoBody } from "./model/IdLogoBody";
 import { IdRescheduleBody } from "./model/IdRescheduleBody";
 import { InsuranceClaimsBody } from "./model/InsuranceClaimsBody";
+import { InsuranceClaimsIdBody } from "./model/InsuranceClaimsIdBody";
 import { InsuranceClaimsInsuranceClaim } from "./model/InsuranceClaimsInsuranceClaim";
 import { InsuranceClaimsInsuranceClaimAddressAttributes } from "./model/InsuranceClaimsInsuranceClaimAddressAttributes";
 import { InsuranceClaimsInsuranceClaimInsuranceClaimLineDiagnosesAttributes } from "./model/InsuranceClaimsInsuranceClaimInsuranceClaimLineDiagnosesAttributes";
 import { InsuranceClaimsInsuranceClaimInsuranceClaimLinesAttributes } from "./model/InsuranceClaimsInsuranceClaimInsuranceClaimLinesAttributes";
+import { InsuranceClaimsidInsuranceClaim } from "./model/InsuranceClaimsidInsuranceClaim";
+import { InsuranceClaimsidInsuranceClaimInsuranceClaimLineDiagnosesAttributes } from "./model/InsuranceClaimsidInsuranceClaimInsuranceClaimLineDiagnosesAttributes";
+import { InsuranceClaimsidInsuranceClaimInsuranceClaimLinesAttributes } from "./model/InsuranceClaimsidInsuranceClaimInsuranceClaimLinesAttributes";
 import { InsurancePoliciesBody } from "./model/InsurancePoliciesBody";
 import { InsurancePoliciesIdBody } from "./model/InsurancePoliciesIdBody";
 import { InsurancePoliciesInsurancePolicy } from "./model/InsurancePoliciesInsurancePolicy";
@@ -68,7 +73,6 @@ import { InsurancePoliciesInsurancePolicySubscriberAttributes } from "./model/In
 import { InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes } from "./model/InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes";
 import { InsurancePoliciesidInsurancePolicy } from "./model/InsurancePoliciesidInsurancePolicy";
 import { InsurancePoliciesidInsurancePolicySubscriberAttributes } from "./model/InsurancePoliciesidInsurancePolicySubscriberAttributes";
-import { InsurancePoliciesidcardInsurancePolicy } from "./model/InsurancePoliciesidcardInsurancePolicy";
 import { IntegrationsAcuityBody } from "./model/IntegrationsAcuityBody";
 import { IntegrationsAcuityBody1 } from "./model/IntegrationsAcuityBody1";
 import { IntegrationsButterflyLabsBody } from "./model/IntegrationsButterflyLabsBody";
@@ -77,6 +81,8 @@ import { IntegrationsCandidBody } from "./model/IntegrationsCandidBody";
 import { IntegrationsCandidBody1 } from "./model/IntegrationsCandidBody1";
 import { IntegrationsCurexaBody } from "./model/IntegrationsCurexaBody";
 import { IntegrationsCurexaBody1 } from "./model/IntegrationsCurexaBody1";
+import { IntegrationsFormsortBody } from "./model/IntegrationsFormsortBody";
+import { IntegrationsFormsortBody1 } from "./model/IntegrationsFormsortBody1";
 import { IntegrationsFreshpaintBody } from "./model/IntegrationsFreshpaintBody";
 import { IntegrationsFreshpaintBody1 } from "./model/IntegrationsFreshpaintBody1";
 import { IntegrationsImawareBody } from "./model/IntegrationsImawareBody";
@@ -85,6 +91,8 @@ import { IntegrationsLgcBody } from "./model/IntegrationsLgcBody";
 import { IntegrationsLgcBody1 } from "./model/IntegrationsLgcBody1";
 import { IntegrationsMdiBody } from "./model/IntegrationsMdiBody";
 import { IntegrationsMdiBody1 } from "./model/IntegrationsMdiBody1";
+import { IntegrationsPhotonHealthBody } from "./model/IntegrationsPhotonHealthBody";
+import { IntegrationsPhotonHealthBody1 } from "./model/IntegrationsPhotonHealthBody1";
 import { IntegrationsSegmentBody } from "./model/IntegrationsSegmentBody";
 import { IntegrationsSegmentBody1 } from "./model/IntegrationsSegmentBody1";
 import { IntegrationsShopifyBody } from "./model/IntegrationsShopifyBody";
@@ -97,10 +105,14 @@ import { IntegrationsbutterflyLabsButterflyLabsIntegration } from "./model/Integ
 import { IntegrationsbutterflyLabsButterflyLabsIntegration1 } from "./model/IntegrationsbutterflyLabsButterflyLabsIntegration1";
 import { IntegrationscurexaCurexaIntegration } from "./model/IntegrationscurexaCurexaIntegration";
 import { IntegrationscurexaCurexaIntegration1 } from "./model/IntegrationscurexaCurexaIntegration1";
+import { IntegrationsformsortFormsortIntegration } from "./model/IntegrationsformsortFormsortIntegration";
+import { IntegrationsformsortFormsortIntegration1 } from "./model/IntegrationsformsortFormsortIntegration1";
 import { IntegrationsfreshpaintFreshpaintIntegration } from "./model/IntegrationsfreshpaintFreshpaintIntegration";
 import { IntegrationsfreshpaintFreshpaintIntegration1 } from "./model/IntegrationsfreshpaintFreshpaintIntegration1";
 import { IntegrationsimawareImawareIntegration } from "./model/IntegrationsimawareImawareIntegration";
 import { IntegrationsimawareImawareIntegration1 } from "./model/IntegrationsimawareImawareIntegration1";
+import { IntegrationsphotonHealthPhotonHealthIntegration } from "./model/IntegrationsphotonHealthPhotonHealthIntegration";
+import { IntegrationsphotonHealthPhotonHealthIntegration1 } from "./model/IntegrationsphotonHealthPhotonHealthIntegration1";
 import { IntegrationsshopifyShopifyIntegration } from "./model/IntegrationsshopifyShopifyIntegration";
 import { IntegrationsshopifyShopifyIntegration1 } from "./model/IntegrationsshopifyShopifyIntegration1";
 import { IntegrationsstripeStripeIntegration } from "./model/IntegrationsstripeStripeIntegration";
@@ -143,7 +155,6 @@ import { PatientsPatientPhonesAttributes } from "./model/PatientsPatientPhonesAt
 import { PatientsPatientRaces } from "./model/PatientsPatientRaces";
 import { PatientsidPatient } from "./model/PatientsidPatient";
 import { PatientsidPatientPhonesAttributes } from "./model/PatientsidPatientPhonesAttributes";
-import { PatientsidavatarPatient } from "./model/PatientsidavatarPatient";
 import { PatientsinvitePatient } from "./model/PatientsinvitePatient";
 import { PaymentIntentsBody } from "./model/PaymentIntentsBody";
 import { PaymentIntentsPaymentIntent } from "./model/PaymentIntentsPaymentIntent";
@@ -212,7 +223,7 @@ import { WorkflowsPersonalizationRuleSet } from "./model/WorkflowsPersonalizatio
 import { WorkflowsPersonalizationRuleSetInputs } from "./model/WorkflowsPersonalizationRuleSetInputs";
 import { WorkflowsPersonalizationRuleSetNodes } from "./model/WorkflowsPersonalizationRuleSetNodes";
 import { WorkflowsPersonalizationRuleSetRules } from "./model/WorkflowsPersonalizationRuleSetRules";
-import { WorkflowsPersonalizationRuleSetTargets } from "./model/WorkflowsPersonalizationRuleSetTargets";
+import { WorkflowsRunBody } from "./model/WorkflowsRunBody";
 import { WorkflowscareSuggestionsWorkflow } from "./model/WorkflowscareSuggestionsWorkflow";
 import { APICredentialsApi } from "./api/APICredentialsApi";
 import { AppointmentTypesApi } from "./api/AppointmentTypesApi";
@@ -247,18 +258,18 @@ import { OrdersApi } from "./api/OrdersApi";
 import { OrganizationsApi } from "./api/OrganizationsApi";
 import { PatientLabTestsApi } from "./api/PatientLabTestsApi";
 import { PatientMedicationsApi } from "./api/PatientMedicationsApi";
-import { PatientPrescriptionsApi } from "./api/PatientPrescriptionsApi";
 import { PatientRelatedPersonsApi } from "./api/PatientRelatedPersonsApi";
 import { PatientsApi } from "./api/PatientsApi";
 import { PayerIdentificationsApi } from "./api/PayerIdentificationsApi";
 import { PaymentIntentApi } from "./api/PaymentIntentApi";
 import { PaymentsApi } from "./api/PaymentsApi";
+import { PermissionsApi } from "./api/PermissionsApi";
 import { PharmaciesApi } from "./api/PharmaciesApi";
+import { PhotonHealthPrescriptionsApi } from "./api/PhotonHealthPrescriptionsApi";
 import { PractitionersApi } from "./api/PractitionersApi";
 import { PrescriptionsApi } from "./api/PrescriptionsApi";
 import { ProductsApi } from "./api/ProductsApi";
 import { PromotionCodesApi } from "./api/PromotionCodesApi";
-import { PermissionsApi } from "./api/PermissionsApi";
 import { QuestionnairesApi } from "./api/QuestionnairesApi";
 import { RacesApi } from "./api/RacesApi";
 import { SetupIntentsApi } from "./api/SetupIntentsApi";
@@ -315,1321 +326,1651 @@ export {
    * @property {module:ApiClient}
    */
   ApiClient,
+
+  /**
+   * The AnyOfworkflowsPersonalizationRuleSetNodesTargetsItems model constructor.
+   * @property {module:model/AnyOfworkflowsPersonalizationRuleSetNodesTargetsItems}
+   */
+  AnyOfworkflowsPersonalizationRuleSetNodesTargetsItems,
+
+  /**
+   * The AnyOfworkflowsPersonalizationRuleSetRulesTargetsItems model constructor.
+   * @property {module:model/AnyOfworkflowsPersonalizationRuleSetRulesTargetsItems}
+   */
+  AnyOfworkflowsPersonalizationRuleSetRulesTargetsItems,
+
   /**
    * The AppointmentsAppointment model constructor.
    * @property {module:model/AppointmentsAppointment}
    */
   AppointmentsAppointment,
+
   /**
    * The AppointmentsBody model constructor.
    * @property {module:model/AppointmentsBody}
    */
   AppointmentsBody,
+
   /**
    * The AppointmentsidrescheduleAppointment model constructor.
    * @property {module:model/AppointmentsidrescheduleAppointment}
    */
   AppointmentsidrescheduleAppointment,
-  /**
-   * The AttachmentsAttachment model constructor.
-   * @property {module:model/AttachmentsAttachment}
-   */
-  AttachmentsAttachment,
+
   /**
    * The AttachmentsBody model constructor.
    * @property {module:model/AttachmentsBody}
    */
   AttachmentsBody,
+
   /**
    * The CarePlansBody model constructor.
    * @property {module:model/CarePlansBody}
    */
   CarePlansBody,
+
   /**
    * The CarePlansCarePlan model constructor.
    * @property {module:model/CarePlansCarePlan}
    */
   CarePlansCarePlan,
+
   /**
    * The CarePlansIdBody model constructor.
    * @property {module:model/CarePlansIdBody}
    */
   CarePlansIdBody,
+
   /**
    * The CarePlansTemplatesBody model constructor.
    * @property {module:model/CarePlansTemplatesBody}
    */
   CarePlansTemplatesBody,
+
   /**
    * The CarePlansidCarePlan model constructor.
    * @property {module:model/CarePlansidCarePlan}
    */
   CarePlansidCarePlan,
+
   /**
    * The CarePlanstemplatesCarePlanTemplate model constructor.
    * @property {module:model/CarePlanstemplatesCarePlanTemplate}
    */
   CarePlanstemplatesCarePlanTemplate,
+
   /**
    * The CarePlanstemplatesidCarePlanTemplate model constructor.
    * @property {module:model/CarePlanstemplatesidCarePlanTemplate}
    */
   CarePlanstemplatesidCarePlanTemplate,
+
   /**
    * The ConversationsAddChatParticipantBody model constructor.
    * @property {module:model/ConversationsAddChatParticipantBody}
    */
   ConversationsAddChatParticipantBody,
+
   /**
    * The ConversationsCreateGroupChatBody model constructor.
    * @property {module:model/ConversationsCreateGroupChatBody}
    */
   ConversationsCreateGroupChatBody,
+
   /**
    * The ConversationsCreateGroupSmsBody model constructor.
    * @property {module:model/ConversationsCreateGroupSmsBody}
    */
   ConversationsCreateGroupSmsBody,
+
   /**
    * The ConversationsaddChatParticipantConversation model constructor.
    * @property {module:model/ConversationsaddChatParticipantConversation}
    */
   ConversationsaddChatParticipantConversation,
+
   /**
    * The ConversationscreateGroupChatConversation model constructor.
    * @property {module:model/ConversationscreateGroupChatConversation}
    */
   ConversationscreateGroupChatConversation,
+
   /**
    * The EligibilitiesBody model constructor.
    * @property {module:model/EligibilitiesBody}
    */
   EligibilitiesBody,
+
   /**
    * The EligibilitiesEligibility model constructor.
    * @property {module:model/EligibilitiesEligibility}
    */
   EligibilitiesEligibility,
+
   /**
    * The EncountersBody model constructor.
    * @property {module:model/EncountersBody}
    */
   EncountersBody,
+
   /**
    * The EncountersEncounter model constructor.
    * @property {module:model/EncountersEncounter}
    */
   EncountersEncounter,
+
   /**
    * The EncountersEncounterNotesAttributes model constructor.
    * @property {module:model/EncountersEncounterNotesAttributes}
    */
   EncountersEncounterNotesAttributes,
+
   /**
    * The EncountersIdBody model constructor.
    * @property {module:model/EncountersIdBody}
    */
   EncountersIdBody,
+
   /**
    * The EncountersidEncounter model constructor.
    * @property {module:model/EncountersidEncounter}
    */
   EncountersidEncounter,
+
   /**
    * The EncountersidEncounterNotesAttributes model constructor.
    * @property {module:model/EncountersidEncounterNotesAttributes}
    */
   EncountersidEncounterNotesAttributes,
+
   /**
    * The GoalsBody model constructor.
    * @property {module:model/GoalsBody}
    */
   GoalsBody,
+
   /**
    * The GoalsGoal model constructor.
    * @property {module:model/GoalsGoal}
    */
   GoalsGoal,
+
   /**
    * The GoalsGoalTargetsAttributes model constructor.
    * @property {module:model/GoalsGoalTargetsAttributes}
    */
   GoalsGoalTargetsAttributes,
+
   /**
    * The GoalsIdBody model constructor.
    * @property {module:model/GoalsIdBody}
    */
   GoalsIdBody,
+
   /**
    * The GoalsTemplatesBody model constructor.
    * @property {module:model/GoalsTemplatesBody}
    */
   GoalsTemplatesBody,
+
   /**
    * The GoalsidGoal model constructor.
    * @property {module:model/GoalsidGoal}
    */
   GoalsidGoal,
+
   /**
    * The GoalsidGoalTargetsAttributes model constructor.
    * @property {module:model/GoalsidGoalTargetsAttributes}
    */
   GoalsidGoalTargetsAttributes,
+
   /**
    * The GoalstemplatesGoalTemplate model constructor.
    * @property {module:model/GoalstemplatesGoalTemplate}
    */
   GoalstemplatesGoalTemplate,
+
   /**
    * The GoalstemplatesidGoalTemplate model constructor.
    * @property {module:model/GoalstemplatesidGoalTemplate}
    */
   GoalstemplatesidGoalTemplate,
+
   /**
    * The IdActivateBody model constructor.
    * @property {module:model/IdActivateBody}
    */
   IdActivateBody,
+
   /**
    * The IdAddMedicationsBody model constructor.
    * @property {module:model/IdAddMedicationsBody}
    */
   IdAddMedicationsBody,
+
   /**
    * The IdAvatarBody model constructor.
    * @property {module:model/IdAvatarBody}
    */
   IdAvatarBody,
+
   /**
    * The IdAvatarBody1 model constructor.
    * @property {module:model/IdAvatarBody1}
    */
   IdAvatarBody1,
+
   /**
    * The IdCancelBody model constructor.
    * @property {module:model/IdCancelBody}
    */
   IdCancelBody,
+
   /**
    * The IdCardBody model constructor.
    * @property {module:model/IdCardBody}
    */
   IdCardBody,
+
   /**
    * The IdLogoBody model constructor.
    * @property {module:model/IdLogoBody}
    */
   IdLogoBody,
+
   /**
    * The IdRescheduleBody model constructor.
    * @property {module:model/IdRescheduleBody}
    */
   IdRescheduleBody,
+
   /**
    * The InsuranceClaimsBody model constructor.
    * @property {module:model/InsuranceClaimsBody}
    */
   InsuranceClaimsBody,
+
+  /**
+   * The InsuranceClaimsIdBody model constructor.
+   * @property {module:model/InsuranceClaimsIdBody}
+   */
+  InsuranceClaimsIdBody,
+
   /**
    * The InsuranceClaimsInsuranceClaim model constructor.
    * @property {module:model/InsuranceClaimsInsuranceClaim}
    */
   InsuranceClaimsInsuranceClaim,
+
   /**
    * The InsuranceClaimsInsuranceClaimAddressAttributes model constructor.
    * @property {module:model/InsuranceClaimsInsuranceClaimAddressAttributes}
    */
   InsuranceClaimsInsuranceClaimAddressAttributes,
+
   /**
    * The InsuranceClaimsInsuranceClaimInsuranceClaimLineDiagnosesAttributes model constructor.
    * @property {module:model/InsuranceClaimsInsuranceClaimInsuranceClaimLineDiagnosesAttributes}
    */
   InsuranceClaimsInsuranceClaimInsuranceClaimLineDiagnosesAttributes,
+
   /**
    * The InsuranceClaimsInsuranceClaimInsuranceClaimLinesAttributes model constructor.
    * @property {module:model/InsuranceClaimsInsuranceClaimInsuranceClaimLinesAttributes}
    */
   InsuranceClaimsInsuranceClaimInsuranceClaimLinesAttributes,
+
+  /**
+   * The InsuranceClaimsidInsuranceClaim model constructor.
+   * @property {module:model/InsuranceClaimsidInsuranceClaim}
+   */
+  InsuranceClaimsidInsuranceClaim,
+
+  /**
+   * The InsuranceClaimsidInsuranceClaimInsuranceClaimLineDiagnosesAttributes model constructor.
+   * @property {module:model/InsuranceClaimsidInsuranceClaimInsuranceClaimLineDiagnosesAttributes}
+   */
+  InsuranceClaimsidInsuranceClaimInsuranceClaimLineDiagnosesAttributes,
+
+  /**
+   * The InsuranceClaimsidInsuranceClaimInsuranceClaimLinesAttributes model constructor.
+   * @property {module:model/InsuranceClaimsidInsuranceClaimInsuranceClaimLinesAttributes}
+   */
+  InsuranceClaimsidInsuranceClaimInsuranceClaimLinesAttributes,
+
   /**
    * The InsurancePoliciesBody model constructor.
    * @property {module:model/InsurancePoliciesBody}
    */
   InsurancePoliciesBody,
+
   /**
    * The InsurancePoliciesIdBody model constructor.
    * @property {module:model/InsurancePoliciesIdBody}
    */
   InsurancePoliciesIdBody,
+
   /**
    * The InsurancePoliciesInsurancePolicy model constructor.
    * @property {module:model/InsurancePoliciesInsurancePolicy}
    */
   InsurancePoliciesInsurancePolicy,
+
   /**
    * The InsurancePoliciesInsurancePolicyPayerIdentificationAttributes model constructor.
    * @property {module:model/InsurancePoliciesInsurancePolicyPayerIdentificationAttributes}
    */
   InsurancePoliciesInsurancePolicyPayerIdentificationAttributes,
+
   /**
    * The InsurancePoliciesInsurancePolicySubscriberAttributes model constructor.
    * @property {module:model/InsurancePoliciesInsurancePolicySubscriberAttributes}
    */
   InsurancePoliciesInsurancePolicySubscriberAttributes,
+
   /**
    * The InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes model constructor.
    * @property {module:model/InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes}
    */
   InsurancePoliciesInsurancePolicySubscriberAttributesAddressesAttributes,
+
   /**
    * The InsurancePoliciesidInsurancePolicy model constructor.
    * @property {module:model/InsurancePoliciesidInsurancePolicy}
    */
   InsurancePoliciesidInsurancePolicy,
+
   /**
    * The InsurancePoliciesidInsurancePolicySubscriberAttributes model constructor.
    * @property {module:model/InsurancePoliciesidInsurancePolicySubscriberAttributes}
    */
   InsurancePoliciesidInsurancePolicySubscriberAttributes,
-  /**
-   * The InsurancePoliciesidcardInsurancePolicy model constructor.
-   * @property {module:model/InsurancePoliciesidcardInsurancePolicy}
-   */
-  InsurancePoliciesidcardInsurancePolicy,
+
   /**
    * The IntegrationsAcuityBody model constructor.
    * @property {module:model/IntegrationsAcuityBody}
    */
   IntegrationsAcuityBody,
+
   /**
    * The IntegrationsAcuityBody1 model constructor.
    * @property {module:model/IntegrationsAcuityBody1}
    */
   IntegrationsAcuityBody1,
+
   /**
    * The IntegrationsButterflyLabsBody model constructor.
    * @property {module:model/IntegrationsButterflyLabsBody}
    */
   IntegrationsButterflyLabsBody,
+
   /**
    * The IntegrationsButterflyLabsBody1 model constructor.
    * @property {module:model/IntegrationsButterflyLabsBody1}
    */
   IntegrationsButterflyLabsBody1,
+
   /**
    * The IntegrationsCandidBody model constructor.
    * @property {module:model/IntegrationsCandidBody}
    */
   IntegrationsCandidBody,
+
   /**
    * The IntegrationsCandidBody1 model constructor.
    * @property {module:model/IntegrationsCandidBody1}
    */
   IntegrationsCandidBody1,
+
   /**
    * The IntegrationsCurexaBody model constructor.
    * @property {module:model/IntegrationsCurexaBody}
    */
   IntegrationsCurexaBody,
+
   /**
    * The IntegrationsCurexaBody1 model constructor.
    * @property {module:model/IntegrationsCurexaBody1}
    */
   IntegrationsCurexaBody1,
+
+  /**
+   * The IntegrationsFormsortBody model constructor.
+   * @property {module:model/IntegrationsFormsortBody}
+   */
+  IntegrationsFormsortBody,
+
+  /**
+   * The IntegrationsFormsortBody1 model constructor.
+   * @property {module:model/IntegrationsFormsortBody1}
+   */
+  IntegrationsFormsortBody1,
+
   /**
    * The IntegrationsFreshpaintBody model constructor.
    * @property {module:model/IntegrationsFreshpaintBody}
    */
   IntegrationsFreshpaintBody,
+
   /**
    * The IntegrationsFreshpaintBody1 model constructor.
    * @property {module:model/IntegrationsFreshpaintBody1}
    */
   IntegrationsFreshpaintBody1,
+
   /**
    * The IntegrationsImawareBody model constructor.
    * @property {module:model/IntegrationsImawareBody}
    */
   IntegrationsImawareBody,
+
   /**
    * The IntegrationsImawareBody1 model constructor.
    * @property {module:model/IntegrationsImawareBody1}
    */
   IntegrationsImawareBody1,
+
   /**
    * The IntegrationsLgcBody model constructor.
    * @property {module:model/IntegrationsLgcBody}
    */
   IntegrationsLgcBody,
+
   /**
    * The IntegrationsLgcBody1 model constructor.
    * @property {module:model/IntegrationsLgcBody1}
    */
   IntegrationsLgcBody1,
+
   /**
    * The IntegrationsMdiBody model constructor.
    * @property {module:model/IntegrationsMdiBody}
    */
   IntegrationsMdiBody,
+
   /**
    * The IntegrationsMdiBody1 model constructor.
    * @property {module:model/IntegrationsMdiBody1}
    */
   IntegrationsMdiBody1,
+
+  /**
+   * The IntegrationsPhotonHealthBody model constructor.
+   * @property {module:model/IntegrationsPhotonHealthBody}
+   */
+  IntegrationsPhotonHealthBody,
+
+  /**
+   * The IntegrationsPhotonHealthBody1 model constructor.
+   * @property {module:model/IntegrationsPhotonHealthBody1}
+   */
+  IntegrationsPhotonHealthBody1,
+
   /**
    * The IntegrationsSegmentBody model constructor.
    * @property {module:model/IntegrationsSegmentBody}
    */
   IntegrationsSegmentBody,
+
   /**
    * The IntegrationsSegmentBody1 model constructor.
    * @property {module:model/IntegrationsSegmentBody1}
    */
   IntegrationsSegmentBody1,
+
   /**
    * The IntegrationsShopifyBody model constructor.
    * @property {module:model/IntegrationsShopifyBody}
    */
   IntegrationsShopifyBody,
+
   /**
    * The IntegrationsShopifyBody1 model constructor.
    * @property {module:model/IntegrationsShopifyBody1}
    */
   IntegrationsShopifyBody1,
+
   /**
    * The IntegrationsStripeBody model constructor.
    * @property {module:model/IntegrationsStripeBody}
    */
   IntegrationsStripeBody,
+
   /**
    * The IntegrationsStripeBody1 model constructor.
    * @property {module:model/IntegrationsStripeBody1}
    */
   IntegrationsStripeBody1,
+
   /**
    * The IntegrationsacuityAcuityIntegration model constructor.
    * @property {module:model/IntegrationsacuityAcuityIntegration}
    */
   IntegrationsacuityAcuityIntegration,
+
   /**
    * The IntegrationsacuityAcuityIntegration1 model constructor.
    * @property {module:model/IntegrationsacuityAcuityIntegration1}
    */
   IntegrationsacuityAcuityIntegration1,
+
   /**
    * The IntegrationsbutterflyLabsButterflyLabsIntegration model constructor.
    * @property {module:model/IntegrationsbutterflyLabsButterflyLabsIntegration}
    */
   IntegrationsbutterflyLabsButterflyLabsIntegration,
+
   /**
    * The IntegrationsbutterflyLabsButterflyLabsIntegration1 model constructor.
    * @property {module:model/IntegrationsbutterflyLabsButterflyLabsIntegration1}
    */
   IntegrationsbutterflyLabsButterflyLabsIntegration1,
+
   /**
    * The IntegrationscurexaCurexaIntegration model constructor.
    * @property {module:model/IntegrationscurexaCurexaIntegration}
    */
   IntegrationscurexaCurexaIntegration,
+
   /**
    * The IntegrationscurexaCurexaIntegration1 model constructor.
    * @property {module:model/IntegrationscurexaCurexaIntegration1}
    */
   IntegrationscurexaCurexaIntegration1,
+
+  /**
+   * The IntegrationsformsortFormsortIntegration model constructor.
+   * @property {module:model/IntegrationsformsortFormsortIntegration}
+   */
+  IntegrationsformsortFormsortIntegration,
+
+  /**
+   * The IntegrationsformsortFormsortIntegration1 model constructor.
+   * @property {module:model/IntegrationsformsortFormsortIntegration1}
+   */
+  IntegrationsformsortFormsortIntegration1,
+
   /**
    * The IntegrationsfreshpaintFreshpaintIntegration model constructor.
    * @property {module:model/IntegrationsfreshpaintFreshpaintIntegration}
    */
   IntegrationsfreshpaintFreshpaintIntegration,
+
   /**
    * The IntegrationsfreshpaintFreshpaintIntegration1 model constructor.
    * @property {module:model/IntegrationsfreshpaintFreshpaintIntegration1}
    */
   IntegrationsfreshpaintFreshpaintIntegration1,
+
   /**
    * The IntegrationsimawareImawareIntegration model constructor.
    * @property {module:model/IntegrationsimawareImawareIntegration}
    */
   IntegrationsimawareImawareIntegration,
+
   /**
    * The IntegrationsimawareImawareIntegration1 model constructor.
    * @property {module:model/IntegrationsimawareImawareIntegration1}
    */
   IntegrationsimawareImawareIntegration1,
+
+  /**
+   * The IntegrationsphotonHealthPhotonHealthIntegration model constructor.
+   * @property {module:model/IntegrationsphotonHealthPhotonHealthIntegration}
+   */
+  IntegrationsphotonHealthPhotonHealthIntegration,
+
+  /**
+   * The IntegrationsphotonHealthPhotonHealthIntegration1 model constructor.
+   * @property {module:model/IntegrationsphotonHealthPhotonHealthIntegration1}
+   */
+  IntegrationsphotonHealthPhotonHealthIntegration1,
+
   /**
    * The IntegrationsshopifyShopifyIntegration model constructor.
    * @property {module:model/IntegrationsshopifyShopifyIntegration}
    */
   IntegrationsshopifyShopifyIntegration,
+
   /**
    * The IntegrationsshopifyShopifyIntegration1 model constructor.
    * @property {module:model/IntegrationsshopifyShopifyIntegration1}
    */
   IntegrationsshopifyShopifyIntegration1,
+
   /**
    * The IntegrationsstripeStripeIntegration model constructor.
    * @property {module:model/IntegrationsstripeStripeIntegration}
    */
   IntegrationsstripeStripeIntegration,
+
   /**
    * The LabTestOrdersBody model constructor.
    * @property {module:model/LabTestOrdersBody}
    */
   LabTestOrdersBody,
+
   /**
    * The LabTestOrdersLabTestOrder model constructor.
    * @property {module:model/LabTestOrdersLabTestOrder}
    */
   LabTestOrdersLabTestOrder,
+
   /**
    * The LabTestOrdersidactivateLabTestOrder model constructor.
    * @property {module:model/LabTestOrdersidactivateLabTestOrder}
    */
   LabTestOrdersidactivateLabTestOrder,
+
   /**
    * The LeadsBody model constructor.
    * @property {module:model/LeadsBody}
    */
   LeadsBody,
+
   /**
    * The LeadsIdBody model constructor.
    * @property {module:model/LeadsIdBody}
    */
   LeadsIdBody,
+
   /**
    * The LeadsLead model constructor.
    * @property {module:model/LeadsLead}
    */
   LeadsLead,
+
   /**
    * The LeadsidLead model constructor.
    * @property {module:model/LeadsidLead}
    */
   LeadsidLead,
+
   /**
    * The MedicationOrdersBody model constructor.
    * @property {module:model/MedicationOrdersBody}
    */
   MedicationOrdersBody,
+
   /**
    * The MedicationOrdersMedicationOrder model constructor.
    * @property {module:model/MedicationOrdersMedicationOrder}
    */
   MedicationOrdersMedicationOrder,
+
   /**
    * The MedicationOrdersidaddMedicationsMedicationOrder model constructor.
    * @property {module:model/MedicationOrdersidaddMedicationsMedicationOrder}
    */
   MedicationOrdersidaddMedicationsMedicationOrder,
+
   /**
    * The ObservationsBody model constructor.
    * @property {module:model/ObservationsBody}
    */
   ObservationsBody,
+
   /**
    * The ObservationsObservation model constructor.
    * @property {module:model/ObservationsObservation}
    */
   ObservationsObservation,
+
   /**
    * The ObservationsTypesBody model constructor.
    * @property {module:model/ObservationsTypesBody}
    */
   ObservationsTypesBody,
+
   /**
    * The ObservationstypesObservationType model constructor.
    * @property {module:model/ObservationstypesObservationType}
    */
   ObservationstypesObservationType,
+
   /**
    * The ObservationstypesidObservationType model constructor.
    * @property {module:model/ObservationstypesidObservationType}
    */
   ObservationstypesidObservationType,
+
   /**
    * The OneOfobservationsObservationObservedValue model constructor.
    * @property {module:model/OneOfobservationsObservationObservedValue}
    */
   OneOfobservationsObservationObservedValue,
+
   /**
    * The OneOfworkflowsPersonalizationRuleSetInputsValue model constructor.
    * @property {module:model/OneOfworkflowsPersonalizationRuleSetInputsValue}
    */
   OneOfworkflowsPersonalizationRuleSetInputsValue,
+
   /**
    * The OrdersBody model constructor.
    * @property {module:model/OrdersBody}
    */
   OrdersBody,
+
   /**
    * The OrdersOrder model constructor.
    * @property {module:model/OrdersOrder}
    */
   OrdersOrder,
+
   /**
    * The OrdersOrderBillingAddress model constructor.
    * @property {module:model/OrdersOrderBillingAddress}
    */
   OrdersOrderBillingAddress,
+
   /**
    * The OrdersOrderOrderLineItems model constructor.
    * @property {module:model/OrdersOrderOrderLineItems}
    */
   OrdersOrderOrderLineItems,
+
   /**
    * The OrdersOrderShippingAddress model constructor.
    * @property {module:model/OrdersOrderShippingAddress}
    */
   OrdersOrderShippingAddress,
+
   /**
    * The OrganizationsBody model constructor.
    * @property {module:model/OrganizationsBody}
    */
   OrganizationsBody,
+
   /**
    * The OrganizationsIdBody model constructor.
    * @property {module:model/OrganizationsIdBody}
    */
   OrganizationsIdBody,
+
   /**
    * The OrganizationsOrganization model constructor.
    * @property {module:model/OrganizationsOrganization}
    */
   OrganizationsOrganization,
+
   /**
    * The OrganizationsidOrganization model constructor.
    * @property {module:model/OrganizationsidOrganization}
    */
   OrganizationsidOrganization,
+
   /**
    * The OrganizationsidlogoOrganization model constructor.
    * @property {module:model/OrganizationsidlogoOrganization}
    */
   OrganizationsidlogoOrganization,
+
   /**
    * The PatientRelatedPersonsBody model constructor.
    * @property {module:model/PatientRelatedPersonsBody}
    */
   PatientRelatedPersonsBody,
+
   /**
    * The PatientRelatedPersonsPatientRelatedPerson model constructor.
    * @property {module:model/PatientRelatedPersonsPatientRelatedPerson}
    */
   PatientRelatedPersonsPatientRelatedPerson,
+
   /**
    * The PatientsBody model constructor.
    * @property {module:model/PatientsBody}
    */
   PatientsBody,
+
   /**
    * The PatientsIdBody model constructor.
    * @property {module:model/PatientsIdBody}
    */
   PatientsIdBody,
+
   /**
    * The PatientsInviteBody model constructor.
    * @property {module:model/PatientsInviteBody}
    */
   PatientsInviteBody,
+
   /**
    * The PatientsPatient model constructor.
    * @property {module:model/PatientsPatient}
    */
   PatientsPatient,
+
   /**
    * The PatientsPatientAddressesAttributes model constructor.
    * @property {module:model/PatientsPatientAddressesAttributes}
    */
   PatientsPatientAddressesAttributes,
+
   /**
    * The PatientsPatientEthnicities model constructor.
    * @property {module:model/PatientsPatientEthnicities}
    */
   PatientsPatientEthnicities,
+
   /**
    * The PatientsPatientPhonesAttributes model constructor.
    * @property {module:model/PatientsPatientPhonesAttributes}
    */
   PatientsPatientPhonesAttributes,
+
   /**
    * The PatientsPatientRaces model constructor.
    * @property {module:model/PatientsPatientRaces}
    */
   PatientsPatientRaces,
+
   /**
    * The PatientsidPatient model constructor.
    * @property {module:model/PatientsidPatient}
    */
   PatientsidPatient,
+
   /**
    * The PatientsidPatientPhonesAttributes model constructor.
    * @property {module:model/PatientsidPatientPhonesAttributes}
    */
   PatientsidPatientPhonesAttributes,
-  /**
-   * The PatientsidavatarPatient model constructor.
-   * @property {module:model/PatientsidavatarPatient}
-   */
-  PatientsidavatarPatient,
+
   /**
    * The PatientsinvitePatient model constructor.
    * @property {module:model/PatientsinvitePatient}
    */
   PatientsinvitePatient,
+
   /**
    * The PaymentIntentsBody model constructor.
    * @property {module:model/PaymentIntentsBody}
    */
   PaymentIntentsBody,
+
   /**
    * The PaymentIntentsPaymentIntent model constructor.
    * @property {module:model/PaymentIntentsPaymentIntent}
    */
   PaymentIntentsPaymentIntent,
-  /**
-   * The PermissionsApi service constructor.
-   * @property {module:api/PermissionsApi}
-   */
-  PermissionsApi,
+
   /**
    * The PractitionersIdBody model constructor.
    * @property {module:model/PractitionersIdBody}
    */
   PractitionersIdBody,
+
   /**
    * The PractitionersInviteBody model constructor.
    * @property {module:model/PractitionersInviteBody}
    */
   PractitionersInviteBody,
+
   /**
    * The PractitionersidPractitioner model constructor.
    * @property {module:model/PractitionersidPractitioner}
    */
   PractitionersidPractitioner,
+
   /**
    * The PractitionersidPractitionerAddressesAttributes model constructor.
    * @property {module:model/PractitionersidPractitionerAddressesAttributes}
    */
   PractitionersidPractitionerAddressesAttributes,
+
   /**
    * The PractitionersidPractitionerPhonesAttributes model constructor.
    * @property {module:model/PractitionersidPractitionerPhonesAttributes}
    */
   PractitionersidPractitionerPhonesAttributes,
+
   /**
    * The PractitionersinvitePractitioner model constructor.
    * @property {module:model/PractitionersinvitePractitioner}
    */
   PractitionersinvitePractitioner,
+
   /**
    * The PractitionersinvitePractitionerRenderingNpiAttributes model constructor.
    * @property {module:model/PractitionersinvitePractitionerRenderingNpiAttributes}
    */
   PractitionersinvitePractitionerRenderingNpiAttributes,
+
   /**
    * The ProductsBody model constructor.
    * @property {module:model/ProductsBody}
    */
   ProductsBody,
+
   /**
    * The ProductsIdBody model constructor.
    * @property {module:model/ProductsIdBody}
    */
   ProductsIdBody,
+
   /**
    * The ProductsProduct model constructor.
    * @property {module:model/ProductsProduct}
    */
   ProductsProduct,
+
   /**
    * The ProductsidProduct model constructor.
    * @property {module:model/ProductsidProduct}
    */
   ProductsidProduct,
+
   /**
    * The QuestionnairesBody model constructor.
    * @property {module:model/QuestionnairesBody}
    */
   QuestionnairesBody,
+
   /**
    * The QuestionnairesIdBody model constructor.
    * @property {module:model/QuestionnairesIdBody}
    */
   QuestionnairesIdBody,
+
   /**
    * The QuestionnairesQuestionnaire model constructor.
    * @property {module:model/QuestionnairesQuestionnaire}
    */
   QuestionnairesQuestionnaire,
+
   /**
    * The QuestionnairesQuestionnaireAnswersAttributes model constructor.
    * @property {module:model/QuestionnairesQuestionnaireAnswersAttributes}
    */
   QuestionnairesQuestionnaireAnswersAttributes,
+
   /**
    * The QuestionnairesQuestionnaireQuestionsAttributes model constructor.
    * @property {module:model/QuestionnairesQuestionnaireQuestionsAttributes}
    */
   QuestionnairesQuestionnaireQuestionsAttributes,
+
   /**
    * The QuestionnairesidQuestionnaire model constructor.
    * @property {module:model/QuestionnairesidQuestionnaire}
    */
   QuestionnairesidQuestionnaire,
+
   /**
    * The QuestionnairesidQuestionnaireAnswersAttributes model constructor.
    * @property {module:model/QuestionnairesidQuestionnaireAnswersAttributes}
    */
   QuestionnairesidQuestionnaireAnswersAttributes,
+
   /**
    * The QuestionnairesidQuestionnaireQuestionsAttributes model constructor.
    * @property {module:model/QuestionnairesidQuestionnaireQuestionsAttributes}
    */
   QuestionnairesidQuestionnaireQuestionsAttributes,
+
   /**
    * The SetupIntentsBody model constructor.
    * @property {module:model/SetupIntentsBody}
    */
   SetupIntentsBody,
+
   /**
    * The SetupIntentsSetupIntent model constructor.
    * @property {module:model/SetupIntentsSetupIntent}
    */
   SetupIntentsSetupIntent,
+
   /**
    * The SubmissionsLinkBody model constructor.
    * @property {module:model/SubmissionsLinkBody}
    */
   SubmissionsLinkBody,
+
   /**
    * The SubscriptionsBody model constructor.
    * @property {module:model/SubscriptionsBody}
    */
   SubscriptionsBody,
+
   /**
    * The SubscriptionsIdBody model constructor.
    * @property {module:model/SubscriptionsIdBody}
    */
   SubscriptionsIdBody,
+
   /**
    * The SubscriptionsSubscription model constructor.
    * @property {module:model/SubscriptionsSubscription}
    */
   SubscriptionsSubscription,
+
   /**
    * The SubscriptionsidSubscription model constructor.
    * @property {module:model/SubscriptionsidSubscription}
    */
   SubscriptionsidSubscription,
+
   /**
    * The SubscriptionsidSubscriptionPrices model constructor.
    * @property {module:model/SubscriptionsidSubscriptionPrices}
    */
   SubscriptionsidSubscriptionPrices,
+
   /**
    * The SubscriptionsidcancelSubscription model constructor.
    * @property {module:model/SubscriptionsidcancelSubscription}
    */
   SubscriptionsidcancelSubscription,
+
   /**
    * The SurveysSubmissionsBody model constructor.
    * @property {module:model/SurveysSubmissionsBody}
    */
   SurveysSubmissionsBody,
+
   /**
    * The SurveyssubmissionsSubmission model constructor.
    * @property {module:model/SurveyssubmissionsSubmission}
    */
   SurveyssubmissionsSubmission,
+
   /**
    * The SurveyssubmissionsSubmissionQuestions model constructor.
    * @property {module:model/SurveyssubmissionsSubmissionQuestions}
    */
   SurveyssubmissionsSubmissionQuestions,
+
   /**
    * The SurveyssubmissionsSubmissionResponses model constructor.
    * @property {module:model/SurveyssubmissionsSubmissionResponses}
    */
   SurveyssubmissionsSubmissionResponses,
+
   /**
    * The SurveyssubmissionslinkSubmission model constructor.
    * @property {module:model/SurveyssubmissionslinkSubmission}
    */
   SurveyssubmissionslinkSubmission,
+
   /**
    * The TargetsBody model constructor.
    * @property {module:model/TargetsBody}
    */
   TargetsBody,
+
   /**
    * The TargetsIdBody model constructor.
    * @property {module:model/TargetsIdBody}
    */
   TargetsIdBody,
+
   /**
    * The TargetsTarget model constructor.
    * @property {module:model/TargetsTarget}
    */
   TargetsTarget,
+
   /**
    * The TargetsTemplatesBody model constructor.
    * @property {module:model/TargetsTemplatesBody}
    */
   TargetsTemplatesBody,
+
   /**
    * The TargetsidTarget model constructor.
    * @property {module:model/TargetsidTarget}
    */
   TargetsidTarget,
+
   /**
    * The TargetstemplatesTargetTemplate model constructor.
    * @property {module:model/TargetstemplatesTargetTemplate}
    */
   TargetstemplatesTargetTemplate,
+
   /**
    * The TargetstemplatesidTargetTemplate model constructor.
    * @property {module:model/TargetstemplatesidTargetTemplate}
    */
   TargetstemplatesidTargetTemplate,
+
   /**
    * The TasksBody model constructor.
    * @property {module:model/TasksBody}
    */
   TasksBody,
+
   /**
    * The TasksIdBody model constructor.
    * @property {module:model/TasksIdBody}
    */
   TasksIdBody,
+
   /**
    * The TasksTask model constructor.
    * @property {module:model/TasksTask}
    */
   TasksTask,
+
   /**
    * The TasksTemplatesBody model constructor.
    * @property {module:model/TasksTemplatesBody}
    */
   TasksTemplatesBody,
+
   /**
    * The TasksidTask model constructor.
    * @property {module:model/TasksidTask}
    */
   TasksidTask,
+
   /**
    * The TaskstemplatesTaskTemplate model constructor.
    * @property {module:model/TaskstemplatesTaskTemplate}
    */
   TaskstemplatesTaskTemplate,
+
   /**
    * The TaskstemplatesidTaskTemplate model constructor.
    * @property {module:model/TaskstemplatesidTaskTemplate}
    */
   TaskstemplatesidTaskTemplate,
+
   /**
    * The TemplatesIdBody model constructor.
    * @property {module:model/TemplatesIdBody}
    */
   TemplatesIdBody,
+
   /**
    * The TemplatesIdBody1 model constructor.
    * @property {module:model/TemplatesIdBody1}
    */
   TemplatesIdBody1,
+
   /**
    * The TemplatesIdBody2 model constructor.
    * @property {module:model/TemplatesIdBody2}
    */
   TemplatesIdBody2,
+
   /**
    * The TemplatesIdBody3 model constructor.
    * @property {module:model/TemplatesIdBody3}
    */
   TemplatesIdBody3,
+
   /**
    * The TenantAdminsInviteBody model constructor.
    * @property {module:model/TenantAdminsInviteBody}
    */
   TenantAdminsInviteBody,
+
   /**
    * The TenantAdminsinviteTenantAdmin model constructor.
    * @property {module:model/TenantAdminsinviteTenantAdmin}
    */
   TenantAdminsinviteTenantAdmin,
+
   /**
    * The TypesIdBody model constructor.
    * @property {module:model/TypesIdBody}
    */
   TypesIdBody,
+
   /**
    * The WebhookEndpointsBody model constructor.
    * @property {module:model/WebhookEndpointsBody}
    */
   WebhookEndpointsBody,
+
   /**
    * The WebhookEndpointsIdBody model constructor.
    * @property {module:model/WebhookEndpointsIdBody}
    */
   WebhookEndpointsIdBody,
+
   /**
    * The WebhookEndpointsWebhookEndpoint model constructor.
    * @property {module:model/WebhookEndpointsWebhookEndpoint}
    */
   WebhookEndpointsWebhookEndpoint,
+
   /**
    * The WebhookEndpointsidWebhookEndpoint model constructor.
    * @property {module:model/WebhookEndpointsidWebhookEndpoint}
    */
   WebhookEndpointsidWebhookEndpoint,
+
   /**
    * The WorkflowsBody model constructor.
    * @property {module:model/WorkflowsBody}
    */
   WorkflowsBody,
+
   /**
    * The WorkflowsCareSuggestionsBody model constructor.
    * @property {module:model/WorkflowsCareSuggestionsBody}
    */
   WorkflowsCareSuggestionsBody,
+
   /**
    * The WorkflowsIdBody model constructor.
    * @property {module:model/WorkflowsIdBody}
    */
   WorkflowsIdBody,
+
   /**
    * The WorkflowsPersonalizationRuleSet model constructor.
    * @property {module:model/WorkflowsPersonalizationRuleSet}
    */
   WorkflowsPersonalizationRuleSet,
+
   /**
    * The WorkflowsPersonalizationRuleSetInputs model constructor.
    * @property {module:model/WorkflowsPersonalizationRuleSetInputs}
    */
   WorkflowsPersonalizationRuleSetInputs,
+
   /**
    * The WorkflowsPersonalizationRuleSetNodes model constructor.
    * @property {module:model/WorkflowsPersonalizationRuleSetNodes}
    */
   WorkflowsPersonalizationRuleSetNodes,
+
   /**
    * The WorkflowsPersonalizationRuleSetRules model constructor.
    * @property {module:model/WorkflowsPersonalizationRuleSetRules}
    */
   WorkflowsPersonalizationRuleSetRules,
+
   /**
    * The WorkflowsRunBody model constructor.
    * @property {module:model/WorkflowsRunBody}
    */
-  WorkflowsPersonalizationRuleSetTargets,
+  WorkflowsRunBody,
+
   /**
    * The WorkflowscareSuggestionsWorkflow model constructor.
    * @property {module:model/WorkflowscareSuggestionsWorkflow}
    */
   WorkflowscareSuggestionsWorkflow,
+
   /**
    * The APICredentialsApi service constructor.
    * @property {module:api/APICredentialsApi}
    */
   APICredentialsApi,
+
   /**
    * The AppointmentTypesApi service constructor.
    * @property {module:api/AppointmentTypesApi}
    */
   AppointmentTypesApi,
+
   /**
    * The AppointmentsApi service constructor.
    * @property {module:api/AppointmentsApi}
    */
   AppointmentsApi,
+
   /**
    * The AttachmentsApi service constructor.
    * @property {module:api/AttachmentsApi}
    */
   AttachmentsApi,
+
   /**
    * The AvailabilityApi service constructor.
    * @property {module:api/AvailabilityApi}
    */
   AvailabilityApi,
+
   /**
    * The CPTCodesApi service constructor.
    * @property {module:api/CPTCodesApi}
    */
   CPTCodesApi,
+
   /**
    * The CalendarsApi service constructor.
    * @property {module:api/CalendarsApi}
    */
   CalendarsApi,
+
   /**
    * The CarePlanTemplatesApi service constructor.
    * @property {module:api/CarePlanTemplatesApi}
    */
   CarePlanTemplatesApi,
+
   /**
    * The CarePlansApi service constructor.
    * @property {module:api/CarePlansApi}
    */
   CarePlansApi,
+
   /**
    * The CasesApi service constructor.
    * @property {module:api/CasesApi}
    */
   CasesApi,
+
   /**
    * The CompoundsApi service constructor.
    * @property {module:api/CompoundsApi}
    */
   CompoundsApi,
+
   /**
    * The ConversationsApi service constructor.
    * @property {module:api/ConversationsApi}
    */
   ConversationsApi,
+
   /**
    * The EligibilitiesApi service constructor.
    * @property {module:api/EligibilitiesApi}
    */
   EligibilitiesApi,
+
   /**
    * The EncountersApi service constructor.
    * @property {module:api/EncountersApi}
    */
   EncountersApi,
+
   /**
    * The EthnicitiesApi service constructor.
    * @property {module:api/EthnicitiesApi}
    */
   EthnicitiesApi,
+
   /**
    * The EventsApi service constructor.
    * @property {module:api/EventsApi}
    */
   EventsApi,
+
   /**
    * The GoalTemplatesApi service constructor.
    * @property {module:api/GoalTemplatesApi}
    */
   GoalTemplatesApi,
+
   /**
    * The GoalsApi service constructor.
    * @property {module:api/GoalsApi}
    */
   GoalsApi,
+
   /**
    * The ICDCodesApi service constructor.
    * @property {module:api/ICDCodesApi}
    */
   ICDCodesApi,
+
   /**
    * The InsuranceClaimsApi service constructor.
    * @property {module:api/InsuranceClaimsApi}
    */
   InsuranceClaimsApi,
+
   /**
    * The InsurancePoliciesApi service constructor.
    * @property {module:api/InsurancePoliciesApi}
    */
   InsurancePoliciesApi,
+
   /**
    * The IntegrationsApi service constructor.
    * @property {module:api/IntegrationsApi}
    */
   IntegrationsApi,
+
   /**
    * The LabTestOrdersApi service constructor.
    * @property {module:api/LabTestOrdersApi}
    */
   LabTestOrdersApi,
+
   /**
    * The LabTestsApi service constructor.
    * @property {module:api/LabTestsApi}
    */
   LabTestsApi,
+
   /**
    * The LeadsApi service constructor.
    * @property {module:api/LeadsApi}
    */
   LeadsApi,
+
   /**
    * The MedicationOrdersApi service constructor.
    * @property {module:api/MedicationOrdersApi}
    */
   MedicationOrdersApi,
+
   /**
    * The MedicationsApi service constructor.
    * @property {module:api/MedicationsApi}
    */
   MedicationsApi,
+
   /**
    * The ObservationTypesApi service constructor.
    * @property {module:api/ObservationTypesApi}
    */
   ObservationTypesApi,
+
   /**
    * The ObservationsApi service constructor.
    * @property {module:api/ObservationsApi}
    */
   ObservationsApi,
+
   /**
    * The OrdersApi service constructor.
    * @property {module:api/OrdersApi}
    */
   OrdersApi,
+
   /**
    * The OrganizationsApi service constructor.
    * @property {module:api/OrganizationsApi}
    */
   OrganizationsApi,
+
   /**
    * The PatientLabTestsApi service constructor.
    * @property {module:api/PatientLabTestsApi}
    */
   PatientLabTestsApi,
+
   /**
    * The PatientMedicationsApi service constructor.
    * @property {module:api/PatientMedicationsApi}
    */
   PatientMedicationsApi,
-  /**
-   * The PatientPrescriptionsApi service constructor.
-   * @property {module:api/PatientPrescriptionsApi}
-   */
-  PatientPrescriptionsApi,
+
   /**
    * The PatientRelatedPersonsApi service constructor.
    * @property {module:api/PatientRelatedPersonsApi}
    */
   PatientRelatedPersonsApi,
+
   /**
    * The PatientsApi service constructor.
    * @property {module:api/PatientsApi}
    */
   PatientsApi,
+
   /**
    * The PayerIdentificationsApi service constructor.
    * @property {module:api/PayerIdentificationsApi}
    */
   PayerIdentificationsApi,
+
   /**
    * The PaymentIntentApi service constructor.
    * @property {module:api/PaymentIntentApi}
    */
   PaymentIntentApi,
+
   /**
    * The PaymentsApi service constructor.
    * @property {module:api/PaymentsApi}
    */
   PaymentsApi,
+
+  /**
+   * The PermissionsApi service constructor.
+   * @property {module:api/PermissionsApi}
+   */
+  PermissionsApi,
+
   /**
    * The PharmaciesApi service constructor.
    * @property {module:api/PharmaciesApi}
    */
   PharmaciesApi,
+
+  /**
+   * The PhotonHealthPrescriptionsApi service constructor.
+   * @property {module:api/PhotonHealthPrescriptionsApi}
+   */
+  PhotonHealthPrescriptionsApi,
+
   /**
    * The PractitionersApi service constructor.
    * @property {module:api/PractitionersApi}
    */
   PractitionersApi,
+
   /**
    * The PrescriptionsApi service constructor.
    * @property {module:api/PrescriptionsApi}
    */
   PrescriptionsApi,
+
   /**
    * The ProductsApi service constructor.
    * @property {module:api/ProductsApi}
    */
   ProductsApi,
+
   /**
    * The PromotionCodesApi service constructor.
    * @property {module:api/PromotionCodesApi}
    */
   PromotionCodesApi,
+
   /**
    * The QuestionnairesApi service constructor.
    * @property {module:api/QuestionnairesApi}
    */
   QuestionnairesApi,
+
   /**
    * The RacesApi service constructor.
    * @property {module:api/RacesApi}
    */
   RacesApi,
+
   /**
    * The SetupIntentsApi service constructor.
    * @property {module:api/SetupIntentsApi}
    */
   SetupIntentsApi,
+
   /**
    * The SubmissionsApi service constructor.
    * @property {module:api/SubmissionsApi}
    */
   SubmissionsApi,
+
   /**
    * The SubscriptionPlansApi service constructor.
    * @property {module:api/SubscriptionPlansApi}
    */
   SubscriptionPlansApi,
+
   /**
    * The SubscriptionsApi service constructor.
    * @property {module:api/SubscriptionsApi}
    */
   SubscriptionsApi,
+
   /**
    * The SurveysApi service constructor.
    * @property {module:api/SurveysApi}
    */
   SurveysApi,
+
   /**
    * The TagsApi service constructor.
    * @property {module:api/TagsApi}
    */
   TagsApi,
+
   /**
    * The TargetTemplatesApi service constructor.
    * @property {module:api/TargetTemplatesApi}
    */
   TargetTemplatesApi,
+
   /**
    * The TargetsApi service constructor.
    * @property {module:api/TargetsApi}
    */
   TargetsApi,
+
   /**
    * The TaskTemplatesApi service constructor.
    * @property {module:api/TaskTemplatesApi}
    */
   TaskTemplatesApi,
+
   /**
    * The TasksApi service constructor.
    * @property {module:api/TasksApi}
    */
   TasksApi,
+
   /**
    * The TenantAdminsApi service constructor.
    * @property {module:api/TenantAdminsApi}
    */
   TenantAdminsApi,
+
   /**
    * The UsersApi service constructor.
    * @property {module:api/UsersApi}
    */
   UsersApi,
+
   /**
    * The VideoCallsApi service constructor.
    * @property {module:api/VideoCallsApi}
    */
   VideoCallsApi,
+
   /**
    * The WebhooksApi service constructor.
    * @property {module:api/WebhooksApi}
    */
   WebhooksApi,
+
   /**
    * The WorkflowLogsApi service constructor.
    * @property {module:api/WorkflowLogsApi}
    */
   WorkflowLogsApi,
+
   /**
    * The WorkflowsApi service constructor.
    * @property {module:api/WorkflowsApi}

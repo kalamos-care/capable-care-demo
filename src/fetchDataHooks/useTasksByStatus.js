@@ -4,10 +4,7 @@ import fetcher from "./fetcher";
 
 // Fetch the patient's tasks by week. Takes a tag as an argument.
 export default function useTasksByStatus() {
-  const { data, error } = useSWR(
-    ["Task", "list", { page: 1, size: 10 }],
-    fetcher
-  );
+  const { data, error } = useSWR(["Task", "list", { page: 1, size: 10 }], fetcher);
 
   if (error) {
     Sentry.captureException(error);

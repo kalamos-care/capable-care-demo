@@ -6,11 +6,7 @@ function HeaderText(props) {
   const { tokens } = useTheme();
 
   return (
-    <Heading
-      textAlign="center"
-      padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
-      level={4}
-    >
+    <Heading textAlign="center" padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`} level={4}>
       {props.children}
     </Heading>
   );

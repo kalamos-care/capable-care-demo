@@ -44,8 +44,6 @@ export class InsuranceClaimsInsuranceClaimInsuranceClaimLineDiagnosesAttributes 
         obj.icdCode = ApiClient.convertToType(data["icd_code"], "String");
       if (data.hasOwnProperty("icd_code_id"))
         obj.icdCodeId = ApiClient.convertToType(data["icd_code_id"], "String");
-      if (data.hasOwnProperty("_destroy"))
-        obj.destroy = ApiClient.convertToType(data["_destroy"], "Boolean");
     }
     return obj;
   }
@@ -70,9 +68,3 @@ InsuranceClaimsInsuranceClaimInsuranceClaimLineDiagnosesAttributes.prototype.icd
  * @member {String} icdCodeId
  */
 InsuranceClaimsInsuranceClaimInsuranceClaimLineDiagnosesAttributes.prototype.icdCodeId = undefined;
-
-/**
- * Delete insurance claim line diagnosis
- * @member {Boolean} destroy
- */
-InsuranceClaimsInsuranceClaimInsuranceClaimLineDiagnosesAttributes.prototype.destroy = undefined;

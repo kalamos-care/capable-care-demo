@@ -14,7 +14,7 @@
  */
 import { ApiClient } from "../ApiClient";
 import { WorkflowsPersonalizationRuleSetInputs } from "./WorkflowsPersonalizationRuleSetInputs";
-import { WorkflowsPersonalizationRuleSetTargets } from "./WorkflowsPersonalizationRuleSetTargets";
+import { AnyOfworkflowsPersonalizationRuleSetNodesTargetsItems } from "./AnyOfworkflowsPersonalizationRuleSetNodesTargetsItems";
 
 /**
  * The WorkflowsPersonalizationRuleSetNodes model module.
@@ -28,7 +28,7 @@ export class WorkflowsPersonalizationRuleSetNodes {
    * @class
    * @param name {String} Name of the rule
    * @param inputs {Array.<module:model/WorkflowsPersonalizationRuleSetInputs>} Conditions for the workflow to meet in order to generate suggestions
-   * @param targets {Array.<module:model/WorkflowsPersonalizationRuleSetTargets>} Suggestions to generate if conditions are met
+   * @param targets {Array.<Object>} Suggestions to generate if conditions are met
    * @param id {String}
    */
   constructor(name, inputs, targets, id) {
@@ -57,7 +57,7 @@ export class WorkflowsPersonalizationRuleSetNodes {
         ]);
       if (data.hasOwnProperty("targets"))
         obj.targets = ApiClient.convertToType(data["targets"], [
-          WorkflowsPersonalizationRuleSetTargets,
+          AnyOfworkflowsPersonalizationRuleSetNodesTargetsItems,
         ]);
       if (data.hasOwnProperty("parent_id"))
         obj.parentId = ApiClient.convertToType(data["parent_id"], "String");
@@ -105,7 +105,7 @@ WorkflowsPersonalizationRuleSetNodes.prototype.inputs = undefined;
 
 /**
  * Suggestions to generate if conditions are met
- * @member {Array.<module:model/WorkflowsPersonalizationRuleSetTargets>} targets
+ * @member {Array.<Object>} targets
  */
 WorkflowsPersonalizationRuleSetNodes.prototype.targets = undefined;
 

@@ -21,9 +21,7 @@ export const ConversationsList = ({
   pageSize?: number;
 }) => {
   const [pageIndex, setPageIndex] = useState<number>(0);
-  const [selectedConversations, setSelectedConversations] = useState<
-    ConversationWithMessage[]
-  >([]);
+  const [selectedConversations, setSelectedConversations] = useState<ConversationWithMessage[]>([]);
 
   useEffect(() => {
     const selectedConversations = conversations.slice(
@@ -33,39 +31,33 @@ export const ConversationsList = ({
     setSelectedConversations(selectedConversations);
   }, [conversations, pageIndex, pageSize]);
 
-  const conversationList = selectedConversations.map(
-    (selectedConversation, i) => {
-      const {
-        twilioConversation,
-        barnardConversation,
-        lastMessage,
-      }: {
-        twilioConversation: Conversation;
-        barnardConversation: BarnardConversation;
-        lastMessage: Message;
-      } = selectedConversation;
-      return (
-        <ConversationPreview
-          key={twilioConversation.sid}
-          twilioConversation={twilioConversation}
-          barnardConversation={barnardConversation}
-          lastMessage={lastMessage}
-          participants={participants}
-          top={i === 0}
-          bottom={
-            i === Math.min(pageSize - 1, selectedConversations.length - 1)
-          }
-        />
-      );
-    }
-  );
+  const conversationList = selectedConversations.map((selectedConversation, i) => {
+    const {
+      twilioConversation,
+      barnardConversation,
+      lastMessage,
+    }: {
+      twilioConversation: Conversation;
+      barnardConversation: BarnardConversation;
+      lastMessage: Message;
+    } = selectedConversation;
+    return (
+      <ConversationPreview
+        key={twilioConversation.sid}
+        twilioConversation={twilioConversation}
+        barnardConversation={barnardConversation}
+        lastMessage={lastMessage}
+        participants={participants}
+        top={i === 0}
+        bottom={i === Math.min(pageSize - 1, selectedConversations.length - 1)}
+      />
+    );
+  });
 
   return (
     <>
       {selectedConversations.length > 0 ? (
-        <Box sx={{ height: "100%", overflow: "auto" }}>
-          {conversationList}
-        </Box>
+        <Box sx={{ height: "100%", overflow: "auto" }}>{conversationList}</Box>
       ) : (
         zeroState
       )}

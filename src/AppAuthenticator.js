@@ -168,14 +168,8 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
       />
     );
 
-    const InputButton = ({
-      submitText,
-      showConsentMessage,
-      showConsentCheck,
-    }) => {
-      const [checked, setChecked] = useState(
-        showConsentCheck && showConsentCheck ? false : true
-      );
+    const InputButton = ({ submitText, showConsentMessage, showConsentCheck }) => {
+      const [checked, setChecked] = useState(showConsentCheck && showConsentCheck ? false : true);
 
       const consentText = `By submitting your phone number, you consent to receive a one-time login code from ${process.env.REACT_APP_NAME} at the number provided. Message and data rates may apply.`;
       const ConsentText = showConsentCheck ? (
@@ -318,9 +312,7 @@ function getInitialAuthFlow() {
   ) {
     return window.location.href.includes(PASSWORDLESS)
       ? PASSWORDLESS
-      : [CREDENTIALS, PASSWORDLESS].includes(
-          process.env.REACT_APP_DEFAULT_AUTH_FLOW
-        )
+      : [CREDENTIALS, PASSWORDLESS].includes(process.env.REACT_APP_DEFAULT_AUTH_FLOW)
       ? process.env.REACT_APP_DEFAULT_AUTH_FLOW
       : CREDENTIALS;
   } else if (process.env.REACT_APP_ENABLE_PASSWORDLESS === "true") {
@@ -348,10 +340,7 @@ function AppAuthenticator(props) {
         userPoolWebClientId,
       };
 
-      const tenantMigration = !!ldClient.variation(
-        "tenant-test-migration",
-        false
-      );
+      const tenantMigration = !!ldClient.variation("tenant-test-migration", false);
       if (tenantMigration && authFlow === CREDENTIALS) {
         // This is important for allowing the migration
         // It should be removed once the migration is complete
@@ -424,16 +413,9 @@ function AppAuthenticator(props) {
 
   // This allows to switch back and forth between passwordless auth and credentials auth
   return authFlow === PASSWORDLESS ? (
-    <PasswordlessAuthenticator
-      children={props.children}
-      hideSignUp={hideSignUp}
-    />
+    <PasswordlessAuthenticator children={props.children} hideSignUp={hideSignUp} />
   ) : (
-    <Authenticator
-      formFields={formFieldConfig}
-      components={authComponents}
-      hideSignUp={hideSignUp}
-    >
+    <Authenticator formFields={formFieldConfig} components={authComponents} hideSignUp={hideSignUp}>
       {props.children}
     </Authenticator>
   );

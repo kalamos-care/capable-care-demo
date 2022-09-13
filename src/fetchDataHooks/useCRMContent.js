@@ -42,7 +42,5 @@ const fetchCRMContent = async (capableObject) => {
 // Example: const currentPlan = useCRMContent(props.currentCarePlan);
 export default function useCRMContent(capableObject) {
   const cms_entry_id = capableObject?.cms_entry_id;
-  return useQuery([ReactQueryKeys.CMS_ENTRY, cms_entry_id], () =>
-    fetchCRMContent(capableObject)
-  );
+  return useQuery([ReactQueryKeys.CMS_ENTRY, cms_entry_id], () => fetchCRMContent(capableObject));
 }

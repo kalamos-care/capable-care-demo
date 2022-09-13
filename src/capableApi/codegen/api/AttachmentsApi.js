@@ -13,7 +13,6 @@
  *
  */
 import { ApiClient } from "../ApiClient";
-import { AttachmentsAttachment } from "../model/AttachmentsAttachment";
 
 /**
  * Attachments service.
@@ -149,7 +148,10 @@ export class AttachmentsApi {
    * Create a file
    * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Patient&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#9989; Practitioner&lt;/p&gt;
    * @param {Object} opts Optional parameters
-   * @param {module:model/AttachmentsAttachment} opts.attachment
+   * @param {String} opts.userId
+   * @param {String} opts.description
+   * @param {String} opts.fileType
+   * @param {Blob} opts.file
    * @param {module:api/AttachmentsApi~attachmentsPostCallback} callback The callback function, accepting three arguments: error, data, response
    */
   attachmentsPost(opts, callback) {
@@ -160,7 +162,10 @@ export class AttachmentsApi {
     let queryParams = {};
     let headerParams = {};
     let formParams = {
-      attachment: opts["attachment"],
+      user_id: opts["userId"],
+      description: opts["description"],
+      file_type: opts["fileType"],
+      file: opts["file"],
     };
 
     let authNames = [];

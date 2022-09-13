@@ -9,9 +9,7 @@ import useCurrentPatient from "fetchDataHooks/useCurrentPatient";
 const ConversationsContainer = () => {
   const { currentPatient: patient } = useCurrentPatient();
 
-  const { conversations, participants, isLoading, isError } = useConversations(
-    patient as Patient
-  );
+  const { conversations, participants, isLoading, isError } = useConversations(patient as Patient);
 
   if (isLoading) {
     return (

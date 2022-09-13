@@ -46,10 +46,7 @@ export default function configureAuthenticator() {
     "--amplify-colors-brand-primary-100",
     process.env.REACT_APP_COLOR
   );
-  document.documentElement.style.setProperty(
-    "--amplify-components-card-padding",
-    "none"
-  );
+  document.documentElement.style.setProperty("--amplify-components-card-padding", "none");
 }
 
 // Configuration for the form fields on the authorization screens. Further info:

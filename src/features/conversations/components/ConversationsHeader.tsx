@@ -12,12 +12,7 @@ const ConversationsHeader = () => (
       }}
     />
 
-    <Typography
-      marginBottom={0.2}
-      color="common.white"
-      variant="h5"
-      component="h1"
-    >
+    <Typography marginBottom={0.2} color="common.white" variant="h5" component="h1">
       Chat
     </Typography>
   </PrimaryHeader>

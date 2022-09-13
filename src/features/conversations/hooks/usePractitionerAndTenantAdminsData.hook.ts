@@ -40,9 +40,8 @@ const getPractitionersAndTenantAdminsData = async () => {
 };
 
 export const usePractitionerAndTenantAdminsData = () => {
-  const query = useQuery(
-    [ReactQueryKeys.PRACTITIONERS_AND_TENANT_ADMINS_DATA],
-    () => getPractitionersAndTenantAdminsData()
+  const query = useQuery([ReactQueryKeys.PRACTITIONERS_AND_TENANT_ADMINS_DATA], () =>
+    getPractitionersAndTenantAdminsData()
   );
 
   return {

@@ -1,10 +1,4 @@
-import {
-  Box,
-  CardContent,
-  LinearProgress,
-  Skeleton,
-  Typography,
-} from "@mui/material";
+import { Box, CardContent, LinearProgress, Skeleton, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useAtom } from "jotai";
 
@@ -26,9 +20,7 @@ const CarePlan = ({ carePlan, completedGoalsCount, openGoalsCount }) => {
     >
       <LinearProgress
         variant="determinate"
-        value={
-          (completedGoalsCount / (completedGoalsCount + openGoalsCount)) * 100
-        }
+        value={(completedGoalsCount / (completedGoalsCount + openGoalsCount)) * 100}
       />
       <CardContent sx={{ paddingBottom: 0 }}>
         <Typography variant="subtitle" sx={{ letterSpacing: "0.01rem" }}>
@@ -72,11 +64,7 @@ const CarePlansForStatus = ({ status, carePlans, goals }) => {
 };
 
 export default function CarePlans() {
-  const {
-    carePlans,
-    isLoading: isLoadingCarePlans,
-    isError: isErrorCarePlans,
-  } = useCarePlans();
+  const { carePlans, isLoading: isLoadingCarePlans, isError: isErrorCarePlans } = useCarePlans();
   const {
     goals,
     isLoading: isLoadingGoalsByStatus,
@@ -91,28 +79,16 @@ export default function CarePlans() {
     return <div>Woops something went wrong...</div>;
   }
 
-  const activeCarePlans = carePlans.filter(
-    (carePlan) => carePlan.status === "active"
-  );
+  const activeCarePlans = carePlans.filter((carePlan) => carePlan.status === "active");
   const ActiveCarePlans =
     activeCarePlans.length > 0 ? (
-      <CarePlansForStatus
-        status={"Active"}
-        carePlans={activeCarePlans}
-        goals={goals}
-      />
+      <CarePlansForStatus status={"Active"} carePlans={activeCarePlans} goals={goals} />
     ) : null;
 
-  const completedCarePlans = carePlans.filter(
-    (carePlan) => carePlan.status === "completed"
-  );
+  const completedCarePlans = carePlans.filter((carePlan) => carePlan.status === "completed");
   const CompletedCarePlans =
     completedCarePlans.length > 0 ? (
-      <CarePlansForStatus
-        status={"Completed"}
-        carePlans={completedCarePlans}
-        goals={goals}
-      />
+      <CarePlansForStatus status={"Completed"} carePlans={completedCarePlans} goals={goals} />
     ) : null;
 
   return (

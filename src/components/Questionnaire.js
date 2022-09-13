@@ -23,23 +23,39 @@ Survey.Serializer.addProperty("question", {
 });
 
 /*
-** Take Capable API data and transform it fo the SurveyJS lib
-*/
+ ** Take Capable API data and transform it fo the SurveyJS lib
+ */
 const CapableSurveyJSQuestionTypeMappings = {
-  "CommentQuestion": { type: "comment" },
-  "MultipleChoiceQuestion": { type: "checkbox" },
-  "EmailQuestion": { type: "text", inputType: "email", validators: [{ type: "email" }] },
-  "InformationQuestion": { type: "text", inputType: "hidden" },
-  "NumberQuestion": { type: "text", inputType: "number", validators: [{ type: "numeric" }] },
-  "PhoneNumberQuestion": { type: "text", inputMask: "phone", inputFormat: "(999)-999-9999" },
-  "ScaleQuestion": { type: "rating" },
-  "SingleChoiceQuestion": { type: "radiogroup" },
-  "DateQuestion": { type: "text", inputMask: "datetime", inputFormat:"mm/dd/yyyy"}
+  CommentQuestion: { type: "comment" },
+  MultipleChoiceQuestion: { type: "checkbox" },
+  EmailQuestion: {
+    type: "text",
+    inputType: "email",
+    validators: [{ type: "email" }],
+  },
+  InformationQuestion: { type: "text", inputType: "hidden" },
+  NumberQuestion: {
+    type: "text",
+    inputType: "number",
+    validators: [{ type: "numeric" }],
+  },
+  PhoneNumberQuestion: {
+    type: "text",
+    inputMask: "phone",
+    inputFormat: "(999)-999-9999",
+  },
+  ScaleQuestion: { type: "rating" },
+  SingleChoiceQuestion: { type: "radiogroup" },
+  DateQuestion: {
+    type: "text",
+    inputMask: "datetime",
+    inputFormat: "mm/dd/yyyy",
+  },
   // "HiddenQuestion": TODO
 };
 
 const deserializeQuestion = (question) => {
-  const existing_mapping = CapableSurveyJSQuestionTypeMappings[question.type]
+  const existing_mapping = CapableSurveyJSQuestionTypeMappings[question.type];
   if (!existing_mapping) {
     return {};
   }
@@ -48,7 +64,7 @@ const deserializeQuestion = (question) => {
   let otherAnswerId;
 
   if (question.metadata.attributes?.hasOther) {
-    choices = choices.filter(choice => {
+    choices = choices.filter((choice) => {
       if (choice.title === "__OTHER__") {
         otherAnswerId = choice.id;
         return false;
@@ -64,15 +80,18 @@ const deserializeQuestion = (question) => {
     capableId: question.id,
     otherAnswerId: otherAnswerId,
     choices: choices.map(deserializeAnswer),
-    ...question.metadata.attributes
-  }
+    ...question.metadata.attributes,
+  };
 };
 
-const deserializeAnswer = answer => ({ value: answer.id, text: answer.title });
+const deserializeAnswer = (answer) => ({
+  value: answer.id,
+  text: answer.title,
+});
 
 /*
-** Take SurveyJS data and transform it for Capable API
-*/
+ ** Take SurveyJS data and transform it for Capable API
+ */
 const serializeResult = (question, result) => {
   const serializedResponse = {};
 
@@ -84,35 +103,38 @@ const serializeResult = (question, result) => {
   } else if (question.displayValue !== result) {
     // If displayed differ from value, it's an answer pick
     // displayed is the title, value is the answer id
-      serializedResponse.answer_id = stringResult;
+    serializedResponse.answer_id = stringResult;
   } else {
     serializedResponse.content = stringResult;
   }
 
   return serializedResponse;
-}
+};
 
 const serializeResults = (results) => {
   const serializedResults = [];
 
   Object.entries(results.data).forEach(([question_key, values]) => {
     const question = results.getQuestionByValueName(question_key);
-    
+
     if (!question) {
       return;
     }
 
-    const serializedQuestionResponses = { id: question.capableId, responses: [] };
+    const serializedQuestionResponses = {
+      id: question.capableId,
+      responses: [],
+    };
 
     if (!Array.isArray(values)) {
       values = [values];
     }
 
-    values.forEach(value => {
+    values.forEach((value) => {
       serializedQuestionResponses["responses"].push(serializeResult(question, value));
     });
 
-    serializedResults.push(serializedQuestionResponses)
+    serializedResults.push(serializedQuestionResponses);
   });
 
   return serializedResults;
@@ -133,10 +155,12 @@ const PostQuestionnaire = () => {
 }
 
 const Questionnaire = ({ survey }) => {
-  const grouped_questions = groupBy(survey.questions, question => question.metadata.page);
-  const ordered_pages = sortBy(Object.entries(grouped_questions), (page_number, _questions) => parseInt(page_number));
+  const grouped_questions = groupBy(survey.questions, (question) => question.metadata.page);
+  const ordered_pages = sortBy(Object.entries(grouped_questions), (page_number, _questions) =>
+    parseInt(page_number)
+  );
   const pages = ordered_pages.map(([_, questions]) => {
-    const title = compact(questions.map(question => question.metadata.page_title))[0];
+    const title = compact(questions.map((question) => question.metadata.page_title))[0];
     const page_questions = questions.map(deserializeQuestion);
 
     return { title: title, questions: page_questions };
@@ -170,9 +194,7 @@ const Questionnaire = ({ survey }) => {
 
   surveyModel.onComplete.add(onComplete);
 
-  return (
-    <Survey.Survey model={surveyModel} />
-  );
-}
+  return <Survey.Survey model={surveyModel} />;
+};
 
-export default memo(Questionnaire)
+export default memo(Questionnaire);

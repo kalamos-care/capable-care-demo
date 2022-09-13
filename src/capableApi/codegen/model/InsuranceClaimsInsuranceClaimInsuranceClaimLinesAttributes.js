@@ -49,8 +49,6 @@ export class InsuranceClaimsInsuranceClaimInsuranceClaimLinesAttributes {
         obj.chargeAmount = ApiClient.convertToType(data["charge_amount"], "Number");
       if (data.hasOwnProperty("units"))
         obj.units = ApiClient.convertToType(data["units"], "String");
-      if (data.hasOwnProperty("_destroy"))
-        obj.destroy = ApiClient.convertToType(data["_destroy"], "Boolean");
       if (data.hasOwnProperty("insurance_claim_line_diagnoses_attributes"))
         obj.insuranceClaimLineDiagnosesAttributes = ApiClient.convertToType(
           data["insurance_claim_line_diagnoses_attributes"],
@@ -111,12 +109,6 @@ InsuranceClaimsInsuranceClaimInsuranceClaimLinesAttributes.UnitsEnum = {
  * @member {module:model/InsuranceClaimsInsuranceClaimInsuranceClaimLinesAttributes.UnitsEnum} units
  */
 InsuranceClaimsInsuranceClaimInsuranceClaimLinesAttributes.prototype.units = undefined;
-
-/**
- * Delete insurance claim line and associated claim line diagnoses
- * @member {Boolean} destroy
- */
-InsuranceClaimsInsuranceClaimInsuranceClaimLinesAttributes.prototype.destroy = undefined;
 
 /**
  * @member {Array.<module:model/InsuranceClaimsInsuranceClaimInsuranceClaimLineDiagnosesAttributes>} insuranceClaimLineDiagnosesAttributes

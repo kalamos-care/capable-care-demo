@@ -1,20 +1,12 @@
 import * as Sentry from "@sentry/react";
-import {
-  Grid,
-  TextField,
-  ToggleButton,
-  ToggleButtonGroup,
-  Typography,
-} from "@mui/material";
+import { Grid, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import { WELLNESS_MAPPING } from "./WellnessEmoji";
 
 // Component to wrap the input field in a label.
 const LabelWrapper = ({ label, children }) => (
   <Grid container spacing={1}>
     <Grid item xs={6} sx={{ display: "flex", alignItems: "center" }}>
-      <Typography
-        sx={{ fontSize: "0.9rem", paddingY: "auto", marginLeft: "1rem" }}
-      >
+      <Typography sx={{ fontSize: "0.9rem", paddingY: "auto", marginLeft: "1rem" }}>
         {label}
       </Typography>
     </Grid>
@@ -49,9 +41,7 @@ const StringInput = (props) => <StyledTextField type="text" {...props} />;
 const IntegerInput = (props) => <StyledTextField type="number" {...props} />;
 
 // Renders the input field for a float.
-const FloatInput = (props) => (
-  <StyledTextField type="number" step="0.001" {...props} />
-);
+const FloatInput = (props) => <StyledTextField type="number" step="0.001" {...props} />;
 
 // Renders the input field for a boolean.
 // The Capable API returns 't' as true and 'f' as false, keeping it the same here.
@@ -70,13 +60,7 @@ const BooleanInput = (props) => {
 };
 
 // Renders the input field for an data with a little styling..
-export const DateInput = ({
-  label,
-  value,
-  handleInputChange,
-  dateType = "datetime-local",
-  sx,
-}) => {
+export const DateInput = ({ label, value, handleInputChange, dateType = "datetime-local", sx }) => {
   const styling = {
     borderStyle: "solid",
     borderRadius: "0.2rem",
@@ -99,21 +83,14 @@ export const DateInput = ({
   return (
     <Grid container spacing={1}>
       <Grid item xs={5} sx={{ display: "flex", alignItems: "center" }}>
-        <Typography
-          sx={{ fontSize: "0.9rem", paddingY: "auto", marginLeft: "1rem" }}
-        >
+        <Typography sx={{ fontSize: "0.9rem", paddingY: "auto", marginLeft: "1rem" }}>
           {label}
         </Typography>
       </Grid>
 
       <Grid item xs={7} sx={{ textAlign: "right" }}>
         {/* NOTE: max & min are not supported by Safari, install a date picker library if support is required */}
-        <input
-          max={today}
-          style={styling}
-          type={dateType}
-          onChange={handleInputChange}
-        />
+        <input max={today} style={styling} type={dateType} onChange={handleInputChange} />
       </Grid>
     </Grid>
   );
@@ -124,10 +101,7 @@ export const DateInput = ({
 const WellnessInput = ({ label, value, handleInputChange }) => {
   return (
     <>
-      <Typography sx={{ fontSize: "0.9rem", margin: "0.5rem" }}>
-        {" "}
-        {label}:{" "}
-      </Typography>
+      <Typography sx={{ fontSize: "0.9rem", margin: "0.5rem" }}> {label}: </Typography>
       <ToggleButtonGroup
         value={value}
         color="primary"
@@ -173,13 +147,7 @@ const InputField = ({ dataType, label, value, handleChange }) => {
         </LabelWrapper>
       );
     case "datetime":
-      return (
-        <DateInput
-          label={label}
-          value={value}
-          handleInputChange={handleChange}
-        />
-      );
+      return <DateInput label={label} value={value} handleInputChange={handleChange} />;
     case "string":
       return (
         <LabelWrapper label={label}>
@@ -187,13 +155,7 @@ const InputField = ({ dataType, label, value, handleChange }) => {
         </LabelWrapper>
       );
     case "wellness":
-      return (
-        <WellnessInput
-          label={label}
-          value={value}
-          handleInputChange={handleChange}
-        />
-      );
+      return <WellnessInput label={label} value={value} handleInputChange={handleChange} />;
     default:
       // Throw and error and report to Sentry
       console.error(`Unsupported input dataType: ${dataType}`);
@@ -202,14 +164,7 @@ const InputField = ({ dataType, label, value, handleChange }) => {
 };
 
 const ObservationField = ({ value, dataType, label, handleChange }) => {
-  return (
-    <InputField
-      label={label}
-      value={value}
-      dataType={dataType}
-      handleChange={handleChange}
-    />
-  );
+  return <InputField label={label} value={value} dataType={dataType} handleChange={handleChange} />;
 };
 
 export default ObservationField;

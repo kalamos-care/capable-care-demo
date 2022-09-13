@@ -61,7 +61,9 @@ export class TenantAdminsinviteTenantAdmin {
       if (data.hasOwnProperty("tenant_id"))
         obj.tenantId = ApiClient.convertToType(data["tenant_id"], "String");
       if (data.hasOwnProperty("metadata"))
-        obj.metadata = ApiClient.convertToType(data["metadata"], { String: Object });
+        obj.metadata = ApiClient.convertToType(data["metadata"], {
+          String: Object,
+        });
     }
     return obj;
   }

@@ -6,13 +6,12 @@ import { ConversationType } from "models/conversations/BarnardConversation.types
 import { formatError } from "utils/strings";
 import { useTwilioClient } from "./useTwilioClient.hook";
 
-export const sendMessage =
-  (conversation?: Conversation) => async (message: string) => {
-    if (!conversation) {
-      throw new Error("Conversation not found");
-    }
-    return conversation.prepareMessage().setBody(message).build().send();
-  };
+export const sendMessage = (conversation?: Conversation) => async (message: string) => {
+  if (!conversation) {
+    throw new Error("Conversation not found");
+  }
+  return conversation.prepareMessage().setBody(message).build().send();
+};
 
 export const useSendMessageByConversationSid = (
   conversationSid: string,
