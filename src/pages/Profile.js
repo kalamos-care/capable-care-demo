@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Auth from "@capable-health/capable-auth-sdk";
 import {
   Avatar,
+  Badge,
   Container,
   Typography,
   List,
@@ -11,6 +13,9 @@ import {
   Skeleton,
   Snackbar,
 } from "@mui/material";
+import { Edit } from "@mui/icons-material";
+import * as Sentry from "@sentry/react";
+
 import { StyledCard, IconListLink, ListLink, BasicModal } from "../components";
 import {
   AllergiesIcon,
@@ -22,57 +27,130 @@ import {
 } from "../components/icons";
 import { useCurrentPatient, usePatientRelatedPersons } from "../fetchDataHooks";
 import gravatar from "../utils/gravatar";
-import { useNavigate } from "react-router-dom";
 import PrimaryHeader from "../components/PrimaryHeader";
+import Patient from "../dataModels/Patient";
+import api from "../capableApi/index";
 
-/* leaving this here to uncomment once avatar upload is working
-const AvatarUploader = () => {
-  const [openModal, setOpenModal] = useState(false);
-  const handleCloseModal = () => setOpenModal(false);
-  const handleOpenModal = () => setOpenModal(true);
+const ProfileAvatar = ({ patient, setError, setPatient }) => {
+  const fileUploadRef = useRef(null);
+
+  let avatarUrl;
+  if (patient && process.env.REACT_APP_USAGE_MODE === "demo") {
+    avatarUrl = patient.avatar_url || (patient.email && gravatar(patient.email));
+  } else if (patient) {
+    avatarUrl = patient.avatar_url;
+  }
+
+  const ProfileAvatarUploader = () => {
+    return (
+      <Avatar
+        sx={{
+          height: 30,
+          width: 30,
+          border: "white 1px solid",
+          backgroundColor: process.env.REACT_APP_COLOR,
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          fileUploadRef.current.click();
+        }}
+      >
+        <Edit fontSize="small" />
+        <input
+          accept="image/png,image/jpeg"
+          type="file"
+          id="fileUploader"
+          ref={fileUploadRef}
+          style={{ display: "none" }}
+          onChange={async (event) => {
+            const file = event.target.files[0];
+
+            try {
+              const response = await api.client.Patient.avatarUpload(patient.id, {
+                avatar: file,
+              });
+
+              setError(null);
+              setPatient(
+                new Patient({
+                  ...patient,
+                  avatar_url: response.body.avatar_url,
+                })
+              );
+            } catch (error) {
+              Sentry.captureException(error);
+              const { errors } = JSON.parse(error.message);
+              setError(errors[0].message);
+            }
+          }}
+        />
+      </Avatar>
+    );
+  };
 
   return (
-    <>
-      <AvatarUploadModal open={openModal} close={handleCloseModal} />
-      <LinkButton sx={{color: "primary.contrastText"}} onClick={handleOpenModal}>Upload photo</LinkButton>
-    </>
+    <Badge
+      overlap="circular"
+      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      badgeContent={<ProfileAvatarUploader />}
+    >
+      <Avatar src={avatarUrl} sx={{ height: 112, width: 112, border: "white 0.25rem solid" }} />
+    </Badge>
   );
 };
-*/
+
+const usePatient = () => {
+  const { currentPatient, isLoading } = useCurrentPatient();
+  const [patient, setPatient] = useState();
+  const [isLoadingPatient, setIsLoadingPatients] = useState(true);
+
+  useEffect(() => {
+    if (!isLoading) {
+      setPatient(currentPatient);
+      setIsLoadingPatients(false);
+    }
+  }, [isLoading]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return [patient, setPatient, isLoadingPatient];
+};
 
 function Header() {
   // Ignoring any errors because it's just for the avatar URL / memberSince
   // and we'll be graceful about it.
-  const { currentPatient } = useCurrentPatient();
+  const [error, setError] = useState(null);
+  const [patient, setPatient, isLoading] = usePatient();
 
-  const firstName = currentPatient?.name;
-  const memberSince = currentPatient?.joinedAt || "2021"; // hardcode default for demo.
+  const firstName = patient?.name;
+  const memberSince = patient?.joinedAt || "2021"; // hardcode default for demo.
 
-  let avatarUrl;
-  if (currentPatient && process.env.REACT_APP_USAGE_MODE === "demo") {
-    avatarUrl =
-      currentPatient.avatar_url ||
-      (currentPatient.email && gravatar(currentPatient.email));
-  } else if (currentPatient) {
-    avatarUrl = currentPatient.avatar_url;
+  if (isLoading) {
+    return <Skeleton variant="rectangular" animation="wave" height={280} />;
   }
 
   return (
-    <PrimaryHeader>
-      <Avatar src={avatarUrl} sx={{ height: 112, width: 112, marginY: 2 }} />
+    <PrimaryHeader sx={{ textAlign: "center" }}>
+      <ProfileAvatar patient={patient} setError={setError} setPatient={setPatient} />
 
-      <Typography
-        marginBottom={0.5}
-        color="common.white"
-        variant="h4"
-        component="h1"
-      >
+      <Typography marginBottom={0.5} color="common.white" variant="h4" component="h1">
         {firstName}
       </Typography>
 
       <Typography variant="medium" component="small">
         Member since {memberSince}
       </Typography>
+
+      {error && (
+        <Typography
+          sx={{
+            fontSize: "0.825rem",
+            color: "white",
+            marginTop: "1rem",
+            fontWeight: 500,
+          }}
+        >
+          {error}
+        </Typography>
+      )}
     </PrimaryHeader>
   );
 }
@@ -95,8 +173,7 @@ const CareTeamMember = ({ practitionerName }) => {
 };
 
 const CareTeam = () => {
-  const { patientRelatedPersons, isLoading, isError } =
-    usePatientRelatedPersons();
+  const { patientRelatedPersons, isLoading, isError } = usePatientRelatedPersons();
 
   if (isLoading) {
     return <Skeleton variant="rectangular" animation="wave" height={280} />;
@@ -112,10 +189,7 @@ const CareTeam = () => {
       return patientRelatedPerson.relationship_type === "Practitioner";
     });
 
-  if (
-    !filteredPatientRelatedPersons ||
-    filteredPatientRelatedPersons.length === 0
-  ) {
+  if (!filteredPatientRelatedPersons || filteredPatientRelatedPersons.length === 0) {
     return null;
   }
 
@@ -125,14 +199,12 @@ const CareTeam = () => {
         My Care Team
       </Typography>
 
-      {filteredPatientRelatedPersons.map(
-        ({ related_person: { first_name, last_name } }) => (
-          <CareTeamMember
-            avatarSrc={require("../assets/profile-member-02.png")}
-            practitionerName={`${first_name} ${last_name}`}
-          />
-        )
-      )}
+      {filteredPatientRelatedPersons.map(({ related_person: { first_name, last_name } }) => (
+        <CareTeamMember
+          avatarSrc={require("../assets/profile-member-02.png")}
+          practitionerName={`${first_name} ${last_name}`}
+        />
+      ))}
     </Container>
   );
 };
@@ -197,20 +269,14 @@ export default function Profile({ signOut }) {
             <IconListLink
               icon={<AllergiesIcon />}
               text="Allergies"
-              onClick={() =>
-                handleOpenModal(
-                  "This section may be populated by intake survey"
-                )
-              }
+              onClick={() => handleOpenModal("This section may be populated by intake survey")}
             />
             <Divider />
             <IconListLink
               icon={<MedicationsIcon />}
               text="Current Medications"
               onClick={() =>
-                handleOpenModal(
-                  "This section may be populated by observations recorded by patient"
-                )
+                handleOpenModal("This section may be populated by observations recorded by patient")
               }
             />
             <Divider />
@@ -218,18 +284,14 @@ export default function Profile({ signOut }) {
               icon={<VitalsIcon />}
               text="Vitals & Trends"
               onClick={() =>
-                handleOpenModal(
-                  "This section may be populated by observations recorded by patient"
-                )
+                handleOpenModal("This section may be populated by observations recorded by patient")
               }
             />
             <Divider />
             <IconListLink
               icon={<PreferencesIcon />}
               text="Care preferences"
-              onClick={() =>
-                handleOpenModal("This section may launch a questionnaire")
-              }
+              onClick={() => handleOpenModal("This section may launch a questionnaire")}
             />
           </List>
         </StyledCard>
@@ -239,11 +301,7 @@ export default function Profile({ signOut }) {
 
   return (
     <>
-      <BasicModal
-        children={modalContent}
-        open={openModal}
-        handleClose={handleCloseModal}
-      />
+      <BasicModal children={modalContent} open={openModal} handleClose={handleCloseModal} />
 
       <Header />
 
@@ -264,11 +322,7 @@ export default function Profile({ signOut }) {
               <Divider />
             </>
           )}
-          <ListLink
-            textColor="error.main"
-            onClick={handleLogout}
-            text="Logout"
-          />
+          <ListLink textColor="error.main" onClick={handleLogout} text="Logout" />
         </StyledCard>
       </Container>
 
