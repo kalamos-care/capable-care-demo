@@ -665,20 +665,6 @@ const SubscriptionCard = ({ subscription } : { subscription: Subscription }) => 
       </Typography>
       <Divider sx={{ margin: "0.5rem 0" }}/>
       <Typography variant="eyebrow" sx={{ fontSize: "1rem" }}>
-        RECURS
-      </Typography>
-      <Typography variant="body1" sx={{ padding: "0.5rem 0"}}>
-        {formatPayScheduleDetail(subscription.billing_period, subscription.billing_interval)}
-      </Typography>
-      <Divider sx={{ margin: "0.5rem 0" }}/>
-      <Typography variant="eyebrow" sx={{ fontSize: "1rem" }}>
-        AMOUNT
-      </Typography>
-      <Typography variant="body1" sx={{ padding: "0.5rem 0"}}>
-        ${convertRetailPriceCentsToRetailPrice(subscription.plan_price)}
-      </Typography>
-      <Divider sx={{ margin: "0.5rem 0" }}/>
-      <Typography variant="eyebrow" sx={{ fontSize: "1rem" }}>
         {subscription.status === "active" ? "START DATE" : "TRIAL START"}
       </Typography>
       <Typography variant="body1" sx={{ padding: "0.5rem 0"}}>
