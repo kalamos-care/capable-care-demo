@@ -55,11 +55,11 @@ export const displayNameWithLabel = (user: User, label?: string): string => {
 };
 
 export const convertRetailPriceCentsToRetailPrice = (retailCents: number) => {
-  if (retailCents) {
+  if (retailCents > 0) {
     const parsedCents = retailCents / 100;
     return parsedCents.toFixed(2);
   }
-  return null;
+  return "0";
 };
 
 export const capitalize = (word: string) => {

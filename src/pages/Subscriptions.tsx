@@ -223,6 +223,11 @@ const PromoCode = ({
     setPromoCode(promoCode);
     if (promoCode.length > 2) {
       handleDebouncedCheckPromo(promoCode);
+    } else {
+      clearTimeout(timeout.current);
+      setPromoDiscount(null);
+      setPromoCodeError(null);
+      setPromoCodeMessage(null);
     }
   };
   const [promoCodeError, setPromoCodeError] = useState<string>(null);
@@ -433,6 +438,10 @@ const SubscriptionPayment = ({
   };
 
   const handleCreatePaidSubscription = async () => {
+    if (selectedSubscription.unit_amount - (promoDiscount ?? 0) <= 0) {
+      await handleCreateTrialSubscription();
+      return
+    }
     try {
       let secret = clientSecret;
       if (!secret) {
@@ -752,7 +761,7 @@ export const Subscriptions = ({ signOut }: { signOut: () => void }) => {
     )
     .join("\n");
 
-  const renderSubscriptionPage = () => {
+  const SubscriptionPage = () => {
     switch (pageView) {
       case "SubscriptionOptions":
         return (
@@ -809,7 +818,7 @@ export const Subscriptions = ({ signOut }: { signOut: () => void }) => {
             </Typography>
           </Box>
         </Box>
-      ) : renderSubscriptionPage()}
+      ) : <SubscriptionPage />}
     </Box>
   );
 };
