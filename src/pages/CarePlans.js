@@ -8,7 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useAtom } from "jotai";
 
-import { BackButton, StyledCard } from "../components";
+import { ActionButton, StyledCard } from "../components";
 import { useCarePlans, useGoalsByStatus } from "../fetchDataHooks";
 import { carePlanAtom } from "../atoms";
 
@@ -118,7 +118,11 @@ export default function CarePlans() {
   return (
     <>
       <Box>
-        <BackButton sx={{ backgroundColor: "#F3F4F5" }} route="/home" />
+        <ActionButton
+          type={"back"}
+          sx={{ backgroundColor: "#F3F4F5" }}
+          route="/home"
+        />
       </Box>
       <Box sx={{ margin: "16px" }}>
         <Typography variant="headline">Care Plans</Typography>

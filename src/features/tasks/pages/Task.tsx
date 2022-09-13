@@ -6,7 +6,7 @@ import { HeaderImage, Recurrence, RichText } from "components";
 import { TaskAchievementStatus } from "../models/Task";
 import { useTask } from "../hooks/useTask.hook";
 import { useUpdateTask } from "../hooks/useUpdateTask.hook";
-import BackButton from "components/BackButton";
+import ActionButton from "components/ActionButton";
 import useCRMContent from "fetchDataHooks/useCRMContent";
 
 const Task = () => {
@@ -55,11 +55,15 @@ const Task = () => {
     <>
       {taskWithCRM.imageUrl ? (
         <Card sx={{ position: "relative" }}>
-          <BackButton route={"/"} sx={{ position: "absolute", zIndex: 100 }} />
+          <ActionButton
+            type={"back"}
+            route={"/"}
+            sx={{ position: "absolute", zIndex: 100 }}
+          />
           <HeaderImage data={taskWithCRM} />
         </Card>
       ) : (
-        <BackButton route={"/"} />
+        <ActionButton type={"back"} route={"/"} />
       )}
 
       <Container

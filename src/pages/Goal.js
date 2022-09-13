@@ -9,7 +9,7 @@ import {
 import CheckIcon from "@mui/icons-material/Check";
 import { useNavigate, useLocation } from "react-router-dom";
 
-import BackButton from "../components/BackButton";
+import ActionButton from "../components/ActionButton";
 import {
   HeaderImage,
   LinkButton,
@@ -109,7 +109,8 @@ export default function Goal() {
     <>
       {goal.imageUrl ? (
         <Card sx={{ position: "relative" }}>
-          <BackButton
+          <ActionButton
+            type={"back"}
             route={`/home/${goal.care_plan_id}`}
             sx={{ position: "absolute", zIndex: 100 }}
           />
@@ -117,7 +118,7 @@ export default function Goal() {
           <HeaderImage data={goal} />
         </Card>
       ) : (
-        <BackButton route={`/home/${goal.care_plan_id}`} />
+        <ActionButton type={"back"} route={`/home/${goal.care_plan_id}`} />
       )}
 
       <Container

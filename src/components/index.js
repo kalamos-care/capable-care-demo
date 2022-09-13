@@ -1,6 +1,6 @@
 import AboutCard from "./AboutCard";
 import ArrowLink from "./ArrowLink";
-import BackButton from "./BackButton";
+import ActionButton from "./ActionButton";
 import BasicModal from "./BasicModal";
 import CopyrightFooter from "./CopyrightFooter";
 import GoalCards from "./GoalCards";
@@ -26,7 +26,7 @@ import WellnessEmoji from "./WellnessEmoji";
 export {
   AboutCard,
   ArrowLink,
-  BackButton,
+  ActionButton,
   BasicModal,
   ControlledTabs,
   CopyrightFooter,

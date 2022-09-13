@@ -7,7 +7,7 @@ import {
   convertRetailPriceCentsToRetailPrice,
   capitalize,
 } from "utils/strings";
-import { BackButton } from "../components";
+import { ActionButton } from "../components";
 import {
   useStripe,
   useElements,
@@ -104,8 +104,12 @@ const SubscriptionOptionCard = ({
           fontWeight: "500",
         }}
       >
-        <Box>{subscription.capable_health_metadata.name || subscription.temp_name}</Box>
-        <Box>${convertRetailPriceCentsToRetailPrice(subscription.unit_amount)}</Box>
+        <Box>
+          {subscription.capable_health_metadata.name || subscription.temp_name}
+        </Box>
+        <Box>
+          ${convertRetailPriceCentsToRetailPrice(subscription.unit_amount)}
+        </Box>
       </Box>
       <Box
         sx={{
@@ -126,8 +130,8 @@ const SubscriptionOptionCard = ({
           {formatPayScheduleDetail(subscription.recurring)}
         </Typography>
       </Box>
-      { subscription.capable_health_metadata?.description && (
-        <Box sx={{fontSize: "0.9rem", paddingTop: "1rem"}}>
+      {subscription.capable_health_metadata?.description && (
+        <Box sx={{ fontSize: "0.9rem", paddingTop: "1rem" }}>
           {subscription.capable_health_metadata.description}
         </Box>
       )}
@@ -319,27 +323,32 @@ const PromoCode = ({
 
 const PaymentTotal = ({
   selectedSubscription,
-  promoDiscount
-  } : {
-  selectedSubscription: SubscriptionOption,
-  promoDiscount: number
+  promoDiscount,
+}: {
+  selectedSubscription: SubscriptionOption;
+  promoDiscount: number;
 }) => (
-  <Box sx={{
-    display: 'flex',
-    justifyContent: "space-between",
-    fontWeight: 500,
-    padding: "1rem",
-    marginBottom: "1rem",
-    backgroundColor: "common.white",
-    borderRadius: "4px",
-    boxShadow: ["rgb(2 2 40 / 8%) 0px 4px 6px"]
-  }}>
+  <Box
+    sx={{
+      display: "flex",
+      justifyContent: "space-between",
+      fontWeight: 500,
+      padding: "1rem",
+      marginBottom: "1rem",
+      backgroundColor: "common.white",
+      borderRadius: "4px",
+      boxShadow: ["rgb(2 2 40 / 8%) 0px 4px 6px"],
+    }}
+  >
     <Box>Total</Box>
-    <Box style={promoDiscount ? { color: 'green' } : {}}>
-      ${convertRetailPriceCentsToRetailPrice(selectedSubscription.unit_amount - (promoDiscount ?? 0))}
+    <Box style={promoDiscount ? { color: "green" } : {}}>
+      $
+      {convertRetailPriceCentsToRetailPrice(
+        selectedSubscription.unit_amount - (promoDiscount ?? 0)
+      )}
     </Box>
   </Box>
-)
+);
 
 const SubscriptionPayment = ({
   selectedSubscription,
@@ -496,14 +505,14 @@ const SubscriptionPayment = ({
   };
 
   return (
-    <Box sx={{ background: "#FAFAFA", height: "100%", overflow: "auto" }}>
-      <BackButton onClick={() => setPageView("SubscriptionOptions")} />
+    <Box sx={{ background: "#FAFAFA", height: "100%", overflow: "scroll" }}>
+      <ActionButton
+        type={"back"}
+        onClick={() => setPageView("SubscriptionOptions")}
+      />
       <Box sx={{ padding: "1rem" }}>
         <Box sx={{ paddingBottom: "1rem", fontWeight: "500" }}>Your plan</Box>
-        <SubscriptionOptionCard
-          selected
-          subscription={selectedSubscription}
-        />
+        <SubscriptionOptionCard selected subscription={selectedSubscription} />
         <StripeErrorMessage message={stripeError} />
         {existingPaymentMethod && !useNewCard ? (
           <Box>
@@ -517,7 +526,10 @@ const SubscriptionPayment = ({
               promoCode={promoCode}
               setPromoCode={setPromoCode}
             />
-            <PaymentTotal selectedSubscription={selectedSubscription} promoDiscount={promoDiscount} />
+            <PaymentTotal
+              selectedSubscription={selectedSubscription}
+              promoDiscount={promoDiscount}
+            />
             <Button
               width="100%"
               type="submit"
@@ -580,7 +592,10 @@ const SubscriptionPayment = ({
               promoCode={promoCode}
               setPromoCode={setPromoCode}
             />
-            <PaymentTotal selectedSubscription={selectedSubscription} promoDiscount={promoDiscount} />
+            <PaymentTotal
+              selectedSubscription={selectedSubscription}
+              promoDiscount={promoDiscount}
+            />
             <Button
               width="100%"
               type="submit"

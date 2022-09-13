@@ -47,12 +47,13 @@ const ConversationContainer = () => {
         <Box
           sx={{
             marginX: (theme) => theme.spacing(3),
-            marginY: (theme) => theme.spacing(1),
+            marginTop: (theme) => theme.spacing(1),
           }}
         >
           <Typography
             sx={{
               textAlign: "center",
+              marginBottom: (theme) => theme.spacing(1),
             }}
           >
             <b>{twilioConversation.friendlyName}</b>

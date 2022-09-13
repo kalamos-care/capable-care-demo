@@ -15,6 +15,7 @@ import AppAuthenticator from "./AppAuthenticator";
 import Appointments from "./pages/Appointments";
 import CarePlans from "./pages/CarePlans";
 import Conversation from "features/conversations/pages/Conversation";
+import ConversationCreate from "features/conversations/pages/ConversationCreate";
 import Conversations from "features/conversations/pages/Conversations";
 import Goal from "./pages/Goal";
 import Task from "features/tasks/pages/Task";
@@ -76,6 +77,11 @@ export default function App() {
                         element={<Home />}
                       />
                       <Route exact path="/chat" element={<Conversations />} />
+                      <Route
+                        exact
+                        path="/chat/create"
+                        element={<ConversationCreate />}
+                      />
                       <Route
                         exact
                         path="/chat/:conversationId"

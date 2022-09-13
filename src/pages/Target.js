@@ -1,7 +1,7 @@
 import { Card, Container, Typography } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import useTarget from "../fetchDataHooks/useTarget";
-import { BackButton } from "../components";
+import { ActionButton } from "../components";
 import RichText from "../components/RichText";
 import HeaderImage from "../components/HeaderImage";
 import ObservationLog from "../components/ObservationLog";
@@ -14,26 +14,20 @@ export default function Target() {
 
   return (
     <>
-      {
-        goal.imageUrl
-          ? (
-            <Card sx={{ position: "relative" }}>
-              <BackButton
-                route={`/goal`}
-                params={{ goal: goal }}
-                sx={{ position: "absolute", zIndex: 100 }}
-              />
+      {goal.imageUrl ? (
+        <Card sx={{ position: "relative" }}>
+          <ActionButton
+            type={"back"}
+            route={`/goal`}
+            params={{ goal: goal }}
+            sx={{ position: "absolute", zIndex: 100 }}
+          />
 
-              <HeaderImage data={goal} />
-            </Card>
-          )
-          : (
-            <BackButton
-              route={`/goal`}
-              params={{ goal: goal }}
-            />
-          )
-      }
+          <HeaderImage data={goal} />
+        </Card>
+      ) : (
+        <ActionButton type={"back"} route={`/goal`} params={{ goal: goal }} />
+      )}
 
       {targetData && (
         <Container sx={{ marginBottom: 5 }}>

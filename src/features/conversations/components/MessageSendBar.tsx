@@ -74,13 +74,12 @@ const MessageSendBar = ({
       <IconButton
         onClick={handleSend}
         disabled={sendDisabled || !typedMessageIsValid}
-        style={{
+        sx={{
+          color: colors.lapis,
           whiteSpace: "nowrap",
           alignSelf: "end",
           width: "30px",
           minWidth: 0,
-        }}
-        sx={{
           paddingBottom: (theme) => theme.spacing(2),
           paddingRight: (theme) => theme.spacing(2),
           marginLeft: (theme) => theme.spacing(2),

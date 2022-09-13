@@ -1,10 +1,10 @@
 import Box from "@mui/material/Box/Box";
 
 import ActionButton from "components/ActionButton";
-import ConversationContainer from "../components/ConversationContainer";
+import ConversationCreateContainer from "../components/ConversationCreateContainer";
 import ConversationsHeader from "../components/ConversationsHeader";
 
-const Conversation = () => (
+const ConversationCreate = () => (
   <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
     <ActionButton
       type={"back"}
@@ -12,8 +12,8 @@ const Conversation = () => (
       sx={{ position: "absolute", zIndex: 100 }}
     />
     <ConversationsHeader />
-    <ConversationContainer />
+    <ConversationCreateContainer />
   </Box>
 );
 
-export default Conversation;
+export default ConversationCreate;

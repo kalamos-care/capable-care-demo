@@ -2,7 +2,6 @@ import { Conversation } from "@twilio/conversations";
 import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 
-import { addConversationParticipant } from "./useAddConversationParticipant.hook";
 import { ConversationType } from "models/conversations/BarnardConversation.types";
 import { formatError } from "utils/strings";
 import { useTwilioClient } from "./useTwilioClient.hook";
@@ -39,7 +38,6 @@ export const useSendMessageByConversationSid = (
     if (conversation) {
       return sendMessage(conversation)(message);
     } else {
-      await addConversationParticipant(conversationSid);
       const conversationResponse = await twilioClient
         ?.getConversationBySid(conversationSid)
         .catch((e) => console.error(formatError(e)));
