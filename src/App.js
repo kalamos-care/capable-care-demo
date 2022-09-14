@@ -10,6 +10,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import ScrollToTop from "./ScrollToTop";
 // providers
 import AppAuthenticator from "./AppAuthenticator";
+import { Provider as AtomProvider } from "jotai";
 
 // pages
 import Appointments from "./pages/Appointments";
@@ -49,74 +50,72 @@ if (
 }
 
 export const queryClient = new QueryClient();
-
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <MobileContainer>
         <AppAuthenticator>
-          {({ signOut }) => (
-            // We are providing fresh SWR cache for the app every time we
-            // sign in. This is to stop flashing stale content when signing
-            // in as another user.
-            <SWRConfig value={{ provider: () => new Map() }}>
-              <QueryClientProvider client={queryClient}>
-                <BrowserRouter>
-                  {/* Global reset */}
-                  <CssBaseline />
-                  {/* Page Content */}
-                  <ScrollToTop />
-                  {/* Scroll to top on page change */}
-                  <SubscriptionRouteManager stripePromise={stripePromise} signOut={signOut}>
-                    <Route element={<WithNavigation />}>
-                      <Route exact path="/" element={<Home />} />
-                      <Route exact path="/home" element={<Home />} />
-                      <Route
-                        exact
-                        path="/home/:carePlanId"
-                        element={<Home />}
-                      />
-                       <Route
-                        exact
-                        path="/home/:carePlanId/:subPage"
-                        element={<Home />}
-                      />
-                      <Route exact path="/chat" element={<Conversations />} />
-                      <Route
-                        exact
-                        path="/chat/create"
-                        element={<ConversationCreate />}
-                      />
-                      <Route
-                        exact
-                        path="/chat/:conversationId"
-                        element={<Conversation />}
-                      />
-                      <Route
-                        exact
-                        path="/appointments"
-                        element={<Appointments />}
-                      />
-                    </Route>
+          {({ signOut }) => {
+            const signOutWrapper = () => {
+              // Clear the cache when signing out
+              queryClient.invalidateQueries();
+              queryClient.clear();
 
-                    <Route element={<WithNavigation withCopyRight={true} />}>
-                      <Route exact path="/profile" element={<Profile signOut={signOut} />} />
-                    </Route>
+              signOut();
+            };
 
-                    <Route element={<WithoutNavigation />}>
-                      <Route exact path="/care_plans" element={<CarePlans />} />
-                      <Route exact path="/goal" element={<Goal />} />
-                      <Route exact path="/task/:taskId" element={<Task />} />
-                      <Route exact path="/log" element={<Observation />} />
-                      <Route exact path="/target" element={<Target />} />
-                      <Route exact path="/survey/:surveyId" element={<Survey />} />
-                    </Route>
-                  </SubscriptionRouteManager>
-                </BrowserRouter>
-                <ReactQueryDevtools initialIsOpen={false} />
-              </QueryClientProvider>
-            </SWRConfig>
-          )}
+            return (
+              // We are providing fresh SWR cache for the app every time we
+              // sign in. This is to stop flashing stale content when signing
+              // in as another user.
+              <SWRConfig value={{ provider: () => new Map() }}>
+                <QueryClientProvider client={queryClient}>
+                  <AtomProvider>
+                    <BrowserRouter>
+                      {/* Global reset */}
+                      <CssBaseline />
+                      {/* Page Content */}
+                      <ScrollToTop />
+                      {/* Scroll to top on page change */}
+                      <SubscriptionRouteManager
+                        stripePromise={stripePromise}
+                        signOut={signOutWrapper}
+                      >
+                        <Route element={<WithNavigation />}>
+                          <Route exact path="/" element={<Home />} />
+                          <Route exact path="/home" element={<Home />} />
+                          <Route exact path="/home/:carePlanId" element={<Home />} />
+                          <Route exact path="/home/:carePlanId/:subPage" element={<Home />} />
+                          <Route exact path="/chat" element={<Conversations />} />
+                          <Route exact path="/chat/create" element={<ConversationCreate />} />
+                          <Route exact path="/chat/:conversationId" element={<Conversation />} />
+                          <Route exact path="/appointments" element={<Appointments />} />
+                        </Route>
+
+                        <Route element={<WithNavigation withCopyRight={true} />}>
+                          <Route
+                            exact
+                            path="/profile"
+                            element={<Profile signOut={signOutWrapper} />}
+                          />
+                        </Route>
+
+                        <Route element={<WithoutNavigation />}>
+                          <Route exact path="/care_plans" element={<CarePlans />} />
+                          <Route exact path="/goal" element={<Goal />} />
+                          <Route exact path="/task/:taskId" element={<Task />} />
+                          <Route exact path="/log" element={<Observation />} />
+                          <Route exact path="/target" element={<Target />} />
+                          <Route exact path="/survey/:surveyId" element={<Survey />} />
+                        </Route>
+                      </SubscriptionRouteManager>
+                    </BrowserRouter>
+                    <ReactQueryDevtools initialIsOpen={false} />
+                  </AtomProvider>
+                </QueryClientProvider>
+              </SWRConfig>
+            );
+          }}
         </AppAuthenticator>
       </MobileContainer>
     </ThemeProvider>
