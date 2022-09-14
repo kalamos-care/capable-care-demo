@@ -1,9 +1,10 @@
 import { Container, Tab, Tabs } from "@mui/material";
+import { Link } from "react-router-dom";
+
 import titlecase from "../utils/titlecase";
 
 // Renders the tabs and their corresponding goals.
 export default function ControlledTabs({ tabs, tab, handleTabChange }) {
-  const tabTitles = tabs.map((tab) => tab.title);
   return (
     <>
       <Tabs
@@ -15,11 +16,12 @@ export default function ControlledTabs({ tabs, tab, handleTabChange }) {
           boxShadow: ["rgb(2 2 40 / 8%) 0px 4px 6px"],
         }}
       >
-        {tabTitles.map((tabTitle) => (
+        {tabs.map(({ title, to }) => (
           <Tab
-            key={tabTitle}
-            label={titlecase(tabTitle)}
-            value={tabTitle}
+            key={title}
+            label={titlecase(title)}
+            value={title}
+            to={to}
             sx={{
               textTransform: "none",
               fontWeight: 500,
@@ -27,6 +29,7 @@ export default function ControlledTabs({ tabs, tab, handleTabChange }) {
               padding: 0,
               minWidth: "4rem",
             }}
+            component={Link}
           />
         ))}
       </Tabs>

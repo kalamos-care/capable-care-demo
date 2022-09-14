@@ -97,7 +97,7 @@ export default function Goal() {
         <Card sx={{ position: "relative" }}>
           <ActionButton
             type={"back"}
-            route={`/home/${goal.care_plan_id}`}
+            route={-1}
             sx={{ position: "absolute", zIndex: 100 }}
           />
 

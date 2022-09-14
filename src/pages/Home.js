@@ -96,19 +96,25 @@ const HomeContent = ({ carePlan }) => {
     {
       title: "Tasks",
       content: <TaskCards carePlan={carePlan} />,
+      to: `/home/${carePlan.id}/tasks`,
     },
     {
       title: "Goals",
       content: <GoalCards carePlan={carePlan} />,
+      to: `/home/${carePlan.id}/goals`,
     },
     {
       title: "About",
       content: <AboutCard carePlan={carePlan} />,
+      to: `/home/${carePlan.id}/about`,
     },
   ];
 
-  const [tab, setTab] = useState(tabs[0]);
+  const { subPage } = useParams();
+  const defaultTab = tabs.find(tab => tab.title.toLowerCase() === subPage) || tabs[0];
 
+  const [tab, setTab] = useState(defaultTab);
+  
   if (!carePlan) {
     return (
       <NoDataCards

@@ -36,7 +36,7 @@ const ActionButton = ({
   onClick,
 }: {
   type: ActionIconKey;
-  route?: string;
+  route?: string | -1; // -1 is used to navigate to the previous page
   params?;
   size?: "small" | "medium" | "large";
   sx?: React.CSSProperties;

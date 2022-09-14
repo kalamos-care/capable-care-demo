@@ -71,7 +71,16 @@ export default function App() {
                     <Route element={<WithNavigation />}>
                       <Route exact path="/" element={<Home />} />
                       <Route exact path="/home" element={<Home />} />
-                      <Route exact path="/home/:carePlanId" element={<Home />} />
+                      <Route
+                        exact
+                        path="/home/:carePlanId"
+                        element={<Home />}
+                      />
+                       <Route
+                        exact
+                        path="/home/:carePlanId/:subPage"
+                        element={<Home />}
+                      />
                       <Route exact path="/chat" element={<Conversations />} />
                       <Route
                         exact

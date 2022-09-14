@@ -51,7 +51,7 @@ const Task = () => {
         <Card sx={{ position: "relative" }}>
           <ActionButton
             type={"back"}
-            route={"/"}
+            route={-1}
             sx={{ position: "absolute", zIndex: 100 }}
           />
           <HeaderImage data={taskWithCRM} />

@@ -121,6 +121,7 @@ const TaskCard = ({ task }) => {
         border: "none",
         textAlign: "left",
         padding: "0.75rem",
+        cursor: "pointer",
       }}
       onClick={(e) => {
         navigate(`/task/${task.id}`);
