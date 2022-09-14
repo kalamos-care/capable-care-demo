@@ -4,9 +4,9 @@ import api from "../capableApi";
 
 const findCurrentActiveSubscriptions = (subscriptions) => {
   return (
-    subscriptions.filter((subscription) => {
+    subscriptions?.filter((subscription) => {
       return ["active", "trialing"].includes(subscription.status);
-    }) ?? null
+    }) ?? []
   );
 };
 

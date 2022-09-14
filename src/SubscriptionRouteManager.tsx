@@ -25,7 +25,7 @@ function SubscriptionRouteManager(props) {
   if (process.env.REACT_APP_ENABLE_REQUIRE_SUBSCRIPTION === "true" && props.stripePromise) {
     return (
       <Elements stripe={stripePromise}>
-        {currentActiveSubscription ? (
+        {currentActiveSubscription.length > 0 ? (
           <Routes>
             {props.children}
             <Route element={<WithNavigation />}>
