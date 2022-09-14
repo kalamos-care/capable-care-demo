@@ -92,23 +92,23 @@ function Header({ carePlan, patient }) {
 }
 
 const HomeContent = ({ carePlan }) => {
-  const tabs = [
+  const tabs = carePlan ? [
     {
       title: "Tasks",
       content: <TaskCards carePlan={carePlan} />,
-      to: `/home/${carePlan?.id}/tasks`,
+      to: `/home/${carePlan.id}/tasks`,
     },
     {
       title: "Goals",
       content: <GoalCards carePlan={carePlan} />,
-      to: `/home/${carePlan?.id}/goals`,
+      to: `/home/${carePlan.id}/goals`,
     },
     {
       title: "About",
       content: <AboutCard carePlan={carePlan} />,
-      to: `/home/${carePlan?.id}/about`,
+      to: `/home/${carePlan.id}/about`,
     },
-  ];
+  ] : [];
 
   const { subPage } = useParams();
   const defaultTab = tabs.find(tab => tab.title.toLowerCase() === subPage) || tabs[0];
