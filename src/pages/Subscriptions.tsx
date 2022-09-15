@@ -21,7 +21,7 @@ import {
   Subscription,
   SubscriptionOption,
 } from "models/subscriptions/Subscription.types";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import useActiveSubscription from "fetchDataHooks/useActiveSubscription";
 import * as Sentry from "@sentry/react";
 import { formatDateString } from "utils/dates";
@@ -350,6 +350,7 @@ const SubscriptionPayment = ({
 }) => {
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate();
   const [promoCode, setPromoCode] = useState<string>("");
   const [clientSecret, setClientSecret] = useState<string>();
   const [zipCode, setZipcode] = useState<string>();
@@ -419,16 +420,14 @@ const SubscriptionPayment = ({
           setStripeError(error.message);
           setLoading(false);
         } else if (setupIntent.status === "succeeded") {
-          await createSubscription();
+          const sub = await createSubscription();
           setLoading(false);
-          setShowConfirmPage(true);
-          setPageView("PaymentSuccess");
+          return sub.body;
         }
       } else {
-        await createSubscription();
+        const sub = await createSubscription();
         setLoading(false);
-        setShowConfirmPage(true);
-        setPageView("PaymentSuccess");
+        return sub.body;
       }
     } catch (error) {
       Sentry.captureException(error);
@@ -444,8 +443,10 @@ const SubscriptionPayment = ({
     }
     try {
       let secret = clientSecret;
+      let sub;
       if (!secret) {
         const paymentIntent = await createSubscription();
+        sub = paymentIntent.body;
         secret = paymentIntent.body.latest_invoice.payment_intent.client_secret;
         setClientSecret(secret);
       }
@@ -470,8 +471,7 @@ const SubscriptionPayment = ({
       if (error) {
         setStripeError(error.message);
       } else if (paymentIntent.status === "succeeded") {
-        setShowConfirmPage(true);
-        setPageView("PaymentSuccess");
+        return sub;
       }
     } catch (error) {
       Sentry.captureException(error);
@@ -487,11 +487,13 @@ const SubscriptionPayment = ({
 
     const hasTrial = !!selectedSubscription.metadata?.trial_period_in_days;
 
+    let subscription;
     if (hasTrial) {
-      await handleCreateTrialSubscription();
+      subscription = await handleCreateTrialSubscription();
     } else {
-      await handleCreatePaidSubscription();
+      subscription = await handleCreatePaidSubscription();
     }
+    navigate(`/subscriptions/confirmed/${subscription.id}`);
   };
 
   return (
@@ -601,40 +603,6 @@ const SubscriptionPayment = ({
   );
 };
 
-const PaymentSuccess = ({ selectedSubscription }: { selectedSubscription: SubscriptionOption }) => {
-  const navigate = useNavigate();
-  const { currentPatient } = useCurrentPatient();
-  const { isLoading } = useActiveSubscription(currentPatient?.id);
-
-  if (isLoading) {
-    return <Skeleton variant="rectangular" animation="wave" height={280} />;
-  }
-
-  return (
-    <Box sx={{ textAlign: "center", padding: "5rem 1rem" }}>
-      {selectedSubscription?.metadata?.trial_period_in_days ? (
-        <>
-          <Heading level={5}>Trial Started</Heading>
-          <Typography variant="h6" sx={{ padding: "1rem 0 2rem" }}>
-            Your free {selectedSubscription?.metadata?.trial_period_in_days}-day trial has begun.
-            You may now continue to your account!
-          </Typography>
-        </>
-      ) : (
-        <>
-          <Heading level={5}>Payment Successful</Heading>
-          <Typography variant="h6" sx={{ padding: "1rem 0 2rem" }}>
-            Your payment has been processed. You may now continue to your account!
-          </Typography>
-        </>
-      )}
-      <Button width="100%" variation="primary" onClick={() => navigate("/home")}>
-        Continue
-      </Button>
-    </Box>
-  );
-};
-
 const Dot = ({ color } : { color: string }) => (
   <span style={{
     width: "10px",
@@ -677,7 +645,8 @@ const SubscriptionCard = ({ subscription } : { subscription: Subscription }) => 
             TRIAL END
           </Typography>
           <Typography variant="body1" sx={{ padding: "0.5rem 0"}}>
-            {formatDateString(subscription.trial_end)}
+            {/*stripe returns trial_end as epoch time (in seconds) multiple by 1000 to get milliseconds.*/}
+            {formatDateString(subscription.trial_end * 1000)}
           </Typography>
           <Divider sx={{ margin: "0.5rem 0" }}/>
         </Box>
@@ -686,7 +655,8 @@ const SubscriptionCard = ({ subscription } : { subscription: Subscription }) => 
         {subscription.cancel_at ? "END DATE" : "NEXT BILL"}
       </Typography>
       <Typography variant="body1" sx={{ padding: "0.5rem 0"}}>
-        {formatDateString(subscription.cancel_at ? subscription.cancel_at : subscription.upcoming_invoice_date)}
+        {/*stripe returns cancel_at as epoch time (in seconds) multiple by 1000 to get milliseconds.*/}
+        {formatDateString(subscription.cancel_at ? subscription.cancel_at * 1000 : subscription.upcoming_invoice_date)}
       </Typography>
     </Box>
   )
@@ -774,8 +744,6 @@ export const Subscriptions = ({ signOut }: { signOut: () => void }) => {
             setShowConfirmPage={setShowConfirmPage}
           />
         );
-      case "PaymentSuccess":
-        return <PaymentSuccess selectedSubscription={selectedSubscription} />;
     }
   };
 

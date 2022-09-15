@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Subscriptions from "pages/Subscriptions";
+import PaymentSuccess from "pages/PaymentSuccess";
 import { useCurrentPatient, useActiveSubscription } from "./fetchDataHooks";
 import { Skeleton } from "@mui/material";
 import { Elements } from "@stripe/react-stripe-js";
@@ -29,11 +30,13 @@ function SubscriptionRouteManager(props) {
           <Routes>
             {props.children}
             <Route element={<WithNavigation />}>
+              <Route path="/subscriptions/confirmed/:subscriptionId" element={<PaymentSuccess />} />
               <Route path="/subscriptions" element={<Subscriptions signOut={signOut} />} />
             </Route>
           </Routes>
         ) : (
           <Routes>
+            <Route path="/subscriptions/confirmed/:subscriptionId" element={<PaymentSuccess />} />
             <Route path="/subscriptions" element={<Subscriptions signOut={signOut} />} />
             <Route path="*" element={<Navigate to="/subscriptions" />} />
           </Routes>

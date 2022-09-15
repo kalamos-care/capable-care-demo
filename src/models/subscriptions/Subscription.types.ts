@@ -32,7 +32,7 @@ export interface Subscription {
   billing_period: "day" | "week" | "month" | "year";
   billing_interval: number;
   created_at: string;
-  cancel_at: string;
-  trial_end: string;
+  cancel_at: number;
+  trial_end: number;
   plan_price: number;
 }
