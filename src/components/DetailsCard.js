@@ -2,7 +2,7 @@ import { Container, Skeleton } from "@mui/material";
 import { useCRMContent } from "../fetchDataHooks";
 import { HeaderImage, RichText } from "../components";
 
-export default function AboutCard({ carePlan }) {
+export default function DetailsCard({ carePlan }) {
   // NOTE: We modify the currentPlan object with content from Contentful here. If you
   //       have forked this app, you most likely will **not** need to do this.
   const { isLoading } = useCRMContent(carePlan);

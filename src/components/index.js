@@ -1,8 +1,8 @@
-import AboutCard from "./AboutCard";
 import ArrowLink from "./ArrowLink";
 import ActionButton from "./ActionButton";
 import BasicModal from "./BasicModal";
 import CopyrightFooter from "./CopyrightFooter";
+import DetailsCard from "./DetailsCard";
 import GoalCards from "./GoalCards";
 import HeaderImage from "./HeaderImage";
 import IconListLink from "./IconListLink";
@@ -24,12 +24,12 @@ import ThumbsEmoji from "./ThumbsEmoji";
 import WellnessEmoji from "./WellnessEmoji";
 
 export {
-  AboutCard,
   ArrowLink,
   ActionButton,
   BasicModal,
   ControlledTabs,
   CopyrightFooter,
+  DetailsCard,
   GoalCards,
   HeaderImage,
   IconListLink,

@@ -45,11 +45,11 @@ const Task = () => {
     <>
       {task.imageUrl ? (
         <Card sx={{ position: "relative" }}>
-          <ActionButton type={"back"} route={`/home/${carePlanId}`} sx={{ position: "absolute", zIndex: 100 }} />
+          <ActionButton type={"back"} route={`/home/${carePlanId}/tasks`} sx={{ position: "absolute", zIndex: 100 }} />
           <HeaderImage data={task} />
         </Card>
       ) : (
-        <ActionButton type={"back"} route={`/home/${carePlanId}`} />
+        <ActionButton type={"back"} route={`/home/${carePlanId}/tasks`} />
       )}
 
       <Container

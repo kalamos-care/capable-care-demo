@@ -4,7 +4,7 @@ import { Box, CardMedia, Container, Avatar, Skeleton, Stack, Typography } from "
 import { useAtom } from "jotai";
 
 import {
-  AboutCard,
+  DetailsCard,
   ArrowLink,
   ControlledTabs,
   GoalCards,
@@ -83,26 +83,41 @@ function Header({ carePlan, patient }) {
   );
 }
 
-const HomeContent = ({ carePlan }) => {
-  const tabs = carePlan
-    ? [
-        {
+const getCarePlanTabs = (carePlan) => {
+  const tabOrder = process.env.REACT_APP_HOME_TAB_ORDER ?
+    process.env.REACT_APP_HOME_TAB_ORDER.split(',').map((tabName) => tabName.toLowerCase().trim()) :
+    ["tasks", "goals", "detais"]
+  return tabOrder.map((tabName) => {
+    let to;
+    switch (tabName) {
+      case "tasks":
+        to = `/home/${carePlan.id}/tasks`;
+        return {
           title: "Tasks",
-          content: <TaskCards carePlan={carePlan} />,
-          to: `/home/${carePlan.id}/tasks`,
-        },
-        {
+          content: <TaskCards carePlan={carePlan}/>,
+          to
+        }
+      case "goals":
+        to = `/home/${carePlan.id}/goals`;
+        return {
           title: "Goals",
           content: <GoalCards carePlan={carePlan} />,
-          to: `/home/${carePlan.id}/goals`,
-        },
-        {
-          title: "About",
-          content: <AboutCard carePlan={carePlan} />,
-          to: `/home/${carePlan.id}/about`,
-        },
-      ]
-    : [];
+          to
+        }
+      case "details":
+      default:
+        to = `/home/${carePlan.id}/details`;
+        return {
+          title: "Details",
+          content: <DetailsCard carePlan={carePlan} />,
+          to
+        }
+    }
+  })
+}
+
+const HomeContent = ({ carePlan }) => {
+  const tabs = carePlan ? getCarePlanTabs(carePlan) : [];
 
   const { subPage } = useParams();
   const defaultTab = tabs.find((tab) => tab.title.toLowerCase() === subPage) || tabs[0];
