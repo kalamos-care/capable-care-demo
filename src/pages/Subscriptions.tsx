@@ -694,18 +694,19 @@ export const Subscriptions = ({ signOut }: { signOut: () => void }) => {
     return <div>Woops something went wrong...</div>;
   }
 
-  const subscriptionContent = data.description.content
-    .map((contentNode) =>
+  const subscriptionHeader = data.name ??
+    `Welcome${process.env.REACT_APP_COMPANY_NAME ? " to " + process.env.REACT_APP_COMPANY_NAME : ''}!`
+  const subscriptionContent = data.description?.content
+    ?.map((contentNode) =>
       contentNode.content.map((subContentNode) => subContentNode.value).join("")
-    )
-    .join("\n");
+    )?.join("\n") ?? "To get started, please select a plan below.";
 
   const SubscriptionPage = () => {
     switch (pageView) {
       case "SubscriptionOptions":
         return (
           <>
-            <SubscriptionHeader title={data.name} content={subscriptionContent} />
+            <SubscriptionHeader title={subscriptionHeader} content={subscriptionContent} />
             <SubscriptionSelection
               existingPaymentMethod={existingPaymentMethod}
               plans={activeSubscriptionOptions}
