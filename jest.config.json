@@ -1,0 +1,17 @@
+{
+  "collectCoverage": true,
+  "coverageDirectory": "coverage",
+  "setupFiles": [
+    "jsdom-worker",
+    "dotenv/config"
+  ],
+  "testEnvironment": "jsdom",
+  "transform": {
+    "^.+\\.jsx?$": "babel-jest",
+    "^.+\\.tsx?$": "ts-jest"
+  },
+  "transformIgnorePatterns": [
+    "@aws-amplify/ui-react"
+  ],
+  "verbose": true
+}

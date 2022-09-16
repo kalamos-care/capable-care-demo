@@ -1,0 +1,7 @@
+{
+  "*.[jt]sx?": [
+    "yarn run lint:fix",
+    "yarn run prettier"
+  ],
+  "*.{json,md}": "yarn run prettier"
+}
