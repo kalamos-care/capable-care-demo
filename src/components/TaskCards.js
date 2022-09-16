@@ -124,7 +124,7 @@ const TaskCard = ({ task }) => {
         cursor: "pointer",
       }}
       onClick={(e) => {
-        navigate(`/task/${task.id}`);
+        navigate(`/home/${task.care_plan_id}/tasks/${task.id}`);
       }}
     >
       <Box

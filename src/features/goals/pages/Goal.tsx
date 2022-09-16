@@ -1,8 +1,8 @@
 import { Box, Card, Container, Skeleton, Stack, Typography } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
-import { useNavigate, useLocation } from "react-router-dom";
-
-import ActionButton from "../components/ActionButton";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useGoal } from "../hooks/useGoal";
+import ActionButton from "components/ActionButton";
 import {
   HeaderImage,
   LinkButton,
@@ -10,22 +10,19 @@ import {
   Recurrence,
   RichText,
   StyledCard,
-} from "../components";
-import { ForwardArrowIcon } from "../components/icons";
-import api from "../capableApi/index";
-import { useCRMContent } from "../fetchDataHooks";
+} from "components";
+import { ForwardArrowIcon } from "components/icons";
+import api from "capableApi/index";
+import { useCRMContent } from "fetchDataHooks";
 
 // Render a card detailing the target & linking to the target page to show it's observations.
 function TargetCard({ target, goal }) {
   const navigate = useNavigate();
-  const changePage = (route, params) => {
-    navigate(route, { state: params });
-  };
 
   return (
     <StyledCard
       sx={{ cursor: "pointer" }}
-      onClick={() => changePage("/target", { target: target, goal: goal })}
+      onClick={() => navigate(`/home/${goal.care_plan_id}/goals/${goal.id}/target/${target.id}`)}
     >
       <Stack sx={{ gap: 0 }}>
         <Typography variant="h7">{target.name}</Typography>
@@ -46,6 +43,7 @@ function TargetCard({ target, goal }) {
 // When there are multiple targets, we show the targets and link each one to a target
 // page to list the observations there.
 function renderTargetsOrObservations(goal) {
+  if (!goal) return;
   const targets = goal.targets;
   if (targets.length > 1) {
     return (
@@ -65,12 +63,11 @@ function renderTargetsOrObservations(goal) {
 }
 
 export default function Goal() {
-  const { state } = useLocation();
-  const navigate = useNavigate();
-  const { goal } = state;
+  const { goalId, carePlanId } = useParams<{ goalId: string; carePlanId: string }>();
+  const { data: goal, isLoading: goalLoading, isError: goalError, refetch } = useGoal(goalId);
   const { isLoading } = useCRMContent(goal);
   const isGoalAchieved =
-    goal.achievement_status === "achieved" || goal.achievement_status === "not_attainable";
+    goal?.achievement_status === "achieved" || goal?.achievement_status === "not_attainable";
 
   const updateAchievementStatus = async () => {
     const new_achievement_status = isGoalAchieved ? "in_progress" : "achieved";
@@ -82,29 +79,31 @@ export default function Goal() {
         },
       },
     });
-    navigate("/goal", {
-      state: { goal: { ...goal, achievement_status: new_achievement_status } },
-    });
+    refetch();
   };
 
-  if (isLoading) {
+  if (isLoading || goalLoading) {
     return <Skeleton variant="rectangular" animation="wave" height={280} />;
   }
 
-  return (
+  if (goalError) {
+    return <Navigate to={`/home/${carePlanId}`} />;
+  }
+
+  return goal ? (
     <>
       {goal.imageUrl ? (
         <Card sx={{ position: "relative" }}>
           <ActionButton
             type={"back"}
-            route={-1}
+            route={`/home/${carePlanId}/goals`}
             sx={{ position: "absolute", zIndex: 100 }}
           />
 
           <HeaderImage data={goal} />
         </Card>
       ) : (
-        <ActionButton type={"back"} route={`/home/${goal.care_plan_id}`} />
+        <ActionButton type={"back"} route={`/home/${carePlanId}/goals`} />
       )}
 
       <Container
@@ -122,7 +121,7 @@ export default function Goal() {
 
           {isGoalAchieved && (
             <Box sx={{ display: "flex", gap: 0.5, marginTop: "0.5rem" }}>
-              <CheckIcon fontSize="1rem" color="black" />
+              <CheckIcon style={{ color: "black" }} />
               <Typography
                 variant="eyebrow"
                 sx={{
@@ -171,5 +170,5 @@ export default function Goal() {
         </Card>
       </Container>
     </>
-  );
+  ) : null;
 }

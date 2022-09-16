@@ -17,22 +17,11 @@ const fetchCRMContent = async (capableObject) => {
     return capableObject;
   }
   try {
-    const data = await fetcher(capableObject.cms_entry_id);
-
-    if (data && data.fields) {
-      const imageUrl = data.fields.headerImage?.fields?.file?.url;
-      if (imageUrl) {
-        capableObject.imageUrl = `https:${imageUrl}`;
-      }
-      capableObject.name = data.fields.title;
-      capableObject.description = data.fields.description;
-    }
-
-    return capableObject;
+    return await fetcher(capableObject.cms_entry_id);
   } catch (error) {
     Sentry.captureException(error);
     console.error(error);
-    return capableObject;
+    return {};
   }
 };
 
@@ -42,5 +31,17 @@ const fetchCRMContent = async (capableObject) => {
 // Example: const currentPlan = useCRMContent(props.currentCarePlan);
 export default function useCRMContent(capableObject) {
   const cms_entry_id = capableObject?.cms_entry_id;
-  return useQuery([ReactQueryKeys.CMS_ENTRY, cms_entry_id], () => fetchCRMContent(capableObject));
+  const response = useQuery([ReactQueryKeys.CMS_ENTRY, cms_entry_id], () =>
+    fetchCRMContent(capableObject)
+  );
+  const data = response.data;
+  if (data && data.fields) {
+    const imageUrl = data.fields.headerImage?.fields?.file?.url;
+    if (imageUrl) {
+      capableObject.imageUrl = `https:${imageUrl}`;
+    }
+    capableObject.name = data.fields.title;
+    capableObject.description = data.fields.description;
+  }
+  return response;
 }

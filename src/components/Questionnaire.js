@@ -3,7 +3,7 @@ import ReactDOMServer from "react-dom/server";
 import * as Survey from "survey-react";
 import { compact, groupBy, sortBy, toString } from "lodash";
 import * as widgets from "surveyjs-widgets";
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Typography } from "@mui/material";
 
 import api from "../capableApi/index";
@@ -142,9 +142,18 @@ const serializeResults = (results) => {
 
 const PostQuestionnaire = () => {
   return (
-    <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <div
+      style={{
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       <CheckCircleIcon sx={{ color: "#73EBA3", fontSize: "3rem", marginBottom: "1rem" }} />
-      <Typography sx={{ fontSize: "1rem", lineHeight: "1.5rem", letterSpacing: -0.25, fontWeight: 600 }}>
+      <Typography
+        sx={{ fontSize: "1rem", lineHeight: "1.5rem", letterSpacing: -0.25, fontWeight: 600 }}
+      >
         All set! Your responses have been submitted.
       </Typography>
       <Typography sx={{ fontSize: "0.75rem", lineHeight: "1rem", color: "#4A4A4E" }}>
@@ -152,7 +161,7 @@ const PostQuestionnaire = () => {
       </Typography>
     </div>
   );
-}
+};
 
 const Questionnaire = ({ survey }) => {
   const grouped_questions = groupBy(survey.questions, (question) => question.metadata.page);

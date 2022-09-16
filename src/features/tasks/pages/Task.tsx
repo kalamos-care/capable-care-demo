@@ -10,13 +10,9 @@ import ActionButton from "components/ActionButton";
 import useCRMContent from "fetchDataHooks/useCRMContent";
 
 const Task = () => {
-  const { taskId } = useParams<{ taskId: string }>();
+  const { taskId, carePlanId } = useParams<{ taskId: string; carePlanId: string }>();
   const { data: task, isLoading: taskLoading, isError: taskError, refetch } = useTask(taskId);
-  const {
-    data: taskWithCRM,
-    isLoading: taskWithCRMLoading,
-    isError: taskWithCRMError,
-  } = useCRMContent(task);
+  const { isLoading: taskWithCRMLoading, isError: taskWithCRMError } = useCRMContent(task);
   const { mutate: updateTask } = useUpdateTask();
 
   const isTaskCompleted = task?.achievement_status === TaskAchievementStatus.COMPLETED;
@@ -42,22 +38,18 @@ const Task = () => {
   }
 
   if (taskError || taskWithCRMError) {
-    return <Navigate to="/" />;
+    return <Navigate to={`/home/${carePlanId}`} />;
   }
 
   return (
     <>
-      {taskWithCRM.imageUrl ? (
+      {task.imageUrl ? (
         <Card sx={{ position: "relative" }}>
-          <ActionButton
-            type={"back"}
-            route={-1}
-            sx={{ position: "absolute", zIndex: 100 }}
-          />
-          <HeaderImage data={taskWithCRM} />
+          <ActionButton type={"back"} route={`/home/${carePlanId}`} sx={{ position: "absolute", zIndex: 100 }} />
+          <HeaderImage data={task} />
         </Card>
       ) : (
-        <ActionButton type={"back"} route={"/"} />
+        <ActionButton type={"back"} route={`/home/${carePlanId}`} />
       )}
 
       <Container
@@ -67,14 +59,10 @@ const Task = () => {
         }}
       >
         <Typography variant="h5" component="h2" sx={{ marginY: 3 }}>
-          {taskWithCRM.name}
+          {task.name}
         </Typography>
 
         <div style={{ display: "flex", gap: "1.5rem" }}>
-          {taskWithCRM.cron_expression && (
-            <Recurrence cron_expression={taskWithCRM.cron_expression} />
-          )}
-
           {isTaskCompleted && (
             <Box sx={{ display: "flex", gap: 0.5, marginTop: "0.5rem" }}>
               <CheckIcon />
@@ -92,7 +80,7 @@ const Task = () => {
           )}
         </div>
 
-        <RichText content={taskWithCRM.description} />
+        <RichText content={task.description} />
       </Container>
 
       <Container

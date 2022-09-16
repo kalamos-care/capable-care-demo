@@ -3,14 +3,12 @@ import { Alert, Box, Snackbar, Typography } from "@mui/material";
 import { LinkButton, Observation, StyledCard } from "../components";
 import useObservations from "../fetchDataHooks/useObservations";
 import useTarget from "../fetchDataHooks/useTarget";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 // Renders a success flash if the router state contains showSuccess == true.
 function SuccessFlash() {
-  const {
-    state: { showSuccess },
-  } = useLocation();
-  const [open, setOpen] = useState(showSuccess);
+  const { state } = useLocation();
+  const [open, setOpen] = useState(state?.showSuccess);
   const closeAlert = () => setOpen(false);
 
   return (
@@ -40,7 +38,7 @@ function ObservationCards({ observations, target }) {
 // Render a log of observations for a goal and an add observations button linking to a form.
 export default function ObservationLog({ target, goal }) {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const { carePlanId } = useParams();
   const { observations } = useObservations(goal.id, target.id);
   // retrieve additional data about the target
   const { targetData } = useTarget(target.id);
@@ -53,11 +51,7 @@ export default function ObservationLog({ target, goal }) {
         </Typography>
 
         <LinkButton
-          onClick={() =>
-            navigate("/log", {
-              state: { target: targetData, goal, origin: pathname },
-            })
-          }
+          onClick={() => navigate(`/home/${carePlanId}/goals/${goal.id}/log/${target.id}`)}
         >
           + Add log
         </LinkButton>

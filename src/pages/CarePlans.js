@@ -94,11 +94,7 @@ export default function CarePlans() {
   return (
     <>
       <Box>
-        <ActionButton
-          type={"back"}
-          sx={{ backgroundColor: "#F3F4F5" }}
-          route="/home"
-        />
+        <ActionButton type={"back"} sx={{ backgroundColor: "#F3F4F5" }} route="/home" />
       </Box>
       <Box sx={{ margin: "16px" }}>
         <Typography variant="headline">Care Plans</Typography>

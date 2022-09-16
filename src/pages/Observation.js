@@ -1,11 +1,13 @@
 import { useState } from "react";
 import * as Sentry from "@sentry/react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { Box, Button, Container, Typography, Alert, Snackbar } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
+import { Box, Button, Container, Typography, Skeleton } from "@mui/material";
 import api from "../capableApi";
 import ObservationField from "../components/ObservationField";
 import { DateInput } from "../components/ObservationField";
 import ErrorMessage from "../components/ErrorMessage";
+import useTarget from "../fetchDataHooks/useTarget";
+import { useGoal } from "../features/goals/hooks/useGoal";
 
 const StyledButton = ({ sx, children, ...props }) => {
   return (
@@ -29,7 +31,7 @@ const isBooleanValue = (value) => {
 };
 
 // Component to manage the state of the create observation form.
-const Form = ({ observedValue, observedDate, target, goal, origin, saveable, children }) => {
+const Form = ({ observedValue, observedDate, target, goal, saveable, children }) => {
   const navigate = useNavigate();
 
   let value = observedValue;
@@ -65,7 +67,7 @@ const Form = ({ observedValue, observedDate, target, goal, origin, saveable, chi
     try {
       await api.client.Observation.create({ body: params });
       setSubmissionError(false);
-      navigate(origin, { state: { target, goal, showSuccess: true } });
+      navigate(`/home/${goal.care_plan_id}/goals/${goal.id}`, { state: { showSuccess: true } });
     } catch (e) {
       setSubmissionError(true);
       Sentry.captureException(e);
@@ -86,7 +88,7 @@ const Form = ({ observedValue, observedDate, target, goal, origin, saveable, chi
         >
           <StyledButton
             sx={{ color: "grey.700" }}
-            onClick={() => navigate(origin, { state: { target, goal } })}
+            onClick={() => navigate(`/home/${goal.care_plan_id}/goals/${goal.id}`)}
           >
             {" "}
             Cancel{" "}
@@ -112,13 +114,17 @@ const Form = ({ observedValue, observedDate, target, goal, origin, saveable, chi
 };
 
 export default function Observation() {
-  const {
-    state: { target, goal, origin },
-  } = useLocation();
+  const { goalId, targetId } = useParams();
+  const { data: goal, isLoading } = useGoal(goalId);
+  const { targetData: target, isLoading: targetLoading } = useTarget(targetId);
   const [observedValue, updateObservedValue] = useState();
   const [observedDate, updateObservedDate] = useState();
   const handleInputChange = (e) => updateObservedValue(e.target.value);
   const handleDateChange = (e) => updateObservedDate(e.target.value);
+
+  if (isLoading || targetLoading) {
+    return <Skeleton variant="rectangular" animation="wave" height={280} />;
+  }
 
   let inputDataType = target.data_type;
   if (target.tag_list.includes("type:wellness")) inputDataType = "wellness";
@@ -133,7 +139,6 @@ export default function Observation() {
       <Form
         target={target}
         goal={goal}
-        origin={origin}
         observedValue={observedValue}
         observedDate={observedDate}
         saveable={saveable}

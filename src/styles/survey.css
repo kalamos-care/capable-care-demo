@@ -20,7 +20,7 @@
 .sv_main .sv_body {
   border: 0;
   padding: 0;
-  background: #fafafa
+  background: #fafafa;
 }
 .sv_main .sv_body .sv_row {
   border: 0;
@@ -112,7 +112,10 @@
   width: 100%;
 }
 
-.sv_main .sv_container .sv_body .sv_nav .sv_nav_btn, .sv_main .sv_container .sv_body .sv_nav .sv_start_btn, .sv_main .sv_container .sv_body .sv_nav .sv_next_btn, .sv_main .sv_container .sv_body .sv_nav .sv_complete_btn {
+.sv_main .sv_container .sv_body .sv_nav .sv_nav_btn,
+.sv_main .sv_container .sv_body .sv_nav .sv_start_btn,
+.sv_main .sv_container .sv_body .sv_nav .sv_next_btn,
+.sv_main .sv_container .sv_body .sv_nav .sv_complete_btn {
   float: unset;
   margin: unset;
   width: 100%;

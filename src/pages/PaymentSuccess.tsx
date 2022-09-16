@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useCurrentPatient, useActiveSubscription } from "../fetchDataHooks";
 import { Box, Skeleton, Typography } from "@mui/material";
 import { Button, Heading } from "@aws-amplify/ui-react";
-import {Subscription} from "models/subscriptions/Subscription.types";
+import { Subscription } from "models/subscriptions/Subscription.types";
 import { formatDateString } from "utils/dates";
 
 const PaymentSuccess = () => {
@@ -16,8 +16,8 @@ const PaymentSuccess = () => {
   }>();
 
   useEffect(() => {
-    setSubscription(subscriptions.find((sub) => sub.stripe_subscription_id === subscriptionId))
-  }, [subscriptionId, subscriptions])
+    setSubscription(subscriptions.find((sub) => sub.stripe_subscription_id === subscriptionId));
+  }, [subscriptionId, subscriptions]);
 
   if (isLoading) {
     return <Skeleton variant="rectangular" animation="wave" height={280} />;
@@ -29,8 +29,8 @@ const PaymentSuccess = () => {
         <>
           <Heading level={5}>Trial Started</Heading>
           <Typography variant="h6" sx={{ padding: "1rem 0 2rem" }}>
-            Your free trial has begun until {formatDateString(subscription.trial_end * 1000)}.
-            You may now continue to your account!
+            Your free trial has begun until {formatDateString(subscription.trial_end * 1000)}. You
+            may now continue to your account!
           </Typography>
         </>
       ) : (
@@ -45,7 +45,7 @@ const PaymentSuccess = () => {
         Continue
       </Button>
     </Box>
-  ) : null
+  ) : null;
 };
 
 export default PaymentSuccess;

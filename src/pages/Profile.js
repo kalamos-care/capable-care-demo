@@ -294,18 +294,16 @@ export default function Profile({ signOut }) {
               text="Care preferences"
               onClick={() => handleOpenModal("This section may launch a questionnaire")}
             />
-            {
-              process.env.REACT_APP_ENABLE_REQUIRE_SUBSCRIPTION === "true" && (
-                <>
-                  <Divider />
-                  <IconListLink
-                    icon={<CreditCardIcon />}
-                    text="Subscriptions"
-                    onClick={() => navigate(`/subscriptions`)}
-                  />
-                </>
-              )
-            }
+            {process.env.REACT_APP_ENABLE_REQUIRE_SUBSCRIPTION === "true" && (
+              <>
+                <Divider />
+                <IconListLink
+                  icon={<CreditCardIcon />}
+                  text="Subscriptions"
+                  onClick={() => navigate(`/subscriptions`)}
+                />
+              </>
+            )}
           </List>
         </StyledCard>
       </Container>
@@ -320,26 +318,25 @@ export default function Profile({ signOut }) {
 
       <CareTeam />
 
-      { process.env.REACT_APP_USAGE_MODE === "demo" ? <MyInformation/> :
-        process.env.REACT_APP_ENABLE_REQUIRE_SUBSCRIPTION === "true" ? (
-          <Container sx={{marginTop: 3}}>
-            <Typography variant="h6" component="h2">
-              My Information
-            </Typography>
+      {process.env.REACT_APP_USAGE_MODE === "demo" ? (
+        <MyInformation />
+      ) : process.env.REACT_APP_ENABLE_REQUIRE_SUBSCRIPTION === "true" ? (
+        <Container sx={{ marginTop: 3 }}>
+          <Typography variant="h6" component="h2">
+            My Information
+          </Typography>
 
-            <StyledCard sx={{paddingY: 0}}>
-              <List>
-                <IconListLink
-                  icon={<CreditCardIcon />}
-                  text="Subscriptions"
-                  onClick={() => navigate(`/subscriptions`)}
-                />
-              </List>
-            </StyledCard>
-          </Container>
-        ) :
-          null
-      }
+          <StyledCard sx={{ paddingY: 0 }}>
+            <List>
+              <IconListLink
+                icon={<CreditCardIcon />}
+                text="Subscriptions"
+                onClick={() => navigate(`/subscriptions`)}
+              />
+            </List>
+          </StyledCard>
+        </Container>
+      ) : null}
 
       <Container sx={{ marginTop: 3 }}>
         <StyledCard sx={{ paddingY: 0 }}>

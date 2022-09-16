@@ -1,14 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  Box,
-  CardMedia,
-  Container,
-  Avatar,
-  Skeleton,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, CardMedia, Container, Avatar, Skeleton, Stack, Typography } from "@mui/material";
 import { useAtom } from "jotai";
 
 import {
@@ -92,29 +84,31 @@ function Header({ carePlan, patient }) {
 }
 
 const HomeContent = ({ carePlan }) => {
-  const tabs = carePlan ? [
-    {
-      title: "Tasks",
-      content: <TaskCards carePlan={carePlan} />,
-      to: `/home/${carePlan.id}/tasks`,
-    },
-    {
-      title: "Goals",
-      content: <GoalCards carePlan={carePlan} />,
-      to: `/home/${carePlan.id}/goals`,
-    },
-    {
-      title: "About",
-      content: <AboutCard carePlan={carePlan} />,
-      to: `/home/${carePlan.id}/about`,
-    },
-  ] : [];
+  const tabs = carePlan
+    ? [
+        {
+          title: "Tasks",
+          content: <TaskCards carePlan={carePlan} />,
+          to: `/home/${carePlan.id}/tasks`,
+        },
+        {
+          title: "Goals",
+          content: <GoalCards carePlan={carePlan} />,
+          to: `/home/${carePlan.id}/goals`,
+        },
+        {
+          title: "About",
+          content: <AboutCard carePlan={carePlan} />,
+          to: `/home/${carePlan.id}/about`,
+        },
+      ]
+    : [];
 
   const { subPage } = useParams();
-  const defaultTab = tabs.find(tab => tab.title.toLowerCase() === subPage) || tabs[0];
+  const defaultTab = tabs.find((tab) => tab.title.toLowerCase() === subPage) || tabs[0];
 
   const [tab, setTab] = useState(defaultTab);
-  
+
   if (!carePlan) {
     return (
       <NoDataCards
@@ -171,7 +165,7 @@ export default function Home() {
     }
 
     setCarePlan(currentCarePlan);
-  }  
+  }
 
   return (
     <>

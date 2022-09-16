@@ -6,6 +6,7 @@ export enum API_Type {
   Conversation = "Conversation",
   Ethnicity = "Ethnicity",
   Encounter = "Encounter",
+  Goal = "Goal",
   GoalTemplate = "GoalTemplate",
   Integrations = "Integrations",
   LabTest = "LabTest",

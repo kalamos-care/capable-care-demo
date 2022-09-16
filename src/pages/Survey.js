@@ -19,9 +19,7 @@ export default function Survey() {
 
   return (
     <>
-      <PrimaryHeader
-        sx={{ position: "relative", textAlign: "center", padding: "16px" }}
-      >
+      <PrimaryHeader sx={{ position: "relative", textAlign: "center", padding: "16px" }}>
         <ActionButton
           type={"back"}
           route="/"

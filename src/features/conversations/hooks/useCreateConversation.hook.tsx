@@ -47,9 +47,7 @@ export const useCreateConversation = () => {
 
   return useMutation(createChatConversation, {
     onSuccess: () => {
-      queryClient.invalidateQueries([
-        ReactQueryKeys.PATIENT_BARNARD_CONVERSATIONS,
-      ]);
+      queryClient.invalidateQueries([ReactQueryKeys.PATIENT_BARNARD_CONVERSATIONS]);
     },
   });
 };

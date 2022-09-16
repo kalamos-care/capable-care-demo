@@ -108,8 +108,8 @@ export const getMessageDateLabel = (sent) => {
 // "2022-09-06T06:30:30.000Z" => Sep 05, 2022 (cuz of timezone)
 // TODO: double check timezone...
 export const formatDateString = (dateString: string | number) => {
-  const date = new Date(dateString)
+  const date = new Date(dateString);
   // toDateString appends the day of week (Mon Sep 05 2022) so use substring to cut it out.
-  const dateArray = date.toDateString().substring(4).split(' ') // ['Sep', '05', '2022']
-  return `${dateArray[0]} ${dateArray[1]}, ${dateArray[2]}`
-}
+  const dateArray = date.toDateString().substring(4).split(" "); // ['Sep', '05', '2022']
+  return `${dateArray[0]} ${dateArray[1]}, ${dateArray[2]}`;
+};

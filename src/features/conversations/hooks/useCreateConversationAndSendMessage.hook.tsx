@@ -26,9 +26,7 @@ const createConversationAndSendMessage =
       });
       const conversationSid = createdConversation.conversation_sid;
 
-      const conversation = await twilioClient?.getConversationBySid(
-        conversationSid
-      );
+      const conversation = await twilioClient?.getConversationBySid(conversationSid);
 
       await sendMessage(conversation)(firstMessage);
       return createdConversation;
@@ -44,9 +42,7 @@ export const useCreateConversationAndSendMessage = () => {
 
   return useMutation(createConversationAndSendMessage(twilioClient), {
     onSuccess: () => {
-      queryClient.invalidateQueries([
-        ReactQueryKeys.PATIENT_BARNARD_CONVERSATIONS,
-      ]);
+      queryClient.invalidateQueries([ReactQueryKeys.PATIENT_BARNARD_CONVERSATIONS]);
     },
   });
 };

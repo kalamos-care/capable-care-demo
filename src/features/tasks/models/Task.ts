@@ -17,6 +17,7 @@ export interface Task {
   created_at: string;
   updated_at: string;
   cms_entry_id: string;
+  imageUrl: string;
   tag_list: string[];
   url: string;
 }

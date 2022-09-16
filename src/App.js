@@ -18,7 +18,7 @@ import CarePlans from "./pages/CarePlans";
 import Conversation from "features/conversations/pages/Conversation";
 import ConversationCreate from "features/conversations/pages/ConversationCreate";
 import Conversations from "features/conversations/pages/Conversations";
-import Goal from "./pages/Goal";
+import Goal from "features/goals/pages/Goal";
 import Task from "features/tasks/pages/Task";
 import Home from "./pages/Home";
 import Observation from "./pages/Observation";
@@ -102,10 +102,18 @@ export default function App() {
 
                         <Route element={<WithoutNavigation />}>
                           <Route exact path="/care_plans" element={<CarePlans />} />
-                          <Route exact path="/goal" element={<Goal />} />
-                          <Route exact path="/task/:taskId" element={<Task />} />
-                          <Route exact path="/log" element={<Observation />} />
-                          <Route exact path="/target" element={<Target />} />
+                          <Route exact path="/home/:carePlanId/goals/:goalId" element={<Goal />} />
+                          <Route exact path="/home/:carePlanId/tasks/:taskId" element={<Task />} />
+                          <Route
+                            exact
+                            path="/home/:carePlanId/goals/:goalId/log/:targetId"
+                            element={<Observation />}
+                          />
+                          <Route
+                            exact
+                            path="/home/:carePlanId/goals/:goalId/target/:targetId"
+                            element={<Target />}
+                          />
                           <Route exact path="/survey/:surveyId" element={<Survey />} />
                         </Route>
                       </SubscriptionRouteManager>

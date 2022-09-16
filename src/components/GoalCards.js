@@ -52,7 +52,7 @@ const GoalCard = ({ goal }) => {
   return (
     <StyledCard
       key={goal.id}
-      onClick={() => navigate("/goal", { state: { goal: goal } })}
+      onClick={() => navigate(`/home/${goal.care_plan_id}/goals/${goal.id}`)}
       sx={{ marginBottom: "1rem", marginTop: 0, padding: 0, cursor: "pointer" }}
     >
       {/*
