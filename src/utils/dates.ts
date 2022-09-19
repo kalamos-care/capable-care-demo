@@ -12,7 +12,7 @@ import { format } from "date-fns";
 // local timezone then the observation input should allow the correct timestamp to be set by the user.
 
 // '2022-05-03T00:00:00.000Z' => '05/03/2022'
-export const UtcDateToUsDateFormat = (dateTimeString) => {
+export const UtcDateToUsDateFormat = (dateTimeString: string) => {
   // '2022-05-03T00:00:00.000Z' => '2022-05-03'
   const date = new Date(dateTimeString).toISOString().split("T")[0];
   // '2022-05-03' => ['2022', '05', '03']
@@ -25,7 +25,7 @@ export const UtcDateToUsDateFormat = (dateTimeString) => {
   return `${month}/${day}/${year}`;
 };
 
-export const getMessageTimestampLabel = (sent: any): string => {
+export const getMessageTimestampLabel = (sent: number | string): string => {
   if (typeof sent != "number") {
     if (typeof sent == "object" || typeof sent === "string") {
       try {
@@ -55,7 +55,7 @@ export const getMessageTimestampLabel = (sent: any): string => {
   return timeLabel;
 };
 
-export const formatTime = (dateTime) => {
+export const formatTime = (dateTime: Date) => {
   return dateTime
     .toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })
     .replace("AM", "am")
@@ -87,7 +87,7 @@ const withinLastWeek = (date: Date) => {
   return date > sixDaysAgoWithoutTimestamp;
 };
 
-export const getMessageDateLabel = (sent) => {
+export const getMessageDateLabel = (sent: Date) => {
   const now = new Date();
   const sentDate = new Date(sent);
 

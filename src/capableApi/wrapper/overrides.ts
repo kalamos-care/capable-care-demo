@@ -22,6 +22,8 @@ const SUBCLASS_OVERRIDES = {
   AvailabilityApi: ["Availability"],
 };
 
+type SUBCLASS_NAME = keyof typeof SUBCLASS_OVERRIDES;
+
 // These are classes where the name does not repeat in the method name in a previsible manner
 const CLASS_OVERRIDES_MATCHES = {
   AvailabilityApi: "availability",
@@ -37,6 +39,7 @@ const CLASS_OVERRIDES_MATCHES = {
   ICDCodesApi: "icdCodes",
   WorkflowLogsApi: "workflowsLogs",
 };
-const CLASS_OVERRIDES = Object.keys(CLASS_OVERRIDES_MATCHES);
 
-export { SUBCLASS_OVERRIDES, CLASS_OVERRIDES_MATCHES, CLASS_OVERRIDES };
+type CLASS_NAME = keyof typeof CLASS_OVERRIDES_MATCHES;
+
+export { SUBCLASS_OVERRIDES, CLASS_OVERRIDES_MATCHES, CLASS_NAME, SUBCLASS_NAME };

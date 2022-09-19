@@ -1,13 +1,15 @@
+import React from "react";
+// @ts-ignore
 import { useTheme, View, Image, Heading } from "@aws-amplify/ui-react";
 
 import CopyrightFooter from "./CopyrightFooter";
 
-function HeaderText(props) {
+const HeaderText: React.FC = ({ children }) => {
   const { tokens } = useTheme();
 
   return (
     <Heading textAlign="center" padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`} level={4}>
-      {props.children}
+      {children}
     </Heading>
   );
 }

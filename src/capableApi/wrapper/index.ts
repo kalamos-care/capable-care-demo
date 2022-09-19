@@ -45,30 +45,36 @@
   Otherways, a few exception mechanisms are in place in the overrides.ts file to handle the non-standard cases.
 */
 
-import auth from "../auth";
+import { Response, ResponseError } from "superagent";
+
+import Auth from "@capable-health/capable-auth-sdk";
+// @ts-ignore
 import * as CapableHealthApi from "../codegen";
-import { clientMethodFor } from "./methods";
+import { clientMethodFor, METHOD } from "./methods";
 import { constructorNameFor, isSupportedApiClass } from "./namespaces";
 import { BASE_API_PATH } from "./config";
 
 export function clientProxy(client: any, parentClassName: string, constructorName: string) {
   return new Proxy(client, {
-    get(client: any, method: string) {
+    get(client: any, method: METHOD) {
       const clientMethod = clientMethodFor(method, parentClassName, constructorName);
 
-      if (typeof client[clientMethod] !== "function")
+      if (typeof client[clientMethod] !== "function") {
         throw Error(`No API target method named: ${method}`);
+      }
 
-      return async (...args) => {
+      return async (...args: any) => {
         client.apiClient.basePath = BASE_API_PATH;
-        const token = await auth.getAccessToken();
-        client.apiClient.defaultHeaders["Authorization"] = "Bearer " + token;
+        const token = await Auth.user.getAccessToken();
+        client.apiClient.defaultHeaders["Authorization"] = `Bearer ${token}`;
 
         return new Promise((resolve, reject) => {
-          client[clientMethod](...args, (error, data, response) => {
-            if (error) reject(error);
-            else if (response.status >= 400) reject(response);
-            else resolve(response);
+          client[clientMethod](...args, (error: ResponseError, data: Response["body"], response: Response) => {
+            if (error) {
+              reject(error);
+            } else if (response.status >= 400) {
+              reject(response);
+            } else resolve(response);
           });
         });
       };
@@ -76,15 +82,18 @@ export function clientProxy(client: any, parentClassName: string, constructorNam
   });
 }
 
-const client: any = new Proxy(new Object(), {
+const client: any = new Proxy({}, {
   get(clients: any, apiClass: string) {
-    if (apiClass == "$$typeof") return "function";
+    if (apiClass === "$$typeof") {
+      return "function";
+    }
 
     if (isSupportedApiClass(apiClass)) {
       const constructorName = constructorNameFor(apiClass);
 
-      if (!Object.prototype.hasOwnProperty.call(clients, apiClass))
+      if (!Object.prototype.hasOwnProperty.call(clients, apiClass)) {
         clients[apiClass] = new CapableHealthApi[constructorName]();
+      }
 
       return clientProxy(clients[apiClass], apiClass, constructorName);
     } else throw Error(`No API clients class named: ${apiClass}`);

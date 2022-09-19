@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { NavigateOptions, useNavigate, To } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import { Add, ArrowBackIosRounded } from "@mui/icons-material";
 
@@ -36,16 +36,20 @@ const ActionButton = ({
   onClick,
 }: {
   type: ActionIconKey;
-  route?: string | -1; // -1 is used to navigate to the previous page
-  params?;
+  route?: To | -1; // -1 is used to navigate to the previous page
+  params?: NavigateOptions;
   size?: "small" | "medium" | "large";
   sx?: React.CSSProperties;
   onClick?: () => void;
 }) => {
   const navigate = useNavigate();
 
-  const changePage = (route, params) => {
-    navigate(route, { state: params });
+  const changePage = (route: To | -1, params?: NavigateOptions) => {
+    if (route === -1) {
+      navigate(-1);
+    } else {
+      navigate(route, { state: params });
+    }
   };
 
   return (
@@ -59,7 +63,7 @@ const ActionButton = ({
         },
         ...sx,
       }}
-      onClick={() => (onClick ? onClick() : changePage(route, params))}
+      onClick={() => (onClick ? onClick() : route && changePage(route, params))}
     >
       {icons[type]}
     </IconButton>

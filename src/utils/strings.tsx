@@ -14,11 +14,26 @@ export const getInitials = (firstName: string | null, lastName: string | null): 
   return initials;
 };
 
-export const formatError = (e: any): string => {
+interface Errors {
+  errors: {
+    title: string;
+    message: string;
+  }[];
+  response: never;
+};
+
+interface ErrorsWithResponse {
+  errors: never;
+  response: {
+    body: Errors;
+  };
+};
+
+export const formatError = (e: Errors | ErrorsWithResponse | string): string => {
   let parsedError = "";
   if (typeof e === "object" && (e.response?.body?.errors || e.errors)) {
     const errors = e.response?.body?.errors || e.errors;
-    parsedError = errors.map((e) => [e.title, e.message].join(": ")).join("\n");
+    parsedError = errors.map((error) => [error.title, error.message].join(": ")).join("\n");
   } else if (typeof e === "object" && e.response?.body) {
     parsedError = JSON.stringify(e.response.body);
   } else if (typeof e === "string") {

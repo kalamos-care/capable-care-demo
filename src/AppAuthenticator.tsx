@@ -1,3 +1,4 @@
+import { CognitoUser } from "@aws-amplify/auth";
 import {
   Authenticator,
   Button,
@@ -13,9 +14,11 @@ import {
   TextField,
   useTheme,
   View,
+// @ts-ignore
 } from "@aws-amplify/ui-react";
+// @ts-ignore
 import { AuthState } from "@aws-amplify/ui-components";
-import Auth from "@capable-health/capable-auth-sdk";
+import Auth, { ConfigurationOptions, User } from "@capable-health/capable-auth-sdk";
 import identityProvider from "@capable-health/capable-auth-sdk/dist/esm/helpers/identity-provider";
 import React, { useEffect, useState } from "react";
 import { useLDClient } from "launchdarkly-react-client-sdk";
@@ -23,13 +26,13 @@ import * as Sentry from "@sentry/react";
 
 import { formFieldConfig } from "./config/auth";
 import { authComponents } from "./components/Auth";
-import { CopyrightFooter } from "./components";
+import { CopyrightFooter } from "./components/index";
 
 import "@aws-amplify/ui-react/styles.css";
 import "./styles/authenticator.css";
 
-const useAuthState = () => {
-  const [authState, setAuthState] = useState(AuthState.SignIn);
+const useAuthState = (): [AuthState, React.Dispatch<React.SetStateAction<AuthState>>] => {
+  const [authState, setAuthState] = useState<AuthState>(AuthState.SignIn);
 
   useEffect(() => {
     const fetchAuthState = async () => {
@@ -51,8 +54,9 @@ const useAuthState = () => {
   return [authState, setAuthState];
 };
 
-const useCurrentUser = () => {
-  const [currentUser, setCurrentUser] = useState(null);
+type CurrentUser = CognitoUser | User | null;
+const useCurrentUser = (): [CurrentUser, React.Dispatch<React.SetStateAction<CurrentUser>>] => {
+  const [currentUser, setCurrentUser] = useState<CurrentUser>(null);
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
@@ -73,16 +77,19 @@ const useCurrentUser = () => {
   return [currentUser, setCurrentUser];
 };
 
-function PasswordlessAuthenticator({ children, hideSignUp }) {
+interface PasswordlessAuthenticatorProps {
+  hideSignUp: boolean;
+}
+const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({ children: passwordlessAuthenticatorChildren, hideSignUp }) => {
   const [authState, setAuthState] = useAuthState();
   const [currentUser, setCurrentUser] = useCurrentUser();
-  const [submitError, setSubmitError] = useState(undefined);
+  const [submitError, setSubmitError] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
   const { tokens } = useTheme();
 
   const dialCode = "+1";
 
-  const handleSignIn = async (phoneNumber) => {
+  const handleSignIn = async (phoneNumber: string) => {
     setIsLoading(true);
     const cognitoUser = await Auth.passwordless.signIn(phoneNumber);
     setCurrentUser(cognitoUser);
@@ -90,7 +97,11 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
     setIsLoading(false);
   };
 
-  const handleConfirmSignIn = async (code) => {
+  const handleConfirmSignIn = async (code: string) => {
+    if (!currentUser) {
+      return;
+    }
+
     setIsLoading(true);
     const user = await Auth.passwordless.confirmSignIn(currentUser, code);
     setCurrentUser(user);
@@ -98,7 +109,7 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
     setIsLoading(false);
   };
 
-  const handleSignUp = async (phoneNumber) => {
+  const handleSignUp = async (phoneNumber: string) => {
     setIsLoading(true);
     setAuthState(AuthState.SignUp);
     await Auth.passwordless.signUp(phoneNumber);
@@ -106,7 +117,17 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
     setIsLoading(false);
   };
 
-  const handleSubmit = async (event, authState) => {
+  interface PhoneNumberTarget extends EventTarget {
+    phone_number: {
+      value: string;
+    };
+  };
+  interface ConfirmationCodeTarget extends EventTarget {
+    confirmation_code: {
+      value: string;
+    };
+  };
+  const handleSubmit = async (event: Event, authState: AuthState) => {
     event.preventDefault();
 
     // Reset error to undefined so that it no longer shows in the UI
@@ -114,27 +135,29 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
       setSubmitError(undefined);
     }
 
+    let target;
     try {
       switch (authState) {
         case AuthState.SignIn:
-          await handleSignIn(`${dialCode}${event.target.phone_number.value}`);
+          target = event.target as PhoneNumberTarget;
+          await handleSignIn(`${dialCode}${target.phone_number.value}`);
           break;
         case AuthState.SignUp:
-          await handleSignUp(`${dialCode}${event.target.phone_number.value}`);
+          target = event.target as PhoneNumberTarget;
+          await handleSignUp(`${dialCode}${target.phone_number.value}`);
           break;
         case AuthState.ConfirmSignIn:
-          await handleConfirmSignIn(event.target.confirmation_code.value);
+          target = event.target as ConfirmationCodeTarget;
+          await handleConfirmSignIn(target.confirmation_code.value);
           break;
         default:
-          console.log("Unknown auth state:", authState);
-          Sentry.captureMessage("Unknown auth state", {
+          Sentry.captureMessage(`Unknown auth state: ${authState}`, {
             level: "error",
-            authState,
           });
       }
     } catch (error) {
       Sentry.captureException(error, { level: "warning" });
-      setSubmitError(error.message);
+      setSubmitError((error as Error).message);
       return;
     }
   };
@@ -147,7 +170,7 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
   };
 
   const PasswordlessComponent = () => {
-    const PhoneNumberInput = (
+    const PhoneNumberInput = () => (
       <PhoneNumberField
         defaultCountryCode={dialCode}
         dialCodeList={[dialCode]}
@@ -159,7 +182,7 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
       />
     );
 
-    const ConfirmationCodeInput = (
+    const ConfirmationCodeInput = () => (
       <TextField
         name="confirmation_code"
         placeholder="Enter code"
@@ -168,7 +191,12 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
       />
     );
 
-    const InputButton = ({ submitText, showConsentMessage, showConsentCheck }) => {
+    interface InputButtonProps {
+      submitText: string;
+      showConsentMessage: boolean;
+      showConsentCheck: boolean;
+    }
+    const InputButton: React.FC<InputButtonProps> = ({ submitText, showConsentMessage, showConsentCheck }) => {
       const [checked, setChecked] = useState(showConsentCheck && showConsentCheck ? false : true);
 
       const consentText = `By submitting your phone number, you consent to receive a one-time login code from ${process.env.REACT_APP_NAME} at the number provided. Message and data rates may apply.`;
@@ -176,7 +204,10 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
         <CheckboxField
           label={consentText}
           checked={checked}
-          onChange={(e) => setChecked(e.target.checked)}
+          onChange={(event: Event) => {
+            const target = event.target as HTMLAmplifyCheckboxElement;
+            setChecked(target.checked)
+          }}
         />
       ) : (
         showConsentMessage && <span>{consentText}</span>
@@ -200,11 +231,18 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
       }
     };
 
-    const InputField = ({
+    interface InputFieldProps {
+      headerText: string;
+      submitText: string;
+      authState: AuthState;
+      showConsentMessage: boolean;
+      showConsentCheck: boolean;
+    }
+    const InputField: React.FC<InputFieldProps> = ({
+      children,
       headerText,
       submitText,
       authState,
-      inputElement,
       showConsentMessage,
       showConsentCheck,
     }) => (
@@ -214,11 +252,11 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
         </Heading>
         <Flex
           as="form"
-          onSubmit={(event) => handleSubmit(event, authState)}
+          onSubmit={(event: Event) => handleSubmit(event, authState)}
           direction="column"
           padding={tokens.space.xl}
         >
-          {inputElement}
+          {children}
           <InputButton
             submitText={submitText}
             showConsentMessage={showConsentMessage}
@@ -228,7 +266,7 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
       </Flex>
     );
 
-    const Layout = ({ children }) => (
+    const Layout: React.FC = ({ children }) => (
       <View margin="0 5px">
         <View textAlign="center" padding={tokens.space.medium}>
           <Image alt="Logo" src={process.env.REACT_APP_LOGO_DARK} />
@@ -243,10 +281,11 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
         headerText="Sign in to your account"
         submitText="Get Code"
         authState={AuthState.SignIn}
-        inputElement={PhoneNumberInput}
         showConsentMessage={true}
         showConsentCheck={false}
-      />
+      >
+        <PhoneNumberInput/>
+      </InputField>
     );
 
     const SignUp = (
@@ -254,10 +293,11 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
         headerText="Create a new account"
         submitText="Sign Up"
         authState={AuthState.SignUp}
-        inputElement={PhoneNumberInput}
         showConsentMessage={true}
         showConsentCheck={true}
-      />
+        >
+          <PhoneNumberInput/>
+        </InputField>
     );
 
     const ConfirmSignIn = (
@@ -265,10 +305,11 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
         headerText="Confirm Sign In"
         submitText="Validate Code"
         authState={AuthState.ConfirmSignIn}
-        inputElement={ConfirmationCodeInput}
         showConsentMessage={false}
         showConsentCheck={false}
-      />
+        >
+          <ConfirmationCodeInput/>
+        </InputField>
     );
 
     if (hideSignUp && authState === AuthState.SignIn) {
@@ -297,24 +338,25 @@ function PasswordlessAuthenticator({ children, hideSignUp }) {
     return null;
   };
 
-  return authState === AuthState.SignedIn && currentUser
-    ? children({ signOut: handleSignOut })
+  return authState === AuthState.SignedIn && currentUser && passwordlessAuthenticatorChildren
+      // @ts-ignore
+    ? passwordlessAuthenticatorChildren({ signOut: handleSignOut })
     : PasswordlessComponent();
 }
 
 const PASSWORDLESS = "passwordless";
 const CREDENTIALS = "credentials";
 
-function getInitialAuthFlow() {
+const getInitialAuthFlow = (): typeof PASSWORDLESS | typeof CREDENTIALS => {
   if (
     process.env.REACT_APP_ENABLE_PASSWORDLESS === "true" &&
     process.env.REACT_APP_ENABLE_CREDENTIALS === "true"
   ) {
     return window.location.href.includes(PASSWORDLESS)
       ? PASSWORDLESS
-      : [CREDENTIALS, PASSWORDLESS].includes(process.env.REACT_APP_DEFAULT_AUTH_FLOW)
-      ? process.env.REACT_APP_DEFAULT_AUTH_FLOW
-      : CREDENTIALS;
+      : process.env.REACT_APP_DEFAULT_AUTH_FLOW === CREDENTIALS || process.env.REACT_APP_DEFAULT_AUTH_FLOW === PASSWORDLESS
+        ? process.env.REACT_APP_DEFAULT_AUTH_FLOW
+        : CREDENTIALS;
   } else if (process.env.REACT_APP_ENABLE_PASSWORDLESS === "true") {
     return PASSWORDLESS;
   } else {
@@ -322,30 +364,33 @@ function getInitialAuthFlow() {
   }
 }
 
-function AppAuthenticator(props) {
+const AppAuthenticator: React.FC = ({ children }) => {
   const ldClient = useLDClient();
   const [authFlow] = useState(getInitialAuthFlow());
   const [isAuthConfigured, setIsAuthConfigured] = useState(false);
 
   useEffect(() => {
-    const userPoolId = process.env.REACT_APP_COGNITO_USER_POOL_ID;
+    const userPoolId = process.env.REACT_APP_COGNITO_USER_POOL_ID as string;
     const userPoolWebClientId =
-      authFlow === PASSWORDLESS
-        ? process.env.REACT_APP_COGNITO_USER_POOL_WEB_CLIENT_ID_PASSWORDLESS
-        : process.env.REACT_APP_COGNITO_USER_POOL_WEB_CLIENT_ID_END_USER_LOGIN;
+      (
+        authFlow === PASSWORDLESS
+          ? process.env.REACT_APP_COGNITO_USER_POOL_WEB_CLIENT_ID_PASSWORDLESS
+          : process.env.REACT_APP_COGNITO_USER_POOL_WEB_CLIENT_ID_END_USER_LOGIN
+      ) as string;
 
     const configureAmplify = () => {
-      const authConfig = {
+      const authConfig: ConfigurationOptions = {
         userPoolId,
         userPoolWebClientId,
       };
 
-      const tenantMigration = !!ldClient.variation("tenant-test-migration", false);
+      const tenantMigration = !!ldClient?.variation("tenant-test-migration", false);
       if (tenantMigration && authFlow === CREDENTIALS) {
         // This is important for allowing the migration
         // It should be removed once the migration is complete
         authConfig.authenticationFlowType = "USER_PASSWORD_AUTH";
         authConfig.clientMetadata = {
+          // @ts-ignore
           migration: "1",
         };
       }
@@ -380,7 +425,6 @@ function AppAuthenticator(props) {
           });
         })
         .catch((error) => {
-          console.log("User is not signed in");
           Sentry.captureException(error, { level: "warning" });
         });
     } else {
@@ -413,10 +457,12 @@ function AppAuthenticator(props) {
 
   // This allows to switch back and forth between passwordless auth and credentials auth
   return authFlow === PASSWORDLESS ? (
-    <PasswordlessAuthenticator children={props.children} hideSignUp={hideSignUp} />
+    <PasswordlessAuthenticator hideSignUp={hideSignUp}>
+      {children}
+    </PasswordlessAuthenticator>
   ) : (
     <Authenticator formFields={formFieldConfig} components={authComponents} hideSignUp={hideSignUp}>
-      {props.children}
+      {children}
     </Authenticator>
   );
 }

@@ -1,5 +1,5 @@
 import { isClassOverride, isSubclassOverride } from "./namespaces";
-import { CLASS_OVERRIDES_MATCHES } from "./overrides";
+import { CLASS_OVERRIDES_MATCHES, CLASS_NAME } from "./overrides";
 import { injectLetterBefore } from "./utils";
 
 const CANCEL = "cancel";
@@ -65,19 +65,24 @@ const ACTION_OVERRIDES = {
   [RESULTS]: "IdResultsGet",
   [SUBMIT]: "IdSubmitPost",
 };
+type METHOD = keyof typeof ACTION_OVERRIDES;
 const METHOD_OVERRIDES = Object.keys(ACTION_OVERRIDES);
 function isMethodOverride(method: string): boolean {
   return METHOD_OVERRIDES.includes(method);
 }
 
-function clientMethodFor(method: string, parentClassName: string, constructorName: string): string {
+function clientMethodFor(
+  method: METHOD,
+  parentClassName: string,
+  constructorName: string,
+): string {
   let clientMethod = method;
 
   if (isMethodOverride(method)) {
     let className: string;
 
     if (isClassOverride(constructorName)) {
-      className = CLASS_OVERRIDES_MATCHES[constructorName];
+      className = CLASS_OVERRIDES_MATCHES[(constructorName as CLASS_NAME)];
     } else {
       if (isSubclassOverride(constructorName)) {
         className = parentClassName.charAt(0).toLowerCase() + parentClassName.slice(1);
@@ -102,6 +107,7 @@ function clientMethodFor(method: string, parentClassName: string, constructorNam
 }
 
 export {
+  METHOD,
   clientMethodFor,
   isMethodOverride,
   ADD_CHAT_PARTICIPANT,
