@@ -11,6 +11,7 @@ interface ProductMetadata {
 
 export interface SubscriptionOption {
   id: string;
+  active: boolean;
   nickname: string;
   unit_amount: number;
   unit_amount_decimal: string;

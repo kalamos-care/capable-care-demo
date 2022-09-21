@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { ReactQueryKeys } from "constants/keys";
 import api from "../capableApi";
+import { Subscription } from "models/subscriptions/Subscription.types";
 
-const findCurrentActiveSubscriptions = (subscriptions) => {
+const findCurrentActiveSubscriptions = (subscriptions: Subscription[]) => {
   return (
     subscriptions?.filter((subscription) => {
       return ["active", "trialing"].includes(subscription.status);
@@ -10,7 +11,7 @@ const findCurrentActiveSubscriptions = (subscriptions) => {
   );
 };
 
-const fetchPatientActiveSubscriptions = async (patientId) => {
+const fetchPatientActiveSubscriptions = async (patientId: string | null) => {
   const subscriptionResponse = await api.client.Subscription.list({
     patientId: patientId,
   });
@@ -23,7 +24,7 @@ const fetchPatientActiveSubscriptions = async (patientId) => {
 };
 
 // Fetch the patient's active subscription
-export default function useActiveSubscription(patientId) {
+export default function useActiveSubscription(patientId: string | null) {
   return useQuery(
     [ReactQueryKeys.PATIENT_ACTIVE_SUBSCRIPTION, patientId],
     () => fetchPatientActiveSubscriptions(patientId),

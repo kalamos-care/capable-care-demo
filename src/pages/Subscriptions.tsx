@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, Dispatch, SetStateAction } from "react";
 import { Box, CardMedia, Container, Skeleton, Typography, Divider } from "@mui/material";
-import useCRMContent from "../fetchDataHooks/useCRMContent";
 import { Button, Heading, Loader } from "@aws-amplify/ui-react";
 import useSubscriptionPlans from "../fetchDataHooks/useSubscriptionPlans";
 import { convertRetailPriceCentsToRetailPrice, capitalize } from "utils/strings";
@@ -13,12 +12,13 @@ import {
   CardCvcElement,
 } from "@stripe/react-stripe-js";
 import api from "../capableApi";
-import { useCurrentPatient, useExistingPaymentMethod } from "../fetchDataHooks";
+import { useCurrentPatient, useExistingPaymentMethod, useCRMContent } from "../fetchDataHooks";
 import { Subscription, SubscriptionOption } from "models/subscriptions/Subscription.types";
 import { Navigate, useNavigate } from "react-router-dom";
 import useActiveSubscription from "fetchDataHooks/useActiveSubscription";
 import * as Sentry from "@sentry/react";
 import { formatDateString } from "utils/dates";
+import { NoDataCards } from "components/index";
 
 const SubscriptionHeader = ({ title, content }: { title: string; content: string }) => (
   <Box sx={{ backgroundColor: "background.paper" }}>
@@ -132,7 +132,7 @@ const SubscriptionSelection = ({
   signOut: () => void;
 }) => {
   let counter = 0;
-  return (
+  return plans.length > 0 ? (
     <Box sx={{ padding: "1rem", background: "#FAFAFA", height: "100%" }}>
       <Box sx={{ paddingBottom: "1rem", fontWeight: "500" }}>Choose your plan</Box>
       {plans.map((planOption, index) => {
@@ -168,6 +168,34 @@ const SubscriptionSelection = ({
           Log out
         </Button>
       </Box>
+    </Box>
+  ) : (
+    <Box
+      sx={{
+        textAlign: "center",
+      }}
+    >
+      <Box
+        sx={{
+          padding: "5rem 0",
+        }}
+      >
+        <NoDataCards
+          firstText="Monthly Plan"
+          secondText="Yearly Plan"
+          title="No subscription plans available"
+          body="As soon as they are available, you will be able to select a plan here."
+        />
+      </Box>
+      <Button
+        variation="link"
+        size="small"
+        onClick={signOut}
+        type="button"
+        color={process.env.REACT_APP_COLOR}
+      >
+        Log out
+      </Button>
     </Box>
   );
 };
@@ -694,12 +722,17 @@ export const Subscriptions = ({ signOut }: { signOut: () => void }) => {
     return <div>Woops something went wrong...</div>;
   }
 
-  const subscriptionHeader = data.name ??
-    `Welcome${process.env.REACT_APP_COMPANY_NAME ? " to " + process.env.REACT_APP_COMPANY_NAME : ''}!`
-  const subscriptionContent = data.description?.content
-    ?.map((contentNode) =>
-      contentNode.content.map((subContentNode) => subContentNode.value).join("")
-    )?.join("\n") ?? "To get started, please select a plan below.";
+  const subscriptionHeader =
+    data.name ??
+    `Welcome${
+      process.env.REACT_APP_COMPANY_NAME ? " to " + process.env.REACT_APP_COMPANY_NAME : ""
+    }!`;
+  const subscriptionContent =
+    data.description?.content
+      ?.map((contentNode) =>
+        contentNode.content.map((subContentNode) => subContentNode.value).join("")
+      )
+      ?.join("\n") ?? "To get started, please select a plan below.";
 
   const SubscriptionPage = () => {
     switch (pageView) {

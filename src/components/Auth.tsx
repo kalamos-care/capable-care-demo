@@ -12,7 +12,7 @@ const HeaderText: React.FC = ({ children }) => {
       {children}
     </Heading>
   );
-}
+};
 
 function Logo() {
   const { tokens } = useTheme();

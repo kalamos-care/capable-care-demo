@@ -14,7 +14,7 @@ import {
   TextField,
   useTheme,
   View,
-// @ts-ignore
+  // @ts-ignore
 } from "@aws-amplify/ui-react";
 // @ts-ignore
 import { AuthState } from "@aws-amplify/ui-components";
@@ -80,7 +80,10 @@ const useCurrentUser = (): [CurrentUser, React.Dispatch<React.SetStateAction<Cur
 interface PasswordlessAuthenticatorProps {
   hideSignUp: boolean;
 }
-const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({ children: passwordlessAuthenticatorChildren, hideSignUp }) => {
+const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({
+  children: passwordlessAuthenticatorChildren,
+  hideSignUp,
+}) => {
   const [authState, setAuthState] = useAuthState();
   const [currentUser, setCurrentUser] = useCurrentUser();
   const [submitError, setSubmitError] = useState<string | undefined>(undefined);
@@ -121,12 +124,12 @@ const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({ c
     phone_number: {
       value: string;
     };
-  };
+  }
   interface ConfirmationCodeTarget extends EventTarget {
     confirmation_code: {
       value: string;
     };
-  };
+  }
   const handleSubmit = async (event: Event, authState: AuthState) => {
     event.preventDefault();
 
@@ -196,7 +199,11 @@ const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({ c
       showConsentMessage: boolean;
       showConsentCheck: boolean;
     }
-    const InputButton: React.FC<InputButtonProps> = ({ submitText, showConsentMessage, showConsentCheck }) => {
+    const InputButton: React.FC<InputButtonProps> = ({
+      submitText,
+      showConsentMessage,
+      showConsentCheck,
+    }) => {
       const [checked, setChecked] = useState(showConsentCheck && showConsentCheck ? false : true);
 
       const consentText = `By submitting your phone number, you consent to receive a one-time login code from ${process.env.REACT_APP_NAME} at the number provided. Message and data rates may apply.`;
@@ -206,7 +213,7 @@ const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({ c
           checked={checked}
           onChange={(event: Event) => {
             const target = event.target as HTMLAmplifyCheckboxElement;
-            setChecked(target.checked)
+            setChecked(target.checked);
           }}
         />
       ) : (
@@ -284,7 +291,7 @@ const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({ c
         showConsentMessage={true}
         showConsentCheck={false}
       >
-        <PhoneNumberInput/>
+        <PhoneNumberInput />
       </InputField>
     );
 
@@ -295,9 +302,9 @@ const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({ c
         authState={AuthState.SignUp}
         showConsentMessage={true}
         showConsentCheck={true}
-        >
-          <PhoneNumberInput/>
-        </InputField>
+      >
+        <PhoneNumberInput />
+      </InputField>
     );
 
     const ConfirmSignIn = (
@@ -307,9 +314,9 @@ const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({ c
         authState={AuthState.ConfirmSignIn}
         showConsentMessage={false}
         showConsentCheck={false}
-        >
-          <ConfirmationCodeInput/>
-        </InputField>
+      >
+        <ConfirmationCodeInput />
+      </InputField>
     );
 
     if (hideSignUp && authState === AuthState.SignIn) {
@@ -339,10 +346,10 @@ const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({ c
   };
 
   return authState === AuthState.SignedIn && currentUser && passwordlessAuthenticatorChildren
-      // @ts-ignore
-    ? passwordlessAuthenticatorChildren({ signOut: handleSignOut })
+    ? // @ts-ignore
+      passwordlessAuthenticatorChildren({ signOut: handleSignOut })
     : PasswordlessComponent();
-}
+};
 
 const PASSWORDLESS = "passwordless";
 const CREDENTIALS = "credentials";
@@ -354,15 +361,16 @@ const getInitialAuthFlow = (): typeof PASSWORDLESS | typeof CREDENTIALS => {
   ) {
     return window.location.href.includes(PASSWORDLESS)
       ? PASSWORDLESS
-      : process.env.REACT_APP_DEFAULT_AUTH_FLOW === CREDENTIALS || process.env.REACT_APP_DEFAULT_AUTH_FLOW === PASSWORDLESS
-        ? process.env.REACT_APP_DEFAULT_AUTH_FLOW
-        : CREDENTIALS;
+      : process.env.REACT_APP_DEFAULT_AUTH_FLOW === CREDENTIALS ||
+        process.env.REACT_APP_DEFAULT_AUTH_FLOW === PASSWORDLESS
+      ? process.env.REACT_APP_DEFAULT_AUTH_FLOW
+      : CREDENTIALS;
   } else if (process.env.REACT_APP_ENABLE_PASSWORDLESS === "true") {
     return PASSWORDLESS;
   } else {
     return CREDENTIALS;
   }
-}
+};
 
 const AppAuthenticator: React.FC = ({ children }) => {
   const ldClient = useLDClient();
@@ -371,12 +379,11 @@ const AppAuthenticator: React.FC = ({ children }) => {
 
   useEffect(() => {
     const userPoolId = process.env.REACT_APP_COGNITO_USER_POOL_ID as string;
-    const userPoolWebClientId =
-      (
-        authFlow === PASSWORDLESS
-          ? process.env.REACT_APP_COGNITO_USER_POOL_WEB_CLIENT_ID_PASSWORDLESS
-          : process.env.REACT_APP_COGNITO_USER_POOL_WEB_CLIENT_ID_END_USER_LOGIN
-      ) as string;
+    const userPoolWebClientId = (
+      authFlow === PASSWORDLESS
+        ? process.env.REACT_APP_COGNITO_USER_POOL_WEB_CLIENT_ID_PASSWORDLESS
+        : process.env.REACT_APP_COGNITO_USER_POOL_WEB_CLIENT_ID_END_USER_LOGIN
+    ) as string;
 
     const configureAmplify = () => {
       const authConfig: ConfigurationOptions = {
@@ -457,14 +464,12 @@ const AppAuthenticator: React.FC = ({ children }) => {
 
   // This allows to switch back and forth between passwordless auth and credentials auth
   return authFlow === PASSWORDLESS ? (
-    <PasswordlessAuthenticator hideSignUp={hideSignUp}>
-      {children}
-    </PasswordlessAuthenticator>
+    <PasswordlessAuthenticator hideSignUp={hideSignUp}>{children}</PasswordlessAuthenticator>
   ) : (
     <Authenticator formFields={formFieldConfig} components={authComponents} hideSignUp={hideSignUp}>
       {children}
     </Authenticator>
   );
-}
+};
 
 export default AppAuthenticator;

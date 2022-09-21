@@ -130,7 +130,7 @@ const getCarePlanTabs = (carePlan: CarePlan) => {
         to = `/home/${carePlan.id}/tasks`;
         return {
           title: "Tasks",
-          content: <TaskCards carePlan={carePlan}/>,
+          content: <TaskCards carePlan={carePlan} />,
           to
         };
       case "goals":
@@ -148,7 +148,7 @@ const getCarePlanTabs = (carePlan: CarePlan) => {
           content: <DetailsCard carePlan={carePlan} />,
           to
         };
-    };
+    }
   });
 };
 

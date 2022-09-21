@@ -71,18 +71,14 @@ function isMethodOverride(method: string): boolean {
   return METHOD_OVERRIDES.includes(method);
 }
 
-function clientMethodFor(
-  method: METHOD,
-  parentClassName: string,
-  constructorName: string,
-): string {
+function clientMethodFor(method: METHOD, parentClassName: string, constructorName: string): string {
   let clientMethod = method;
 
   if (isMethodOverride(method)) {
     let className: string;
 
     if (isClassOverride(constructorName)) {
-      className = CLASS_OVERRIDES_MATCHES[(constructorName as CLASS_NAME)];
+      className = CLASS_OVERRIDES_MATCHES[constructorName as CLASS_NAME];
     } else {
       if (isSubclassOverride(constructorName)) {
         className = parentClassName.charAt(0).toLowerCase() + parentClassName.slice(1);

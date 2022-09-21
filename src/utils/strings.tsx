@@ -20,14 +20,14 @@ interface Errors {
     message: string;
   }[];
   response: never;
-};
+}
 
 interface ErrorsWithResponse {
   errors: never;
   response: {
     body: Errors;
   };
-};
+}
 
 export const formatError = (e: Errors | ErrorsWithResponse | string): string => {
   let parsedError = "";

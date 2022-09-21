@@ -69,36 +69,42 @@ export function clientProxy(client: any, parentClassName: string, constructorNam
         client.apiClient.defaultHeaders["Authorization"] = `Bearer ${token}`;
 
         return new Promise((resolve, reject) => {
-          client[clientMethod](...args, (error: ResponseError, data: Response["body"], response: Response) => {
-            if (error) {
-              reject(error);
-            } else if (response.status >= 400) {
-              reject(response);
-            } else resolve(response);
-          });
+          client[clientMethod](
+            ...args,
+            (error: ResponseError, data: Response["body"], response: Response) => {
+              if (error) {
+                reject(error);
+              } else if (response.status >= 400) {
+                reject(response);
+              } else resolve(response);
+            }
+          );
         });
       };
     },
   });
 }
 
-const client: any = new Proxy({}, {
-  get(clients: any, apiClass: string) {
-    if (apiClass === "$$typeof") {
-      return "function";
-    }
-
-    if (isSupportedApiClass(apiClass)) {
-      const constructorName = constructorNameFor(apiClass);
-
-      if (!Object.prototype.hasOwnProperty.call(clients, apiClass)) {
-        clients[apiClass] = new CapableHealthApi[constructorName]();
+const client: any = new Proxy(
+  {},
+  {
+    get(clients: any, apiClass: string) {
+      if (apiClass === "$$typeof") {
+        return "function";
       }
 
-      return clientProxy(clients[apiClass], apiClass, constructorName);
-    } else throw Error(`No API clients class named: ${apiClass}`);
-  },
-});
+      if (isSupportedApiClass(apiClass)) {
+        const constructorName = constructorNameFor(apiClass);
+
+        if (!Object.prototype.hasOwnProperty.call(clients, apiClass)) {
+          clients[apiClass] = new CapableHealthApi[constructorName]();
+        }
+
+        return clientProxy(clients[apiClass], apiClass, constructorName);
+      } else throw Error(`No API clients class named: ${apiClass}`);
+    },
+  }
+);
 
 export * from "./config";
 

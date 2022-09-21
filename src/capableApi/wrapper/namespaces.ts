@@ -29,7 +29,8 @@ const SUB_NAMESPACES = Object.entries(SUBCLASS_OVERRIDES).reduce((subNamespaces:
 const SUB_NAMESPACES_LIST = Object.keys(SUB_NAMESPACES);
 const API_CLASS_NAMESPACES = CONSTRUCTOR_NAMESPACES.filter((item) => item.endsWith("Api"))
   .map((item) => {
-    if (Object.keys(SUBCLASS_OVERRIDES).includes(item)) return SUBCLASS_OVERRIDES[(item as SUBCLASS_NAME)];
+    if (Object.keys(SUBCLASS_OVERRIDES).includes(item))
+      return SUBCLASS_OVERRIDES[item as SUBCLASS_NAME];
 
     const namespace = item.slice(0, -3);
     return isInvariableName(namespace) ? namespace : pluralize.singular(namespace);

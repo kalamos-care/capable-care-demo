@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCurrentPatient, useActiveSubscription } from "../fetchDataHooks";
 import { Box, Skeleton, Typography } from "@mui/material";
+// @ts-ignore
 import { Button, Heading } from "@aws-amplify/ui-react";
 import { Subscription } from "models/subscriptions/Subscription.types";
 import { formatDateString } from "utils/dates";
@@ -16,7 +17,9 @@ const PaymentSuccess = () => {
   }>();
 
   useEffect(() => {
-    setSubscription(subscriptions.find((sub) => sub.stripe_subscription_id === subscriptionId));
+    setSubscription(
+      subscriptions.find((sub: Subscription) => sub.stripe_subscription_id === subscriptionId)
+    );
   }, [subscriptionId, subscriptions]);
 
   if (isLoading) {
