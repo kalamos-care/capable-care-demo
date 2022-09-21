@@ -27,6 +27,7 @@ export interface User {
   ethnicities: any[];
   avatar_url?: string;
   userType?: UserType; //TODO: remove this once migration is done?
+  type?: UserType;
 }
 
 export interface Address {
@@ -46,5 +47,11 @@ export interface Address {
   addressable_type: string;
   addressable_id: string;
 }
+
+export const UserTypes = {
+  Practitioner: "Practitioner",
+  TenantAdmin: "TenantAdmin",
+  Patient: "Patient",
+};
 
 export type UserType = "Practitioner" | "TenantAdmin" | "Patient";

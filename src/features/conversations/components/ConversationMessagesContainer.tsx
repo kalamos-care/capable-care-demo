@@ -45,6 +45,7 @@ export const ConversationMessagesContainer = ({
   const { currentPatient: currentUser } = useCurrentPatient();
   const messagesBoxRef = useRef<HTMLDivElement>(null);
   const [scrollToBottom, setScrollToBottom] = useState(false);
+  const [lastMessageSid, setLastMessageSid] = useState<string>("");
 
   const conversationId = passedConversationId ?? conversationIdParam;
 
@@ -59,9 +60,6 @@ export const ConversationMessagesContainer = ({
   const { data, isLoading, fetchPreviousPage, isFetchingPreviousPage, hasPreviousPage, isError } =
     useConversationMessages({
       conversationSid: barnardConversation?.twilio_sid ?? "",
-      onMessageAdded: () => {
-        setScrollToBottom(true);
-      },
       // Don't have a good default case for this function, didn't want to make the param optional though
       conversationClientType: ConversationTypes.CHAT,
     });
@@ -81,6 +79,14 @@ export const ConversationMessagesContainer = ({
     return messages;
   }, [data]);
 
+  useEffect(() => {
+    const nextLastMessageSid = messages.slice(-1)[0]?.sid;
+    if (nextLastMessageSid !== lastMessageSid && scrollToBottom === false) {
+      setLastMessageSid(nextLastMessageSid);
+      setScrollToBottom(true);
+    }
+  }, [lastMessageSid, messages, scrollToBottom]);
+
   if (isError || participantsIsError) {
     return <MessagePlaceholder text="Error... no conversation was found" />;
   }
@@ -89,7 +95,7 @@ export const ConversationMessagesContainer = ({
     return <ConversationMessagesLoader />;
   }
 
-  if (data?.pages[0].length === 0) {
+  if (messages.length === 0) {
     return <MessagePlaceholder text="Start this conversation by sending a message" />;
   }
 
@@ -130,7 +136,8 @@ export const ConversationMessagesContainer = ({
           }}
         >
           {messages.map((message) => {
-            const author = participants && message?.author ? participants[message?.author] : null;
+            const author =
+              participants && message?.author ? participants[message?.author] : undefined;
 
             const key = message.sid + message?.dateCreated?.getTime();
             return (

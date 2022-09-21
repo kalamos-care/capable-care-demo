@@ -41,8 +41,9 @@ export const useCreateConversationAndSendMessage = () => {
   const { data: twilioClient } = useTwilioClient(ConversationClientTypes.CHAT);
 
   return useMutation(createConversationAndSendMessage(twilioClient), {
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries([ReactQueryKeys.PATIENT_BARNARD_CONVERSATIONS]);
+      queryClient.invalidateQueries([ReactQueryKeys.MESSAGES, data.conversation_sid]);
     },
   });
 };

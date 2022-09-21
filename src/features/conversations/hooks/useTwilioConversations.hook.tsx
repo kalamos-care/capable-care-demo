@@ -41,42 +41,16 @@ export const useTwilioChatConversations = (barnardConversations: BarnardConversa
   return useQueries({ queries });
 };
 
-export const useTwilioSmsConversations = (barnardConversations: BarnardConversation[]) => {
-  const { data: client, isLoading: clientLoading } = useTwilioClient(ConversationClientTypes.SMS);
-
-  const queries = barnardConversations
-    .filter((conversation) => conversation.conversation_type === ConversationTypes.SMS)
-    .map((conversation) => ({
-      queryKey: [ReactQueryKeys.TWILIO_CONVERSATION, conversation.id],
-      queryFn: () => fetchTwilioConversation(conversation, client),
-      enabled: Boolean(!!barnardConversations?.length && !clientLoading),
-      staleTime: Infinity,
-    }));
-
-  return useQueries({ queries });
-};
-
 export const useTwilioConversations = (barnardConversations: BarnardConversation[]) => {
-  const twilioSmsConversationQueries = useTwilioSmsConversations(barnardConversations);
   const twilioChatConversationQueries = useTwilioChatConversations(barnardConversations);
 
   // Loading state
-  const twilioConversationsLoading =
-    twilioSmsConversationQueries.some((result) => result.isLoading) ||
-    twilioChatConversationQueries.some((result) => result.isLoading);
+  const twilioConversationsLoading = twilioChatConversationQueries.some(
+    (result) => result.isLoading
+  );
 
   // Error state
-  const twilioConversationsError =
-    twilioSmsConversationQueries.some((result) => result.isError) ||
-    twilioChatConversationQueries.some((result) => result.isError);
-
-  // Filter and extract data from SMS queries
-  const filteredTwilioSmsConversations = twilioSmsConversationQueries.filter((result) => {
-    const conversation = result?.data?.twilioConversation;
-    const lastMessage = result?.data?.lastMessage;
-    return !result.isLoading && !result.isError && conversation && lastMessage;
-  });
-  const twilioSmsConversations = filteredTwilioSmsConversations?.map((c) => c.data);
+  const twilioConversationsError = twilioChatConversationQueries.some((result) => result.isError);
 
   // Filter and extract data from chat queries
   const filteredTwilioChatConversations = twilioChatConversationQueries.filter((result) => {
@@ -88,7 +62,7 @@ export const useTwilioConversations = (barnardConversations: BarnardConversation
 
   const twilioChatConversations = filteredTwilioChatConversations?.map((c) => c.data);
 
-  const twilioConversations = [...twilioChatConversations, ...twilioSmsConversations];
+  const twilioConversations = twilioChatConversations;
 
   return {
     data: twilioConversations,

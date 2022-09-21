@@ -6,6 +6,8 @@ import { ConversationType } from "models/conversations/BarnardConversation.types
 import { formatError } from "utils/strings";
 import { useTwilioClient } from "./useTwilioClient.hook";
 
+export const LOCAL_MESSAGE_PREFIX = "LOCAL_MESSAGE";
+
 export const sendMessage = (conversation?: Conversation) => async (message: string) => {
   if (!conversation) {
     throw new Error("Conversation not found");
@@ -27,7 +29,7 @@ export const useSendMessageByConversationSid = (
         // but it should be silent
         const conversationResponse = await twilioClient
           ?.getConversationBySid(conversationSid)
-          .catch(() => {});
+          .catch();
         if (conversationResponse) setConversation(conversationResponse);
       }
     })();

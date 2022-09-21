@@ -10,7 +10,7 @@ const Message = ({
   message,
   sentByMe,
 }: {
-  author: User;
+  author?: User;
   message: TwilioMessage;
   sentByMe: boolean;
 }) => {
@@ -49,7 +49,7 @@ const Message = ({
             color: "grey.700",
           }}
         >
-          {format(message.dateCreated, "MMM d, yyyy h:mmaaa")}
+          {format(message.dateCreated!, "MMM d, yyyy h:mmaaa")}
         </Typography>
       </Box>
       <MessageBody message={message} />

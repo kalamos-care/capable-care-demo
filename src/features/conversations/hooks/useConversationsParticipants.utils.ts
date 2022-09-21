@@ -7,7 +7,7 @@ export const getParticipantsByAuthor = (usersData?: User[]) =>
     obj[`${user.id}@capable-chat.com`] = user;
     if (user.email) obj[user.email] = user;
     if (isPatient(user)) {
-      obj[user.phone_number.number] = user;
+      obj[user.phone_number?.number] = user;
     }
     return obj;
   }, {} as Record<string, User>);
