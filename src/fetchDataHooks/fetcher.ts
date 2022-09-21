@@ -9,11 +9,20 @@ import api from "../capableApi/index";
 //   ['CarePlan', 'list', {page: 1, size: 1, sortBy: ['-created_at']}],
 //   fetcher
 // );
-const fetcher = (resource, action, args) => {
+
+const fetcher = (
+  resource: string,
+  action: string,
+  args: {
+    page?: number,
+    size?: number,
+    sortBy?: string[],
+  },
+) => {
   if (args) {
-    return api.client[resource][action](args).then((res) => res.body);
+    return api.client[resource][action](args).then((res: Response) => res.body);
   } else {
-    return api.client[resource][action]().then((res) => res.body);
+    return api.client[resource][action]().then((res: Response) => res.body);
   }
 };
 

@@ -5,22 +5,16 @@ import md5 from "blueimp-md5";
 
 const GRAVATAR_URI = "https://www.gravatar.com/avatar/";
 
-const queryString = (params) =>
-  "?" +
-  Object.keys(params)
-    .map((key) => key + "=" + params[key])
-    .join("&");
-
 // For stripping plusses from email addresses to get a higher hit rate
 // on Gravatar.
-const stripPlus = function (email) {
+const stripPlus = (email: string): string => {
   if (!email) return "";
   const left_side = email.split("@")[0].split("+")[0];
   const right_side = email.split("@")[1];
   return left_side + "@" + right_side;
 };
 
-const gravatar = (email) => {
+const gravatar = (email: string): string => {
   const size = 160;
   const defaultImage = "https://i.imgur.com/Dkzx1as.png";
   const rating = "g";

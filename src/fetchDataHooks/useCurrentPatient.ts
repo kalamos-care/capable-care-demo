@@ -1,7 +1,14 @@
 import useSWR from "swr";
 import * as Sentry from "@sentry/react";
 import fetcher from "./fetcher";
-import Patient from "../dataModels/Patient";
+import Patient from "models/patients/Patient";
+import { Patient as PatientInterface } from "models/index.types";
+
+
+export interface CurrentPatient extends PatientInterface {
+  joinedAt: number;
+  name: string;
+}
 
 // Fetch the current patient.
 export default function useCurrentPatient() {
@@ -12,7 +19,7 @@ export default function useCurrentPatient() {
   }
 
   return {
-    currentPatient: new Patient(data),
+    currentPatient: new Patient(data) as unknown as CurrentPatient,
     isLoading: !error && !data,
     isError: error,
   };

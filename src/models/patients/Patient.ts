@@ -1,4 +1,4 @@
-import { DataWrapper } from "./DataWrapper";
+import { DataWrapper } from "../../dataModels/DataWrapper";
 
 class Patient extends DataWrapper {
   get name() {

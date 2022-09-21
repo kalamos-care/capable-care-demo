@@ -29,7 +29,7 @@ import {
 import { useCurrentPatient, usePatientRelatedPersons } from "../fetchDataHooks";
 import gravatar from "../utils/gravatar";
 import PrimaryHeader from "../components/PrimaryHeader";
-import Patient from "../dataModels/Patient";
+import Patient from "models/patients/Patient";
 import api from "../capableApi/index";
 
 const ProfileAvatar = ({ patient, setError, setPatient }) => {

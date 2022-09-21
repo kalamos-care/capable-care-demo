@@ -1,3 +1,5 @@
 import { atom } from "jotai";
 
-export const carePlanAtom = atom(null);
+import { CarePlan } from "models/index.types";
+
+export const carePlanAtom = atom<CarePlan | undefined>(undefined);

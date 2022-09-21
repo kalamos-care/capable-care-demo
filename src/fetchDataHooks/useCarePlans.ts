@@ -1,6 +1,8 @@
 import useSWR from "swr";
 import * as Sentry from "@sentry/react";
+
 import fetcher from "./fetcher";
+import { CarePlan } from "models/index.types";
 
 // Fetch the patient's care plans.
 export default function useCarePlans() {
@@ -14,7 +16,7 @@ export default function useCarePlans() {
   }
 
   return {
-    carePlans: data,
+    carePlans: data as CarePlan[],
     isLoading: !error && !data,
     isError: error,
   };

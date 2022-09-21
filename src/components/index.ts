@@ -1,4 +1,3 @@
-import ArrowLink from "./ArrowLink";
 import ActionButton from "./ActionButton";
 import BasicModal from "./BasicModal";
 import CopyrightFooter from "./CopyrightFooter";
@@ -24,7 +23,6 @@ import ThumbsEmoji from "./ThumbsEmoji";
 import WellnessEmoji from "./WellnessEmoji";
 
 export {
-  ArrowLink,
   ActionButton,
   BasicModal,
   ControlledTabs,
