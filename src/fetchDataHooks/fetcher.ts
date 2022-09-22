@@ -14,10 +14,10 @@ const fetcher = (
   resource: string,
   action: string,
   args: {
-    page?: number,
-    size?: number,
-    sortBy?: string[],
-  },
+    page?: number;
+    size?: number;
+    sortBy?: string[];
+  }
 ) => {
   if (args) {
     return api.client[resource][action](args).then((res: Response) => res.body);

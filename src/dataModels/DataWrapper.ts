@@ -13,8 +13,12 @@ class DataWrapper {
     return Object.keys(this.data);
   }
 
+  get entries() {
+    return Object.entries(this.data);
+  }
+
   _keysFromData() {
-    Object.keys(this.data).forEach((key) => (this[key] = this.data[key]));
+    this.entries.forEach(([key, value]) => (this[key] = value));
   }
 }
 

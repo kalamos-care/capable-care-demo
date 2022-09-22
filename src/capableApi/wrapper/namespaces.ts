@@ -3,10 +3,11 @@ import pluralize from "pluralize";
 // @ts-ignore
 import * as CapableHealthApi from "../codegen";
 
-import { CLASS_OVERRIDES_MATCHES, SUBCLASS_OVERRIDES, SUBCLASS_NAME } from "./overrides";
+import overrides, { SUBCLASS_NAME } from "./overrides";
+const { CLASS_OVERRIDES_MATCHES, SUBCLASS_OVERRIDES } = overrides;
 
 function isSubclassOverride(namespace: string): boolean {
-  return Array.isArray(Object.prototype.hasOwnProperty.call(SUBCLASS_OVERRIDES, namespace));
+  return Array.isArray(SUBCLASS_OVERRIDES[namespace as SUBCLASS_NAME]);
 }
 function isClassOverride(constructorName: string): boolean {
   return Object.prototype.hasOwnProperty.call(CLASS_OVERRIDES_MATCHES, constructorName);

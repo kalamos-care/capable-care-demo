@@ -85,9 +85,7 @@ export class PatientsPatient {
       if (data.hasOwnProperty("tag_list"))
         obj.tagList = ApiClient.convertToType(data["tag_list"], ["String"]);
       if (data.hasOwnProperty("metadata"))
-        obj.metadata = ApiClient.convertToType(data["metadata"], {
-          String: Object,
-        });
+        obj.metadata = ApiClient.convertToType(data["metadata"], { String: Object });
     }
     return obj;
   }

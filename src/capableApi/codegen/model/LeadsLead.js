@@ -40,9 +40,7 @@ export class LeadsLead {
       if (data.hasOwnProperty("identity_external_id"))
         obj.identityExternalId = ApiClient.convertToType(data["identity_external_id"], "String");
       if (data.hasOwnProperty("metadata"))
-        obj.metadata = ApiClient.convertToType(data["metadata"], {
-          String: Object,
-        });
+        obj.metadata = ApiClient.convertToType(data["metadata"], { String: Object });
     }
     return obj;
   }

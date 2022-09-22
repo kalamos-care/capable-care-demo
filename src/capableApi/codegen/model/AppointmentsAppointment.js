@@ -53,9 +53,7 @@ export class AppointmentsAppointment {
       if (data.hasOwnProperty("calendar_id"))
         obj.calendarId = ApiClient.convertToType(data["calendar_id"], "String");
       if (data.hasOwnProperty("metadata"))
-        obj.metadata = ApiClient.convertToType(data["metadata"], {
-          String: Object,
-        });
+        obj.metadata = ApiClient.convertToType(data["metadata"], { String: Object });
     }
     return obj;
   }

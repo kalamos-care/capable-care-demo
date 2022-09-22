@@ -55,9 +55,7 @@ export class QuestionnairesidQuestionnaireQuestionsAttributes {
       if (data.hasOwnProperty("observation_type_id"))
         obj.observationTypeId = ApiClient.convertToType(data["observation_type_id"], "String");
       if (data.hasOwnProperty("metadata"))
-        obj.metadata = ApiClient.convertToType(data["metadata"], {
-          String: Object,
-        });
+        obj.metadata = ApiClient.convertToType(data["metadata"], { String: Object });
       if (data.hasOwnProperty("answers_attributes"))
         obj.answersAttributes = ApiClient.convertToType(data["answers_attributes"], [
           QuestionnairesidQuestionnaireAnswersAttributes,

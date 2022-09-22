@@ -1,6 +1,7 @@
 import { isClassOverride, isSubclassOverride } from "./namespaces";
-import { CLASS_OVERRIDES_MATCHES, CLASS_NAME } from "./overrides";
+import overrides, { CLASS_NAME } from "./overrides";
 import { injectLetterBefore } from "./utils";
+const { CLASS_OVERRIDES_MATCHES } = overrides;
 
 const CANCEL = "cancel";
 const CREATE = "create";
@@ -18,6 +19,8 @@ const SUGGESTION = "suggestion";
 const RESCHEDULE = "reschedule";
 const SEARCH = "search";
 const SELECT = "select";
+const COGNITO_APP_CLIENTS_SECRET = "cognitoAppClientsSecret";
+const WEBHOOK_SIGNATURE_KEYS_SECRET = "webhookSignatureKeysSecret";
 const SECRET = "secret";
 const LINK = "link";
 const EXPORT = "export";
@@ -51,6 +54,8 @@ const ACTION_OVERRIDES = {
   [LINK]: "LinkPost",
   [EXPORT]: "IdExportGet",
   [INVITE]: "InvitePost",
+  [COGNITO_APP_CLIENTS_SECRET]: "CognitoAppClientsIdSecretGet",
+  [WEBHOOK_SIGNATURE_KEYS_SECRET]: "WebhookSignatureKeysIdSecretGet",
   [SECRET]: "IdSecretGet",
   [AVATAR_UPLOAD]: "IdAvatarPost",
   [UPLOAD_CARD]: "IdCardPatch",
@@ -82,7 +87,9 @@ function clientMethodFor(method: METHOD, parentClassName: string, constructorNam
     } else {
       if (isSubclassOverride(constructorName)) {
         className = parentClassName.charAt(0).toLowerCase() + parentClassName.slice(1);
-      } else className = constructorName.charAt(0).toLowerCase() + constructorName.slice(1, -3);
+      } else {
+        className = constructorName.charAt(0).toLowerCase() + constructorName.slice(1, -3);
+      }
 
       if (parentClassName.endsWith("Template")) {
         // template class have a second 's' midway
@@ -96,7 +103,9 @@ function clientMethodFor(method: METHOD, parentClassName: string, constructorNam
     if (className.includes("integrations") && method === "update")
       // integrations are singleton, so instead of IdPatch, we use Patch
       clientMethod = className + "Patch";
-    else clientMethod = className + ACTION_OVERRIDES[method];
+    else {
+      clientMethod = className + ACTION_OVERRIDES[method];
+    }
   }
 
   return clientMethod;
@@ -128,6 +137,8 @@ export {
   RESCHEDULE,
   RESULTS,
   SEARCH,
+  COGNITO_APP_CLIENTS_SECRET,
+  WEBHOOK_SIGNATURE_KEYS_SECRET,
   SECRET,
   SELECT,
   SMS_OWNER_TOKEN,

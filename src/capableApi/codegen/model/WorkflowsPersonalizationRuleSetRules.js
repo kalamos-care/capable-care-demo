@@ -14,7 +14,6 @@
  */
 import { ApiClient } from "../ApiClient";
 import { WorkflowsPersonalizationRuleSetInputs } from "./WorkflowsPersonalizationRuleSetInputs";
-import { AnyOfworkflowsPersonalizationRuleSetRulesTargetsItems } from "./AnyOfworkflowsPersonalizationRuleSetRulesTargetsItems";
 
 /**
  * The WorkflowsPersonalizationRuleSetRules model module.

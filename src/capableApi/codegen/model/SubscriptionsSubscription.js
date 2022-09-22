@@ -48,6 +48,8 @@ export class SubscriptionsSubscription {
         obj.priceIds = ApiClient.convertToType(data["price_ids"], ["String"]);
       if (data.hasOwnProperty("promotion_code"))
         obj.promotionCode = ApiClient.convertToType(data["promotion_code"], "String");
+      if (data.hasOwnProperty("cancel_at_period_end"))
+        obj.cancelAtPeriodEnd = ApiClient.convertToType(data["cancel_at_period_end"], "Boolean");
     }
     return obj;
   }
@@ -69,3 +71,9 @@ SubscriptionsSubscription.prototype.priceIds = undefined;
  * @member {String} promotionCode
  */
 SubscriptionsSubscription.prototype.promotionCode = undefined;
+
+/**
+ * Set to true if you want the subscription to end after the current period
+ * @member {Boolean} cancelAtPeriodEnd
+ */
+SubscriptionsSubscription.prototype.cancelAtPeriodEnd = undefined;

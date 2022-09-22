@@ -4,7 +4,6 @@ import fetcher from "./fetcher";
 import Patient from "models/patients/Patient";
 import { Patient as PatientInterface } from "models/index.types";
 
-
 export interface CurrentPatient extends PatientInterface {
   joinedAt: number;
   name: string;
@@ -21,6 +20,6 @@ export default function useCurrentPatient() {
   return {
     currentPatient: new Patient(data) as unknown as CurrentPatient,
     isLoading: !error && !data,
-    isError: error,
+    isError: error as Error,
   };
 }

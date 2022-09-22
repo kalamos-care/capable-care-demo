@@ -74,9 +74,7 @@ export class PractitionersinvitePractitioner {
       if (data.hasOwnProperty("tag_list"))
         obj.tagList = ApiClient.convertToType(data["tag_list"], ["String"]);
       if (data.hasOwnProperty("metadata"))
-        obj.metadata = ApiClient.convertToType(data["metadata"], {
-          String: Object,
-        });
+        obj.metadata = ApiClient.convertToType(data["metadata"], { String: Object });
       if (data.hasOwnProperty("rendering_npi_attributes"))
         obj.renderingNpiAttributes =
           PractitionersinvitePractitionerRenderingNpiAttributes.constructFromObject(

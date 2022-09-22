@@ -375,7 +375,7 @@ export class IntegrationsApi {
 
     let authNames = [];
     let contentTypes = ["application/json"];
-    let accepts = [];
+    let accepts = ["application/json"];
     let returnType = null;
 
     return this.apiClient.callApi(
@@ -919,7 +919,7 @@ export class IntegrationsApi {
 
     let authNames = [];
     let contentTypes = ["application/json"];
-    let accepts = [];
+    let accepts = ["application/json"];
     let returnType = null;
 
     return this.apiClient.callApi(
@@ -1337,7 +1337,7 @@ export class IntegrationsApi {
 
     let authNames = [];
     let contentTypes = ["application/json"];
-    let accepts = [];
+    let accepts = ["application/json"];
     let returnType = null;
 
     return this.apiClient.callApi(
@@ -1589,7 +1589,7 @@ export class IntegrationsApi {
 
     let authNames = [];
     let contentTypes = ["application/json"];
-    let accepts = [];
+    let accepts = ["application/json"];
     let returnType = null;
 
     return this.apiClient.callApi(

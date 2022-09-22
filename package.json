@@ -21,7 +21,6 @@
     "@tanstack/react-query": "^4.0.10",
     "@tanstack/react-query-devtools": "^4.2.3",
     "@twilio/conversations": "^2.1.0",
-    "@types/jest": "^29.0.2",
     "blueimp-md5": "^2.19.0",
     "color": "^4.2.3",
     "contentful": "^9.1.18",
@@ -41,8 +40,6 @@
     "survey-react": "^1.9.47",
     "surveyjs-widgets": "^1.9.47",
     "swr": "^1.2.2",
-    "ts-jest": "^29.0.1",
-    "typescript": "^4.8.3",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
@@ -77,10 +74,12 @@
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",
     "@types/blueimp-md5": "^2.18.0",
+    "@types/jest": "^29.0.2",
     "@types/node": "^17.0.23",
     "@types/pluralize": "^0.0.29",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
+    "@types/sinon": "^10.0.13",
     "@types/superagent": "^4.1.15",
     "@typescript-eslint/eslint-plugin": "^5.37.0",
     "@typescript-eslint/parser": "^5.37.0",
@@ -97,6 +96,9 @@
     "jsdom-worker": "^0.3.0",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
-    "react-test-renderer": "^18.2.0"
+    "react-test-renderer": "^18.2.0",
+    "sinon": "^14.0.0",
+    "ts-jest": "^29.0.1",
+    "typescript": "^4.8.3"
   }
 }

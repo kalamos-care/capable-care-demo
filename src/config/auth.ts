@@ -44,7 +44,7 @@ export default function configureAuthenticator() {
   );
   document.documentElement.style.setProperty(
     "--amplify-colors-brand-primary-100",
-    process.env.REACT_APP_COLOR
+    Color(process.env.REACT_APP_COLOR).hex()
   );
   document.documentElement.style.setProperty("--amplify-components-card-padding", "none");
 }

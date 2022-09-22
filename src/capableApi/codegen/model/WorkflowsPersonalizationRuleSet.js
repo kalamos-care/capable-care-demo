@@ -115,6 +115,12 @@ WorkflowsPersonalizationRuleSet.TriggersEnum = {
    * @const
    */
   messageAdded: "message added",
+
+  /**
+   * value: "observation create"
+   * @const
+   */
+  observationCreate: "observation create",
 };
 /**
  * @member {Array.<module:model/WorkflowsPersonalizationRuleSet.TriggersEnum>} triggers

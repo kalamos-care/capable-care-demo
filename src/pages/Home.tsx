@@ -1,22 +1,25 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Box, CardMedia, Container, Avatar, Link, Skeleton, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  CardMedia,
+  Container,
+  Avatar,
+  Link,
+  Skeleton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useAtom } from "jotai";
 
-import {
-  DetailsCard,
-  ControlledTabs,
-  GoalCards,
-  NoDataCards,
-  TaskCards,
-} from "components";
+import { DetailsCard, ControlledTabs, GoalCards, NoDataCards, TaskCards } from "components";
 import { useCarePlans, useCurrentPatient } from "fetchDataHooks/index";
 import { CurrentPatient } from "fetchDataHooks/useCurrentPatient";
 import gravatar from "utils/gravatar";
 import { carePlanAtom } from "../atoms";
 import { CarePlan } from "models/index.types";
 
-const Header = ({ carePlan, patient }: { carePlan?: CarePlan, patient: CurrentPatient }) => {
+const Header = ({ carePlan, patient }: { carePlan?: CarePlan; patient: CurrentPatient }) => {
   const navigate = useNavigate();
 
   // Ignoring any errors because it's just for the avatar URL / email
@@ -30,58 +33,56 @@ const Header = ({ carePlan, patient }: { carePlan?: CarePlan, patient: CurrentPa
     avatarUrl = patient.avatar_url;
   }
 
-  const CarePlans = carePlan
-    ? (
-        <Link
-          onClick={() => navigate("/care_plans")}
-          underline="none"
-          component="button"
-          sx={{
-            alignItems: "baseline",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            gap: "1rem",
-          }}
-        >
-          <Typography
-            variant="headline"
-            sx={{
-              flexGrow: 1,
-              display: "flex",
-              textAlign: "left",
-            }}
-          >
-            {carePlan.name}
-          </Typography>
-          <Typography
-            variant="subtitle"
-            sx={{
-              minWidth: "fit-content",
-              textDecoration: "underline",
-            }}
-          >
-            See all
-          </Typography>
-        </Link>
-      )
-    : (
-        <Typography
-          variant="subtitle"
-          sx={{
-            flexGrow: 1,
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            width: 1,
-            alignItems: "center",
-            fontSize: "20px",
-            marginTop: "0.25rem",
-          }}
-        >
-          No active care plans
-        </Typography>
-      );
+  const CarePlans = carePlan ? (
+    <Link
+      onClick={() => navigate("/care_plans")}
+      underline="none"
+      component="button"
+      sx={{
+        alignItems: "baseline",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        gap: "1rem",
+      }}
+    >
+      <Typography
+        variant="headline"
+        sx={{
+          flexGrow: 1,
+          display: "flex",
+          textAlign: "left",
+        }}
+      >
+        {carePlan.name}
+      </Typography>
+      <Typography
+        variant="subtitle"
+        sx={{
+          minWidth: "fit-content",
+          textDecoration: "underline",
+        }}
+      >
+        See all
+      </Typography>
+    </Link>
+  ) : (
+    <Typography
+      variant="subtitle"
+      sx={{
+        flexGrow: 1,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        width: 1,
+        alignItems: "center",
+        fontSize: "20px",
+        marginTop: "0.25rem",
+      }}
+    >
+      No active care plans
+    </Typography>
+  );
 
   return (
     <Box
@@ -120,9 +121,9 @@ const Header = ({ carePlan, patient }: { carePlan?: CarePlan, patient: CurrentPa
 };
 
 const getCarePlanTabs = (carePlan: CarePlan) => {
-  const tabOrder = process.env.REACT_APP_HOME_TAB_ORDER ?
-    process.env.REACT_APP_HOME_TAB_ORDER.split(',').map((tabName) => tabName.toLowerCase().trim()) :
-    ["tasks", "goals", "detais"]
+  const tabOrder = process.env.REACT_APP_HOME_TAB_ORDER
+    ? process.env.REACT_APP_HOME_TAB_ORDER.split(",").map((tabName) => tabName.toLowerCase().trim())
+    : ["tasks", "goals", "detais"];
   return tabOrder.map((tabName) => {
     let to;
     switch (tabName) {
@@ -131,14 +132,14 @@ const getCarePlanTabs = (carePlan: CarePlan) => {
         return {
           title: "Tasks",
           content: <TaskCards carePlan={carePlan} />,
-          to
+          to,
         };
       case "goals":
         to = `/home/${carePlan.id}/goals`;
         return {
           title: "Goals",
           content: <GoalCards carePlan={carePlan} />,
-          to
+          to,
         };
       case "details":
       default:
@@ -146,7 +147,7 @@ const getCarePlanTabs = (carePlan: CarePlan) => {
         return {
           title: "Details",
           content: <DetailsCard carePlan={carePlan} />,
-          to
+          to,
         };
     }
   });

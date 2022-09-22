@@ -33,6 +33,56 @@ export class APICredentialsApi {
   }
 
   /**
+   * Callback function to receive the result of the apiCredentialsCognitoAppClientsIdSecretGet operation.
+   * @callback moduleapi/APICredentialsApi~apiCredentialsCognitoAppClientsIdSecretGetCallback
+   * @param {String} error Error message, if any.
+   * @param data This operation does not return a value.
+   * @param {String} response The complete HTTP response.
+   */
+
+  /**
+   * Returns app client secret
+   * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#10060; &lt;s&gt;Patient&lt;/s&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#10060; &lt;s&gt;Practitioner&lt;/s&gt;&lt;/p&gt;
+   * @param {String} id Capable id of the cognito_app_client
+   * @param {module:api/APICredentialsApi~apiCredentialsCognitoAppClientsIdSecretGetCallback} callback The callback function, accepting three arguments: error, data, response
+   */
+  apiCredentialsCognitoAppClientsIdSecretGet(id, callback) {
+    let postBody = null;
+    // verify the required parameter 'id' is set
+    if (id === undefined || id === null) {
+      throw new Error(
+        "Missing the required parameter 'id' when calling apiCredentialsCognitoAppClientsIdSecretGet"
+      );
+    }
+
+    let pathParams = {
+      id: id,
+    };
+    let queryParams = {};
+    let headerParams = {};
+    let formParams = {};
+
+    let authNames = [];
+    let contentTypes = [];
+    let accepts = ["application/json"];
+    let returnType = null;
+
+    return this.apiClient.callApi(
+      "/api_credentials/cognito_app_clients/{id}/secret",
+      "GET",
+      pathParams,
+      queryParams,
+      headerParams,
+      formParams,
+      postBody,
+      authNames,
+      contentTypes,
+      accepts,
+      returnType,
+      callback
+    );
+  }
+  /**
    * Callback function to receive the result of the apiCredentialsGet operation.
    * @callback moduleapi/APICredentialsApi~apiCredentialsGetCallback
    * @param {String} error Error message, if any.
@@ -74,24 +124,26 @@ export class APICredentialsApi {
     );
   }
   /**
-   * Callback function to receive the result of the apiCredentialsIdSecretGet operation.
-   * @callback moduleapi/APICredentialsApi~apiCredentialsIdSecretGetCallback
+   * Callback function to receive the result of the apiCredentialsWebhookSignatureKeysIdSecretGet operation.
+   * @callback moduleapi/APICredentialsApi~apiCredentialsWebhookSignatureKeysIdSecretGetCallback
    * @param {String} error Error message, if any.
    * @param data This operation does not return a value.
    * @param {String} response The complete HTTP response.
    */
 
   /**
-   * Returns app client secret
+   * Returns webhook signature key secret
    * &lt;h3&gt;   &amp;#128275; Access policy &lt;/h3&gt; &lt;p&gt;You can access this endpoint with the following token types:&lt;/p&gt; &lt;p&gt;&amp;#9989; M2M&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#10060; &lt;s&gt;Patient&lt;/s&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;#10060; &lt;s&gt;Practitioner&lt;/s&gt;&lt;/p&gt;
-   * @param {String} id Capable id of the cognito_app_client
-   * @param {module:api/APICredentialsApi~apiCredentialsIdSecretGetCallback} callback The callback function, accepting three arguments: error, data, response
+   * @param {String} id Id of the webhook signature key
+   * @param {module:api/APICredentialsApi~apiCredentialsWebhookSignatureKeysIdSecretGetCallback} callback The callback function, accepting three arguments: error, data, response
    */
-  apiCredentialsIdSecretGet(id, callback) {
+  apiCredentialsWebhookSignatureKeysIdSecretGet(id, callback) {
     let postBody = null;
     // verify the required parameter 'id' is set
     if (id === undefined || id === null) {
-      throw new Error("Missing the required parameter 'id' when calling apiCredentialsIdSecretGet");
+      throw new Error(
+        "Missing the required parameter 'id' when calling apiCredentialsWebhookSignatureKeysIdSecretGet"
+      );
     }
 
     let pathParams = {
@@ -107,7 +159,7 @@ export class APICredentialsApi {
     let returnType = null;
 
     return this.apiClient.callApi(
-      "/api_credentials/{id}/secret",
+      "/api_credentials/webhook_signature_keys/{id}/secret",
       "GET",
       pathParams,
       queryParams,

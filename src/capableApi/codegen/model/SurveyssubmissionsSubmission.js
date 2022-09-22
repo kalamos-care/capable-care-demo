@@ -53,9 +53,7 @@ export class SurveyssubmissionsSubmission {
       if (data.hasOwnProperty("identity_external_id"))
         obj.identityExternalId = ApiClient.convertToType(data["identity_external_id"], "String");
       if (data.hasOwnProperty("metadata"))
-        obj.metadata = ApiClient.convertToType(data["metadata"], {
-          String: Object,
-        });
+        obj.metadata = ApiClient.convertToType(data["metadata"], { String: Object });
       if (data.hasOwnProperty("status"))
         obj.status = ApiClient.convertToType(data["status"], "String");
       if (data.hasOwnProperty("questions"))

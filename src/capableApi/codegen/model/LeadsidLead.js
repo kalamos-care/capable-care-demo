@@ -38,9 +38,7 @@ export class LeadsidLead {
     if (data) {
       obj = obj || new LeadsidLead();
       if (data.hasOwnProperty("metadata"))
-        obj.metadata = ApiClient.convertToType(data["metadata"], {
-          String: Object,
-        });
+        obj.metadata = ApiClient.convertToType(data["metadata"], { String: Object });
     }
     return obj;
   }

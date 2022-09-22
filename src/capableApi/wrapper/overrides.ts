@@ -22,7 +22,7 @@ const SUBCLASS_OVERRIDES = {
   AvailabilityApi: ["Availability"],
 };
 
-type SUBCLASS_NAME = keyof typeof SUBCLASS_OVERRIDES;
+export type SUBCLASS_NAME = keyof typeof SUBCLASS_OVERRIDES;
 
 // These are classes where the name does not repeat in the method name in a previsible manner
 const CLASS_OVERRIDES_MATCHES = {
@@ -40,6 +40,7 @@ const CLASS_OVERRIDES_MATCHES = {
   WorkflowLogsApi: "workflowsLogs",
 };
 
-type CLASS_NAME = keyof typeof CLASS_OVERRIDES_MATCHES;
+export type CLASS_NAME = keyof typeof CLASS_OVERRIDES_MATCHES;
 
-export { SUBCLASS_OVERRIDES, CLASS_OVERRIDES_MATCHES, CLASS_NAME, SUBCLASS_NAME };
+const overrides = { SUBCLASS_OVERRIDES, CLASS_OVERRIDES_MATCHES };
+export default overrides;
