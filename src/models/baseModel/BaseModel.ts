@@ -1,8 +1,6 @@
-class DataWrapper {
-  data: {
-    [key: string]: any;
-  };
-  [key: string]: any;
+class BaseModel {
+  data: Record<string, unknown>;
+  [key: string]: unknown;
 
   constructor(data = {}) {
     this.data = data;
@@ -22,4 +20,4 @@ class DataWrapper {
   }
 }
 
-export { DataWrapper };
+export { BaseModel };

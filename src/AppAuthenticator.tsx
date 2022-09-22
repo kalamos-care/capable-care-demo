@@ -116,7 +116,8 @@ const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({
     setIsLoading(true);
     setAuthState(AuthState.SignUp);
     await Auth.passwordless.signUp(
-      phoneNumber, process.env.REACT_APP_TERMS_OF_SERVICE_URL ? {accepted_terms_of_service: true} : {}
+      phoneNumber,
+      process.env.REACT_APP_TERMS_OF_SERVICE_URL ? { accepted_terms_of_service: true } : {}
     );
     await handleSignIn(phoneNumber);
     setIsLoading(false);
@@ -202,7 +203,12 @@ const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({
       showConsentCheck: boolean;
       showTosCheck?: boolean;
     }
-    const InputButton: React.FC<InputButtonProps> = ({ submitText, showConsentMessage, showConsentCheck, showTosCheck }) => {
+    const InputButton: React.FC<InputButtonProps> = ({
+      submitText,
+      showConsentMessage,
+      showConsentCheck,
+      showTosCheck,
+    }) => {
       const [checked, setChecked] = useState(!showConsentCheck);
       const [tosChecked, setTosChecked] = useState(!showTosCheck);
 
@@ -230,24 +236,26 @@ const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({
         return (
           <>
             {ConsentText}
-            {
-              showTosCheck && (
-                <CheckboxField
-                  label={
-                    <div> By signing up, you agree to
-                      our <a target="_blank" href={process.env.REACT_APP_TERMS_OF_SERVICE_URL}>Terms of Service</a>
-                    </div>
-                  }
-                  name="accepted_terms_of_service"
-                  value="accepted_terms_of_service"
-                  checked={tosChecked}
-                  onChange={(event: Event) => {
-                    const target = event.target as HTMLAmplifyCheckboxElement;
-                    setTosChecked(target.checked)
-                  }}
-                />
-              )
-            }
+            {showTosCheck && (
+              <CheckboxField
+                label={
+                  <div>
+                    {" "}
+                    By signing up, you agree to our{" "}
+                    <a target="_blank" href={process.env.REACT_APP_TERMS_OF_SERVICE_URL}>
+                      Terms of Service
+                    </a>
+                  </div>
+                }
+                name="accepted_terms_of_service"
+                value="accepted_terms_of_service"
+                checked={tosChecked}
+                onChange={(event: Event) => {
+                  const target = event.target as HTMLAmplifyCheckboxElement;
+                  setTosChecked(target.checked);
+                }}
+              />
+            )}
             <Button type="submit" variation="primary" disabled={!checked || !tosChecked}>
               {submitText}
             </Button>
@@ -498,12 +506,12 @@ const AppAuthenticator: React.FC = ({ children }) => {
             return {};
           }
 
-          if (!formData['custom:capable:signup_data']) {
+          if (!formData["custom:capable:signup_data"]) {
             return {
-              accepted_terms_of_service: "You must agree to the Terms of Service"
-            }
+              accepted_terms_of_service: "You must agree to the Terms of Service",
+            };
           }
-        }
+        },
       }}
     >
       {children}

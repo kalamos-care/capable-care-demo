@@ -1,6 +1,6 @@
-import { DataWrapper } from "./DataWrapper";
+import { BaseModel } from "../models/baseModel/BaseModel";
 
-class Appointment extends DataWrapper {
+class Appointment extends BaseModel {
   get date() {
     return new Date(this.start).toLocaleDateString("en-US", {
       year: "numeric",

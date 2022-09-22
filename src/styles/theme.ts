@@ -43,18 +43,19 @@ declare module "@mui/material/Typography" {
     headline: true;
     subtitle: true;
     small: true;
+    medium: true;
     modal: true;
   }
 }
 
-let theme = createTheme({
+const theme = createTheme({
   palette: {
     background: {
       default: "#fafafa",
       paper: "#fff",
     },
     primary: {
-      main: process.env.REACT_APP_COLOR,
+      main: Color(process.env.REACT_APP_COLOR).hex(),
       light: Color(process.env.REACT_APP_COLOR).lightness(95).hex(),
     },
     secondary: {
