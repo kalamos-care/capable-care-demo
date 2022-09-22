@@ -1,6 +1,6 @@
 import React from "react";
 // @ts-ignore
-import { useTheme, View, Image, Heading } from "@aws-amplify/ui-react";
+import { useTheme, View, Image, Heading, useAuthenticator, Authenticator, CheckboxField } from "@aws-amplify/ui-react";
 
 import CopyrightFooter from "./CopyrightFooter";
 
@@ -43,6 +43,24 @@ export const authComponents = {
     Header() {
       return <HeaderText>Create a new account</HeaderText>;
     },
+    FormFields() {
+      return (
+        <>
+          <Authenticator.SignUp.FormFields />
+          { process.env.REACT_APP_TERMS_OF_SERVICE_URL &&
+            <CheckboxField
+              label={
+                <div> By signing up, you agree to
+                  our <a target="_blank" href={process.env.REACT_APP_TERMS_OF_SERVICE_URL}>Terms of Service</a>
+                </div>
+              }
+              name="custom:capable:signup_data"
+              value={JSON.stringify({ metadata: { accepted_terms_of_service: true } })}
+            />
+          }
+        </>
+      )
+    }
   },
   ConfirmSignUp: {
     Header() {

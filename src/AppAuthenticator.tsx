@@ -115,7 +115,9 @@ const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({
   const handleSignUp = async (phoneNumber: string) => {
     setIsLoading(true);
     setAuthState(AuthState.SignUp);
-    await Auth.passwordless.signUp(phoneNumber);
+    await Auth.passwordless.signUp(
+      phoneNumber, process.env.REACT_APP_TERMS_OF_SERVICE_URL ? {accepted_terms_of_service: true} : {}
+    );
     await handleSignIn(phoneNumber);
     setIsLoading(false);
   };
@@ -198,13 +200,11 @@ const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({
       submitText: string;
       showConsentMessage: boolean;
       showConsentCheck: boolean;
+      showTosCheck?: boolean;
     }
-    const InputButton: React.FC<InputButtonProps> = ({
-      submitText,
-      showConsentMessage,
-      showConsentCheck,
-    }) => {
-      const [checked, setChecked] = useState(showConsentCheck && showConsentCheck ? false : true);
+    const InputButton: React.FC<InputButtonProps> = ({ submitText, showConsentMessage, showConsentCheck, showTosCheck }) => {
+      const [checked, setChecked] = useState(!showConsentCheck);
+      const [tosChecked, setTosChecked] = useState(!showTosCheck);
 
       const consentText = `By submitting your phone number, you consent to receive a one-time login code from ${process.env.REACT_APP_NAME} at the number provided. Message and data rates may apply.`;
       const ConsentText = showConsentCheck ? (
@@ -230,7 +230,25 @@ const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({
         return (
           <>
             {ConsentText}
-            <Button type="submit" variation="primary" disabled={!checked}>
+            {
+              showTosCheck && (
+                <CheckboxField
+                  label={
+                    <div> By signing up, you agree to
+                      our <a target="_blank" href={process.env.REACT_APP_TERMS_OF_SERVICE_URL}>Terms of Service</a>
+                    </div>
+                  }
+                  name="accepted_terms_of_service"
+                  value="accepted_terms_of_service"
+                  checked={tosChecked}
+                  onChange={(event: Event) => {
+                    const target = event.target as HTMLAmplifyCheckboxElement;
+                    setTosChecked(target.checked)
+                  }}
+                />
+              )
+            }
+            <Button type="submit" variation="primary" disabled={!checked || !tosChecked}>
               {submitText}
             </Button>
           </>
@@ -244,6 +262,7 @@ const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({
       authState: AuthState;
       showConsentMessage: boolean;
       showConsentCheck: boolean;
+      showTosCheck?: boolean;
     }
     const InputField: React.FC<InputFieldProps> = ({
       children,
@@ -252,6 +271,7 @@ const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({
       authState,
       showConsentMessage,
       showConsentCheck,
+      showTosCheck,
     }) => (
       <Flex direction="column" gap="unset">
         <Heading textAlign="center" level={4}>
@@ -268,6 +288,7 @@ const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({
             submitText={submitText}
             showConsentMessage={showConsentMessage}
             showConsentCheck={showConsentCheck}
+            showTosCheck={showTosCheck}
           />
         </Flex>
       </Flex>
@@ -302,6 +323,7 @@ const PasswordlessAuthenticator: React.FC<PasswordlessAuthenticatorProps> = ({
         authState={AuthState.SignUp}
         showConsentMessage={true}
         showConsentCheck={true}
+        showTosCheck={!!process.env.REACT_APP_TERMS_OF_SERVICE_URL}
       >
         <PhoneNumberInput />
       </InputField>
@@ -466,7 +488,24 @@ const AppAuthenticator: React.FC = ({ children }) => {
   return authFlow === PASSWORDLESS ? (
     <PasswordlessAuthenticator hideSignUp={hideSignUp}>{children}</PasswordlessAuthenticator>
   ) : (
-    <Authenticator formFields={formFieldConfig} components={authComponents} hideSignUp={hideSignUp}>
+    <Authenticator
+      formFields={formFieldConfig}
+      components={authComponents}
+      hideSignUp={hideSignUp}
+      services={{
+        async validateCustomSignUp(formData: any) {
+          if (!process.env.REACT_APP_TERMS_OF_SERVICE_URL) {
+            return {};
+          }
+
+          if (!formData['custom:capable:signup_data']) {
+            return {
+              accepted_terms_of_service: "You must agree to the Terms of Service"
+            }
+          }
+        }
+      }}
+    >
       {children}
     </Authenticator>
   );
