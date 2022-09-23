@@ -40,7 +40,7 @@
     "survey-react": "^1.9.47",
     "surveyjs-widgets": "^1.9.47",
     "swr": "^1.2.2",
-    "web-vitals": "^2.1.0"
+    "web-vitals": "^3.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
