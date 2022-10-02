@@ -3,6 +3,7 @@ import { createTheme } from "@mui/material/styles";
 
 import "@fontsource/rubik/400.css";
 import "@fontsource/rubik/500.css";
+import "@fontsource/arimo";
 
 // Material UI Theming Docs: https://mui.com/customization/theming/
 // Material UI Default Theme: https://mui.com/customization/default-theme/?expand-path=$.typography
@@ -83,7 +84,7 @@ const theme = createTheme({
   },
   typography: {
     fontSize: 16,
-    fontFamily: "Rubik",
+    fontFamily: "Arimo",
     // body1 is the default, body2 is an alt (used for rich text in this app)
     body2: {
       fontSize: 14,

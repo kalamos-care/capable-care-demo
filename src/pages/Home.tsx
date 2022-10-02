@@ -12,6 +12,8 @@ import {
 } from "@mui/material";
 import { useAtom } from "jotai";
 
+import PrimaryHeader from "../components/PrimaryHeader";
+
 import { DetailsCard, ControlledTabs, GoalCards, NoDataCards, TaskCards } from "components";
 import { useCarePlans, useCurrentPatient } from "fetchDataHooks/index";
 import { CurrentPatient } from "fetchDataHooks/useCurrentPatient";
@@ -82,7 +84,7 @@ const Header = ({ carePlan, patient }: { carePlan?: CarePlan; patient: CurrentPa
     >
       No active care plans
     </Typography>
-  );
+  ); 
 
   return (
     <Box
@@ -91,7 +93,23 @@ const Header = ({ carePlan, patient }: { carePlan?: CarePlan; patient: CurrentPa
         boxShadow: !carePlan ? ["rgb(2 2 40 / 8%) 0px 4px 6px"] : null,
       }}
     >
-      <CardMedia component="img" width="375" image={process.env.REACT_APP_LOGO} alt="Logo image" />
+      <PrimaryHeader sx={{ height: "8rem", paddingTop: "0.5rem" }}>
+        {/*
+      <ChatIcon
+        sx={{
+          fontSize: "6rem",
+          color: "light.main",
+          marginBottom: "-1rem",
+        }}
+      />
+
+      <Typography marginBottom={0.2} color="common.white" variant="h5" component="h1">
+        Chat
+      </Typography>
+      */}
+    </PrimaryHeader>
+
+      {/*<CardMedia component="img" width="375" image={process.env.REACT_APP_LOGO} alt="Logo image" />*/}
 
       <Box
         sx={{

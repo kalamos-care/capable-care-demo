@@ -3973,6 +3973,11 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@fontsource/arimo@^4.5.10":
+  version "4.5.10"
+  resolved "https://registry.yarnpkg.com/@fontsource/arimo/-/arimo-4.5.10.tgz#9b523162bc98508b554340c91cfe370ad5c402a2"
+  integrity sha512-a5K9S36EBf6pauwAdHZEA3dbWjsQd31CxifqmqWem8pdtR8KR6b5HZz+7uBdLf7woxuGUIN7og2Q72rdjoIcCA==
+
 "@fontsource/rubik@^4.5.6":
   version "4.5.11"
   resolved "https://registry.yarnpkg.com/@fontsource/rubik/-/rubik-4.5.11.tgz#e2d06b840ba5c2111b269bea2842f570848af070"
