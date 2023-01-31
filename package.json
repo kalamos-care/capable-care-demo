@@ -38,7 +38,7 @@
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.0",
     "superagent": "^7.1.2",
-    "survey-react": "^1.9.47",
+    "survey-react": "^1.9.71",
     "surveyjs-widgets": "^1.9.47",
     "swr": "^1.2.2",
     "web-vitals": "^2.1.0"
